@@ -38,9 +38,8 @@ class AllSeeder extends Seeder
 				'created_on'              => '1268889823',
 				'last_login'              => '1268889823',
 				'active'                  => '1',
-				'first_name'              => 'Admin',
-				'last_name'               => 'istrator',
-				'company'                 => 'ADMIN',
+				'nama_user'               => 'Admin',
+				'img'                     => null,
 				'phone'                   => '0',
 			],
 		];

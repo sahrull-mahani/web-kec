@@ -70,8 +70,8 @@ class Ionauth extends Migration
 				'auto_increment' => true,
 			],
 			'user_id' => [
-				'type'       => 'MEDIUMINT',
-				'constraint' => '8',
+				'type'       => 'INT',
+				'constraint' => '6',
 				'unsigned'   => true,
 			],
 			'group_id' => [

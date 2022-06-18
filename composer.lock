@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "codeigniter4/framework",
-            "version": "v4.2.0",
+            "version": "v4.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/codeigniter4/framework.git",
-                "reference": "29f0e9eb2442eba41f4e9832b6695c7584e096e0"
+                "reference": "f65a2cff3a572c58c8ab9c8f61bdba904362b549"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codeigniter4/framework/zipball/29f0e9eb2442eba41f4e9832b6695c7584e096e0",
-                "reference": "29f0e9eb2442eba41f4e9832b6695c7584e096e0",
+                "url": "https://api.github.com/repos/codeigniter4/framework/zipball/f65a2cff3a572c58c8ab9c8f61bdba904362b549",
+                "reference": "f65a2cff3a572c58c8ab9c8f61bdba904362b549",
                 "shasum": ""
             },
             "require": {
@@ -37,7 +37,7 @@
                 "mikey179/vfsstream": "^1.6",
                 "nexusphp/cs-config": "^3.3",
                 "phpunit/phpunit": "^9.1",
-                "predis/predis": "^1.1"
+                "predis/predis": "^1.1 || ^2.0"
             },
             "suggest": {
                 "ext-fileinfo": "Improves mime type detection for files"
@@ -62,7 +62,7 @@
                 "slack": "https://codeigniterchat.slack.com",
                 "source": "https://github.com/codeigniter4/CodeIgniter4"
             },
-            "time": "2022-06-03T14:04:14+00:00"
+            "time": "2022-06-16T13:53:25+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -3013,25 +3013,25 @@
         },
         {
             "name": "symfony/deprecation-contracts",
-            "version": "v3.0.1",
+            "version": "v3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/deprecation-contracts.git",
-                "reference": "26954b3d62a6c5fd0ea8a2a00c0353a14978d05c"
+                "reference": "07f1b9cc2ffee6aaafcf4b710fbc38ff736bd918"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/26954b3d62a6c5fd0ea8a2a00c0353a14978d05c",
-                "reference": "26954b3d62a6c5fd0ea8a2a00c0353a14978d05c",
+                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/07f1b9cc2ffee6aaafcf4b710fbc38ff736bd918",
+                "reference": "07f1b9cc2ffee6aaafcf4b710fbc38ff736bd918",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.0.2"
+                "php": ">=8.1"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "3.0-dev"
+                    "dev-main": "3.1-dev"
                 },
                 "thanks": {
                     "name": "symfony/contracts",
@@ -3060,7 +3060,7 @@
             "description": "A generic function and convention to trigger deprecation notices",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/deprecation-contracts/tree/v3.0.1"
+                "source": "https://github.com/symfony/deprecation-contracts/tree/v3.1.0"
             },
             "funding": [
                 {
@@ -3076,7 +3076,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-01-02T09:55:41+00:00"
+            "time": "2022-02-25T11:15:52+00:00"
         },
         {
             "name": "theseer/tokenizer",
