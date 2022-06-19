@@ -1,8 +1,4 @@
 <?= $this->extend('web/_template/index'); ?>
-<?php $session = \Config\Services::session(); ?>
-<?php
-
-use CodeIgniter\I18n\Time; ?>
 <?= $this->section('page-content'); ?>
 
 <div class="container mt-5 pb-5">

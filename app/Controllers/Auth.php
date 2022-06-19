@@ -136,11 +136,11 @@ class Auth extends BaseController
     }
     public function save()
     {
-        $this->validation->setRule(
-            'skpd_id',
-            'Field SKPD Tidak Boleh Kosong',
-            'required'
-        );
+        // $this->validation->setRule(
+        //     'skpd_id',
+        //     'Field SKPD Tidak Boleh Kosong',
+        //     'required'
+        // );
         $this->validation->setRule(
             'phone',
             lang('Auth.edit_user_validation_phone_label'),
@@ -181,7 +181,7 @@ class Auth extends BaseController
                     $additionalData = [
                         'nama_user' => $this->request->getPost('nama_user'),
                         'phone' => $this->request->getPost('phone'),
-                        'skpd_id' => $this->request->getPost('skpd_id'),
+                        // 'skpd_id' => $this->request->getPost('skpd_id'),
                     ];
                     if (
                         $this->ionAuth->register(
@@ -242,7 +242,7 @@ class Auth extends BaseController
                     $data = [
                         'nama_user' => $this->request->getPost('nama_user'),
                         'phone' => $this->request->getPost('phone'),
-                        'skpd_id' => $this->request->getPost('skpd_id'),
+                        // 'skpd_id' => $this->request->getPost('skpd_id'),
                         'email' => $email,
                     ];
                     if ($identityColumn === 'username') {

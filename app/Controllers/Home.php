@@ -2,31 +2,23 @@
 
 namespace App\Controllers;
 
-use App\Models\BeritaM;
-use App\Models\PhotoM;
-use App\Models\VideoM;
-use App\Models\StatistikM;
+use App\Models\BeritaModel;
 
 class Home extends BaseController
 {
 
     function __construct()
     {
-        $this->beritam = new BeritaM();
-        $this->videom = new VideoM();
-        $this->photom = new PhotoM();
-        $this->statistikm = new StatistikM();
+        $this->beritam = new BeritaModel();
         $this->db = db_connect();
     }
 
     public function index()
     {
         $data = [
-            'title' => 'Dashboard | Stunting',
+            'title' => 'Dashboard | Kecamatan',
             'statistikJS' => true,
             'berita' => $this->beritam->findAll(),
-            'photo' => $this->photom->findAll(),
-            'video' => $this->videom->findAll(),
         ];
 
         return view('App\Views\template_adminlte\home', $data);

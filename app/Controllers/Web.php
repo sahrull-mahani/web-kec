@@ -321,5 +321,43 @@ class Web extends BaseController
         ];
         return view("App\Views\web\publikasi\web_berita_detail", $data);
     }
+
+    public function detail_obwisata($id)
+    {
+        $data = [
+            'agenda'    => $this->agendaSidebar,
+            'beritaPopuler' => $this->beritaModel->get_counter(),
+            'title'     => "Pariwisata",
+            'active'    => 'publikasi',
+            'detail'    => "Obyek Wisata",
+            'pariwisata' => $this->pariwisataModel->joinGaleriGroupById()->where('pariwisata.id', $id)->first(),
+            'pariwisataLain'=> $this->pariwisataModel->where('pariwisata.id !=', $id)->findAll()
+        ];
+        return view("App\Views\web\publikasi\web_obwisata_detail", $data);
+    }
+
+    public function detail_kuliner($id)
+    {
+        $data = [
+            'agenda'    => $this->agendaSidebar,
+            'beritaPopuler' => $this->beritaModel->get_counter(),
+            'title'     => "Kuliner",
+            'active'    => 'publikasi',
+            'detail'    => "$id Kuliner",
+        ];
+        return view("App\Views\web\publikasi\web_obwisata_detail", $data);
+    }
+
+    public function detail_penginapan($id)
+    {
+        $data = [
+            'agenda'    => $this->agendaSidebar,
+            'beritaPopuler' => $this->beritaModel->get_counter(),
+            'title'     => "Penginapan",
+            'active'    => 'publikasi',
+            'detail'    => "$id Penginapan",
+        ];
+        return view("App\Views\web\publikasi\web_penginapan_detail", $data);
+    }
     // END DETAIL==========================================================================>
 }

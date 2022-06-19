@@ -18,4 +18,9 @@ class PariwisataModel extends Model
   {
     return $this->join('galeri g', "pariwisata.id=g.id_sumber")->groupBy("id_sumber")->like('sumber', "pariwisata_");
   }
+
+  public function joinGaleriGroupById()
+  {
+    return $this->select('*, pariwisata.id idP')->join('galeri g', 'pariwisata.id=g.id_sumber')->groupBy('idP');
+  }
 }

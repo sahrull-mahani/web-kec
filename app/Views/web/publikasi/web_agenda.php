@@ -29,7 +29,7 @@
                   <th scope="row"><?= $no++ ?></th>
                   <td class="text-uppercase"><?= $agn->judul ?></td>
                   <td><?= hariIni("D", strtotime($agn->published_at)).", ".date("d-m-Y H.i", strtotime($agn->published_at)) ?></td>
-                  <td><a href="/home/detail_agenda/<?= $agn->slug ?>" class="btn btn-success">Detail</a></td>
+                  <td><a href="/web/detail_agenda/<?= $agn->slug ?>" class="btn btn-success">Detail</a></td>
                 </tr>
                 <?php endforeach ?>
               </tbody>

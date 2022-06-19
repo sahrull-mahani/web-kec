@@ -1,7 +1,5 @@
 <?= $this->extend('template_adminlte/index'); ?>
-<?php $session = \Config\Services::session(); ?>
 <?= $this->section('page-content'); ?>
-
 
 <!-- Main content -->
 <div class="content-wrapper">
@@ -43,7 +41,7 @@
 
                     <div class="small-box bg-success">
                         <div class="inner">
-                            <h3><?= count($photo); ?><sup style="font-size: 20px"></sup></h3>
+                            <h3><?= 30 ?><sup style="font-size: 20px"></sup></h3>
                             <p>Photo</p>
                         </div>
                         <div class="icon">
@@ -57,7 +55,7 @@
 
                     <div class="small-box bg-warning">
                         <div class="inner">
-                            <h3><?= count($video); ?></h3>
+                            <h3><?= 50 ?></h3>
                             <p>Video</p>
                         </div>
                         <div class="icon">
@@ -71,7 +69,7 @@
 
                 <section class="col-lg-12 connectedSortable">
 
-                    <div class="card <?= empty($statistik) ? 'd-none' : '' ?>">
+                    <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">
                                 <i class="fas fa-chart-bar mr-1"></i>
@@ -80,7 +78,7 @@
                         </div>
                         <div class="card-body">
                             <div class="tab-content p-0">
-                                <canvas id="myChart"></canvas>
+                                <canvas id="myCharts"></canvas>
                             </div>
                         </div>
                     </div>

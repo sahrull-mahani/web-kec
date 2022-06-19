@@ -50,7 +50,7 @@
           <div class="col-md-12 mt-5 mb-3">
             <div class="row">
               <div class="col-md-6">
-                <a href="/home/detail_berita/<?= $brt->slug . "_" . $brt->id ?>" class="img-hover">
+                <a href="/web/detail_berita/<?= $brt->slug . "_" . $brt->id ?>" class="img-hover">
                   <div class="card-img-responsive">
                     <img src="/admin_assets/galeri/<?= $brt->gambar ?>" alt="img-fluid">
                   </div>
@@ -60,7 +60,7 @@
                 <small class="text-warning text-uppercase d-block"><i class="fa fa-clock-o"></i> <?= $brt->published_at ?> WITA</small>
                 <h3 class="font-weight-bold"><?= $brt->judul ?></h3>
                 <?= strip_tags(html_entity_decode($brt->excerpt)) ?>
-                <a href="/home/detail_berita/<?= $brt->slug . "_" . $brt->id ?>">read more...</a>
+                <a href="/web/detail_berita/<?= $brt->slug . "_" . $brt->id ?>">read more...</a>
               </div>
             </div>
           </div>
@@ -92,7 +92,7 @@
                 <div class="img d-flex align-items-end justify-content-center" style="background-image: url(/admin_assets/galeri/<?= $prt->sumber ?>);">
                   <div class="text w-100">
                     <span class="cat">Wisata</span>
-                    <h3><a href="/home/detail_obwisata/<?= $prt->id_sumber ?>"><?= ucwords($prt->nama) ?></a></h3>
+                    <h3><a href="/web/detail_obwisata/<?= $prt->id_sumber ?>"><?= ucwords($prt->nama) ?></a></h3>
                   </div>
                 </div>
               </div>
@@ -114,7 +114,7 @@
       <div class="col-md-12">
         <div class="row">
           <div class="col-md-4 my-4 my-4">
-            <a href="/home/obyek_wisata" class="jajak-link">
+            <a href="/web/obyek_wisata" class="jajak-link">
               <div class="bg-white my-2 jajak-box">
                 <div class="jajak-icon fa fa-map-o text-custom-1 mb-3 mt-5"></div>
                 <div class="jajak-text">01</div>
@@ -123,7 +123,7 @@
             </a>
           </div>
           <div class="col-md-4 my-4">
-            <a href="/home/kuliner" class="jajak-link">
+            <a href="/web/kuliner" class="jajak-link">
               <div class="bg-white my-2 jajak-box">
                 <div class="jajak-icon fa fa-cutlery text-custom-1 mb-3 mt-5"></div>
                 <div class="jajak-text">02</div>
@@ -132,7 +132,7 @@
             </a>
           </div>
           <div class="col-md-4 my-4">
-            <a href="/home/penginapan" class="jajak-link">
+            <a href="/web/penginapan" class="jajak-link">
               <div class="bg-white my-2 jajak-box">
                 <div class="jajak-icon fa fa-bed text-custom-1 mb-3 mt-5"></div>
                 <div class="jajak-text">03</div>
@@ -162,7 +162,7 @@
               <div class="program-box">
                 <img src="/admin_assets/galeri/<?= $prg->sumber ?>" alt="com">
                 <div class="program-overlay">
-                  <div class="program-link"><a href="/home/detail_program_kegiatan/<?= $prg->id ?>" class="fw-bold">Lihat</a></div>
+                  <div class="program-link"><a href="/web/detail_program_kegiatan/<?= $prg->id ?>" class="fw-bold">Lihat</a></div>
                   <div class="program-text"><?= $prg->judul ?></div>
                 </div>
               </div>
@@ -171,7 +171,7 @@
         </div>
       </div>
       <div class="col-md-12 mt-4 text-center">
-        <a href="/home/program_kegiatan" class="btn btn-info text-white">load more</a>
+        <a href="/web/program_kegiatan" class="btn btn-info text-white">load more</a>
       </div>
     </div>
   </div>

@@ -39,7 +39,7 @@
                 <div class="col-md-6">
                   <a href="/home/detail_berita/<?= $brt->slug . "_" . $brt->id ?>" class="img-hover">
                     <div class="card-img-responsive">
-                      <img src="/assets/img/download.jpg" alt="img-fluid">
+                      <img src="/assets_new/img/<?= $brt->gambar ?>" alt="img-fluid">
                     </div>
                   </a>
                 </div>
@@ -47,7 +47,7 @@
                   <small class="text-warning text-uppercase d-block"><i class="fa fa-clock-o"></i> <?= $brt->published_at ?> WITA</small>
                   <h3 class="font-weight-bold"><?= $brt->judul ?></h3>
                   <?= $brt->excerpt ?>
-                  <a href="/home/detail_berita/<?= $brt->slug . "_" . $brt->id ?>">read more...</a>
+                  <a href="/web/detail_berita/<?= $brt->slug . "_" . $brt->id ?>">read more...</a>
                 </div>
               </div>
             </div>

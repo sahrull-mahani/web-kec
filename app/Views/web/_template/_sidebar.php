@@ -12,14 +12,14 @@
             <i class="fa fa-calendar" style="background:<?= $random ?>"></i>
             <div class="timeline-item">
               <h3 class="timeline-header">
-                <a href="/home/detail_agenda/<?= $agn->slug ?>" class="text-uppercase"><?= $agn->judul ?></a>
+                <a href="/web/detail_agenda/<?= $agn->slug ?>" class="text-uppercase"><?= $agn->judul ?></a>
                 <span class="time-label"><i class="fa fa-clock-o"></i> <?= hariIni("D", strtotime($agn->published_at)) . ", " . date("d-m-Y H.i", strtotime($agn->published_at)) ?></span>
               </h3>
             </div>
           </li>
         <?php endforeach ?>
       </ul>
-      <div align="center"><a class="btn btn-danger" href="/home/agenda" role="button">Indeks</a></div>
+      <div align="center"><a class="btn btn-danger" href="/web/agenda" role="button">Indeks</a></div>
 
     </div>
   </div>
@@ -77,7 +77,7 @@
     <h4 class="widget-title style-1">Berita Populer</h4>
     <div class="widget-post-bx">
       <?php foreach ($beritaPopuler as $beritaPop) : ?>
-        <a href="/home/detail_berita/<?= $beritaPop->slug."_".$beritaPop->id ?>" class="berita-populer">
+        <a href="/web/detail_berita/<?= $beritaPop->slug."_".$beritaPop->id ?>" class="berita-populer">
           <div class="row">
             <div class="col-md-6">
               <div class="img-berita-populer">
