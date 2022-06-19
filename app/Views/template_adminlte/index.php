@@ -24,6 +24,8 @@
     <!-- lobibox -->
     <link rel="stylesheet" href="<?= base_url('assets/plugins/lobibox/lobibox.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') ?>">
+    <!-- file uploader -->
+    <link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
     <!-- date range picker -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <!-- Summernote -->
@@ -264,6 +266,13 @@
     <!-- Lobibox -->
     <script src="<?= base_url('assets/plugins/lobibox/lobibox.js') ?>"></script>
     <script src="<?= base_url('assets/plugins/sweetalert2/sweetalert2.all.min.js') ?>"></script>
+    <!-- file uploader -->
+    <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/js/plugins/piexif.min.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/js/plugins/sortable.min.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/js/fileinput.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/themes/fas/theme.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/js/locales/LANG.js"></script>
     <!-- date range picker -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
@@ -281,78 +290,6 @@
     <?php endif ?>
     <script src="<?= base_url("assets/plugins/tinymce/tinymce.min.js"); ?>"></script>
     <script>
-        $(function() {
-            bsCustomFileInput.init();
-        });
-        tinymce.init({
-            selector: "textarea",
-            theme: "modern",
-            height: 1000,
-            relative_urls: false,
-            remove_script_host: false,
-            convert_urls: false,
-            codesample_languages: [{
-                    text: 'HTML/XML',
-                    value: 'markup'
-                },
-                {
-                    text: 'JavaScript',
-                    value: 'javascript'
-                },
-                {
-                    text: 'CSS',
-                    value: 'css'
-                },
-                {
-                    text: 'PHP',
-                    value: 'php'
-                },
-                {
-                    text: 'Ruby',
-                    value: 'ruby'
-                },
-                {
-                    text: 'Python',
-                    value: 'python'
-                },
-                {
-                    text: 'Java',
-                    value: 'java'
-                },
-                {
-                    text: 'C',
-                    value: 'c'
-                },
-                {
-                    text: 'C#',
-                    value: 'csharp'
-                },
-                {
-                    text: 'C++',
-                    value: 'cpp'
-                }
-            ],
-            plugins: [
-                "advlist autolink link image lists charmap print preview hr anchor pagebreak",
-                "searchreplace wordcount visualblocks visualchars media nonbreaking codesample",
-                "table contextmenu directionality emoticons paste textcolor responsivefilemanager code imagetools autoresize"
-            ],
-            toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect",
-            toolbar2: "| responsivefilemanager | link unlink anchor | codesample image media emoticons | forecolor backcolor | print preview code ",
-            image_advtab: true,
-
-            external_filemanager_path: "<?= site_url('filemanager/'); ?>",
-            filemanager_title: "Responsive Filemanager",
-            external_plugins: {
-                "filemanager": "<?= base_url('filemanager/plugin.min.js'); ?>"
-            },
-            setup: function(editor) {
-                editor.on('change', function() {
-                    tinymce.triggerSave();
-                });
-            }
-        });
-
         function previewImg(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();

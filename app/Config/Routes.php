@@ -36,13 +36,10 @@ $routes->get('web/berita/detail_b/$1', 'Web::detail_b/$1');
 $routes->get('web/pariwisata', 'Web::obyek_wisata');
 $routes->add('filemanager/(:any)', 'Filemanager::run');
 
-$routes->group('', ['filter' => 'role:users'], function ($routes) {
-    $routes->get('post-berita', 'Berita::post');
-});
-
-$routes->group('', ['filter' => 'role:operator-stunting'], function ($routes) {
-    $routes->get('stunting', 'Statistik::index');
-});
+$routes->get('post-berita', 'Berita::post');
+// $routes->group('', ['filter' => 'role:users'], function ($routes) {
+//     $routes->get('post-berita', 'Berita::post');
+// });
 
 $routes->group('', ['namespace' => 'App\Controllers'], function ($routes) {
     // Login/out

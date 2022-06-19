@@ -105,7 +105,6 @@ class AllSeeder extends Seeder
                 'judul'       => $judul,
                 'level'       => rand(1,3),
                 'slug'        => str_replace(" ", "-", $judul),
-                'excerpt'     => substr($isi, 100),
                 'isi_berita'  => $isi,
                 'gambar'   => 'default.png',
                 'id_user'   => 1,

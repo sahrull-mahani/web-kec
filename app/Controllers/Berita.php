@@ -2,14 +2,16 @@
 
 namespace App\Controllers;
 
-use App\Models\BeritaM;
+use App\Models\BeritaModel;
+use App\Models\GaleriModel;
 
 class Berita extends BaseController
 {
     protected $beritam;
     function __construct()
     {
-        $this->beritam = new BeritaM();
+        $this->beritam = new BeritaModel();
+        $this->galerim = new GaleriModel();
     }
     public function index()
     {
@@ -20,16 +22,7 @@ class Berita extends BaseController
 
     public function ajax_request()
     {
-        if (in_groups('users')) {
-            $where = ['berita.user_id' => session('user_id')];
-        } else if (in_groups('editors')) {
-            $where = ['berita.status' => 1];
-        } elseif (in_groups('publisher')) {
-            $where = ['berita.status' => 2];
-        } else {
-            $where = ['berita.status <' => 5];
-        }
-        $list = $this->beritam->get_datatables($where);
+        $list = $this->beritam->get_datatables();
         $data = array();
         $no = isset($_GET['offset']) ? $_GET['offset'] + 1 : 1;
         foreach ($list as $rows) {
@@ -37,19 +30,14 @@ class Berita extends BaseController
             $row['id'] = $rows->id;
             $row['nomor'] = $no++;
             $row['judul'] = $rows->judul;
-            $row['gambar'] = '<img width="250" alt="Berita Image" src="' . site_url("Berita/img_thumb/" . $rows->gambar) . '" class="mb-3 img-responsive" />';
-            $row['redaksi_foto'] = $rows->redaksi_foto;
-            $row['body'] = strip_tags(substr($rows->body, 0, 100));
-            $row['tanggal'] = get_format_date($rows->tanggal);
-            $row['penulis'] = $rows->users;
-            $row['editor'] = $rows->editor;
-            $row['redaktur'] = $rows->redaktur;
-            $row['tag'] = $rows->tag;
-            $row['status'] = statusPosting($rows->status);
+            $row['gambar'] = '<img width="250" alt="Berita Image" src="' . site_url("Berita/img_thumb/" . $rows->sumber) . '" class="mb-3 img-responsive" />';
+            $row['body'] = strip_tags(substr($rows->isi_berita, 0, 100)).'...';
+            $row['penulis'] = $rows->nama_user;
+            $row['status'] = $rows->published_at == null ? '<b class="text-info">Belum Tayang</b>' : '<b class="text-info">Sudah Tayang</b>';
             $data[] = $row;
         }
         $output = array(
-            "total" => $this->beritam->total($where),
+            "total" => $this->beritam->total(),
             "totalNotFiltered" => $this->beritam->countAllResults(),
             "rows" => $data,
         );
@@ -89,87 +77,75 @@ class Berita extends BaseController
     {
         switch ($this->request->getPost('action')) {
             case 'insert':
-                $files = $this->request->getFile('userfile');
-                $file_name = $files->getRandomName();
+                $files = $this->request->getFileMultiple('userfile');
+                $galeri = [];
 
-                if ($this->upload_img($file_name, $files)) {
-                    $data =  array(
-                        'judul' => $this->request->getPost('judul'),
-                        'gambar' => $file_name,
-                        'redaksi_foto' => $this->request->getPost('redaksi_foto'),
-                        'body' => $this->request->getPost('isi'),
-                        'tanggal' => getDateTime('now'),
-                        'user_id' => $this->session->user_id,
-                        'skpd_id' => session('skpd_id'),
-                        'tag' => implode(', ', $this->request->getPost('tag')),
-                        'status' => '1',
-                    );
-                    if ($this->beritam->insert($data)) {
-                        $status['title'] = 'success';
-                        $status['type'] = 'success';
-                        $status['text'] = 'Data Berita Telah Di Ubah';
-                    } else {
-                        $status['title'] = 'Warning';
-                        $status['type'] = 'error';
-                        $status['text'] = $this->beritam->errors();
+                $judul = $this->request->getPost('judul');
+                $data =  array(
+                    'level' => 3,
+                    'judul' => $judul,
+                    'slug' => str_replace(' ', '-', strtolower($judul)),
+                    'isi_berita' => $this->request->getPost('isi'),
+                    'id_user' => session('user_id'),
+                    'published_at' => null,
+                );
+                if ($this->beritam->insert($data)) {
+                    foreach ($files as $pic) {
+                        $file_name = 'berita_' . $pic->getRandomName();
+                        if ($this->upload_img($file_name, $pic)) {
+                            array_push($galeri, [
+                                'id_sumber' => $this->beritam->getInsertID(),
+                                'sumber'    => $file_name,
+                                'id_user'   => session('user_id')
+                            ]);
+                        }
                     }
+                    $this->galerim->insertBatch($galeri);
+                    $status['title'] = 'success';
+                    $status['type'] = 'success';
+                    $status['text'] = 'Berita Baru Telah Di Tambahkan';
                 } else {
                     $status['title'] = 'Warning';
                     $status['type'] = 'error';
-                    $status['text'] = $this->session->getFlashdata('error');
+                    $status['text'] = $this->beritam->errors();
                 }
                 echo json_encode($status);
                 break;
             case 'update':
                 $id = $this->request->getPost('id');
-                $files = $this->request->getFile('userfile');
-                $file_name = $files->getRandomName();
-                if (empty($files)) {
-                    if ($this->upload_img($file_name, $files)) {
-                        $data =  array(
-                            'judul' => $this->request->getPost('judul'),
-                            'gambar' => $file_name,
-                            'redaksi_foto' => $this->request->getPost('redaksi_foto'),
-                            'body' => $this->request->getPost('isi'),
-                            'user_id' => $this->session->user_id,
-                            'tag' => implode(', ', $this->request->getPost('tag')),
-                            // 'status' => '1',
-                        );
-                        if ($this->beritam->update($id, $data)) {
-                            $status['title'] = 'success';
-                            $status['type'] = 'success';
-                            $status['text'] = 'Data Berita Telah Di Ubah';
-                        } else {
-                            $status['title'] = 'Warning';
-                            $status['type'] = 'error';
-                            $status['text'] = $this->beritam->errors();
+                $files = $this->request->getFileMultiple('userfile');
+                $galeri = [];
+
+                $judul = $this->request->getPost('judul');
+                $data =  array(
+                    'level' => 3,
+                    'judul' => $judul,
+                    'slug' => str_replace(' ', '-', strtolower($judul)),
+                    'isi_berita' => $this->request->getPost('isi'),
+                    'id_user' => session('user_id'),
+                    'published_at' => null,
+                );
+                if ($this->beritam->update($id, $data)) {
+                    foreach ($files as $pic) {
+                        $file_name = 'berita_' . $pic->getRandomName();
+                        if ($this->upload_img($file_name, $pic)) {
+                            array_push($galeri, [
+                                'id'        => 1,
+                                'id_sumber' => $id,
+                                'sumber'    => $file_name,
+                                'id_user'   => session('user_id')
+                            ]);
                         }
-                    } else {
-                        $status['title'] = 'Warning';
-                        $status['type'] = 'error';
-                        $status['text'] = $this->session->getFlashdata('error');
                     }
+                    $this->galerim->updateBatch($galeri);
+                    $status['title'] = 'success';
+                    $status['type'] = 'success';
+                    $status['text'] = 'Berita Telah Di Ubah';
                 } else {
-                    $data =  array(
-                        'judul' => $this->request->getPost('judul'),
-                        'redaksi_foto' => $this->request->getPost('redaksi_foto'),
-                        'body' => $this->request->getPost('isi'),
-                        'user_id' => $this->session->user_id,
-                        'tag' => implode(', ', $this->request->getPost('tag')),
-                        'status' => '1'
-                    );
-                    if ($this->beritam->update($id, $data)) {
-                        $status['title'] = 'success';
-                        $status['type'] = 'success';
-                        $status['text'] = 'Data Berita Telah Di Ubah';
-                    } else {
-                        $status['title'] = 'Warning';
-                        $status['type'] = 'error';
-                        $status['text'] = $this->beritam->errors();
-                    }
+                    $status['title'] = 'Warning';
+                    $status['type'] = 'error';
+                    $status['text'] = $this->beritam->errors();
                 }
-
-
                 echo json_encode($status);
                 break;
             case 'editor':
@@ -310,8 +286,7 @@ class Berita extends BaseController
                 'rules' => 'uploaded[userfile]'
                     . '|is_image[userfile]'
                     . '|mime_in[userfile,image/jpg,image/jpeg,image/png]'
-                    . '|max_size[userfile,2048]'
-                    . '|max_dims[userfile,1920,1080]',
+                    . '|max_size[userfile,3080]',
             ],
         ];
         if (!$this->validate($validationRule)) {

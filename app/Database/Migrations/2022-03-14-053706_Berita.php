@@ -27,10 +27,6 @@ class Berita extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
             ],
-            'excerpt'       => [
-                'type'       => 'VARCHAR',
-                'constraint' => '100',
-            ],
             'isi_berita'       => [
                 'type'       => 'TEXT'
             ],
