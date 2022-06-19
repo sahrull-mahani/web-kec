@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class BeritaModel extends Model
 {
   protected $table = "berita";
-  protected $allowedFields = ['level', 'judul', 'slug', 'isi_berita', 'id_user', 'published_at'];
+  protected $allowedFields = ['level', 'judul', 'slug', 'isi_berita', 'id_user', 'status'];
   protected $primarykey = 'id';
   protected $returnType = 'object';
 
@@ -52,6 +52,7 @@ class BeritaModel extends Model
     } else {
       $this->orderBy('id', 'asc');
     }
+    $this->select('berita.*, u.nama_user, g.sumber');
     $this->join('users u', 'u.id=berita.id_user');
     $this->join('galeri g', 'g.id_sumber=berita.id');
     $this->groupBy('id_sumber');

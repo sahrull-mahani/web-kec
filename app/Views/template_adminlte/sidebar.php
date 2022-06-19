@@ -38,7 +38,7 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <?php if (in_groups(['admin', 'users'])) { ?>
+                        <?php if (in_groups(['admin', 'members'])) { ?>
                             <li class="nav-item">
                                 <a href="<?= site_url('post-berita'); ?>" class="nav-link <?= isset($m_post) ? $m_post : ''; ?>">
                                     <i class="far fa-circle nav-icon"></i>

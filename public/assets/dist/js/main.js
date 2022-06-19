@@ -357,10 +357,15 @@ function readFile(url) {
         e.preventDefault();
         $('#modal_content').modal('hide');
     });
+    $('.close').bind('click', function (e) {
+        e.preventDefault();
+        $('#modal_content').modal('hide');
+    });
     $single_edit.bind('click', function (e) {
         e.stopImmediatePropagation();
         var ids = JSON.stringify($table.bootstrapTable('getSelections'))
         var a = JSON.parse(ids);
+        $('#modal_content').modal('show')
         $.ajax({
             url: url + $(this).attr('method'),
             type: 'POST',
