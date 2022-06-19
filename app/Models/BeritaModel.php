@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class BeritaModel extends Model
 {
   protected $table = "berita";
-  protected $allowedFields = ['level', 'judul', 'slug', 'isi_berita', 'id_user', 'status'];
+  protected $allowedFields = ['level', 'judul', 'slug', 'isi_berita', 'id_user', 'status', 'pesan'];
   protected $primarykey = 'id';
   protected $returnType = 'object';
 
@@ -28,11 +28,12 @@ class BeritaModel extends Model
     'judul' => ['required' => 'tidak boleh kosong', 'max_length' => 'Maximal 255 Karakter'],
     'slug' => ['required' => 'tidak boleh kosong', 'max_length' => 'Maximal 255 Karakter'],
     'isi_berita' => ['required' => 'tidak boleh kosong', 'max_length' => 'Maximal 65535 Karakter'],
-    'id_user' => ['required' => 'tidak boleh kosong', 'max_length' => 'Maximal  Karakter'],
+    'id_user' => ['required' => 'tidak boleh kosong', 'max_length' => 'Maximal 1 Karakter'],
+    'pesan' => ['required' => 'tidak boleh kosong', 'max_length' => 'Maximal 150 Karakter'],
   ];
   private function _get_datatables()
   {
-    $column_search = array('level', 'judul', 'slug', 'excerpt', 'isi_berita', 'gambar', 'id_user', 'published_at');
+    $column_search = array('level', 'judul', 'slug', 'isi_berita', 'id_user');
     $i = 0;
     foreach ($column_search as $item) { // loop column 
       if ($_GET['search']) {

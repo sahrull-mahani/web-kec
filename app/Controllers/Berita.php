@@ -33,7 +33,7 @@ class Berita extends BaseController
             $row['gambar'] = '<img width="250" alt="Berita Image" src="' . site_url("Berita/img_thumb/" . $rows->sumber) . '" class="mb-3 img-responsive" />';
             $row['body'] = strip_tags(substr($rows->isi_berita, 0, 100)) . '...';
             $row['penulis'] = $rows->nama_user;
-            $row['status'] = $rows->published_at == null ? '<b class="text-info">Belum Tayang</b>' : '<b class="text-info">Sudah Tayang</b>';
+            $row['status'] = $rows->status == 0 ? '<b class="text-warning">Belum Tayang</b>' : ($rows->status == 1 ? '<b class="text-info">Sudah Tayang</b>' : "<b class='text-danger'>Di Tolak</b> $rows->pesan");
             $data[] = $row;
         }
         $output = array(
@@ -87,7 +87,6 @@ class Berita extends BaseController
                     'slug' => str_replace(' ', '-', strtolower($judul)),
                     'isi_berita' => $this->request->getPost('isi'),
                     'id_user' => session('user_id'),
-                    'published_at' => null,
                 );
                 if ($this->beritam->insert($data)) {
                     foreach ($files as $pic) {
@@ -153,7 +152,7 @@ class Berita extends BaseController
                 }
                 echo json_encode($status);
                 break;
-            case 'upprove':
+            case 'publish':
                 $id = $this->request->getPost('id');
                 if ($this->beritam->update($id, ['status'=>1])) {
                     $status['title'] = 'success';

@@ -97,25 +97,24 @@ class AllSeeder extends Seeder
 
 
 
-        $berita = [];
-        for ($i = 1; $i <= 10; $i++) {
-            $judul = "ini berita " . sprintf('%02d', $i);
-            $isi = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit dolores totam quis est ipsa tempora nobis officia beatae earum fuga dolorum quaerat necessitatibus numquam praesentium maxime, accusamus aliquam quos id ipsam, architecto, dolore assumenda incidunt quas. Veniam natus maiores officiis quisquam nihil pariatur libero, impedit ex nobis odit hic, quaerat eius rem. Sunt quam odio illum adipisci, ab, quidem veniam corrupti, tenetur doloribus possimus maiores nisi totam? Quos placeat vero recusandae, aspernatur sed magni animi. Delectus voluptatibus aliquid, modi explicabo corrupti obcaecati harum iusto aut nesciunt necessitatibus totam rerum quod? Omnis quibusdam, hic reiciendis officia dolor enim voluptas. Sunt, ab repudiandae iste tempora aperiam, eius esse voluptates id iure molestiae alias ipsum eum, cumque pariatur libero eaque animi omnis debitis! Perspiciatis nihil eius suscipit similique atque magnam, numquam iste? Ea consequuntur quo dicta id ratione exercitationem expedita molestias modi, sint reprehenderit repudiandae nesciunt soluta nihil quibusdam harum, aut eveniet maxime saepe, unde est. A ea harum eius beatae possimus optio vel, laudantium labore eum dignissimos accusamus aliquid commodi repellat. Alias nobis dicta ab id neque laboriosam ex explicabo rem illum totam cumque commodi nisi, et culpa, non dolore nemo quidem aliquam corrupti qui consequatur animi sed dolores odit. Explicabo eos nihil hic quo ea modi porro illum esse atque asperiores perspiciatis officia similique dolor a, repudiandae autem ipsam facere deserunt maiores error, adipisci accusantium laboriosam. Delectus, quisquam. Repudiandae reiciendis, nam consectetur eveniet fugit quis facilis beatae debitis, corporis tenetur dolorem non dignissimos minima porro error. Hic molestias accusantium ad quos dicta quia necessitatibus natus quo illum omnis inventore expedita officiis at error, amet maiores adipisci temporibus ducimus! Blanditiis ipsam explicabo ratione, quibusdam reiciendis nemo at ad sapiente voluptatibus labore laborum ea, eaque et culpa praesentium eum. Possimus aut, cumque nam repellat voluptatum ad doloribus laudantium, eius repellendus ab sapiente iure?";
-            array_push($berita, [
-                'judul'       => $judul,
-                'level'       => rand(1,3),
-                'slug'        => str_replace(" ", "-", $judul),
-                'isi_berita'  => $isi,
-                'gambar'   => 'default.png',
-                'id_user'   => 1,
-                'published_at' => Time::now(),
-                'created_at'  => Time::now(),
-                'updated_at'  => Time::now()
-            ]);
+        // $berita = [];
+        // for ($i = 1; $i <= 10; $i++) {
+        //     $judul = "ini berita " . sprintf('%02d', $i);
+        //     $isi = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit dolores totam quis est ipsa tempora nobis officia beatae earum fuga dolorum quaerat necessitatibus numquam praesentium maxime, accusamus aliquam quos id ipsam, architecto, dolore assumenda incidunt quas. Veniam natus maiores officiis quisquam nihil pariatur libero, impedit ex nobis odit hic, quaerat eius rem. Sunt quam odio illum adipisci, ab, quidem veniam corrupti, tenetur doloribus possimus maiores nisi totam? Quos placeat vero recusandae, aspernatur sed magni animi. Delectus voluptatibus aliquid, modi explicabo corrupti obcaecati harum iusto aut nesciunt necessitatibus totam rerum quod? Omnis quibusdam, hic reiciendis officia dolor enim voluptas. Sunt, ab repudiandae iste tempora aperiam, eius esse voluptates id iure molestiae alias ipsum eum, cumque pariatur libero eaque animi omnis debitis! Perspiciatis nihil eius suscipit similique atque magnam, numquam iste? Ea consequuntur quo dicta id ratione exercitationem expedita molestias modi, sint reprehenderit repudiandae nesciunt soluta nihil quibusdam harum, aut eveniet maxime saepe, unde est. A ea harum eius beatae possimus optio vel, laudantium labore eum dignissimos accusamus aliquid commodi repellat. Alias nobis dicta ab id neque laboriosam ex explicabo rem illum totam cumque commodi nisi, et culpa, non dolore nemo quidem aliquam corrupti qui consequatur animi sed dolores odit. Explicabo eos nihil hic quo ea modi porro illum esse atque asperiores perspiciatis officia similique dolor a, repudiandae autem ipsam facere deserunt maiores error, adipisci accusantium laboriosam. Delectus, quisquam. Repudiandae reiciendis, nam consectetur eveniet fugit quis facilis beatae debitis, corporis tenetur dolorem non dignissimos minima porro error. Hic molestias accusantium ad quos dicta quia necessitatibus natus quo illum omnis inventore expedita officiis at error, amet maiores adipisci temporibus ducimus! Blanditiis ipsam explicabo ratione, quibusdam reiciendis nemo at ad sapiente voluptatibus labore laborum ea, eaque et culpa praesentium eum. Possimus aut, cumque nam repellat voluptatum ad doloribus laudantium, eius repellendus ab sapiente iure?";
+        //     array_push($berita, [
+        //         'judul'       => $judul,
+        //         'level'       => rand(1,3),
+        //         'slug'        => str_replace(" ", "-", $judul),
+        //         'isi_berita'  => $isi,
+        //         'id_user'     => 1,
+        //         'status'      => 2,
+        //         'created_at'  => Time::now(),
+        //         'updated_at'  => Time::now()
+        //     ]);
 
-        }
-        // Using Query Builder
-        $this->db->table('berita')->insertBatch($berita);
+        // }
+        // // Using Query Builder
+        // $this->db->table('berita')->insertBatch($berita);
 
 
 

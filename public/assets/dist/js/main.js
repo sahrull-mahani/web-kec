@@ -12,6 +12,7 @@ var $edit = $('#edit')
 var $single_edit = $('.single-edit')
 var $restore = $('#restore')
 var $publish = $('#publish')
+var $tolak = $('#tolak')
 var url = $('#url').val()
 function ajaxRequest(params) {
     $.get(url + 'ajax_request?' + $.param(params.data)).then(function (res) {
@@ -137,6 +138,7 @@ function readFile(url) {
         $remove.prop('disabled', !$table.bootstrapTable('getSelections').length)
         $publish.prop('disabled', !$table.bootstrapTable('getSelections').length)
         $edit.prop('disabled', !$table.bootstrapTable('getSelections').length)
+        $tolak.prop('disabled', !$table.bootstrapTable('getSelections').length)
         $restore.prop('disabled', !$table.bootstrapTable('getSelections').length)
         $single_edit.prop('disabled', !$table.bootstrapTable('getSelections').length)
     })
@@ -172,6 +174,31 @@ function readFile(url) {
         });
     });
     $edit.bind('click', function (e) {
+        var ids = $.map($table.bootstrapTable('getSelections'), function (row) {
+            return row.id
+        })
+        $.ajax({
+            url: url + $(this).attr('method'),
+            type: 'POST',
+            data: {
+                id: ids
+            },
+            dataType: "html",
+            success: function (response) {
+                var data = $.parseJSON(response);
+                $('#modal_content').modal({
+                    backdrop: 'static'
+                })
+                $('.isi-modal').html(data.html)
+                $('.modal-title').html(data.modal_title)
+                $('#modal-size').addClass(data.modal_size)
+            },
+            error: function (jqXHR, exception, thrownError) {
+                ajax_error_handling(jqXHR, exception, thrownError);
+            }
+        });
+    });
+    $tolak.bind('click', function (e) {
         var ids = $.map($table.bootstrapTable('getSelections'), function (row) {
             return row.id
         })

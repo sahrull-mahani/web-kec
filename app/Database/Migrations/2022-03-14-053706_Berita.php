@@ -16,31 +16,32 @@ class Berita extends Migration
                 'auto_increment' => true,
             ],
             'level'       => [
-                'type'       => 'INT',
-                'constraint' => 11,
+                'type'       => 'TINYINT',
+                'constraint' => 1,
             ],
             'judul'       => [
-                'type'       => 'VARCHAR',
+                'type'       => 'CHAR',
                 'constraint' => '255',
             ],
             'slug'       => [
-                'type'       => 'VARCHAR',
-                'constraint' => '255',
+                'type'       => 'CHAR',
+                'constraint' => '150',
             ],
             'isi_berita'       => [
                 'type'       => 'TEXT'
-            ],
-            'gambar'        => [
-                'type'       => 'VARCHAR',
-                'constraint' => 255
             ],
             'id_user'        => [
                 'type'       => 'INT',
                 'constraint' => '11'
             ],
-            'published_at'        => [
-                'type'       => 'DATETIME',
-                'null'       => true,
+            'status'        => [
+                'type'       => 'TINYINT',
+                'constraint' => 1
+            ],
+            'pesan'        => [
+                'type'       => 'CHAR',
+                'constraint' => 150,
+                'null'       => true
             ],
             'created_at'        => [
                 'type'       => 'DATETIME',
