@@ -66,8 +66,10 @@ class Berita extends BaseController
     }
     public function edit()
     {
-        $get = $this->beritam->find($this->request->getPost('id'));
-        $this->data = array('get' => $get, 'action' => 'update', 'btn' => '<i class="fas fa-edit"></i> Edit');
+        $id = $this->request->getPost('id');
+        $get = $this->beritam->find($id);
+        $galeri = $this->galerim->galeriLikeWhere('berita_', $id)->findAll();
+        $this->data = array('get' => $get, 'gambar'=>$galeri, 'action' => 'update', 'status' => $this->request->getPost('status'));
         $status['html']         = view('App\Views\berita\form_input', $this->data);
         $status['modal_title']  = '<b>Update Berita : </b>' . $get->judul;
         $status['modal_size']   = 'modal-xl';
@@ -120,7 +122,6 @@ class Berita extends BaseController
                     'judul' => $judul,
                     'slug' => str_replace(' ', '-', strtolower($judul)),
                     'isi_berita' => $this->request->getPost('isi'),
-                    'id_user' => session('user_id'),
                 );
                 if ($this->beritam->update($id, $data)) {
                     if ($files[0]->getError() !== 4) {
@@ -152,7 +153,50 @@ class Berita extends BaseController
                 }
                 echo json_encode($status);
                 break;
-            case 'publish':
+            case 'kirim':
+                $id = $this->request->getPost('id');
+                $files = $this->request->getFileMultiple('userfile');
+                $galeri = [];
+                $judul = $this->request->getPost('judul');
+                $data =  array(
+                    'level' => 3,
+                    'judul' => $judul,
+                    'slug' => str_replace(' ', '-', strtolower($judul)),
+                    'isi_berita' => $this->request->getPost('isi'),
+                    'status' => 0,
+                    'pesan' => null,
+                );
+                if ($this->beritam->update($id, $data)) {
+                    if ($files[0]->getError() !== 4) {
+                        $get = $this->galerim->where('id_sumber', $id)->findAll();
+                        foreach ($get as $pic) {
+                            unlink(WRITEPATH . "uploads/img/$pic->sumber"); // delete terlebih dahulu
+                            unlink(WRITEPATH . "uploads/thumbs/$pic->sumber"); // delete terlebih dahulu
+                        }
+                        $this->galerim->where('id_sumber', $id)->delete(); // delete dari database
+                        foreach ($files as $pic) { // masukan gambar baru
+                            $file_name = 'berita_' . $pic->getRandomName();
+                            if ($this->upload_img($file_name, $pic)) {
+                                array_push($galeri, [
+                                    'id_sumber' => $id,
+                                    'sumber'    => $file_name,
+                                    'id_user'   => session('user_id')
+                                ]);
+                            }
+                        }
+                        $this->galerim->insertBatch($galeri);
+                    }
+                    $status['title'] = 'success';
+                    $status['type'] = 'success';
+                    $status['text'] = 'Berita Telah Di Ubah';
+                } else {
+                    $status['title'] = 'Warning';
+                    $status['type'] = 'error';
+                    $status['text'] = $this->beritam->errors();
+                }
+                echo json_encode($status);
+                break;
+            case 'upprove':
                 $id = $this->request->getPost('id');
                 if ($this->beritam->update($id, ['status'=>1])) {
                     $status['title'] = 'success';

@@ -10,4 +10,10 @@ class GaleriModel extends Model
   protected $allowedFields = ['id_sumber', 'sumber', 'id_user'];
   protected $primarykey = 'id';
   protected $returnType = 'object';
+
+  public function galeriLikeWhere($like, $id)
+  {
+    $this->like('sumber', $like);
+    return $this->where('id_sumber', $id);
+  }
 }

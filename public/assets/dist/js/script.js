@@ -1,11 +1,19 @@
 $.fn.fileinputBsVersion = "3.3.7"; // if not set, this will be auto-derived
-// initialize plugin with defaults
-$("#input-id").fileinput();
 // with plugin options
+// $("#input-id").fileinput({
+//     'dropZoneEnabled': false
+// })
 $("#input-id").fileinput({
-  'showUpload': false,
-  'previewFileType': 'any',
-  'browseOnZoneClick': true
+    'showUpload': false,
+    'showRemove': false,
+    'showCancel': false,
+    'previewFileType': 'image',
+    'browseOnZoneClick': true,
+    'required': true,
+    'allowedFileExtensions': ["jpg", "png", "jpeg"],
+    'browseLabel': 'Pilih Gambar',
+    'browseClass': 'btn btn-success btn-block',
+    'browseIcon': '<i class="fa fa-camera"></i> ',
 })
 
 $('.text-area').summernote({

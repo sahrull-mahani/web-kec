@@ -53,6 +53,9 @@ class BeritaModel extends Model
     } else {
       $this->orderBy('id', 'asc');
     }
+    if (!is_admin()) {
+      $this->where('status !=', 1);
+    }
     $this->select('berita.*, u.nama_user, g.sumber');
     $this->join('users u', 'u.id=berita.id_user');
     $this->join('galeri g', 'g.id_sumber=berita.id');
