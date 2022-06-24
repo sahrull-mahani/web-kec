@@ -408,13 +408,21 @@ function readFile(url) {
                 async: false,
                 success: function (response) {
                     var data = $.parseJSON(response);
-                    Swal.fire({ title: data.title, html: data.text, type: data.type }).then((result) => {
-                        if (data.type == "success") {
-                            window.location.replace(location.origin + '/berita')
-                        } else {
-                            $('#spinner').hide();
-                        }
-                    });
+                    if (data.type == "success") {
+                        Swal.fire({title: data.title, html: data.text, icon: data.type}).then((result) => {
+                            if (result.isConfirmed)
+                            window.location.replace(location.origin + `/${data.redirect}`)
+                        })
+                    } else {
+                        $.each(data.text, function(key, val) {
+                            Lobibox.notify(data.type, {
+                                position: 'top right',
+                                msg: `${key} : ${val}`,
+                                icon: data.type
+                            })
+                        })
+                        $('#spinner').hide();
+                    }
                 },
                 error: function (jqXHR, exception, thrownError) {
                     Swal.fire({

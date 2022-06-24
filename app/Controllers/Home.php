@@ -16,9 +16,10 @@ class Home extends BaseController
     public function index()
     {
         $data = [
-            'title' => 'Dashboard | Kecamatan',
+            'title' => 'Dashboard | Kec. Kaidipang',
             'statistikJS' => true,
             'berita' => $this->beritam->findAll(),
+            'm_home' => 'active'
         ];
 
         return view('App\Views\template_adminlte\home', $data);

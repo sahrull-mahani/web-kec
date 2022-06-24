@@ -15,7 +15,7 @@ class Berita extends BaseController
     }
     public function index()
     {
-        $this->data = array('title' => 'Berita | Admin', 'breadcome' => 'Berita', 'url' => 'berita/', 'm_open' => 'menu-open', 'mm_berita' => 'active', 'm_berita' => 'active', 'session' => $this->session);
+        $this->data = array('title' => 'Berita | Admin', 'breadcome' => 'Berita', 'url' => 'berita/', 'm_open_berita' => 'menu-open', 'mm_berita' => 'active', 'm_berita' => 'active', 'session' => $this->session);
 
         echo view('App\Views\berita\berita_list', $this->data);
     }
@@ -46,7 +46,7 @@ class Berita extends BaseController
 
     public function Post()
     {
-        $this->data = array('title' => 'Post Berita | Admin', 'breadcome' => 'Post Berita', 'url' => 'berita/', 'm_open' => 'menu-open', 'mm_berita' => 'active', 'm_post' => 'active', 'session' => $this->session);
+        $this->data = array('title' => 'Post Berita | Admin', 'breadcome' => 'Post Berita', 'url' => 'berita/', 'm_open_berita' => 'menu-open', 'mm_berita' => 'active', 'm_post' => 'active', 'session' => $this->session);
 
         echo view('App\Views\berita\post-berita', $this->data);
     }
@@ -105,6 +105,7 @@ class Berita extends BaseController
                     $status['title'] = 'success';
                     $status['type'] = 'success';
                     $status['text'] = 'Berita Baru Telah Di Tambahkan';
+                    $status['redirect'] = 'berita';
                 } else {
                     $status['title'] = 'Warning';
                     $status['type'] = 'error';
@@ -146,6 +147,7 @@ class Berita extends BaseController
                     $status['title'] = 'success';
                     $status['type'] = 'success';
                     $status['text'] = 'Berita Telah Di Ubah';
+                    $status['redirect'] = 'berita';
                 } else {
                     $status['title'] = 'Warning';
                     $status['type'] = 'error';
@@ -189,6 +191,7 @@ class Berita extends BaseController
                     $status['title'] = 'success';
                     $status['type'] = 'success';
                     $status['text'] = 'Berita Telah Di Ubah';
+                    $status['redirect'] = 'berita';
                 } else {
                     $status['title'] = 'Warning';
                     $status['type'] = 'error';
@@ -219,6 +222,7 @@ class Berita extends BaseController
                     $status['title'] = 'success';
                     $status['type'] = 'success';
                     $status['text'] = 'Posting Artikel Berhasil DiTolak';
+                    $status['redirect'] = 'berita';
                 } else {
                     $status['title'] = 'Warning';
                     $status['type'] = 'error';

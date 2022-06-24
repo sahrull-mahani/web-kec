@@ -37,6 +37,7 @@ $routes->get('web/pariwisata', 'Web::obyek_wisata');
 $routes->add('filemanager/(:any)', 'Filemanager::run');
 
 $routes->get('post-berita', 'Berita::post');
+$routes->get('post-pariwisata', 'Pariwisata::post');
 // $routes->group('', ['filter' => 'role:users'], function ($routes) {
 //     $routes->get('post-berita', 'Berita::post');
 // });

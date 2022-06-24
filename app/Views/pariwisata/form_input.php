@@ -1,36 +1,27 @@
-<?= form_open_multipart('berita/save', array('class' => 'form-horizontal mode2')); ?>
+<?= form_open_multipart('pariwisata/save', array('class' => 'form-horizontal mode2')); ?>
 <div class="card-body">
     <div class="form-group item">
-        <label for="judul">Judul Postingan</label>
-        <input type="text" class="form-control" id="judul" name="judul" value="<?= (isset($get->judul)) ? $get->judul : ''; ?>" placeholder="Judul" required />
+        <label for="nama">Nama Wisata</label>
+        <input type="text" class="form-control" id="nama" name="nama" value="<?= (isset($get->nama)) ? $get->nama : ''; ?>" placeholder="Nama Wisata" required />
     </div>
-    <input id="input-edit-berita" type="file" name="userfile[]" accept=".jpg, .png, image/jpeg, image/png" multiple>
-    <div class="form-group item mt-3">
-        <label for="body">Isi Berita</label>
-        <textarea class="text-area" name="isi" id="isi"><?= (isset($get->isi_berita)) ? $get->isi_berita : ''; ?></textarea>
-    </div>
+    <input id="input-edit-pariwisata" type="file" name="userfile[]" accept=".jpg, .png, image/jpeg, image/png" multiple>
 </div>
 <?php foreach ($gambar as $pic) {
-    $pics[] = base_url('/Berita/img_medium') . "/$pic->sumber";
+    $pics[] = base_url('/Pariwisata/img_medium') . "/$pic->sumber";
 } ?>
 
 <div class="card-footer">
     <input type="hidden" name="id" value="<?= (isset($get->id)) ? $get->id : ''; ?>" />
-    <?php if (strip_tags(strtolower($status)) == 'belum tayang') : ?>
-        <?php if ($get->id_user == session('user_id')) : ?>
-            <input type='hidden' name='action' value="update" />
-            <button type="submit" class="btn btn-primary">EDIT</button>
-        <?php elseif (is_admin()) : ?>
-            <button type="submit" class="btn btn-success" id="approve">UPPROVE</button>
-            <button type="submit" class="btn btn-danger" id="tolak">TOLAK</button>
-        <?php endif ?>
-    <?php elseif (strip_tags(strtolower($status)) == 'sudah tayang') : ?>
+    <?php switch (strip_tags(strtolower($status))) :
+     case 'belum tayang' : ?>
+        <input type='hidden' name='action' value="update" />
+        <button type="submit" class="btn btn-primary">EDIT</button>
+        <?php break ?>
+    <?php case 'sudah tayang' : ?>
         <input type='hidden' name='action' value="delete" />
         <button type="submit" class="btn btn-danger">DELETE</button>
-    <?php else : ?>
-        <input type='hidden' name='action' value="kirim" />
-        <button type="submit" class="btn btn-success">KIRIM</button>
-    <?php endif ?>
+        <?php break ?>
+    <?php endswitch ?>
 </div>
 <?= form_close(); ?>
 <script type='text/javascript'>
@@ -39,7 +30,7 @@
     // $("#input-id").fileinput({
     //     'dropZoneEnabled': false
     // })
-    $("#input-edit-berita").fileinput({
+    $("#input-edit-pariwisata").fileinput({
         'showUpload': false,
         'showRemove': false,
         'showCancel': false,
@@ -85,7 +76,7 @@
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
                 $.ajax({
-                    url: location.origin + "/berita/save",
+                    url: location.origin + "/pariwisata/save",
                     type: 'POST',
                     data: {
                         id: '<?= $get->id ?>',
@@ -147,7 +138,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: location.origin + "/berita/save",
+                    url: location.origin + "/pariwisata/save",
                     type: 'POST',
                     data: {
                         id: '<?= $get->id ?>',
