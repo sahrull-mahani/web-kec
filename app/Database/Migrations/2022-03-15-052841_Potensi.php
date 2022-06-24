@@ -15,9 +15,9 @@ class Potensi extends Migration
                 'unsign'        => true,
                 'auto_increment' => true
             ],
-            'level'     => [
-                'type'          => 'INT',
-                'constraint'    => 11,
+            'bidang'     => [
+                'type'          => 'ENUM',
+                'constraint'    => ['peristiwa', 'kelautan', 'perdagangan', 'pertanian', 'industri', 'pendidikan'],
             ],
             'judul'        => [
                 'type'          => 'VARCHAR',

@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\GaleriModel;
 use App\Models\PariwisataModel;
+use CodeIgniter\I18n\Time;
 
 class Pariwisata extends BaseController
 {
@@ -68,7 +69,7 @@ class Pariwisata extends BaseController
         $galeri = $this->galerim->galeriLikeWhere('pariwisata_', $id)->findAll();
         $this->data = array('get' => $get, 'gambar'=>$galeri, 'status' => $this->request->getPost('published_at'));
         $status['html']         = view('App\Views\pariwisata\form_input', $this->data);
-        $status['modal_title']  = '<b>Update Pariwisata : </b>' . $get->judul;
+        $status['modal_title']  = '<b>Update Pariwisata : </b>' . $get->nama;
         $status['modal_size']   = 'modal-xl';
         echo json_encode($status);
     }
@@ -133,6 +134,23 @@ class Pariwisata extends BaseController
                         }
                         $this->galerim->insertBatch($galeri);
                     }
+                    $status['title'] = 'success';
+                    $status['type'] = 'success';
+                    $status['text'] = 'Obyek Wisata Telah Di Ubah';
+                    $status['redirect'] = 'pariwisata';
+                } else {
+                    $status['title'] = 'Warning';
+                    $status['type'] = 'error';
+                    $status['text'] = $this->pariwisatam->errors();
+                }
+                echo json_encode($status);
+                break;
+            case 'publish':
+                $id = $this->request->getPost('id');
+                $data =  array(
+                    'published_at' => Time::now()
+                );
+                if ($this->pariwisatam->update($id, $data)) {
                     $status['title'] = 'success';
                     $status['type'] = 'success';
                     $status['text'] = 'Obyek Wisata Telah Di Ubah';

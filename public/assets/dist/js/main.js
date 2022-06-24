@@ -144,14 +144,6 @@ function readFile(url) {
         $edit.prop('disabled', !$table.bootstrapTable('getSelections').length)
         $restore.prop('disabled', !$table.bootstrapTable('getSelections').length)
     })
-    // $table.on('post-body.bs.table', function() {
-    //     $(':checkbox').each(function () {
-    //         if (!$(this).parent().hasClass('checkbox')) {
-    //           $(this).wrap('<label class="checkbox"></label>').radiocheck()
-    //         }
-    //       })
-    //       $('.dropdown-toggle').dropdown()
-    // })
     $('.create').bind('click', function (e) {
         e.preventDefault();
         $.ajax({
@@ -163,8 +155,9 @@ function readFile(url) {
             dataType: "html",
             success: function (response) {
                 var data = $.parseJSON(response);
+                $('#modal_content').modal('show')
                 $('#modal_content').modal({
-                    backdrop: 'static',
+                    backdrop: 'static'
                 })
                 $('.isi-modal').html(data.html)
                 $('.modal-title').html(data.modal_title)

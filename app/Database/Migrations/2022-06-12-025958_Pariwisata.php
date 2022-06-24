@@ -19,12 +19,9 @@ class Pariwisata extends Migration
                 'type'          => 'CHAR',
                 'constraint'    => 150,
             ],
-            'gambar'     => [
-                'type'          => 'CHAR',
-                'constraint'    => 250,
-            ],
             'published_at'     => [
                 'type'          => 'DATETIME',
+                'null'          => true
             ],
         ]);
         $this->forge->addKey('id', true);

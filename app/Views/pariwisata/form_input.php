@@ -7,21 +7,21 @@
     <input id="input-edit-pariwisata" type="file" name="userfile[]" accept=".jpg, .png, image/jpeg, image/png" multiple>
 </div>
 <?php foreach ($gambar as $pic) {
-    $pics[] = base_url('/Pariwisata/img_medium') . "/$pic->sumber";
+    $pics[] = base_url('/Berita/img_medium') . "/$pic->sumber";
 } ?>
 
 <div class="card-footer">
     <input type="hidden" name="id" value="<?= (isset($get->id)) ? $get->id : ''; ?>" />
-    <?php switch (strip_tags(strtolower($status))) :
-     case 'belum tayang' : ?>
+    <?php if ($status == null) : ?>
+        <?php if (is_admin()) : ?>
+            <button type="submit" id="publish" class="btn btn-success">PUBLISH</button>
+        <?php endif ?>
         <input type='hidden' name='action' value="update" />
         <button type="submit" class="btn btn-primary">EDIT</button>
-        <?php break ?>
-    <?php case 'sudah tayang' : ?>
+    <?php else : ?>
         <input type='hidden' name='action' value="delete" />
         <button type="submit" class="btn btn-danger">DELETE</button>
-        <?php break ?>
-    <?php endswitch ?>
+    <?php endif ?>
 </div>
 <?= form_close(); ?>
 <script type='text/javascript'>
@@ -61,12 +61,12 @@
         }
     });
 
-    $('#upprove').click(function(e) {
+    $('#publish').click(function(e) {
         e.preventDefault()
-        SSwal.fire({
+        Swal.fire({
             title: 'Anda Yakin',
-            text: "Approve Artikel Ini..!",
-            icon: 'warning',
+            text: "Publish Obyek Wisata Ini..!",
+            icon: 'question',
             showDenyButton: true,
             showCancelButton: false,
             confirmButtonText: 'OK',
@@ -80,7 +80,7 @@
                     type: 'POST',
                     data: {
                         id: '<?= $get->id ?>',
-                        action: 'upprove',
+                        action: 'publish',
                     },
                     dataType: "html",
                     success: function(response) {
@@ -110,67 +110,6 @@
                 })
             } else if (result.isDenied) {
                 Swal.fire('Anda Membatalkan Proses Approve', '', 'info')
-            }
-        })
-    })
-    $('#tolak').click(function(e) {
-        e.preventDefault()
-        // $('#modal_content').modal('hide')
-        $('#modal_content').modal('hide')
-        Swal.fire({
-            title: 'Masukkan Pesan Anda..!!',
-            input: 'textarea',
-            inputAttributes: {
-                autocapitalize: 'off'
-            },
-            showCancelButton: true,
-            confirmButtonText: 'Submit',
-            showLoaderOnConfirm: true,
-            allowOutsideClick: true,
-            preConfirm: (login) => {
-                if (!login) {
-                    Swal.showValidationMessage(
-                        `Request failed: Masukan Pesan Anda!`
-                    )
-                }
-            },
-            allowOutsideClick: () => !Swal.isLoading()
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: location.origin + "/pariwisata/save",
-                    type: 'POST',
-                    data: {
-                        id: '<?= $get->id ?>',
-                        action: 'tolak',
-                        pesan: result.value
-                    },
-                    dataType: "html",
-                    success: function(response) {
-                        var data = $.parseJSON(response);
-                        Swal.fire({
-                            title: data.title,
-                            html: data.text,
-                            type: data.type
-                        }).then((result) => {
-                            if (data.type == "success") {
-                                $('#modal_content').modal('hide');
-                                $('#table').bootstrapTable('refresh');
-                            } else {
-                                $('#spinner').hide();
-                            }
-                        });
-                    },
-                    error: function(jqXHR, exception, thrownError) {
-                        Swal.fire({
-                            title: 'Error code' + jqXHR.status,
-                            html: thrownError + ', ' + exception,
-                            type: 'error'
-                        }).then((result) => {
-                            $('#spinner').hide();
-                        });
-                    }
-                })
             }
         })
     })
