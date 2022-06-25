@@ -46,3 +46,5 @@ $('.text-area').summernote({
         ['media', ['link', 'hr']],
     ]
 })
+
+$('.select2').select2()

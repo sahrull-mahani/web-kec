@@ -38,6 +38,8 @@ $routes->add('filemanager/(:any)', 'Filemanager::run');
 
 $routes->get('post-berita', 'Berita::post');
 $routes->get('post-pariwisata', 'Pariwisata::post');
+$routes->get('post-program', 'Program::post');
+$routes->get('post-potensi', 'Potensi::post');
 // $routes->group('', ['filter' => 'role:users'], function ($routes) {
 //     $routes->get('post-berita', 'Berita::post');
 // });
@@ -48,10 +50,6 @@ $routes->group('', ['namespace' => 'App\Controllers'], function ($routes) {
     $routes->get('login', 'Auth::login', ['as' => 'login']);
     $routes->post('log-in', 'Auth::login');
     $routes->get('logout', 'Auth::logout');
-
-    // // Registration
-    // $routes->get('register', 'Auth::register', ['as' => 'register']);
-    // $routes->post('register', 'Auth::attemptRegister');
 
     // Activation
     $routes->get('activate-account/$1/$2', 'Auth::activate/$1/$2', [

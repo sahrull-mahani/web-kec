@@ -23,18 +23,26 @@ class Statistik extends Migration
                 'type'          => 'CHAR',
                 'constraint'    => 150,
             ],
-            'pria'        => [
-                'type'          => 'INT',
-                'constraint'    => 11
+            'usia'        => [
+                'type'          => 'TINYINT',
+                'constraint'    => 2
             ],
-            'wanita'        => [
-                'type'          => 'INT',
-                'constraint'    => 11
+            'jk'        => [
+                'type'          => 'TINYINT',
+                'constraint'    => 1
             ],
-            'jumlah'        => [
-                'type'          => 'INT',
-                'constraint'    => 11
-            ]
+            'created_at'    => [
+                'type'          => 'DATE',
+                'null'          => TRUE
+            ],
+            'updated_at'    => [
+                'type'          => 'DATE',
+                'null'          => TRUE
+            ],
+            'deleted_at'    => [
+                'type'          => 'DATE',
+                'null'          => TRUE
+            ],
         ]);
         $this->forge->addKey('id', true);
         $this->forge->createTable('statistik');

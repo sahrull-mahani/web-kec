@@ -101,8 +101,11 @@
                                         <th data-field="state" data-checkbox="true"></th>
                                         <th data-field="id" data-visible="false">ID</th>
                                         <th data-field="nomor">No</th>
+                                        <th data-field="bidang">Bidang</th>
+                                        <th data-field="statistik">Statistik</th>
+                                        <th data-field="usia">Usia</th>
+                                        <th data-field="jk">Jenis Kelamin</th>
                                         <th data-field="tahun">Tahun</th>
-                                        <th data-field="jumlah">Jumlah</th>
                                     </tr>
                                 </thead>
                             </table>

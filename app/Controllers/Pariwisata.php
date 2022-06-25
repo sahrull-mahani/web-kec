@@ -164,13 +164,25 @@ class Pariwisata extends BaseController
                 break;
             case 'delete':
                 $id = $this->request->getPost('id');
-                $get = $this->galerim->where('id_sumber', $id)->findAll();
-                foreach ($get as $pic) {
-                    unlink(WRITEPATH . "uploads/img/$pic->sumber"); // delete terlebih dahulu
-                    unlink(WRITEPATH . "uploads/thumbs/$pic->sumber"); // delete terlebih dahulu
+                if (is_array($id) == 1) {
+                    foreach ($id as $aidi) {
+                        $get = $this->galerim->where('id_sumber', $aidi)->findAll();
+                        foreach ($get as $pic) {
+                            unlink(WRITEPATH . "uploads/img/$pic->sumber"); // delete terlebih dahulu
+                            unlink(WRITEPATH . "uploads/thumbs/$pic->sumber"); // delete terlebih dahulu
+                        }
+                        $ids[] = $aidi;
+                    }
+                }else{
+                    $get = $this->galerim->where('id_sumber', $id)->findAll();
+                    foreach ($get as $pic) {
+                        unlink(WRITEPATH . "uploads/img/$pic->sumber"); // delete terlebih dahulu
+                        unlink(WRITEPATH . "uploads/thumbs/$pic->sumber"); // delete terlebih dahulu
+                    }
+                    $ids = $id;
                 }
-                if ($this->galerim->where('id_sumber', $id)->delete()) { // delete dari database
-                    if ($this->pariwisatam->delete($id)) {
+                if ($this->galerim->whereIn('id_sumber', $ids)->delete()) { // delete dari database
+                    if ($this->program->delete($id)) {
                         $status['type'] = 'success';
                         $status['text'] = '<strong>Deleted..!</strong> Berhasil dihapus';
                     } else {

@@ -1,6 +1,6 @@
 <?= $this->extend("template_adminlte/index") ?>
-
 <?= $this->section("page-content") ?>
+
 <div class="content-wrapper">
     <section class="content-header">
         <div class="container-fluid">
@@ -23,7 +23,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Data <?= $breadcome ?></h3>
+                            <h3 class="card-title"><?= $breadcome ?></h3>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                                     <i class="fas fa-minus"></i>
@@ -33,27 +33,27 @@
                                 </button>
                             </div>
                         </div>
+                        <?= form_open_multipart('program/save', array('class' => 'mode2 form-post-save')); ?>
                         <div class="card-body">
-                            <div id="toolbar">
-                                <button type="button" class="btn btn-warning" id="single-edit" method="edit" disabled><i class="fa fa-edit"></i> Update</button>
-                                <button type="button" class="btn btn-danger" id="remove" disabled><i class="fa fa-trash"></i> Hapus</button>
+                            <div class="form-group item">
+                                <label for="judul">Judul Postingan</label>
+                                <input type="text" class="form-control" id="judul" name="judul" placeholder="Judul" required />
                             </div>
-                            <table id="table" data-toggle="table" data-ajax="ajaxRequest" data-side-pagination="server" data-pagination="true" data-search="true" data-show-columns="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-click-to-select="true" data-toolbar="#toolbar">
-                                <thead>
-                                    <tr>
-                                        <th data-field="state" data-checkbox="true"></th>
-                                        <th data-field="id" data-visible="false">ID</th>
-                                        <th data-field="nomor">No</th>
-                                        <th data-field="bidang">Bidang</th>
-                                        <th data-field="judul">Judul</th>
-                                        <th data-field="nama">Penulis</th>
-                                        <th data-field="gambar">Gambar</th>
-                                        <th data-field="status">Status</th>
-                                    </tr>
-                                </thead>
-                            </table>
+                            <input id="input-id" type="file" name="userfile[]" accept=".jpg, .png, image/jpeg, image/png" multiple>
+                            <div class="form-group item mt-3">
+                                <label for="body">Isi Program</label>
+                                <textarea class="text-area" name="isi" id="isi"></textarea>
+                            </div>
                         </div>
-                        <div class="card-footer">Footer</div>
+                        <div class="card-footer">
+                            <input type='hidden' name='action' value="insert" />
+                            <button type="submit" class="btn btn-primary btn-sub">Submit</button>
+                            <button class="btn btn-primary btn-load d-none" type="button" disabled>
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                Loading...
+                            </button>
+                        </div>
+                        <?= form_close() ?>
                     </div>
                 </div>
             </div>

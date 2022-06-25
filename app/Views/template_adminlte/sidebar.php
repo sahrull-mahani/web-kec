@@ -75,21 +75,51 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a href="<?= site_url('/potensi'); ?>" class="nav-link <?= isset($m_potensi) ? $m_potensi : ''; ?>">
-                        <i class="nav-icon fas fa-hammer"></i>
-                        <p>
-                            Potensi
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="<?= site_url('/program'); ?>" class="nav-link <?= isset($m_program) ? $m_program : ''; ?>">
+                <li class="nav-item <?= isset($m_open_program) ? $m_open_program : ''; ?>">
+                    <a href="#" class="nav-link <?= isset($mm_program) ? $mm_program : ''; ?>">
                         <i class="nav-icon fas fa-bullhorn"></i>
                         <p>
                             Program
+                            <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= site_url('post-program'); ?>" class="nav-link <?= isset($m_post_program) ? $m_post_program : ''; ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Post Program</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= site_url('program'); ?>" class="nav-link <?= isset($m_program) ? $m_program : ''; ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>List Program</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item <?= isset($m_open_potensi) ? $m_open_potensi : ''; ?>">
+                    <a href="#" class="nav-link <?= isset($mm_potensi) ? $mm_potensi : ''; ?>">
+                        <i class="nav-icon fas fa-hammer"></i>
+                        <p>
+                            Potensi
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= site_url('post-potensi'); ?>" class="nav-link <?= isset($m_post_potensi) ? $m_post_potensi : ''; ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Post Potensi</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= site_url('potensi'); ?>" class="nav-link <?= isset($m_potensi) ? $m_potensi : ''; ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>List Potensi</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="nav-item">
                     <a href="<?= site_url('/statistik'); ?>" class="nav-link <?= isset($m_statistik) ? $m_statistik : ''; ?>">

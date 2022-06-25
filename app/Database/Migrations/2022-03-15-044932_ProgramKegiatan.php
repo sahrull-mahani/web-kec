@@ -16,15 +16,11 @@ class ProgramKegiatan extends Migration
                 'auto_increment' => true,
             ],
             'judul'       => [
-                'type'       => 'VARCHAR',
-                'constraint' => 255,
+                'type'       => 'CHAR',
+                'constraint' => 150,
             ],
             'isi_program'       => [
                 'type'       => 'TEXT'
-            ],
-            'gambar'        => [
-                'type'       => 'VARCHAR',
-                'constraint' => 255
             ],
             'published_at'        => [
                 'type'       => 'DATETIME',

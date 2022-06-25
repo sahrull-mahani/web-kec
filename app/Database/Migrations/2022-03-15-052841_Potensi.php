@@ -26,6 +26,10 @@ class Potensi extends Migration
             'isi_potensi'        => [
                 'type'          => 'TEXT'
             ],
+            'published_at'        => [
+                'type'          => 'DATE',
+                'null'          => TRUE
+            ],
         ]);
         $this->forge->addKey('id', true);
         $this->forge->createTable('potensi');

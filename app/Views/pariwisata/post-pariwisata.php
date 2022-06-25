@@ -33,18 +33,21 @@
                                 </button>
                             </div>
                         </div>
-                        <?= form_open_multipart('pariwisata/save', array('class' => 'mode2 form-post-berita')); ?>
+                        <?= form_open_multipart('pariwisata/save', array('class' => 'mode2 form-post-save')); ?>
                         <div class="card-body">
                             <div class="form-group item">
                                 <label for="nama">Nama Pariwisata</label>
-                                <input type="text" class="form-control" id="nama" name="nama" value="<?= (isset($get->nama)) ? $get->nama : ''; ?>" placeholder="Obyek Wisata" required />
+                                <input type="text" class="form-control" id="nama" name="nama" placeholder="Obyek Wisata" required />
                             </div>
                             <input id="input-id" type="file" name="userfile[]" accept=".jpg, .png, image/jpeg, image/png" multiple>
                         </div>
                         <div class="card-footer">
-                            <input type="hidden" name="id[]" value="<?= (isset($get->id)) ? $get->id : ''; ?>" />
-                            <input type='hidden' name='action' value='<?= (isset($action)) ? $action : 'insert'; ?>' />
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <input type='hidden' name='action' value="insert" />
+                            <button type="submit" class="btn btn-primary btn-sub">Submit</button>
+                            <button class="btn btn-primary btn-load d-none" type="button" disabled>
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                Loading...
+                            </button>
                         </div>
                         <?= form_close() ?>
                     </div>

@@ -33,17 +33,29 @@
                                 </button>
                             </div>
                         </div>
-                        <?= form_open_multipart('berita/save', array('class' => 'mode2 form-post-save')); ?>
+                        <?= form_open_multipart('potensi/save', array('class' => 'mode2 form-post-save')); ?>
                         <div class="card-body">
                             <div class="form-group item">
-                                <label for="judul">Judul Postingan</label>
-                                <input type="text" class="form-control" id="judul" name="judul" placeholder="Judul" required />
+                                <label for="nama">Bidang Potensi</label>
+                                <?php $defaults = array('' => '==Pilih Bidang==');
+                                $options = array(
+                                    'peristiwa' => 'peristiwa',
+                                    'kelautan' => 'kelautan',
+                                    'perdagangan' => 'perdagangan',
+                                    'pertanian' => 'pertanian',
+                                    'industri' => 'industri',
+                                    'pendidikan' => 'pendidikan',
+                                );
+                                echo form_dropdown('bidang[]', $defaults + $options, (isset($get->bidang)) ? $get->bidang : '', 'class="form-control select2" id="bidang" required');
+                                ?>
+                            </div>
+                            <div class="form-group item">
+                                <label for="judul">Judul</label>
+                                <input type="text" class="form-control" id="judul" name="judul" placeholder="Judul Potensi" required />
                             </div>
                             <input id="input-id" type="file" name="userfile[]" accept=".jpg, .png, image/jpeg, image/png" multiple>
-                            <div class="form-group item mt-3">
-                                <label for="body">Isi Berita</label>
-                                <textarea class="text-area" name="isi" id="isi"></textarea>
-                            </div>
+                            <br>
+                            <textarea name="isi" id="isi" cols="30" rows="10" class="text-area" placeholder="Jelaskan Potensi Yang Anda Masukan..."></textarea>
                         </div>
                         <div class="card-footer">
                             <input type='hidden' name='action' value="insert" />

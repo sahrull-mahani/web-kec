@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\StatistikM;
+use App\Models\StatistikModel;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Render;
@@ -12,13 +12,13 @@ class Statistik extends BaseController
     protected $statistikm, $db;
     function __construct()
     {
-        $this->statistikm = new StatistikM();
+        $this->statistikm = new StatistikModel();
         $this->db = db_connect();
     }
 
     public function index()
     {
-        $this->data = array('title' => 'Statistik | Admin', 'breadcome' => 'Statistik', 'url' => 'statistik/', 'm_statistik' => 'active', 'session' => $this->session, 'validation'=>\Config\Services::validation(), 'stanting'=>$this->statistikm->groupBy('tahun')->findAll());
+        $this->data = array('title' => 'Statistik | Admin', 'breadcome' => 'Statistik', 'url' => 'statistik/', 'm_statistik' => 'active', 'session' => $this->session, 'validation'=>\Config\Services::validation(), 'stanting'=>$this->statistikm->findAll());
 
         return view('App\Views\statistik\statistik_list', $this->data);
     }
@@ -32,8 +32,11 @@ class Statistik extends BaseController
             $row = array();
             $row['nomor'] = $no++;
             $row['id'] = $rows->id;
-            $row['tahun'] = $rows->tahun;
-            $row['jumlah'] = "$rows->jumlah Orang";
+            $row['bidang'] = $rows->bidang;
+            $row['statistik'] = $rows->statistik;
+            $row['usia'] = "$rows->usia Tahun";
+            $row['jk'] = $rows->jk == 1 ? 'Laki - laki' : 'Perempuan';
+            $row['tahun'] = date('Y', strtotime($rows->updated_at));
             $data[] = $row;
         }
         $output = array(
@@ -43,12 +46,42 @@ class Statistik extends BaseController
         );
         echo json_encode($output);
     }
+    public function create()
+    {
+        $this->data = array('action' => 'insert', 'btn' => '<i class="fas fa-save"></i> Save');
+        $num_of_row = $this->request->getPost('num_of_row');
+        for ($x = 1; $x <= $num_of_row; $x++) {
+            $data['nama'] = 'Data ' . $x;
+            $this->data['form_input'][] = view('App\Views\statistik\form_input', $data);
+        }
+        $status['html']         = view('App\Views\statistik\form_modal', $this->data);
+        $status['modal_title']  = 'Tambah Data Statistik';
+        $status['modal_size']   = 'modal-lg';
+        echo json_encode($status);
+    }
+    public function edit()
+    {
+        $id = $this->request->getPost('id');
+        $this->data = array('action' => 'update', 'btn' => '<i class="fas fa-edit"></i> Edit');
+        foreach ($id as $ids) {
+            $get = $this->potensim->find($ids);
+            $data = array(
+                'nama' => '<b>' . $get->nama . '</b>',
+                'get' => $get,
+            );
+            $this->data['form_input'][] = view('App\Views\potensi\form_input', $data);
+        }
+        $status['html']         = view('App\Views\potensi\form_modal', $this->data);
+        $status['modal_title']  = 'Update Data Potensi';
+        $status['modal_size']   = 'modal-lg';
+        echo json_encode($status);
+    }
     public function save()
     {
         switch ($this->request->getPost('action')) {
             case 'delete':
                 $id = $this->request->getPost('id');
-                foreach ($id as $key => $val) {
+                foreach ($id as $val) {
                     $get = $this->statistikm->find($val);
                     $this->statistikm->where('tahun', $get->tahun)->delete();
                 }

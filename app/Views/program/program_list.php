@@ -44,9 +44,9 @@
                                         <th data-field="state" data-checkbox="true"></th>
                                         <th data-field="id" data-visible="false">ID</th>
                                         <th data-field="nomor">No</th>
-                                        <th data-field="bidang">Bidang</th>
                                         <th data-field="judul">Judul</th>
-                                        <th data-field="nama">Penulis</th>
+                                        <th data-field="body">Isi Berita</th>
+                                        <th data-field="penulis">Penulis</th>
                                         <th data-field="gambar">Gambar</th>
                                         <th data-field="status">Status</th>
                                     </tr>

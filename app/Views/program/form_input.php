@@ -1,26 +1,14 @@
-<?= form_open_multipart('potensi/save', array('class' => 'form-horizontal mode2')); ?>
+<?= form_open_multipart('program/save', array('class' => 'form-horizontal mode2')); ?>
 <div class="card-body">
     <div class="form-group item">
-        <label for="nama">Bidang Potensi</label>
-        <?php $defaults = array('' => '==Pilih Bidang==');
-        $options = array(
-            'peristiwa' => 'peristiwa',
-            'kelautan' => 'kelautan',
-            'perdagangan' => 'perdagangan',
-            'pertanian' => 'pertanian',
-            'industri' => 'industri',
-            'pendidikan' => 'pendidikan',
-        );
-        echo form_dropdown('bidang[]', $defaults + $options, (isset($get->bidang)) ? $get->bidang : '', 'class="form-control" id="bidang" required');
-        ?>
+        <label for="judul">Judul Postingan</label>
+        <input type="text" class="form-control" id="judul" name="judul" value="<?= (isset($get->judul)) ? $get->judul : ''; ?>" placeholder="Judul" required />
     </div>
-    <div class="form-group item">
-        <label for="nama">Judul Potensi</label>
-        <input type="text" class="form-control" id="nama" name="nama" value="<?= (isset($get->judul)) ? $get->judul : ''; ?>" placeholder="Judul Potensi" required />
+    <input id="input-edit-program" type="file" name="userfile[]" accept=".jpg, .png, image/jpeg, image/png" multiple>
+    <div class="form-group item mt-3">
+        <label for="body">Isi Program</label>
+        <textarea class="text-area" name="isi" id="isi"><?= (isset($get->isi_program)) ? $get->isi_program : ''; ?></textarea>
     </div>
-    <input id="input-edit-potensi" type="file" name="userfile[]" accept=".jpg, .png, image/jpeg, image/png" multiple>
-    <br>
-    <textarea name="isi" id="isi" cols="30" rows="10" class="text-area" placeholder="Jelaskan Potensi Yang Anda Masukan..."><?= (isset($get->isi_potensi)) ? $get->isi_potensi : ''; ?></textarea>
 </div>
 <?php foreach ($gambar as $pic) {
     $pics[] = base_url('/Berita/img_medium') . "/$pic->sumber";
@@ -42,7 +30,7 @@
 <?= form_close(); ?>
 <script type='text/javascript'>
     $.fn.fileinputBsVersion = "3.3.7"; // if not set, this will be auto-derived
-    $("#input-edit-potensi").fileinput({
+    $("#input-edit-program").fileinput({
         'showUpload': false,
         'showRemove': false,
         'showCancel': false,

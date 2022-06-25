@@ -181,6 +181,7 @@ function readFile(url) {
             dataType: "html",
             success: function (response) {
                 var data = $.parseJSON(response);
+                $('#modal_content').modal('show')
                 $('#modal_content').modal({
                     backdrop: 'static'
                 })
@@ -386,7 +387,7 @@ function readFile(url) {
     $('.multi.required').on('keyup blur', 'input', function () {
         validator.checkField.apply($(this).siblings().last()[0]);
     });
-    $('.form-post-berita').submit(function (e) {
+    $('.form-post-save').submit(function (e) {
         e.preventDefault();
         if (!validator.checkAll($(this))) {
             return false;
@@ -404,9 +405,13 @@ function readFile(url) {
                     if (data.type == "success") {
                         Swal.fire({title: data.title, html: data.text, icon: data.type}).then((result) => {
                             if (result.isConfirmed)
+                            $('.btn-sub').toggleClass('d-none')
+                            $('.btn-load').toggleClass('d-none')
                             window.location.replace(location.origin + `/${data.redirect}`)
                         })
                     } else {
+                        $('.btn-sub').toggleClass('d-none')
+                        $('.btn-load').toggleClass('d-none')
                         $.each(data.text, function(key, val) {
                             Lobibox.notify(data.type, {
                                 position: 'top right',
