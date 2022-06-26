@@ -35,11 +35,18 @@
                         </div>
 
                         <div class="card-body">
+
+                            <div class="btn-group mb-3" role="group" aria-label="Basic example">
+                                <a href="/statistik/templateXL/1" class="btn btn-sm btn-success"><i class="fa fa-file-excel"></i> Template XL Agama</a>
+                                <a href="/statistik/templateXL/2" class="btn btn-sm btn-info"><i class="fa fa-file-excel"></i> Template XL Pekerjaan</a>
+                                <a href="/statistik/templateXL/3" class="btn btn-sm btn-success"><i class="fa fa-file-excel"></i> Template XL Pendidikan</a>
+                                <a href="/statistik/templateXL/4" class="btn btn-sm btn-info"><i class="fa fa-file-excel"></i> Template XL Perkawinan</a>
+                            </div>
                             <form action="statistik/import" method="post" enctype="multipart/form-data">
                                 <div class="input-group">
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" id="customFile" name="importexcel">
-                                        <label class="custom-file-label" for="customFile">Upload File Excel</label>
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
                                     </div>
                                     <div class="input-group-append">
                                         <button type="submit" class="btn btn-primary btn-block">IMPORT</button>
@@ -47,7 +54,6 @@
                                 </div>
                                 <small class="text-danger ml-1"><?= $validation->getError('importexcel') ?></small>
                             </form>
-
                         </div>
                         <div class="card-footer">
                             <?php if (session()->getFlashdata('success')) : ?>
@@ -101,16 +107,71 @@
                                         <th data-field="state" data-checkbox="true"></th>
                                         <th data-field="id" data-visible="false">ID</th>
                                         <th data-field="nomor">No</th>
-                                        <th data-field="bidang">Bidang</th>
-                                        <th data-field="statistik">Statistik</th>
-                                        <th data-field="usia">Usia</th>
-                                        <th data-field="jk">Jenis Kelamin</th>
+                                        <th data-field="pria">Pria</th>
+                                        <th data-field="wanita">Wanita</th>
+                                        <th data-field="jumlah">Jumlah</th>
                                         <th data-field="tahun">Tahun</th>
                                     </tr>
                                 </thead>
                             </table>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    CHART AGAMA
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="agama" width="400" height="400"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    CHART PEKERJAAN
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="pekerjaan" width="400" height="400"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    CHART PENDIDIKAN
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="pendidikan" width="400" height="400"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    CHART PERKAWINAN
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="perkawinan" width="400" height="400"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>

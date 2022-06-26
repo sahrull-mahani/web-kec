@@ -5,7 +5,8 @@ namespace App\Controllers;
 use App\Models\StatistikModel;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\IOFactory;
-use PhpOffice\PhpSpreadsheet\Render;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 
 class Statistik extends BaseController
 {
@@ -18,7 +19,7 @@ class Statistik extends BaseController
 
     public function index()
     {
-        $this->data = array('title' => 'Statistik | Admin', 'breadcome' => 'Statistik', 'url' => 'statistik/', 'm_statistik' => 'active', 'session' => $this->session, 'validation'=>\Config\Services::validation(), 'stanting'=>$this->statistikm->findAll());
+        $this->data = array('title' => 'Statistik | Admin', 'breadcome' => 'Statistik', 'url' => 'statistik/', 'm_statistik' => 'active', 'session' => $this->session, 'validation' => \Config\Services::validation(), 'stanting' => $this->statistikm->findAll());
 
         return view('App\Views\statistik\statistik_list', $this->data);
     }
@@ -32,11 +33,10 @@ class Statistik extends BaseController
             $row = array();
             $row['nomor'] = $no++;
             $row['id'] = $rows->id;
-            $row['bidang'] = $rows->bidang;
-            $row['statistik'] = $rows->statistik;
-            $row['usia'] = "$rows->usia Tahun";
-            $row['jk'] = $rows->jk == 1 ? 'Laki - laki' : 'Perempuan';
-            $row['tahun'] = date('Y', strtotime($rows->updated_at));
+            $row['pria'] = "$rows->pria orang";
+            $row['wanita'] = "$rows->wanita orang";
+            $row['jumlah'] = "$rows->total orang";
+            $row['tahun'] = $rows->tahun;
             $data[] = $row;
         }
         $output = array(
@@ -83,7 +83,7 @@ class Statistik extends BaseController
                 $id = $this->request->getPost('id');
                 foreach ($id as $val) {
                     $get = $this->statistikm->find($val);
-                    $this->statistikm->where('tahun', $get->tahun)->delete();
+                    $this->statistikm->where('YEAR(updated_at)', date('Y', strtotime($get->updated_at)))->delete();
                 }
                 $status = [
                     'type' => 'success',
@@ -92,6 +92,106 @@ class Statistik extends BaseController
                 echo json_encode($status);
                 break;
         }
+    }
+
+    public function api()
+    {
+        $agama = $this->statistikm->select('statistik')->selectCount('statistik', 'total')->where('bidang', 'agama')->groupBy('statistik')->findAll();
+        $pekerjaan = $this->statistikm->select('statistik')->selectCount('statistik', 'total')->where('bidang', 'pekerjaan')->groupBy('statistik')->findAll();
+        $pendidikan = $this->statistikm->select('statistik')->selectCount('statistik', 'total')->where('bidang', 'pendidikan')->groupBy('statistik')->findAll();
+        $perkawinan = $this->statistikm->select('statistik')->selectCount('statistik', 'total')->where('bidang', 'perkawinan')->groupBy('statistik')->findAll();
+        $data = [
+            'statistikAgama' => $agama,
+            'statistikPekerjaan' => $pekerjaan,
+            'statistikPendidikan' => $pendidikan,
+            'statistikPerkawinan' => $perkawinan,
+        ];
+        return json_encode($data);
+    }
+
+    public function templateXL($type)
+    {
+        $spreadsheet = new Spreadsheet();
+
+        $spreadsheet->getActiveSheet()->setCellValue('A1', 'MASUKAN TAHUN ');
+        $spreadsheet->getActiveSheet()->mergeCells('A1:C1'); // merge
+
+        switch ($type) {
+            case 1:
+                $spreadsheet->getActiveSheet()
+                    ->setCellValue('A2', 'AGAMA')
+                    ->setCellValue('B2', 'JENIS KELAMIN')
+                    ->setCellValue('C2', 'USIA');
+                $namFile = 'Agama';
+                $color = '28A745';
+                $fontcolor = 'FFFFFF';
+                break;
+            case 2:
+                $spreadsheet->getActiveSheet()
+                    ->setCellValue('A2', 'PEKERJAAN')
+                    ->setCellValue('B2', 'JENIS KELAMIN')
+                    ->setCellValue('C2', 'USIA');
+                $namFile = 'Pekerjaan';
+                $color = '17A2B8';
+                $fontcolor = 'F8F9FA';
+                break;
+            case 3:
+                $spreadsheet->getActiveSheet()
+                    ->setCellValue('A2', 'PENDIDIKAN')
+                    ->setCellValue('B2', 'JENIS KELAMIN')
+                    ->setCellValue('C2', 'USIA');
+                $namFile = 'Pendidikan';
+                $color = '28A745';
+                $fontcolor = 'FFFFFF';
+                break;
+            case 4:
+                $spreadsheet->getActiveSheet()
+                    ->setCellValue('A2', 'PERKAWINAN')
+                    ->setCellValue('B2', 'JENIS KELAMIN')
+                    ->setCellValue('C2', 'USIA');
+                $namFile = 'Perkawinan';
+                $color = '17A2B8';
+                $fontcolor = 'F8F9FA';
+                break;
+        }
+
+        //freeze pane
+        $spreadsheet->getActiveSheet()->freezePane('A3');
+
+        // set Zoom Scale
+        $spreadsheet->getActiveSheet()->getSheetView()->setZoomScale(140);
+
+        // alignment
+        $spreadsheet->getActiveSheet()->getStyle('A1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+        $spreadsheet->getActiveSheet()->getStyle('A2:C2')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+
+        // font
+        $spreadsheet->getActiveSheet()->getStyle('A1')->getFont()->setSize(14)->setBold(true);
+        $spreadsheet->getActiveSheet()->getStyle('A2:C2')->getFont()->setSize(12)->setBold(true);
+        
+        // font color
+        $spreadsheet->getActiveSheet()->getStyle('A2:C2')->getFont()->getColor()->setRGB($fontcolor);
+
+        // fill
+        $spreadsheet->getActiveSheet()->getStyle('A2:C2')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB($color);
+
+        // LEBAR KOLOM
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('A')
+            ->setWidth(20);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('B')
+            ->setWidth(25);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('C')
+            ->setWidth(10);
+
+        header('Content-type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="Template Import Excel Statistik ' . $namFile . '.xlsx"');
+        header('Cache-Control: max-age=0');
+
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $writer->save('php://output');
     }
 
     public function import()
@@ -129,31 +229,30 @@ class Statistik extends BaseController
 
         $sheetdata = $spreadsheet->getActiveSheet()->toArray();
         $dataSave = [];
-        $err = 0;
         foreach ($sheetdata as $data => $row) {
-            if ($data == 2) $tahun = (int)filter_var($row[1], FILTER_SANITIZE_NUMBER_INT); // get tahun di baris 3
-            if ($data <= 4) continue;
-            if (strlen($row[1]) > 18) break; // check nik
-            if ($row[1] == null) break; // check baris akhir kosong
-            if (count($this->statistikm->where(['nik'=>$row[1], 'tahun'=>$tahun])->find()) > 0) { //cek nik yang sama di tahun yang sama {jangan upload}
-                $err++;
-                continue;
-            }
-
+            if ($data == 0) $tahun = (int)filter_var($row[0], FILTER_SANITIZE_NUMBER_INT); // get tahun di baris pertama
+            if ($data == 1) $bidang = $row[0]; // get bidang di baris kedua
+            if ($data <= 1) continue;
+            if (count($this->statistikm->where('tahun', $tahun)->find()) > 0) break; //cek tahun yang sama {jangan upload}
+            
             array_push($dataSave, [
-                'nik'   => $row[1],
-                'desa'   => $row[6]==null ? $sheetdata[$data-1][6] : $row[6], // jika dari orang tua yang sama
-                'jk'    => $row[3] == 'P' ? 0 : 1,
+                'bidang'    => $bidang,
+                'statistik' => $row[0],
+                'jk'    => $row[1] == 'P' ? 0 : 1,
+                'usia'    => $row[2],
                 'tahun' => $tahun
             ]);
         }
-
+        if ($tahun == 0) {
+            return redirect()->to('statistik')->with('error', "Tahun Belum Di Ubah!!");
+        }
+        
         $total = count($dataSave);
         if ($total == 0) {
-            return redirect()->to('statistik')->with('error', "Data NIK Sama semua telah ada di database, periksa kembali tahun data stunting yang anda upload");
+            return redirect()->to('statistik')->with('error', "Periksa kembali tahun yang anda upload");
         }
         if ($this->statistikm->insertBatch($dataSave)) {
-            return redirect()->to('statistik')->with('success', "Total upload $total data dan jumlah NIK yang sama $err");
+            return redirect()->to('statistik')->with('success', "Total upload $total");
         } else {
             return redirect()->to('statistik')->with('errors', $this->statistikm->errors());
         }

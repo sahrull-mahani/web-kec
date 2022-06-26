@@ -124,6 +124,7 @@ class AllSeeder extends Seeder
 				'statistik'		=> $stat,
 				'usia'			=> rand(5, 60),
 				'jk'			=> rand(0, 1),
+				'tahun'			=> rand(2021, 2022),
 				'created_at'	=> Time::now(),
 				'updated_at'	=> Time::now()
 			]);

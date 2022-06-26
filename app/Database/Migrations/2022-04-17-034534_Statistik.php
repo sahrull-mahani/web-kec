@@ -31,6 +31,10 @@ class Statistik extends Migration
                 'type'          => 'TINYINT',
                 'constraint'    => 1
             ],
+            'tahun'        => [
+                'type'          => 'YEAR',
+                'constraint'    => 4
+            ],
             'created_at'    => [
                 'type'          => 'DATE',
                 'null'          => TRUE

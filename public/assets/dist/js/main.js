@@ -221,6 +221,7 @@ function readFile(url) {
                                 msg: data.text
                             });
                             $('#table').bootstrapTable('refresh');
+                            $remove.attr('disabled', true)
                         }, error: function (jqXHR, exception, thrownError) {
                             ajax_error_handling(jqXHR, exception, thrownError);
                         }
