@@ -1,5 +1,4 @@
 <?= $this->extend("web/_template/index") ?>
-
 <?= $this->section("page-content") ?>
 
 <div class="container mt-lg-5">
@@ -37,16 +36,16 @@
             <div class="col-md-12 mt-5 mb-3">
               <div class="row">
                 <div class="col-md-6">
-                  <a href="/home/detail_berita/<?= $brt->slug . "_" . $brt->id ?>" class="img-hover">
+                  <a href="/web/detail_berita/<?= $brt->slug . "_" . $brt->id ?>" class="img-hover">
                     <div class="card-img-responsive">
-                      <img src="/assets_new/img/<?= $brt->gambar ?>" alt="img-fluid">
+                      <img src="<?= base_url("Web/img_thumb/$brt->sumber") ?>" alt="img-fluid">
                     </div>
                   </a>
                 </div>
                 <div class="col-md-6 mt-3">
-                  <small class="text-warning text-uppercase d-block"><i class="fa fa-clock-o"></i> <?= $brt->published_at ?> WITA</small>
-                  <h3 class="font-weight-bold"><?= $brt->judul ?></h3>
-                  <?= $brt->excerpt ?>
+                  <small class="text-capitalize text-primary font-weight-bold"><i class="fa fa-clock-o"></i> Diupload <?= getHumanize($brt->updated_at) ?></small>
+                  <h3 class="font-weight-bold text-capitalize"><?= $brt->judul ?></h3>
+                  <?= strip_tags(substr($brt->isi_berita, 0, 150)) ?>
                   <a href="/web/detail_berita/<?= $brt->slug . "_" . $brt->id ?>">read more...</a>
                 </div>
               </div>

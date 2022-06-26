@@ -89,10 +89,10 @@
           <?php foreach ($pariwisata as $prt) : ?>
             <div class="item">
               <div class="work">
-                <div class="img d-flex align-items-end justify-content-center" style="background-image: url(/admin_assets/galeri/<?= $prt->sumber ?>);">
+                <div class="img d-flex align-items-end justify-content-center" style="background-image: url(<?= base_url("Web/img_medium/$prt->sumber") ?>);">
                   <div class="text w-100">
                     <span class="cat">Wisata</span>
-                    <h3><a href="/web/detail_obwisata/<?= $prt->id_sumber ?>"><?= ucwords($prt->nama) ?></a></h3>
+                    <h4><a href="<?= base_url("Web/img_medium/$prt->sumber") ?>" data-lightbox="masonry" data-title="image-<?= $prt->sumber ?>"><?= ucwords($prt->nama) ?></a></h4>
                   </div>
                 </div>
               </div>
@@ -158,12 +158,12 @@
       <div class="col-md-12">
         <div class="row">
           <?php foreach ($program as $prg) : ?>
-            <div class="col-md-4 my-3">
+            <div class="col-md-4 my-3 mx-auto">
               <div class="program-box">
-                <img src="/admin_assets/galeri/<?= $prg->sumber ?>" alt="com">
+                <img src="<?= base_url("Web/img_thumb/$prg->sumber") ?>" alt="com">
                 <div class="program-overlay">
                   <div class="program-link"><a href="/web/detail_program_kegiatan/<?= $prg->id ?>" class="fw-bold">Lihat</a></div>
-                  <div class="program-text"><?= $prg->judul ?></div>
+                  <div class="program-text text-uppercase"><?= $prg->judul ?></div>
                 </div>
               </div>
             </div>

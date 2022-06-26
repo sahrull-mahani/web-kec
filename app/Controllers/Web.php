@@ -52,16 +52,16 @@ class Web extends BaseController
     public function index()
     {
         $data = [
-            'beritaPopuler' => $this->beritaModel->get_counter(),
+            'beritaPopuler' => $this->BVModel->get_counter(),
             'title'     => "Home",
             'active'    => 'home',
-            'program'   => $this->programModel->joinGaleriGroupByIdSumber()->where(['program.published_at !=' => null])->findAll(),
-            'berita'    => $this->beritaModel->joinGaleriThumbPublish()->findAll(),
+            'berita'    => $this->beritaModel->joinGaleriThumbPublish()->orderBy('berita.id', 'DESC')->findAll(10),
             'pariwisata' => $this->pariwisataModel->joinGaleriGroupByIdSumber()->findAll(),
+            'program'   => $this->programModel->joinGaleriGroupByIdSumber()->where(['program.published_at !=' => null])->findAll(),
             'agenda'    => $this->agendaSidebar
         ];
 
-        dd($data['beritaPopuler']);
+        // dd($data['pariwisata']);
         return view("App\Views\web\home", $data);
     }
 
@@ -69,7 +69,8 @@ class Web extends BaseController
     {
         $data = [
             'agenda'    => $this->agendaSidebar,
-            'beritaPopuler' => $this->beritaModel->get_counter(),
+            'beritaPopuler' => $this->BVModel->get_counter(),
+            'pariwisata' => $this->pariwisataModel->joinGaleriGroupByIdSumber()->findAll(),
             'title'     => "Sekilas Kaidipang",
             'active'    => 'tentang'
         ];
@@ -80,7 +81,7 @@ class Web extends BaseController
     {
         $data = [
             'agenda'    => $this->agendaSidebar,
-            'beritaPopuler' => $this->beritaModel->get_counter(),
+            'beritaPopuler' => $this->BVModel->get_counter(),
             'pariwisata' => $this->pariwisataModel->joinGaleriGroupByIdSumber()->findAll(),
             'title'     => "Daftar Obyek Wisata",
             'active'    => 'pariwisata'
@@ -93,7 +94,7 @@ class Web extends BaseController
     {
         $data = [
             'agenda'    => $this->agendaSidebar,
-            'beritaPopuler' => $this->beritaModel->get_counter(),
+            'beritaPopuler' => $this->BVModel->get_counter(),
             'title'     => "Sejarah",
             'active'    => "profil"
         ];
@@ -104,7 +105,7 @@ class Web extends BaseController
     {
         $data = [
             'agenda'    => $this->agendaSidebar,
-            'beritaPopuler' => $this->beritaModel->get_counter(),
+            'beritaPopuler' => $this->BVModel->get_counter(),
             'title'     => "Letak Geografis",
             'active'    => "profil"
         ];
@@ -115,7 +116,7 @@ class Web extends BaseController
     {
         $data = [
             'agenda'    => $this->agendaSidebar,
-            'beritaPopuler' => $this->beritaModel->get_counter(),
+            'beritaPopuler' => $this->BVModel->get_counter(),
             'title'     => "Adat & Budaya",
             'active'    => "profil"
         ];
@@ -126,7 +127,7 @@ class Web extends BaseController
     {
         $data = [
             'agenda'    => $this->agendaSidebar,
-            'beritaPopuler' => $this->beritaModel->get_counter(),
+            'beritaPopuler' => $this->BVModel->get_counter(),
             'title'     => "Visi & Misi",
             'active'    => "profil"
         ];
@@ -137,7 +138,7 @@ class Web extends BaseController
     {
         $data = [
             'agenda'    => $this->agendaSidebar,
-            'beritaPopuler' => $this->beritaModel->get_counter(),
+            'beritaPopuler' => $this->BVModel->get_counter(),
             'title'     => "Prestasi Kecamatn Kaidipang",
             'active'    => "profil"
         ];
@@ -148,7 +149,7 @@ class Web extends BaseController
     {
         $data = [
             'agenda'    => $this->agendaSidebar,
-            'beritaPopuler' => $this->beritaModel->get_counter(),
+            'beritaPopuler' => $this->BVModel->get_counter(),
             'title'     => "Struktur Organisasi",
             'active'    => "profil"
         ];
@@ -164,13 +165,13 @@ class Web extends BaseController
     {
         $keyword = $this->request->getVar('keyword');
         if ($keyword == null) {
-            $data_berita = $this->beritaModel->where(['level' => 3, 'published_at !=' => null])->paginate(3, 'berita');
+            $data_berita = $this->beritaModel->joinGaleriThumbPublish()->paginate(3, 'berita');
         } else {
-            $data_berita = $this->beritaModel->where(['level' => 3, 'published_at !=' => null])->like('judul', $keyword)->paginate(3, 'berita');
+            $data_berita = $this->beritaModel->joinGaleriThumbPublish()->like('judul', $keyword)->paginate(3, 'berita');
         }
         $data = [
             'agenda'    => $this->agendaSidebar,
-            'beritaPopuler' => $this->beritaModel->get_counter(),
+            'beritaPopuler' => $this->BVModel->get_counter(),
             'title'     => "Berita Kecamatan",
             'active'    => "publikasi",
             'keyword'   => $keyword,
@@ -190,7 +191,7 @@ class Web extends BaseController
         }
         $data = [
             'agenda'    => $this->agendaSidebar,
-            'beritaPopuler' => $this->beritaModel->get_counter(),
+            'beritaPopuler' => $this->BVModel->get_counter(),
             'title'     => "Berita Kabupaten",
             'active'    => "publikasi",
             'berita'    => $data_berita,
@@ -210,7 +211,7 @@ class Web extends BaseController
         }
         $data = [
             'agenda'    => $this->agendaSidebar,
-            'beritaPopuler' => $this->beritaModel->get_counter(),
+            'beritaPopuler' => $this->BVModel->get_counter(),
             'title'     => "Berita Provinsi",
             'active'    => "publikasi",
             'berita'    => $data_berita,
@@ -224,7 +225,7 @@ class Web extends BaseController
     {
         $data = [
             'agenda'    => $this->agendaSidebar,
-            'beritaPopuler' => $this->beritaModel->get_counter(),
+            'beritaPopuler' => $this->BVModel->get_counter(),
             'berita'    => $this->beritaModel->where('published_at !=', null)->findAll(),
             'program'   => $this->programModel->joinGaleriGroupByIdSumber()->findAll(),
             'gambar'    => $this->galeriModel->findAll(),
@@ -238,7 +239,7 @@ class Web extends BaseController
     {
         $data = [
             'agenda'    => $this->agendaSidebar,
-            'beritaPopuler' => $this->beritaModel->get_counter(),
+            'beritaPopuler' => $this->BVModel->get_counter(),
             'agendaFull' => $this->agendaModel->findAll(),
             'title'     => "Agenda",
             'active'    => "publikasi"
@@ -250,7 +251,7 @@ class Web extends BaseController
     {
         $data = [
             'agenda'    => $this->agendaSidebar,
-            'beritaPopuler' => $this->beritaModel->get_counter(),
+            'beritaPopuler' => $this->BVModel->get_counter(),
             'program'   => $this->programModel->joinGaleriGroupByIdSumber()->where('program.published_at !=', null)->findAll(),
             'title'     => "Program Kegiatan",
             'active'    => "publikasi"
@@ -262,7 +263,7 @@ class Web extends BaseController
     {
         $data = [
             'agenda'    => $this->agendaSidebar,
-            'beritaPopuler' => $this->beritaModel->get_counter(),
+            'beritaPopuler' => $this->BVModel->get_counter(),
             'title'     => "Informasi Wisatawan",
             'active'    => "publikasi"
         ];
@@ -284,7 +285,7 @@ class Web extends BaseController
         }
         $data = [
             'agenda'    => $this->agendaSidebar,
-            'beritaPopuler' => $this->beritaModel->get_counter(),
+            'beritaPopuler' => $this->BVModel->get_counter(),
             'title'     => "Potensi",
             'active'    => "potensi",
             'potensi'    => $data_potensi,
@@ -308,7 +309,7 @@ class Web extends BaseController
         }
         $data = [
             'agenda'    => $this->agendaSidebar,
-            'beritaPopuler' => $this->beritaModel->get_counter(),
+            'beritaPopuler' => $this->BVModel->get_counter(),
             'title'     => "Statistik",
             'active'    => "statistik",
             'statistik'    => $data_statistik,
@@ -331,7 +332,7 @@ class Web extends BaseController
         $berita = $this->beritaModel->where('slug', $slug)->first();
         $data = [
             'agenda'    => $this->agendaSidebar,
-            'beritaPopuler' => $this->beritaModel->get_counter(),
+            'beritaPopuler' => $this->BVModel->get_counter(),
             'title'     => str_replace("-", " ", $slug),
             'active'    => 'publikasi',
             'detail'    =>  "berita",
@@ -347,7 +348,7 @@ class Web extends BaseController
     {
         $data = [
             'agenda'    => $this->agendaSidebar,
-            'beritaPopuler' => $this->beritaModel->get_counter(),
+            'beritaPopuler' => $this->BVModel->get_counter(),
             'title'     => "Pariwisata",
             'active'    => 'publikasi',
             'detail'    => "Obyek Wisata",
@@ -361,7 +362,7 @@ class Web extends BaseController
     {
         $data = [
             'agenda'    => $this->agendaSidebar,
-            'beritaPopuler' => $this->beritaModel->get_counter(),
+            'beritaPopuler' => $this->BVModel->get_counter(),
             'title'     => "Kuliner",
             'active'    => 'publikasi',
             'detail'    => "$id Kuliner",
@@ -373,7 +374,7 @@ class Web extends BaseController
     {
         $data = [
             'agenda'    => $this->agendaSidebar,
-            'beritaPopuler' => $this->beritaModel->get_counter(),
+            'beritaPopuler' => $this->BVModel->get_counter(),
             'title'     => "Penginapan",
             'active'    => 'publikasi',
             'detail'    => "$id Penginapan",

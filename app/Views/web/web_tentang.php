@@ -14,56 +14,18 @@
 
           <h2 class="mt-5">Obyek Wisata</h2>
           <div class="featured-carousel owl-carousel">
-            <div class="item">
-              <div class="work">
-                <div class="img d-flex align-items-end justify-content-center" style="background-image: url(https://source.unsplash.com/1200x400?computer);">
-                  <div class="text w-100">
-                    <span class="cat">Wisata</span>
-                    <h3><a href="/home/detail_obwisata">Obyek Wisata Air Belanda</a></h3>
+            <?php foreach ($pariwisata as $prt) : ?>
+              <div class="item">
+                <div class="work">
+                  <div class="img d-flex align-items-end justify-content-center" style="background-image: url(<?= base_url("Web/img_medium/$prt->sumber") ?>);">
+                    <div class="text w-100">
+                      <span class="cat">Wisata</span>
+                      <h5><a href="<?= base_url("Web/img_medium/$prt->sumber") ?>" data-lightbox="masonry" data-title="image-<?= $prt->sumber ?>"><?= ucwords($prt->nama) ?></a></h5>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="item">
-              <div class="work">
-                <div class="img d-flex align-items-end justify-content-center" style="background-image: url(https://source.unsplash.com/1200x400?cafe);">
-                  <div class="text w-100">
-                    <span class="cat">Wisata</span>
-                    <h3><a href="/home/detail_obwisata">State Parks Keydupa</a></h3>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="item">
-              <div class="work">
-                <div class="img d-flex align-items-end justify-content-center" style="background-image: url(https://source.unsplash.com/1200x400?beach);">
-                  <div class="text w-100">
-                    <span class="cat">Wisata</span>
-                    <h3><a href="/home/detail_obwisata">Pantai Pinagut</a></h3>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="item">
-              <div class="work">
-                <div class="img d-flex align-items-end justify-content-center" style="background-image: url(https://source.unsplash.com/1200x400?coffee);">
-                  <div class="text w-100">
-                    <span class="cat">Wisata</span>
-                    <h3><a href="/home/detail_obwisata">Pondok Umi</a></h3>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="item">
-              <div class="work">
-                <div class="img d-flex align-items-end justify-content-center" style="background-image: url(https://source.unsplash.com/1200x400?beach);">
-                  <div class="text w-100">
-                    <span class="cat">Wisata</span>
-                    <h3><a href="/home/detail_obwisata">Pantai Batu Pinagut</a></h3>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <?php endforeach ?>
           </div>
         </div>
         <div class="col-md-12">

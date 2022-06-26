@@ -77,11 +77,11 @@
     <h4 class="widget-title style-1">Berita Populer</h4>
     <div class="widget-post-bx">
       <?php foreach ($beritaPopuler as $beritaPop) : ?>
-        <a href="/web/detail_berita/<?= str_replace(' ', '-', $beritaPop->judul)."_".$beritaPop->id ?>" class="berita-populer">
+        <a href="/web/detail_berita/<?= $beritaPop->slug."_".$beritaPop->id_berita ?>" class="berita-populer">
           <div class="row">
             <div class="col-md-6">
               <div class="img-berita-populer">
-                <img src="" alt="img-fluid">
+                <img src="<?= base_url('Web/img_thumb') .'/'. getImage($beritaPop->id_berita, 'berita_')->get()->getRow()->sumber ?>" alt="img-fluid">
               </div>
             </div>
             <div class="col-md-6">
