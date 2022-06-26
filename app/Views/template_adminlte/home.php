@@ -23,45 +23,59 @@
         <div class="container-fluid">
 
             <div class="row">
-                <div class="col-lg-4 col-6">
+                <div class="col-lg-3 col-6">
 
-                    <div class="small-box bg-info">
+                    <div class="small-box bg-primary">
                         <div class="inner">
                             <h3><?= count($berita); ?><sup style="font-size: 20px"></sup></h3>
                             <p>Berita</p>
                         </div>
                         <div class="icon">
-                            <i class="fas fa-list-alt"></i>
+                            <i class="fas fa-newspaper"></i>
                         </div>
                         <a href="<?= site_url('berita'); ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-6">
+                <div class="col-lg-3 col-6">
 
                     <div class="small-box bg-success">
                         <div class="inner">
-                            <h3><?= 30 ?><sup style="font-size: 20px"></sup></h3>
-                            <p>Photo</p>
+                            <h3><?= count($agenda) ?><sup style="font-size: 20px"></sup></h3>
+                            <p>Agenda</p>
                         </div>
                         <div class="icon">
-                            <i class="fas fa-file-image"></i>
+                            <i class="fas fa-calendar-check"></i>
                         </div>
-                        <a href="<?= site_url('photo') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="<?= site_url('agenda') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-6">
+                <div class="col-lg-3 col-6">
 
                     <div class="small-box bg-warning">
                         <div class="inner">
-                            <h3><?= 50 ?></h3>
-                            <p>Video</p>
+                            <h3><?= count($program) ?></h3>
+                            <p>Program</p>
                         </div>
                         <div class="icon">
-                            <i class="fas fa-file-video"></i>
+                            <i class="fas fa-bullhorn"></i>
                         </div>
-                        <a href="<?= site_url('video'); ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="<?= site_url('program'); ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-6">
+
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <h3><?= count($wisata) ?></h3>
+                            <p>Pariwisata</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-tree"></i>
+                        </div>
+                        <a href="<?= site_url('pariwisata'); ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
             </div>

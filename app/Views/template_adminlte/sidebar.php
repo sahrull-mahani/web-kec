@@ -31,7 +31,7 @@
                 </li>
                 <li class="nav-item <?= isset($m_open_berita) ? $m_open_berita : ''; ?>">
                     <a href="#" class="nav-link <?= isset($mm_berita) ? $mm_berita : ''; ?>">
-                        <i class="nav-icon fas fa-edit"></i>
+                        <i class="nav-icon fas fa-newspaper"></i>
                         <p>
                             Berita
                             <i class="fas fa-angle-left right"></i>
@@ -123,7 +123,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="<?= site_url('/agenda'); ?>" class="nav-link <?= isset($m_agenda) ? $m_agenda : ''; ?>">
-                        <i class="nav-icon fa fa-list"></i>
+                        <i class="nav-icon fa fa-calendar-check"></i>
                         <p>
                             Agenda
                         </p>

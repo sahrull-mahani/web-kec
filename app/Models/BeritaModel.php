@@ -91,6 +91,6 @@ class BeritaModel extends Model
 
   public function get_counter()
   {
-    return $this->db->query("SELECT b.id,bv.id_berita,judul,slug,gambar, COUNT(*) total FROM `berita_view` bv INNER JOIN `berita` b ON bv.id_berita = b.id GROUP BY id_berita ORDER BY total DESC LIMIT 3")->getResult();
+    return $this->db->query("SELECT b.id,bv.id_berita,judul,slug, COUNT(*) total FROM `berita_view` bv INNER JOIN `berita` b ON bv.id_berita = b.id GROUP BY id_berita ORDER BY total DESC LIMIT 3")->getResult();
   }
 }

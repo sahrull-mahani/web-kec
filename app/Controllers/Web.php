@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\AgendaModel;
+use App\Models\AgendaM;
 use App\Models\BeritaModel;
 use App\Models\BeritaViewModel;
 use App\Models\GaleriModel;
@@ -19,7 +19,7 @@ class Web extends BaseController
     {
         helper(['get_client_ip', 'hari_indo']);
         $this->beritaModel = new BeritaModel();
-        $this->agendaModel = new AgendaModel();
+        $this->agendaModel = new AgendaM();
         $this->programModel = new ProgramModel();
         $this->pariwisataModel = new PariwisataModel();
         $this->galeriModel = new GaleriModel();
@@ -27,7 +27,7 @@ class Web extends BaseController
         $this->statistikModel = new StatistikModel();
         $this->BVModel = new BeritaViewModel();
         $this->db = db_connect();
-        $this->agendaSidebar = $this->agendaModel->limit(5)->findAll();
+        $this->agendaSidebar = $this->agendaModel->orderBy('id', 'desc')->findAll(5);
     }
 
     public function index()
@@ -37,7 +37,7 @@ class Web extends BaseController
             'title'     => "Home",
             'active'    => 'home',
             'program'   => $this->programModel->joinGaleriGroupByIdSumber()->where(['program.published_at !='=>null])->findAll(),
-            'berita'    => $this->beritaModel->where('published_at !=', null)->findAll(),
+            'berita'    => $this->beritaModel->where('status', 1)->findAll(),
             'pariwisata'=> $this->pariwisataModel->joinGaleriGroupByIdSumber()->findAll(),
             'agenda'    => $this->agendaSidebar
         ];
