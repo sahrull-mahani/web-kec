@@ -19,7 +19,7 @@ class Statistik extends BaseController
 
     public function index()
     {
-        $this->data = array('title' => 'Statistik | Admin', 'breadcome' => 'Statistik', 'url' => 'statistik/', 'm_statistik' => 'active', 'session' => $this->session, 'validation' => \Config\Services::validation(), 'stanting' => $this->statistikm->findAll());
+        $this->data = array('title' => 'Statistik | Admin', 'breadcome' => 'Statistik', 'url' => 'statistik/', 'm_statistik' => 'active', 'session' => $this->session, 'validation' => \Config\Services::validation(), 'stanting' => $this->statistikm->findAll(), 'tahunFilter' => $this->statistikm->groupBy('tahun')->findAll());
 
         return view('App\Views\statistik\statistik_list', $this->data);
     }
@@ -96,15 +96,17 @@ class Statistik extends BaseController
 
     public function api()
     {
-        $agama = $this->statistikm->select('statistik')->selectCount('statistik', 'total')->where('bidang', 'agama')->groupBy('statistik')->findAll();
-        $pekerjaan = $this->statistikm->select('statistik')->selectCount('statistik', 'total')->where('bidang', 'pekerjaan')->groupBy('statistik')->findAll();
-        $pendidikan = $this->statistikm->select('statistik')->selectCount('statistik', 'total')->where('bidang', 'pendidikan')->groupBy('statistik')->findAll();
-        $perkawinan = $this->statistikm->select('statistik')->selectCount('statistik', 'total')->where('bidang', 'perkawinan')->groupBy('statistik')->findAll();
+        $year = $this->request->getPost('year');
+        $agama = $this->statistikm->select('statistik')->selectCount('statistik', 'total')->where('bidang', 'agama')->where('tahun', $year)->groupBy('statistik')->findAll();
+        $pekerjaan = $this->statistikm->select('statistik')->selectCount('statistik', 'total')->where('bidang', 'pekerjaan')->where('tahun', $year)->groupBy('statistik')->findAll();
+        $pendidikan = $this->statistikm->select('statistik')->selectCount('statistik', 'total')->where('bidang', 'pendidikan')->where('tahun', $year)->groupBy('statistik')->findAll();
+        $perkawinan = $this->statistikm->select('statistik')->selectCount('statistik', 'total')->where('bidang', 'perkawinan')->where('tahun', $year)->groupBy('statistik')->findAll();
         $data = [
             'statistikAgama' => $agama,
             'statistikPekerjaan' => $pekerjaan,
             'statistikPendidikan' => $pendidikan,
             'statistikPerkawinan' => $perkawinan,
+            'year'=>$year
         ];
         return json_encode($data);
     }

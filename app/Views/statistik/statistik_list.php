@@ -118,6 +118,29 @@
                     </div>
 
                     <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="card-title">Filter</div>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <select name="filter" id="filter" class="custom-select">
+                                        <?php foreach ($tahunFilter as $row) : ?>
+                                            <option value="<?= $row->tahun ?>" <?= $row->tahun == date('Y') ? 'selected' : '' ?>><?= $row->tahun ?></option>
+                                        <?php endforeach ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="col-6">
                             <div class="card">
                                 <div class="card-header">
