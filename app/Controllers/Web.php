@@ -30,20 +30,41 @@ class Web extends BaseController
         $this->agendaSidebar = $this->agendaModel->orderBy('id', 'desc')->findAll(5);
     }
 
+    public function img_thumb($file_name)
+    {
+        $filepath = WRITEPATH . 'uploads/thumbs/' . $file_name;
+        $this->response->setContentType('image/jpg,image/jpeg,image/png');
+        header('Content-Disposition: inline; filename=' . $file_name);
+        header('Content-Transfer-Encoding: binary');
+        header('Accept-Ranges: bytes');
+        readfile($filepath);
+    }
+    public function img_medium($file_name)
+    {
+        $filepath = WRITEPATH . 'uploads/img/' . $file_name;
+        $this->response->setContentType('image/jpg,image/jpeg,image/png');
+        header('Content-Disposition: inline; filename=' . $file_name);
+        header('Content-Transfer-Encoding: binary');
+        header('Accept-Ranges: bytes');
+        readfile($filepath);
+    }
+
     public function index()
     {
         $data = [
             'beritaPopuler' => $this->beritaModel->get_counter(),
             'title'     => "Home",
             'active'    => 'home',
-            'program'   => $this->programModel->joinGaleriGroupByIdSumber()->where(['program.published_at !='=>null])->findAll(),
-            'berita'    => $this->beritaModel->where('status', 1)->findAll(),
-            'pariwisata'=> $this->pariwisataModel->joinGaleriGroupByIdSumber()->findAll(),
+            'program'   => $this->programModel->joinGaleriGroupByIdSumber()->where(['program.published_at !=' => null])->findAll(),
+            'berita'    => $this->beritaModel->joinGaleriThumbPublish()->findAll(),
+            'pariwisata' => $this->pariwisataModel->joinGaleriGroupByIdSumber()->findAll(),
             'agenda'    => $this->agendaSidebar
         ];
+
+        dd($data['beritaPopuler']);
         return view("App\Views\web\home", $data);
     }
-    
+
     public function tentang()
     {
         $data = [
@@ -54,19 +75,19 @@ class Web extends BaseController
         ];
         return view("App\Views\web\web_tentang", $data);
     }
-    
+
     public function obyek_wisata()
     {
         $data = [
             'agenda'    => $this->agendaSidebar,
             'beritaPopuler' => $this->beritaModel->get_counter(),
-            'pariwisata'=> $this->pariwisataModel->joinGaleriGroupByIdSumber()->findAll(),
+            'pariwisata' => $this->pariwisataModel->joinGaleriGroupByIdSumber()->findAll(),
             'title'     => "Daftar Obyek Wisata",
             'active'    => 'pariwisata'
         ];
         return view("App\Views\web\web_obyekWisata", $data);
     }
-    
+
     // PROFIL
     public function sejarah()
     {
@@ -142,10 +163,10 @@ class Web extends BaseController
     public function berita_kecamatan()
     {
         $keyword = $this->request->getVar('keyword');
-        if($keyword == null) {
-            $data_berita = $this->beritaModel->where(['level'=> 3, 'published_at !=' => null])->paginate(3, 'berita');
-        }else {
-            $data_berita = $this->beritaModel->where(['level'=> 3, 'published_at !=' => null])->like('judul', $keyword)->paginate(3, 'berita');
+        if ($keyword == null) {
+            $data_berita = $this->beritaModel->where(['level' => 3, 'published_at !=' => null])->paginate(3, 'berita');
+        } else {
+            $data_berita = $this->beritaModel->where(['level' => 3, 'published_at !=' => null])->like('judul', $keyword)->paginate(3, 'berita');
         }
         $data = [
             'agenda'    => $this->agendaSidebar,
@@ -162,10 +183,10 @@ class Web extends BaseController
     public function berita_kabupaten()
     {
         $keyword = $this->request->getVar('keyword');
-        if($keyword == null) {
-            $data_berita = $this->beritaModel->where(['level'=> 2, 'published_at !=' => null])->paginate(3, 'berita');
-        }else {
-            $data_berita = $this->beritaModel->where(['level'=> 2, 'published_at !=' => null])->like('judul', $keyword)->paginate(3, 'berita');
+        if ($keyword == null) {
+            $data_berita = $this->beritaModel->where(['level' => 2, 'published_at !=' => null])->paginate(3, 'berita');
+        } else {
+            $data_berita = $this->beritaModel->where(['level' => 2, 'published_at !=' => null])->like('judul', $keyword)->paginate(3, 'berita');
         }
         $data = [
             'agenda'    => $this->agendaSidebar,
@@ -182,10 +203,10 @@ class Web extends BaseController
     public function berita_provinsi()
     {
         $keyword = $this->request->getVar('keyword');
-        if($keyword == null) {
-            $data_berita = $this->beritaModel->where(['level'=> 1, 'published_at !=' => null])->paginate(3, 'berita');
-        }else {
-            $data_berita = $this->beritaModel->where(['level'=> 1, 'published_at !=' => null])->like('judul', $keyword)->paginate(3, 'berita');
+        if ($keyword == null) {
+            $data_berita = $this->beritaModel->where(['level' => 1, 'published_at !=' => null])->paginate(3, 'berita');
+        } else {
+            $data_berita = $this->beritaModel->where(['level' => 1, 'published_at !=' => null])->like('judul', $keyword)->paginate(3, 'berita');
         }
         $data = [
             'agenda'    => $this->agendaSidebar,
@@ -218,7 +239,7 @@ class Web extends BaseController
         $data = [
             'agenda'    => $this->agendaSidebar,
             'beritaPopuler' => $this->beritaModel->get_counter(),
-            'agendaFull'=> $this->agendaModel->findAll(),
+            'agendaFull' => $this->agendaModel->findAll(),
             'title'     => "Agenda",
             'active'    => "publikasi"
         ];
@@ -256,9 +277,9 @@ class Web extends BaseController
     public function potensi()
     {
         $bidang = $this->request->getVar('bidang');
-        if($bidang == null) {
+        if ($bidang == null) {
             $data_potensi = $this->potensiModel->findAll();
-        }else {
+        } else {
             $data_potensi = $this->potensiModel->where('level', $bidang)->findAll();
         }
         $data = [
@@ -280,9 +301,9 @@ class Web extends BaseController
     public function statistik()
     {
         $bidang = $this->request->getVar('bidang');
-        if($bidang == null) {
+        if ($bidang == null) {
             $data_statistik = $this->statistikModel->findAll();
-        }else {
+        } else {
             $data_statistik = $this->statistikModel->where('level', $bidang)->findAll();
         }
         $data = [
@@ -331,7 +352,7 @@ class Web extends BaseController
             'active'    => 'publikasi',
             'detail'    => "Obyek Wisata",
             'pariwisata' => $this->pariwisataModel->joinGaleriGroupById()->where('pariwisata.id', $id)->first(),
-            'pariwisataLain'=> $this->pariwisataModel->where('pariwisata.id !=', $id)->findAll()
+            'pariwisataLain' => $this->pariwisataModel->where('pariwisata.id !=', $id)->findAll()
         ];
         return view("App\Views\web\publikasi\web_obwisata_detail", $data);
     }

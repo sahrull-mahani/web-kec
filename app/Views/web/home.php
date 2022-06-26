@@ -52,14 +52,14 @@
               <div class="col-md-6">
                 <a href="/web/detail_berita/<?= $brt->slug . "_" . $brt->id ?>" class="img-hover">
                   <div class="card-img-responsive">
-                    <img src="/admin_assets/galeri/<?= $brt->gambar ?>" alt="img-fluid">
+                    <img src="<?= base_url('Web/img_thumb') . "/$brt->sumber" ?>" alt="img-fluid">
                   </div>
                 </a>
               </div>
               <div class="col-md-6 mt-3">
-                <small class="text-warning text-uppercase d-block"><i class="fa fa-clock-o"></i> <?= $brt->published_at ?> WITA</small>
+                <small class="text-warning text-uppercase d-block"><i class="fa fa-clock-o"></i> <?= $brt->updated_at ?> WITA</small>
                 <h3 class="font-weight-bold"><?= $brt->judul ?></h3>
-                <?= strip_tags(html_entity_decode($brt->excerpt)) ?>
+                <?= strip_tags(html_entity_decode(substr($brt->isi_berita, 0, 250))) ?>
                 <a href="/web/detail_berita/<?= $brt->slug . "_" . $brt->id ?>">read more...</a>
               </div>
             </div>

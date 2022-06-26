@@ -16,16 +16,11 @@
 
 <div class="card-footer">
     <input type="hidden" name="id" value="<?= (isset($get->id)) ? $get->id : ''; ?>" />
-    <?php if ($status == null) : ?>
-        <?php if (is_admin()) : ?>
-            <button type="submit" id="publish" class="btn btn-success">PUBLISH</button>
-        <?php endif ?>
-        <input type='hidden' name='action' value="update" />
-        <button type="submit" class="btn btn-primary">EDIT</button>
-    <?php else : ?>
-        <input type='hidden' name='action' value="delete" />
-        <button type="submit" class="btn btn-danger">DELETE</button>
+    <?php if (is_admin()) : ?>
+        <button type="button" id="publish" class="btn btn-success">PUBLISH</button>
     <?php endif ?>
+    <input type='hidden' name='action' value="update" />
+    <button type="submit" class="btn btn-primary">EDIT</button>
 </div>
 <?= form_close(); ?>
 <script type='text/javascript'>
@@ -43,6 +38,37 @@
         'overwriteInitial': true,
         'initialPreviewAsData': true,
         'initialPreview': <?= json_encode($pics) ?>
+    })
+
+    $('.text-area').summernote({
+        onPaste: function(e) {
+            var bufferText = ((e.originalEvent || e).clipboardData || window.clipboardData).getData('Text');
+            e.preventDefault();
+            document.execCommand('insertText', false, bufferText);
+        },
+        height: 150,
+        inheritPlaceholder: true,
+        disableDragAndDrop: true,
+        codeviewFilter: false,
+        codeviewIframeFilter: true,
+        tabDisable: true,
+        popover: {
+            air: [
+                ['color', ['color']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['para', ['ul', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture']]
+            ]
+        },
+        toolbar: [
+            // [groupName, [list of button]]
+            ['style', ['bold', 'italic', 'underline']],
+            ['font', ['fontname', 'fontsize', 'fontsizeunit', 'strikethrough', 'superscript', 'subscript', 'clear']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph', 'table']],
+            ['media', ['link', 'hr']],
+        ]
     })
 
     $.fn.modal.Constructor.prototype._enforceFocus = function() {};
@@ -76,7 +102,7 @@
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
                 $.ajax({
-                    url: location.origin + "/pariwisata/save",
+                    url: location.origin + "/program/save",
                     type: 'POST',
                     data: {
                         id: '<?= $get->id ?>',

@@ -40,8 +40,12 @@ class PariwisataModel extends Model
     } else {
       $this->orderBy('id', 'asc');
     }
+    if (!is_admin()) {
+      $this->where('published_at', null);
+    }
     $this->select('pariwisata.*, g.sumber');
     $this->join('galeri g', 'g.id_sumber=pariwisata.id');
+    $this->like('g.sumber', 'pariwisata_');
     $this->groupBy('id_sumber');
   }
   public function get_datatables()

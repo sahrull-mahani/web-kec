@@ -235,7 +235,7 @@
     </div>
     <div id="modal_content" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" id="modal-size">
-            <div class="modal-content">
+            <div class="modal-content" style="font-weight: 400;">
                 <div class="modal-header">
                     <h4 class="modal-title"></h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">

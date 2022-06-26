@@ -59,6 +59,7 @@ class BeritaModel extends Model
     $this->select('berita.*, u.nama_user, g.sumber');
     $this->join('users u', 'u.id=berita.id_user');
     $this->join('galeri g', 'g.id_sumber=berita.id');
+    $this->like('g.sumber', 'berita_');
     $this->groupBy('id_sumber');
   }
   public function get_datatables()
@@ -91,6 +92,12 @@ class BeritaModel extends Model
 
   public function get_counter()
   {
-    return $this->db->query("SELECT b.id,bv.id_berita,judul,slug, COUNT(*) total FROM `berita_view` bv INNER JOIN `berita` b ON bv.id_berita = b.id GROUP BY id_berita ORDER BY total DESC LIMIT 3")->getResult();
+    return $this->select('berita.id, bv.id_berita,judul, g.sumber')->selectCount('*', 'total')->join('berita_view bv', 'bv.id_berita=berita.id')->join('galeri g', 'g.id_sumber=berita.id')->groupBy('judul')->groupBy('sumber')->findAll(3);
+    // return $this->db->query("SELECT b.id,bv.id_berita,judul,slug, COUNT(*) total FROM `berita_view` bv INNER JOIN `berita` b ON bv.id_berita = b.id GROUP BY id_berita ORDER BY total DESC LIMIT 3")->getResult();
+  }
+
+  public function joinGaleriThumbPublish()
+  {
+    return $this->where('status', 1)->like('sumber', 'berita_')->join('galeri g', 'g.id_sumber=berita.id')->groupBy('id_sumber');
   }
 }

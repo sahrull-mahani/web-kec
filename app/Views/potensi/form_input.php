@@ -57,6 +57,37 @@
         'initialPreview': <?= json_encode($pics) ?>
     })
 
+    $('.text-area').summernote({
+        onPaste: function(e) {
+            var bufferText = ((e.originalEvent || e).clipboardData || window.clipboardData).getData('Text');
+            e.preventDefault();
+            document.execCommand('insertText', false, bufferText);
+        },
+        height: 150,
+        inheritPlaceholder: true,
+        disableDragAndDrop: true,
+        codeviewFilter: false,
+        codeviewIframeFilter: true,
+        tabDisable: true,
+        popover: {
+            air: [
+                ['color', ['color']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['para', ['ul', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture']]
+            ]
+        },
+        toolbar: [
+            // [groupName, [list of button]]
+            ['style', ['bold', 'italic', 'underline']],
+            ['font', ['fontname', 'fontsize', 'fontsizeunit', 'strikethrough', 'superscript', 'subscript', 'clear']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph', 'table']],
+            ['media', ['link', 'hr']],
+        ]
+    })
+
     $.fn.modal.Constructor.prototype._enforceFocus = function() {};
     $('form').on('blur', 'input[required], input.optional, select.required', validator.checkField).on('change', 'select.required', validator.checkField).on('keypress', 'input[required][pattern]', validator.keypress);
     $('.multi.required').on('keyup blur', 'input', function() {

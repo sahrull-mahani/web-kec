@@ -21,7 +21,7 @@
             <input type='hidden' name='action' value="update" />
             <button type="submit" class="btn btn-primary">EDIT</button>
         <?php elseif (is_admin()) : ?>
-            <button type="submit" class="btn btn-success" id="approve">UPPROVE</button>
+            <button type="submit" class="btn btn-success" id="upprove">UPPROVE</button>
             <button type="submit" class="btn btn-danger" id="tolak">TOLAK</button>
         <?php endif ?>
     <?php elseif (strip_tags(strtolower($status)) == 'sudah tayang') : ?>
@@ -35,10 +35,6 @@
 <?= form_close(); ?>
 <script type='text/javascript'>
     $.fn.fileinputBsVersion = "3.3.7"; // if not set, this will be auto-derived
-    // with plugin options
-    // $("#input-id").fileinput({
-    //     'dropZoneEnabled': false
-    // })
     $("#input-edit-berita").fileinput({
         'showUpload': false,
         'showRemove': false,
@@ -52,6 +48,37 @@
         'overwriteInitial': true,
         'initialPreviewAsData': true,
         'initialPreview': <?= json_encode($pics) ?>
+    })
+
+    $('.text-area').summernote({
+        onPaste: function(e) {
+            var bufferText = ((e.originalEvent || e).clipboardData || window.clipboardData).getData('Text');
+            e.preventDefault();
+            document.execCommand('insertText', false, bufferText);
+        },
+        height: 150,
+        inheritPlaceholder: true,
+        disableDragAndDrop: true,
+        codeviewFilter: false,
+        codeviewIframeFilter: true,
+        tabDisable: true,
+        popover: {
+            air: [
+                ['color', ['color']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['para', ['ul', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture']]
+            ]
+        },
+        toolbar: [
+            // [groupName, [list of button]]
+            ['style', ['bold', 'italic', 'underline']],
+            ['font', ['fontname', 'fontsize', 'fontsizeunit', 'strikethrough', 'superscript', 'subscript', 'clear']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph', 'table']],
+            ['media', ['link', 'hr']],
+        ]
     })
 
     $.fn.modal.Constructor.prototype._enforceFocus = function() {};
@@ -72,7 +99,7 @@
 
     $('#upprove').click(function(e) {
         e.preventDefault()
-        SSwal.fire({
+        Swal.fire({
             title: 'Anda Yakin',
             text: "Approve Artikel Ini..!",
             icon: 'warning',

@@ -137,7 +137,7 @@ function readFile(url) {
     $table.on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table', function () {
         if ($table.bootstrapTable('getSelections').length > 1) {
             $single.attr('disabled', true)
-        }else{
+        } else {
             $single.prop('disabled', !$table.bootstrapTable('getSelections').length)
         }
         $remove.prop('disabled', !$table.bootstrapTable('getSelections').length)
@@ -287,7 +287,7 @@ function readFile(url) {
                                     msg: data.text
                                 })
                             } else {
-                                $.each(data.text, function(i, val) {
+                                $.each(data.text, function (i, val) {
                                     Lobibox.notify(data.type, {
                                         position: 'top right',
                                         msg: i + ' : ' + val
@@ -295,7 +295,7 @@ function readFile(url) {
                                 })
                             }
                             $('#table').bootstrapTable('refresh');
-                        },error: function (jqXHR, exception, thrownError) {
+                        }, error: function (jqXHR, exception, thrownError) {
                             ajax_error_handling(jqXHR, exception, thrownError);
                         }
                     });
@@ -415,9 +415,11 @@ function readFile(url) {
     $('form').on('blur', 'input[required], input.optional, select.required', validator.checkField).on('change', 'select.required', validator.checkField).on('keypress', 'input[required][pattern]', validator.keypress);
     $('.multi.required').on('keyup blur', 'input', function () {
         validator.checkField.apply($(this).siblings().last()[0]);
-    });
+    })
     $('.form-post-save').submit(function (e) {
         e.preventDefault();
+        $('.btn-sub').toggleClass('d-none')
+        $('.btn-load').toggleClass('d-none')
         if (!validator.checkAll($(this))) {
             return false;
         } else {
@@ -432,16 +434,16 @@ function readFile(url) {
                 success: function (response) {
                     var data = $.parseJSON(response);
                     if (data.type == "success") {
-                        Swal.fire({title: data.title, html: data.text, icon: data.type}).then((result) => {
+                        Swal.fire({ title: data.title, html: data.text, icon: data.type }).then((result) => {
                             if (result.isConfirmed)
-                            $('.btn-sub').toggleClass('d-none')
+                                $('.btn-sub').toggleClass('d-none')
                             $('.btn-load').toggleClass('d-none')
                             window.location.replace(location.origin + `/${data.redirect}`)
                         })
                     } else {
                         $('.btn-sub').toggleClass('d-none')
                         $('.btn-load').toggleClass('d-none')
-                        $.each(data.text, function(key, val) {
+                        $.each(data.text, function (key, val) {
                             Lobibox.notify(data.type, {
                                 position: 'top right',
                                 msg: `${key} : ${val}`,
@@ -452,6 +454,8 @@ function readFile(url) {
                     }
                 },
                 error: function (jqXHR, exception, thrownError) {
+                    $('.btn-sub').toggleClass('d-none')
+                    $('.btn-load').toggleClass('d-none')
                     Swal.fire({
                         title: 'Error code' + jqXHR.status,
                         html: thrownError + ', ' + exception,

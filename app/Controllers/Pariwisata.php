@@ -112,7 +112,7 @@ class Pariwisata extends BaseController
                 $files = $this->request->getFileMultiple('userfile');
                 $galeri = [];
                 $data =  array(
-                    'judul' => $this->request->getPost('nama'),
+                    'nama' => $this->request->getPost('nama'),
                 );
                 if ($this->pariwisatam->update($id, $data)) {
                     if ($files[0]->getError() !== 4) {

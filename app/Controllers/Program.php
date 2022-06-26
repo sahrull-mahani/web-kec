@@ -70,7 +70,7 @@ class Program extends BaseController
         $get = $this->program->find($id);
         $galeri = $this->galerim->galeriLikeWhere('program_', $id)->findAll();
         $this->data = array('get' => $get, 'gambar' => $galeri, 'action' => 'update', 'status' => $this->request->getPost('status'));
-        $status['html']         = view('App\Views\prgram\form_input', $this->data);
+        $status['html']         = view('App\Views\program\form_input', $this->data);
         $status['modal_title']  = '<b>Update Program : </b>' . $get->judul;
         $status['modal_size']   = 'modal-xl';
         echo json_encode($status);
@@ -149,7 +149,7 @@ class Program extends BaseController
                 }
                 echo json_encode($status);
                 break;
-            case 'upprove':
+            case 'publish':
                 $id = $this->request->getPost('id');
                 if ($this->program->update($id, ['published_at' => Time::now()])) {
                     $status['title'] = 'success';

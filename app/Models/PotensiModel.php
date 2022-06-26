@@ -47,6 +47,7 @@ class PotensiModel extends Model
     $this->select('potensi.*, g.sumber, u.nama_user');
     $this->join('galeri g', 'g.id_sumber=potensi.id');
     $this->join('users u', 'u.id=g.id_user');
+    $this->like('g.sumber', 'potensi_');
     $this->groupBy('id_sumber');
   }
   public function get_datatables()

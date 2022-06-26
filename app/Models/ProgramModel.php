@@ -51,6 +51,7 @@ class ProgramModel extends Model
     $this->select('program.*, u.nama_user, g.sumber');
     $this->join('galeri g', 'g.id_sumber=program.id');
     $this->join('users u', 'u.id=g.id_user');
+    $this->like('g.sumber', 'program_');
     $this->groupBy('id_sumber');
   }
   public function get_datatables()
