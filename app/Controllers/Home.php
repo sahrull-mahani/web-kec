@@ -2,7 +2,10 @@
 
 namespace App\Controllers;
 
+use App\Models\AgendaM;
 use App\Models\BeritaModel;
+use App\Models\PariwisataModel;
+use App\Models\ProgramModel;
 
 class Home extends BaseController
 {
@@ -10,6 +13,9 @@ class Home extends BaseController
     function __construct()
     {
         $this->beritam = new BeritaModel();
+        $this->wisatam = new PariwisataModel();
+        $this->program = new ProgramModel();
+        $this->agendam = new AgendaM();
         $this->db = db_connect();
     }
 
@@ -19,7 +25,11 @@ class Home extends BaseController
             'title' => 'Dashboard | Kec. Kaidipang',
             'statistikJS' => true,
             'berita' => $this->beritam->findAll(),
-            'm_home' => 'active'
+            'wisata' => $this->beritam->findAll(),
+            'program'=> $this->program->findAll(),
+            'agenda' => $this->agendam->findAll(),
+            'm_home' => 'active',
+            'myChart'=>true
         ];
 
         return view('App\Views\template_adminlte\home', $data);

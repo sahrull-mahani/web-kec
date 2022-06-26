@@ -40,13 +40,13 @@ $routes->get('post-berita', 'Berita::post');
 $routes->get('post-pariwisata', 'Pariwisata::post');
 $routes->get('post-program', 'Program::post');
 $routes->get('post-potensi', 'Potensi::post');
-// $routes->group('', ['filter' => 'role:users'], function ($routes) {
-//     $routes->get('post-berita', 'Berita::post');
-// });
+
+$routes->group('', ['filter' => 'role:admin'], function ($routes) {
+    $routes->get('users', 'Auth::index');
+});
 
 $routes->group('', ['namespace' => 'App\Controllers'], function ($routes) {
     // Login/out
-    $routes->get('users', 'Auth::index');
     $routes->get('login', 'Auth::login', ['as' => 'login']);
     $routes->post('log-in', 'Auth::login');
     $routes->get('logout', 'Auth::logout');

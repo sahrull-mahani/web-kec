@@ -217,10 +217,9 @@
         <!-- /.content-wrapper -->
 
         <footer class="main-footer">
-            <div class="float-right d-none d-sm-block"><b>Version</b> 3.2.0</div>
-            <strong>Copyright &copy; 2014-2021
-                <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
-            All rights reserved.
+            <div class="float-right d-none d-sm-block"><b>Version</b> 1.0.0</div>
+            <strong>Copyright &copy; <?= date('Y') ?>
+            | Website Kecamatan
         </footer>
 
         <!-- Control Sidebar -->
@@ -286,38 +285,9 @@
     <script src="<?= base_url('assets/dist/js/validator.js') ?>"></script>
     <script src="<?= base_url('assets/dist/js/main.js') ?>"></script>
     <script src="<?= base_url('assets/dist/js/script.js') ?>"></script>
-    <?php if (isset($statistikJS)) : ?>
-        <script src="<?= base_url('assets/dist/js/statistik.js') ?>"></script>
+    <?php if (isset($myChart)) : ?>
+        <script src="<?= base_url('assets/dist/js/myChart.js') ?>"></script>
     <?php endif ?>
-    <script src="<?= base_url("assets/plugins/tinymce/tinymce.min.js"); ?>"></script>
-    <script>
-        function previewImg(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    $(".img-preview")
-                        .attr("src", e.target.result)
-                        .height(100);
-                };
-                reader.readAsDataURL(input.files[0]);
-                $(".img-preview").show();
-            } else {
-                $("img-preview").hide();
-            }
-        }
-        $(".tag-with-input").select2({
-            theme: 'bootstrap4',
-            tags: true,
-            tokenSeparators: [',', ' ']
-        })
-    </script>
-
-
-
-    <script>
-        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-    </script>
 </body>
 
 </html>

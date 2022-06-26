@@ -19,7 +19,7 @@ class Statistik extends BaseController
 
     public function index()
     {
-        $this->data = array('title' => 'Statistik | Admin', 'breadcome' => 'Statistik', 'url' => 'statistik/', 'm_statistik' => 'active', 'session' => $this->session, 'validation' => \Config\Services::validation(), 'stanting' => $this->statistikm->findAll(), 'tahunFilter' => $this->statistikm->groupBy('tahun')->findAll());
+        $this->data = array('title' => 'Statistik | Admin', 'breadcome' => 'Statistik', 'url' => 'statistik/', 'm_statistik' => 'active', 'session' => $this->session, 'validation' => \Config\Services::validation(), 'stanting' => $this->statistikm->findAll(), 'tahunFilter' => $this->statistikm->groupBy('tahun')->findAll(), 'myChart'=>true);
 
         return view('App\Views\statistik\statistik_list', $this->data);
     }

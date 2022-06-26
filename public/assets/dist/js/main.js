@@ -12,6 +12,7 @@ var $edit = $('#edit')
 var $single = $('#single-edit')
 var $restore = $('#restore')
 var $publish = $('#publish')
+var $detail = $('#detail')
 var url = $('#url').val()
 function ajaxRequest(params) {
     $.get(url + 'ajax_request?' + $.param(params.data)).then(function (res) {
@@ -141,6 +142,7 @@ function readFile(url) {
         }
         $remove.prop('disabled', !$table.bootstrapTable('getSelections').length)
         $publish.prop('disabled', !$table.bootstrapTable('getSelections').length)
+        $detail.prop('disabled', !$table.bootstrapTable('getSelections').length)
         $edit.prop('disabled', !$table.bootstrapTable('getSelections').length)
         $restore.prop('disabled', !$table.bootstrapTable('getSelections').length)
     })
@@ -177,6 +179,32 @@ function readFile(url) {
             type: 'POST',
             data: {
                 id: ids
+            },
+            dataType: "html",
+            success: function (response) {
+                var data = $.parseJSON(response);
+                $('#modal_content').modal('show')
+                $('#modal_content').modal({
+                    backdrop: 'static'
+                })
+                $('.isi-modal').html(data.html)
+                $('.modal-title').html(data.modal_title)
+                $('#modal-size').addClass(data.modal_size)
+            },
+            error: function (jqXHR, exception, thrownError) {
+                ajax_error_handling(jqXHR, exception, thrownError);
+            }
+        });
+    });
+    $detail.bind('click', function (e) {
+        var ids = $.map($table.bootstrapTable('getSelections'), function (row) {
+            return row.id
+        })
+        $.ajax({
+            url: url + $(this).attr('method'),
+            type: 'POST',
+            data: {
+                id: ids,
             },
             dataType: "html",
             success: function (response) {

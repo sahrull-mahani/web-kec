@@ -16,13 +16,13 @@ class Auth extends BaseController
     }
     public function index()
     {
-        if (!$this->ionAuth->isAdmin()) {
-            $this->session->setFlashdata(
-                'message',
-                'You must be an administrator to view this page.'
-            );
-            return redirect()->to('login');
-        }
+        // if (!$this->ionAuth->isAdmin()) {
+        //     $this->session->setFlashdata(
+        //         'message',
+        //         'You must be an administrator to view this page.'
+        //     );
+        //     return redirect()->to('login');
+        // }
         $this->data = [
             'title'     => lang('Auth.index_heading'),
             'breadcome' => lang('Auth.index_subheading'),

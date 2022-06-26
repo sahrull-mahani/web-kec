@@ -80,7 +80,6 @@
             e.preventDefault()
             let icon = $(this).children().find('.fas')
             icon.toggleClass('fa-lock fa-unlock')
-            console.log(icon.attr('class'))
             if (icon.attr('class') == 'fas fa-unlock') {
                 $('input[name=password]').attr('type', 'text')
             }else{

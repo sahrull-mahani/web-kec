@@ -67,23 +67,69 @@
             </div>
             <div class="row">
 
-                <section class="col-lg-12 connectedSortable">
-
-                    <div class="card">
+                <div class="col-6">
+                    <div class="card card-outline card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">
-                                <i class="fas fa-chart-bar mr-1"></i>
-                                Statistik Stunting
-                            </h3>
-                        </div>
-                        <div class="card-body">
-                            <div class="tab-content p-0">
-                                <canvas id="myCharts"></canvas>
+                            <h3 class="card-title">Chart Agama</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
                             </div>
                         </div>
+                        <div class="card-body">
+                            <canvas id="agama"></canvas>
+                        </div>
                     </div>
+                </div>
 
-                </section>
+                <div class="col-6">
+                    <div class="card card-outline card-success">
+                        <div class="card-header">
+                            <h3 class="card-title">Chart Pekerjaan</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="pekerjaan"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="card card-outline card-info">
+                        <div class="card-header">
+                            <h3 class="card-title">Chart Pendidikan</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="pendidikan"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="card card-outline card-danger">
+                        <div class="card-header">
+                            <h3 class="card-title">Chart Perkawinan</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="perkawinan"></canvas>
+                        </div>
+                    </div>
+                </div>
 
             </div>
 

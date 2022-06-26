@@ -122,6 +122,14 @@
                     </ul>
                 </li>
                 <li class="nav-item">
+                    <a href="<?= site_url('/agenda'); ?>" class="nav-link <?= isset($m_agenda) ? $m_agenda : ''; ?>">
+                        <i class="nav-icon fa fa-list"></i>
+                        <p>
+                            Agenda
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="<?= site_url('/statistik'); ?>" class="nav-link <?= isset($m_statistik) ? $m_statistik : ''; ?>">
                         <i class="nav-icon fa fa-chart-bar"></i>
                         <p>
@@ -129,6 +137,16 @@
                         </p>
                     </a>
                 </li>
+                <?php if (is_admin()) : ?>
+                    <li class="nav-item">
+                        <a href="<?= site_url('/users'); ?>" class="nav-link <?= isset($m_users) ? $m_users : ''; ?>">
+                            <i class="nav-icon fa fa-users"></i>
+                            <p>
+                                Users
+                            </p>
+                        </a>
+                    </li>
+                <?php endif ?>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

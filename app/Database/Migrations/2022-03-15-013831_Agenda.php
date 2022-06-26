@@ -16,18 +16,19 @@ class Agenda extends Migration
                 'auto_increment' => true
             ],
             'judul'        => [
-                'type'          => 'VARCHAR',
+                'type'          => 'CHAR',
                 'constraint'    => 100
             ],
             'slug'        => [
-                'type'          => 'VARCHAR',
+                'type'          => 'CHAR',
                 'constraint'    => 255
             ],
             'isi_agenda'        => [
                 'type'          => 'TEXT'
             ],
             'lokasi'            => [
-                'type'       => 'TEXT'
+                'type'       => 'CHAR',
+                'constraint'    => 255
             ],
             'id_user'            => [
                 'type'       => 'INT',
@@ -42,6 +43,10 @@ class Agenda extends Migration
                 'null'       => true,
             ],
             'updated_at'        => [
+                'type'       => 'DATETIME',
+                'null'       => true,
+            ],
+            'deleted_at'        => [
                 'type'       => 'DATETIME',
                 'null'       => true,
             ],
