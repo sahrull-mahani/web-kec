@@ -92,6 +92,11 @@ class BeritaModel extends Model
 
   public function joinGaleriThumbPublish()
   {
-    return $this->where('status', 1)->join('galeri g', 'g.id_sumber=berita.id')->join('berita_view bv', 'bv.id_berita=berita.id');
+    return $this->select('berita.*, g.sumber, g.id_sumber')->where('status', 1)->join('galeri g', 'g.id_sumber=berita.id')->groupBy('berita.id');
+  }
+
+  public function joinUser()
+  {
+    return $this->join('users u', 'u.id=berita.id_user');
   }
 }

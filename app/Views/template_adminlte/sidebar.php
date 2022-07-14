@@ -75,6 +75,52 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item <?= isset($m_open_kuliner) ? $m_open_kuliner : ''; ?>">
+                    <a href="#" class="nav-link <?= isset($mm_kuliner) ? $mm_kuliner : ''; ?>">
+                        <i class='nav-icon bx bxs-bowl-hot'></i>
+                        <p>
+                            Kuliner
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= site_url('post-kuliner'); ?>" class="nav-link <?= isset($m_post_kuliner) ? $m_post_kuliner : ''; ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Post Kuliner</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= site_url('kuliner'); ?>" class="nav-link <?= isset($m_kuliner) ? $m_kuliner : ''; ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>List Kuliner</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item <?= isset($m_open_penginapan) ? $m_open_penginapan : ''; ?>">
+                    <a href="#" class="nav-link <?= isset($mm_penginapan) ? $mm_penginapan : ''; ?>">
+                        <i class='nav-icon bx bxs-store-alt'></i>
+                        <p>
+                            Penginapan
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= site_url('post-penginapan'); ?>" class="nav-link <?= isset($m_post_penginapan) ? $m_post_penginapan : ''; ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Post Penginapan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= site_url('penginapan'); ?>" class="nav-link <?= isset($m_penginapan) ? $m_penginapan : ''; ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>List Penginapan</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="nav-item <?= isset($m_open_program) ? $m_open_program : ''; ?>">
                     <a href="#" class="nav-link <?= isset($mm_program) ? $mm_program : ''; ?>">
                         <i class="nav-icon fas fa-bullhorn"></i>

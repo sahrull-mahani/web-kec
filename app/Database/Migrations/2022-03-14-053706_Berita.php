@@ -15,10 +15,6 @@ class Berita extends Migration
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
-            'level'       => [
-                'type'       => 'TINYINT',
-                'constraint' => 1,
-            ],
             'judul'       => [
                 'type'       => 'CHAR',
                 'constraint' => '255',

@@ -50,7 +50,7 @@
           <div class="col-md-12 mt-5 mb-3">
             <div class="row">
               <div class="col-md-6">
-                <a href="/web/detail_berita/<?= $brt->slug . "_" . $brt->id ?>" class="img-hover">
+                <a href="/web/detail_berita/<?= $brt->slug . "_" . $brt->id_sumber ?>" class="img-hover">
                   <div class="card-img-responsive">
                     <img src="<?= base_url('Web/img_thumb') . "/$brt->sumber" ?>" alt="img-fluid">
                   </div>
@@ -60,7 +60,7 @@
                 <small class="text-warning text-uppercase d-block"><i class="fa fa-clock-o"></i> <?= $brt->updated_at ?> WITA</small>
                 <h3 class="font-weight-bold"><?= $brt->judul ?></h3>
                 <?= strip_tags(html_entity_decode(substr($brt->isi_berita, 0, 250))) ?>
-                <a href="/web/detail_berita/<?= $brt->slug . "_" . $brt->id ?>">read more...</a>
+                <a href="/web/detail_berita/<?= $brt->slug . "_" . $brt->id_sumber ?>">read more...</a>
               </div>
             </div>
           </div>

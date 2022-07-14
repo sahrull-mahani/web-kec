@@ -6,7 +6,9 @@ use App\Models\AgendaM;
 use App\Models\BeritaModel;
 use App\Models\BeritaViewModel;
 use App\Models\GaleriModel;
+use App\Models\KulinerModel;
 use App\Models\PariwisataModel;
+use App\Models\PenginapanModel;
 use App\Models\PotensiModel;
 use App\Models\ProgramModel;
 use App\Models\StatistikModel;
@@ -22,6 +24,8 @@ class Web extends BaseController
         $this->agendaModel = new AgendaM();
         $this->programModel = new ProgramModel();
         $this->pariwisataModel = new PariwisataModel();
+        $this->kulinerModel = new KulinerModel();
+        $this->penginapanModel = new PenginapanModel();
         $this->galeriModel = new GaleriModel();
         $this->potensiModel = new PotensiModel();
         $this->statistikModel = new StatistikModel();
@@ -61,7 +65,6 @@ class Web extends BaseController
             'agenda'    => $this->agendaSidebar
         ];
 
-        // dd($data['pariwisata']);
         return view("App\Views\web\home", $data);
     }
 
@@ -87,6 +90,30 @@ class Web extends BaseController
             'active'    => 'pariwisata'
         ];
         return view("App\Views\web\web_obyekWisata", $data);
+    }
+
+    public function kuliner()
+    {
+        $data = [
+            'agenda'    => $this->agendaSidebar,
+            'beritaPopuler' => $this->BVModel->get_counter(),
+            'kuliner'    => $this->kulinerModel->joinGaleriGroupByIdSumber()->findAll(),
+            'title'     => "Daftar Kuliner",
+            'active'    => 'home'
+        ];
+        return view("App\Views\web\web_kuliner", $data);
+    }
+
+    public function penginapan()
+    {
+        $data = [
+            'agenda'    => $this->agendaSidebar,
+            'beritaPopuler' => $this->BVModel->get_counter(),
+            'penginapan' => $this->penginapanModel->joinGaleriGroupByIdSumber()->findAll(),
+            'title'     => "Daftar Penginapan",
+            'active'    => 'home'
+        ];
+        return view("App\Views\web\web_penginapan", $data);
     }
 
     // PROFIL
@@ -181,52 +208,52 @@ class Web extends BaseController
         return view("App\Views\web\publikasi\web_berita_kec", $data);
     }
 
-    public function berita_kabupaten()
-    {
-        $keyword = $this->request->getVar('keyword');
-        if ($keyword == null) {
-            $data_berita = $this->beritaModel->where(['level' => 2, 'published_at !=' => null])->paginate(3, 'berita');
-        } else {
-            $data_berita = $this->beritaModel->where(['level' => 2, 'published_at !=' => null])->like('judul', $keyword)->paginate(3, 'berita');
-        }
-        $data = [
-            'agenda'    => $this->agendaSidebar,
-            'beritaPopuler' => $this->BVModel->get_counter(),
-            'title'     => "Berita Kabupaten",
-            'active'    => "publikasi",
-            'berita'    => $data_berita,
-            'keyword'   => $keyword,
-            'pager'     => $this->beritaModel->pager
-        ];
-        return view("App\Views\web\publikasi\web_berita_kab", $data);
-    }
+    // public function berita_kabupaten()
+    // {
+    //     $keyword = $this->request->getVar('keyword');
+    //     if ($keyword == null) {
+    //         $data_berita = $this->beritaModel->where(['level' => 2, 'published_at !=' => null])->paginate(3, 'berita');
+    //     } else {
+    //         $data_berita = $this->beritaModel->where(['level' => 2, 'published_at !=' => null])->like('judul', $keyword)->paginate(3, 'berita');
+    //     }
+    //     $data = [
+    //         'agenda'    => $this->agendaSidebar,
+    //         'beritaPopuler' => $this->BVModel->get_counter(),
+    //         'title'     => "Berita Kabupaten",
+    //         'active'    => "publikasi",
+    //         'berita'    => $data_berita,
+    //         'keyword'   => $keyword,
+    //         'pager'     => $this->beritaModel->pager
+    //     ];
+    //     return view("App\Views\web\publikasi\web_berita_kab", $data);
+    // }
 
-    public function berita_provinsi()
-    {
-        $keyword = $this->request->getVar('keyword');
-        if ($keyword == null) {
-            $data_berita = $this->beritaModel->where(['level' => 1, 'published_at !=' => null])->paginate(3, 'berita');
-        } else {
-            $data_berita = $this->beritaModel->where(['level' => 1, 'published_at !=' => null])->like('judul', $keyword)->paginate(3, 'berita');
-        }
-        $data = [
-            'agenda'    => $this->agendaSidebar,
-            'beritaPopuler' => $this->BVModel->get_counter(),
-            'title'     => "Berita Provinsi",
-            'active'    => "publikasi",
-            'berita'    => $data_berita,
-            'keyword'   => $keyword,
-            'pager'     => $this->beritaModel->pager
-        ];
-        return view("App\Views\web\publikasi\web_berita_prov", $data);
-    }
+    // public function berita_provinsi()
+    // {
+    //     $keyword = $this->request->getVar('keyword');
+    //     if ($keyword == null) {
+    //         $data_berita = $this->beritaModel->where(['level' => 1, 'published_at !=' => null])->paginate(3, 'berita');
+    //     } else {
+    //         $data_berita = $this->beritaModel->where(['level' => 1, 'published_at !=' => null])->like('judul', $keyword)->paginate(3, 'berita');
+    //     }
+    //     $data = [
+    //         'agenda'    => $this->agendaSidebar,
+    //         'beritaPopuler' => $this->BVModel->get_counter(),
+    //         'title'     => "Berita Provinsi",
+    //         'active'    => "publikasi",
+    //         'berita'    => $data_berita,
+    //         'keyword'   => $keyword,
+    //         'pager'     => $this->beritaModel->pager
+    //     ];
+    //     return view("App\Views\web\publikasi\web_berita_prov", $data);
+    // }
 
     public function galeri()
     {
         $data = [
             'agenda'    => $this->agendaSidebar,
             'beritaPopuler' => $this->BVModel->get_counter(),
-            'berita'    => $this->beritaModel->where('published_at !=', null)->findAll(),
+            'berita'    => $this->beritaModel->where('status', 1)->findAll(),
             'program'   => $this->programModel->joinGaleriGroupByIdSumber()->findAll(),
             'gambar'    => $this->galeriModel->findAll(),
             'title'     => "Galeri",
@@ -264,6 +291,8 @@ class Web extends BaseController
         $data = [
             'agenda'    => $this->agendaSidebar,
             'beritaPopuler' => $this->BVModel->get_counter(),
+            'wisata'    => $this->pariwisataModel->joinGaleriGroupByIdSumber()->findAll(3),
+            'kuliner'   => $this->pariwisataModel->joinGaleriGroupByIdSumber()->findAll(3),
             'title'     => "Informasi Wisatawan",
             'active'    => "publikasi"
         ];
@@ -328,8 +357,8 @@ class Web extends BaseController
         $params = explode("_", $slug);
         $slug = $params[0];
         $id = $params[1];
-        $this->beritaModel->set_counter($id, get_client_ip(), $_SERVER['HTTP_USER_AGENT']);
-        $berita = $this->beritaModel->where('slug', $slug)->first();
+        $this->BVModel->set_counter($id, get_client_ip(), $_SERVER['HTTP_USER_AGENT']);
+        $berita = $this->beritaModel->select('berita.*, u.nama_user')->joinGaleriThumbPublish()->joinUser()->where('slug', $slug)->first();
         $data = [
             'agenda'    => $this->agendaSidebar,
             'beritaPopuler' => $this->BVModel->get_counter(),
@@ -338,7 +367,7 @@ class Web extends BaseController
             'detail'    =>  "berita",
             'berita'    => $berita,
             // 'user'      => $this->db->table('users')->where('id', $berita['id_user'])->get()->getRow(),
-            'beritaLain' => $this->beritaModel->where('slug !=', $slug)->orderBy('id', "DESC")->findAll(2),
+            'beritaLain' => $this->beritaModel->joinGaleriThumbPublish()->where('slug !=', $slug)->orderBy('berita.id', "DESC")->findAll(2),
             'total'     => count($this->BVModel->where(['id_berita' => $id])->findAll())
         ];
         return view("App\Views\web\publikasi\web_berita_detail", $data);
@@ -352,8 +381,9 @@ class Web extends BaseController
             'title'     => "Pariwisata",
             'active'    => 'publikasi',
             'detail'    => "Obyek Wisata",
+            'gambar'    => $this->galeriModel->galeriLikeWhere('pariwisata_', $id)->findAll(),
             'pariwisata' => $this->pariwisataModel->joinGaleriGroupById()->where('pariwisata.id', $id)->first(),
-            'pariwisataLain' => $this->pariwisataModel->where('pariwisata.id !=', $id)->findAll()
+            'pariwisataLain' => $this->pariwisataModel->joinGaleriGroupById()->where('pariwisata.id !=', $id)->findAll()
         ];
         return view("App\Views\web\publikasi\web_obwisata_detail", $data);
     }
@@ -363,11 +393,14 @@ class Web extends BaseController
         $data = [
             'agenda'    => $this->agendaSidebar,
             'beritaPopuler' => $this->BVModel->get_counter(),
-            'title'     => "Kuliner",
-            'active'    => 'publikasi',
-            'detail'    => "$id Kuliner",
+            'title'     => "Daftar Kuliner",
+            'active'    => 'home',
+            'detail'    => "Kuliner",
+            'gambar'    => $this->galeriModel->galeriLikeWhere('kuliner_', $id)->findAll(),
+            'kuliner' => $this->kulinerModel->joinGaleriGroupById()->where('kuliner.id', $id)->first(),
+            'kulinerLain' => $this->kulinerModel->joinGaleriGroupById()->where('kuliner.id !=', $id)->findAll()
         ];
-        return view("App\Views\web\publikasi\web_obwisata_detail", $data);
+        return view("App\Views\web\publikasi\web_kuliner_detail", $data);
     }
 
     public function detail_penginapan($id)
@@ -375,11 +408,42 @@ class Web extends BaseController
         $data = [
             'agenda'    => $this->agendaSidebar,
             'beritaPopuler' => $this->BVModel->get_counter(),
-            'title'     => "Penginapan",
-            'active'    => 'publikasi',
-            'detail'    => "$id Penginapan",
+            'title'     => "Daftar Penginapan",
+            'active'    => 'home',
+            'detail'    => "Penginapan",
+            'gambar'    => $this->galeriModel->galeriLikeWhere('penginapan_', $id)->findAll(),
+            'penginapan' => $this->penginapanModel->joinGaleriGroupById()->where('penginapan.id', $id)->first(),
+            'penginapanLain' => $this->penginapanModel->joinGaleriGroupById()->where('penginapan.id !=', $id)->findAll()
         ];
         return view("App\Views\web\publikasi\web_penginapan_detail", $data);
+    }
+
+    public function detail_agenda($slug)
+    {
+        $data = [
+            'agenda'    => $this->agendaSidebar,
+            'beritaPopuler' => $this->BVModel->get_counter(),
+            'title'     => "Detail Agenda",
+            'active'    => "publikasi",
+            'detail'    => "Agenda",
+            'detailAgenda' => $this->agendaModel->where('slug', $slug)->first(),
+        ];
+        return view("App\Views\web\publikasi\web_agenda_detail", $data);
+    }
+
+    public function detail_program($id)
+    {
+        $data = [
+            'agenda'    => $this->agendaSidebar,
+            'beritaPopuler' => $this->BVModel->get_counter(),
+            'title'     => "Detail Program",
+            'active'    => 'publikasi',
+            'detail'    => "Program",
+            'gambar'    => $this->galeriModel->galeriLikeWhere('program_', $id)->findAll(),
+            'program' => $this->programModel->joinGaleriGroupByIdSumber()->where('program.id', $id)->first(),
+            'programLain' => $this->programModel->joinGaleriGroupByIdSumber()->where('program.id !=', $id)->findAll()
+        ];
+        return view("App\Views\web\publikasi\web_program_detail", $data);
     }
     // END DETAIL==========================================================================>
 }

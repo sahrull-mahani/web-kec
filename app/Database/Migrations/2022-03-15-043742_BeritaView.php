@@ -20,12 +20,24 @@ class BeritaView extends Migration
                 'constraint' => 11,
             ],
             'ip_address'       => [
-                'type'       => 'VARCHAR',
+                'type'       => 'CHAR',
                 'constraint' => 100,
             ],
             'user_agent'       => [
-                'type'       => 'VARCHAR',
+                'type'       => 'CHAR',
                 'constraint' => 255,
+            ],
+            'created_at'       => [
+                'type'       => 'DATE',
+                'null'       => TRUE
+            ],
+            'updated_at'       => [
+                'type'       => 'DATE',
+                'null'       => TRUE
+            ],
+            'deleted_at'       => [
+                'type'       => 'DATE',
+                'null'       => TRUE
             ],
         ]);
         $this->forge->addKey('id', true);

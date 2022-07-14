@@ -320,6 +320,9 @@ function getHumanize($date)
     case str_contains($time, 'days') :
       $value = str_replace('days ago', 'hari yang lalu', $time);
       break;
+    case str_contains($time, 'weeks') :
+      $value = str_replace('weeks ago', 'minggu yang lalu', $time);
+      break;
     case str_contains($time, 'months') :
       $value = str_replace('months ago', 'bulan yang lalu', $time);
       break;
@@ -327,7 +330,7 @@ function getHumanize($date)
       $value = str_replace('years ago', 'tahun yang lalu', $time);
       break;
     default :
-      $value = 'Tidak Diketahui';
+      $value = $time;
       break;
   }
   

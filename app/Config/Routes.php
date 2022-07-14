@@ -38,6 +38,8 @@ $routes->add('filemanager/(:any)', 'Filemanager::run');
 
 $routes->get('post-berita', 'Berita::post');
 $routes->get('post-pariwisata', 'Pariwisata::post');
+$routes->get('post-kuliner', 'Kuliner::post');
+$routes->get('post-penginapan', 'Penginapan::post');
 $routes->get('post-program', 'Program::post');
 $routes->get('post-potensi', 'Potensi::post');
 

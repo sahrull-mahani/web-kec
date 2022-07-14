@@ -3,19 +3,14 @@
 
 <div class="container mt-4">
   <div class="row">
-    <h2>Judul</h2>
+    <h2 class="text-uppercase"><?= $detailAgenda->judul ?></h2>
     <div class="col-lg-8">
       <table class="table table-bordered">
         <tbody>
           <tr>
             <th scope="row">Tanggal</th>
             <td>:</td>
-            <td class="text-uppercase"><?= $detailAgenda->judul ?></td>
-          </tr>
-          <tr>
-            <th scope="row">Jam</th>
-            <td>:</td>
-            <td class="text-uppercase"><?= date('H.i', strtotime($detailAgenda->published_at)) ?> WITA</td>
+            <td class="text-uppercase"><?=date('d-M', strtotime($detailAgenda->published_at)) ?></td>
           </tr>
           <tr>
             <th scope="row">Agenda</th>

@@ -84,7 +84,6 @@ class Berita extends BaseController
 
                 $judul = $this->request->getPost('judul');
                 $data =  array(
-                    'level' => 3,
                     'judul' => $judul,
                     'slug' => str_replace(' ', '-', strtolower($judul)),
                     'isi_berita' => $this->request->getPost('isi'),

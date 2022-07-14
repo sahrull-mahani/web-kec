@@ -1,5 +1,9 @@
-lightbox.option({
-  'resizeDuration': 200,
-  'maxWidth' : 1100,
-  'wrapAround': true
+$(document).ready(function () {
+    $('#search').on('submit', function(e) {
+        e.preventDefault()
+        let key = $('input[name=keyword]').val()
+        if (key == 0) {
+            alert("tidak bleh kososng")
+        }
+    })
 })

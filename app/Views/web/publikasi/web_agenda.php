@@ -1,5 +1,4 @@
 <?= $this->extend("web/_template/index") ?>
-
 <?= $this->section("page-content") ?>
 
 <div class="container mt-5">

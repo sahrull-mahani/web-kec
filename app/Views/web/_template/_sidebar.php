@@ -86,6 +86,7 @@
             </div>
             <div class="col-md-6">
               <h5><?= $beritaPop->judul ?></h5>
+              <small><?= html_entity_decode(strip_tags(substr($beritaPop->isi_berita, 0, 50))) ?>...</small>
               <small class="text-dark"><i class="fa fa-eye"></i> <?= $beritaPop->total ?></small>
             </div>
           </div>

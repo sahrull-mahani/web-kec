@@ -26,10 +26,11 @@
   <link rel="stylesheet" href="/assets_new/plugin/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="/assets_new/plugin/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" integrity="sha512-ZKX+BvQihRJPA8CROKBhDNvoc2aDMOdAlcm7TUQY+35XYtrd3yh95QOOhsPDQY9QnKE0Wqag9y38OIgEvb88cA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="<?= base_url('assets_new/css/style.css') ?>">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
   <link rel="stylesheet" href="/assets_new/css/caraousel-style.css">
+  <link rel="stylesheet" href="<?= base_url('assets_new/css/carousel.css') ?>">
+  <link rel="stylesheet" href="<?= base_url('assets_new/css/style.css') ?>">
   <!-- CHAR.JS -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <!-- END CHAR.JS -->
@@ -108,45 +109,21 @@
                 Publikasi
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                <li><a class="dropdown-item" href="/web/berita_kecamatan">Berita Kecamantan Kaidipang</a></li>
-                <li><a class="dropdown-item" href="/web/berita_kabupaten">Berita Kabupaten Bolaang Mongodow Utara</a></li>
-                <li><a class="dropdown-item" href="/web/berita_provinsi">Berita Kecamantan Sulawesi Utara</a></li>
+                <li><a class="dropdown-item" href="/web/berita_kecamatan">Berita</a></li>
+                <!-- <li><a class="dropdown-item" href="/web/berita_kabupaten">Berita Kabupaten Bolaang Mongodow Utara</a></li> -->
+                <!-- <li><a class="dropdown-item" href="/web/berita_provinsi">Berita Kecamantan Sulawesi Utara</a></li> -->
                 <li><a class="dropdown-item" href="/web/galeri">Galeri</a></li>
                 <li><a class="dropdown-item" href="/web/agenda">Agenda Kegiatan</a></li>
                 <li><a class="dropdown-item" href="/web/program_kegiatan">Program Kegiatan</a></li>
                 <li><a class="dropdown-item" href="/web/info_wisatawan">Informasi Untuk Wisatawan</a></li>
               </ul>
             </li>
-            <!-- <li class="nav-item dropdown">
-              <a class="nav-link <?= $active == 'potensi' ? "active" : '' ?> dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Potensi
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                <li><a class="dropdown-item" href="/web/bidang_peristiwa">Potensi</a></li>
-                <li><a class="dropdown-item" href="/web/bidang_kelautan">Potensi Bidang Kelautan</a></li>
-                <li><a class="dropdown-item" href="/web/bidang_perdagangan">Potensi Bidang Perdagangan</a></li>
-                <li><a class="dropdown-item" href="/web/bidang_pertanian">Potensi Bidang Pertanian</a></li>
-                <li><a class="dropdown-item" href="/web/bidang_industri">Potensi Bidang Industri</a></li>
-                <li><a class="dropdown-item" href="/web/bidang_pendidikan">Potensi Bidang Pendidikan</a></li>
-              </ul>
-            </li> -->
-            <!-- <li class="nav-item dropdown">
-              <a class="nav-link <?= $active == 'statistik' ? "active" : '' ?> dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Statistik
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                <li><a class="dropdown-item" href="/web/agama">Agama</a></li>
-                <li><a class="dropdown-item" href="/web/pekerjaan">Pekerjaan</a></li>
-                <li><a class="dropdown-item" href="/web/pendidikan">Pendidikan</a></li>
-                <li><a class="dropdown-item" href="/web/status_perkawinan">Status Perkawinan</a></li>
-              </ul>
-            </li> -->
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link <?= $active == 'statistik' ? "active" : '' ?>" aria-current="page" href="/web/statistik">Statistik</a>
-            </li>
-            <li class="nav-item">
+            </li> -->
+            <!-- <li class="nav-item">
               <a class="nav-link <?= $active == 'potensi' ? "active" : '' ?>" aria-current="page" href="/web/potensi">Potensi</a>
-            </li>
+            </li> -->
             <li class="nav-item">
               <a class="nav-link <?= $active == 'tentang' ? "active" : '' ?>" aria-current="page" href="/web/tentang">Sekilas Kaidipang</a>
             </li>
@@ -260,7 +237,7 @@
   </div>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js" integrity="sha512-k2GFCTbp9rQU412BStrcD/rlwv1PYec9SNrkbQlo6RZCf75l6KcC3UwDY8H5n5hl4v77IDtIPwOk9Dqjs/mMBQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>

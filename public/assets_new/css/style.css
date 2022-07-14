@@ -849,3 +849,11 @@ blockquote.blockstyle.border-color-yellow>span.triangle:before {
 	grid-row: span 2;
 }
 /* MASONRY */
+
+
+.isi-ket {
+  text-indent: 35px;
+  line-height: 25px;
+  text-align: justify;
+  margin: 10px 0 50px;
+}

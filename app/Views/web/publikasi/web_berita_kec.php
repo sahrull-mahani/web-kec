@@ -1,4 +1,5 @@
 <?= $this->extend("web/_template/index") ?>
+<?php use CodeIgniter\I18n\Time; ?>
 <?= $this->section("page-content") ?>
 
 <div class="container mt-lg-5">
@@ -15,7 +16,7 @@
             <div class="input-group">
               <div class="input-group mb-3">
                 <input type="text" name="keyword" value="<?= $keyword != null ? $keyword : '' ?>" class="form-control" placeholder="Cari berdasarkan judul berita..." aria-label="Recipient's username" aria-describedby="button-addon2">
-                <button class="btn btn-outline-primary" type="submit" id="button-addon2"><i class="fa fa-search"></i> Cari</button>
+                <button class="btn btn-outline-primary" type="submit"><i class="fa fa-search"></i> Cari</button>
               </div>
             </div>
           </form>

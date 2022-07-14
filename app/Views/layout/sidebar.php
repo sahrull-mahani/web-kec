@@ -12,8 +12,8 @@
             <i class="fa fa-calendar" style="background:<?= $random ?>"></i>
             <div class="timeline-item">
               <h3 class="timeline-header">
-                <a href="/home/detail_agenda/<?= $agn['slug'] ?>" class="text-uppercase"><?= $agn['judul'] ?></a>
-                <span class="time-label"><i class="fa fa-clock-o"></i> <?= hariIni("D", strtotime($agn['published_at'])) . ", " . date("d-m-Y H.i", strtotime($agn['published_at'])) ?></span>
+                <a href="/home/detail_agenda/<?= $agn->slug ?>" class="text-uppercase"><?= $agn->judul ?></a>
+                <span class="time-label"><i class="fa fa-clock-o"></i> <?= hariIni("D", strtotime($agn->published_at)) . ", " . date("d-m-Y H.i", strtotime($agn->published_at)) ?></span>
               </h3>
             </div>
           </li>
