@@ -183,6 +183,14 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="<?= site_url('/pegawai'); ?>" class="nav-link <?= isset($m_statistik) ? $m_statistik : ''; ?>">
+                        <i class='nav-icon bx bx-user'></i>
+                        <p>
+                            Pegawai
+                        </p>
+                    </a>
+                </li>
                 <?php if (is_admin()) : ?>
                     <li class="nav-item">
                         <a href="<?= site_url('/users'); ?>" class="nav-link <?= isset($m_users) ? $m_users : ''; ?>">

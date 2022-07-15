@@ -118,9 +118,9 @@
                 <li><a class="dropdown-item" href="/web/info_wisatawan">Informasi Untuk Wisatawan</a></li>
               </ul>
             </li>
-            <!-- <li class="nav-item">
+            <li class="nav-item">
               <a class="nav-link <?= $active == 'statistik' ? "active" : '' ?>" aria-current="page" href="/web/statistik">Statistik</a>
-            </li> -->
+            </li>
             <!-- <li class="nav-item">
               <a class="nav-link <?= $active == 'potensi' ? "active" : '' ?>" aria-current="page" href="/web/potensi">Potensi</a>
             </li> -->
@@ -152,7 +152,7 @@
               <?php if (isset($detail)) : ?>
                 <li class="breadcrumb-item text-capitalize" aria-current="page"><?= $detail ?></li>
               <?php endif ?>
-              <li class="breadcrumb-item active" aria-current="page"><?= $title ?></li>
+              <li class="breadcrumb-item active" aria-current="page" id="breadcrumb-item-last"><?= $title ?></li>
             </ol>
           </nav>
         </div>
@@ -165,7 +165,7 @@
   <footer class="bg-dark pt-5 pb-3">
     <div class="container">
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md">
           <h6 class="text-white">Profil</h6>
           <ul class="list-group list-group-flush footer">
             <li class="list-group-item"><a href="/home/sejarah">Sejarah</a></li>
@@ -176,30 +176,17 @@
             <li class="list-group-item"><a href="/home/struktur">Struktur Organisasi & Tupoksi</a></li>
           </ul>
         </div>
-        <div class="col-md-3">
+        <div class="col-md">
           <h6 class="text-white">Publikasi</h6>
           <ul class="list-group list-group-flush footer">
-            <li class="list-group-item"><a href="/home/berita_kecamatan">Berita Kecamatan</a></li>
-            <li class="list-group-item"><a href="/home/berita_kabupaten">Berita Kabupaten</a></li>
-            <li class="list-group-item"><a href="/home/berita_provinsi">Berita Provinsi</a></li>
+            <li class="list-group-item"><a href="/home/berita_kecamatan">Berita</a></li>
             <li class="list-group-item"><a href="/home/galeri">Galeri</a></li>
             <li class="list-group-item"><a href="/home/agenda">Agenda Kegiatan</a></li>
             <li class="list-group-item"><a href="/home/program_kegiatan">Program Kegiatan</a></li>
             <li class="list-group-item"><a href="/home/info_wisatawan">Informasi Wisatawan</a></li>
           </ul>
         </div>
-        <div class="col-md-3">
-          <h6 class="text-white">Potensi</h6>
-          <ul class="list-group list-group-flush footer">
-            <li class="list-group-item"><a href="/home/bidang_perisitiwa">Potensi Bidang Peristiwa</a></li>
-            <li class="list-group-item"><a href="/home/bidang_kelautan">Potensi Bidang Kelautan</a></li>
-            <li class="list-group-item"><a href="/home/bidang_perdagangan">Potensi Bidang Perdagangan</a></li>
-            <li class="list-group-item"><a href="/home/bidang_pertanian">Potensi Bidang Pertanian</a></li>
-            <li class="list-group-item"><a href="/home/bidang_industri">Potensi Bidang Industri</a></li>
-            <li class="list-group-item"><a href="/home/bidang_pendidikan">Potensi Bidang Pendidikan</a></li>
-          </ul>
-        </div>
-        <div class="col-md-3">
+        <div class="col-md">
           <h6 class="text-white">Kontak</h6>
           <ul class="list-group list-group-flush footer">
             <li class="list-group-item d-flex justify-content-between align-items-start">
@@ -241,10 +228,14 @@
   <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js" integrity="sha512-k2GFCTbp9rQU412BStrcD/rlwv1PYec9SNrkbQlo6RZCf75l6KcC3UwDY8H5n5hl4v77IDtIPwOk9Dqjs/mMBQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"></script>
 
   <script src="/assets_new/js/caraousel-main.js"></script>
   <script src="/assets_new/js/masonry-main.js"></script>
   <script src="/assets_new/js/script.js"></script>
+  <?php if (isset($myChart)) : ?>
+    <script src="<?= base_url('assets/dist/js/myChart-front.js') ?>"></script>
+  <?php endif ?>
 </body>
 
 </html>

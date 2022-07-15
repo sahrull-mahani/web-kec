@@ -10,7 +10,7 @@
       </div>
 
       <div class="col-md-12">
-        <h4 class="d-flex justify-content-between">Obyek Wisata <small><a href="#">selengkapnya...</a></small></h4>
+        <h4 class="d-flex justify-content-between">Obyek Wisata <small><a href="/web/pariwisata">selengkapnya...</a></small></h4>
         <div class="row">
 
           <?php foreach ($wisata as $row) : ?>
@@ -27,14 +27,14 @@
         </div>
       </div>
 
-      <div class="col-md-12 mt-3">
-        <h4 class="d-flex justify-content-between">Kuliner <small><a href="#">selengkapnya...</a></small></h4>
+      <div class="col-md-12 mt-5">
+        <h4 class="d-flex justify-content-between">Kuliner <small><a href="/web/kuliner">selengkapnya...</a></small></h4>
         <div class="row">
 
-          <?php foreach ($wisata as $row) : ?>
+          <?php foreach ($kuliner as $row) : ?>
             <div class="col-md">
               <div class="card">
-                <img src="<?= base_url("Web/img_thumb/$row->sumber") ?>" class="card-img-top border-bottom" alt="Wisata">
+                <img src="<?= base_url("Web/img_thumb/$row->sumber") ?>" class="card-img-top border-bottom" alt="Kuliner">
                 <div class="card-body">
                   <h5 class="card-text"><?= $row->nama ?></h5>
                 </div>
@@ -45,14 +45,14 @@
         </div>
       </div>
 
-      <div class="col-md-12 mt-3">
-        <h4 class="d-flex justify-content-between">Penginapan <small><a href="#">selengkapnya...</a></small></h4>
+      <div class="col-md-12 mt-5">
+        <h4 class="d-flex justify-content-between">Penginapan <small><a href="/web/penginapan">selengkapnya...</a></small></h4>
         <div class="row">
 
-          <?php foreach ($wisata as $row) : ?>
+          <?php foreach ($penginapan as $row) : ?>
             <div class="col-md">
               <div class="card">
-                <img src="<?= base_url("Web/img_thumb/$row->sumber") ?>" class="card-img-top border-bottom" alt="Wisata">
+                <img src="<?= base_url("Web/img_thumb/$row->sumber") ?>" class="card-img-top border-bottom" alt="Penginapan">
                 <div class="card-body">
                   <h5 class="card-text"><?= $row->nama ?></h5>
                 </div>

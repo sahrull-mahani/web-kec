@@ -8,6 +8,7 @@ use App\Models\BeritaViewModel;
 use App\Models\GaleriModel;
 use App\Models\KulinerModel;
 use App\Models\PariwisataModel;
+use App\Models\PegawaiM;
 use App\Models\PenginapanModel;
 use App\Models\PotensiModel;
 use App\Models\ProgramModel;
@@ -30,6 +31,7 @@ class Web extends BaseController
         $this->potensiModel = new PotensiModel();
         $this->statistikModel = new StatistikModel();
         $this->BVModel = new BeritaViewModel();
+        $this->pegawaim = new PegawaiM();
         $this->db = db_connect();
         $this->agendaSidebar = $this->agendaModel->orderBy('id', 'desc')->findAll(5);
     }
@@ -177,8 +179,9 @@ class Web extends BaseController
         $data = [
             'agenda'    => $this->agendaSidebar,
             'beritaPopuler' => $this->BVModel->get_counter(),
-            'title'     => "Struktur Organisasi",
-            'active'    => "profil"
+            'struktur'  => $this->pegawaim->findAll(),
+            'title'     => 'Struktur Organisasi',
+            'active'    => 'profil'
         ];
         return view("App\Views\web\profil\web_struktur", $data);
     }
@@ -292,7 +295,8 @@ class Web extends BaseController
             'agenda'    => $this->agendaSidebar,
             'beritaPopuler' => $this->BVModel->get_counter(),
             'wisata'    => $this->pariwisataModel->joinGaleriGroupByIdSumber()->findAll(3),
-            'kuliner'   => $this->pariwisataModel->joinGaleriGroupByIdSumber()->findAll(3),
+            'kuliner'   => $this->kulinerModel->joinGaleriGroupByIdSumber()->findAll(3),
+            'penginapan'   => $this->penginapanModel->joinGaleriGroupByIdSumber()->findAll(3),
             'title'     => "Informasi Wisatawan",
             'active'    => "publikasi"
         ];
@@ -343,8 +347,23 @@ class Web extends BaseController
             'active'    => "statistik",
             'statistik'    => $data_statistik,
             'bidang'   => $bidang,
+            'myChart'   => true,
         ];
         return view('App\Views\web\web_statistik', $data);
+    }
+
+    public function api()
+    {
+        $bidang = $this->request->getPost('bidang');
+        if ($bidang == null || !isset($bidang)) {
+            return redirect('/');
+        }
+        $statistik = $this->statistikModel->select('statistik')->selectCount('statistik', 'total')->where('bidang', $bidang)->where('tahun', date('Y'))->groupBy('statistik')->findAll();
+        $data = [
+            'statistikData' => $statistik,
+            'bidang'    => $bidang
+        ];
+        return json_encode($data);
     }
     // END STATISTIK==========================================================================>
 

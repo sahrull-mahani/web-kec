@@ -4,13 +4,13 @@
 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="https://source.unsplash.com/1290x645?computer" class="d-block w-100 img-fluid" alt="...">
+      <img src="/assets_new/img/1.jpg" class="d-block w-100 img-fluid" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="https://source.unsplash.com/1290x645?office" class="d-block w-100 img-fluid" alt="...">
+      <img src="/assets_new/img/2.jpg" class="d-block w-100 img-fluid" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="https://source.unsplash.com/1290x645?coffee" class="d-block w-100 img-fluid" alt="...">
+      <img src="/assets_new/img/3.jpg" class="d-block w-100 img-fluid" alt="...">
     </div>
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
@@ -29,17 +29,17 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-body">
-              <h3 class="mb-15 title">Lorem ipsum dolor sit amet.</h3>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. In dolore quisquam earum,
-              nihil recusandae eos iusto vero corrupti, optio possimus delectus, soluta repellat
-              distinctio magnam saepe labore at? Sunt, laboriosam?
+              <h3 class="mb-15 title">Sambutan Camat Kaidipang Kabupaten Bengkalis.</h3>
+              <p class="text-justify mb-5">
+                Website ini dimaksudkan sebagai sarana publikasi untuk memberikan Informasi dan gambaran tentang potensi Kecamatan Kaidipang Kabupaten Bolaang Mongondow Utara serta meningkatkan pelayanan kepada masyarakat untuk mengakses informasi. Melalui keberadaan website ini kiranya masyarakat dapat mengetahui seluruh informasi tentang kebijakan Pemerintah Kabupaten Bolaang Mongondow Utara, khususnya Kecamatan Kaidipang.
+              </p>
               <div class="d-flex mt-2">
                 <div class="flex-shrink-0">
-                  <img src="https://camatrupat.bengkaliskab.go.id/camat.png" alt="John Doe" class="mr-3 rounded-circle" style="width:60px;">
+                  <img src="https://source.unsplash.com/300x300?person" alt="Camat Kaidipang" class="mr-3 rounded-circle" style="width:60px;">
                 </div>
                 <div class="flex-grow-1 ms-3">
-                  <h5 class="mb-0">Lorem ipsum dolor sit amet.</h5>
-                  <p>Lorem, ipsum dolor.</p>
+                  <h5 class="mb-0">Kamdin Thalib, Gelar</h5>
+                  <p class="text-muted">Camat Kaidipang</p>
                 </div>
               </div>
             </div>
@@ -92,7 +92,7 @@
                 <div class="img d-flex align-items-end justify-content-center" style="background-image: url(<?= base_url("Web/img_medium/$prt->sumber") ?>);">
                   <div class="text w-100">
                     <span class="cat">Wisata</span>
-                    <h4><a href="<?= base_url("Web/img_medium/$prt->sumber") ?>" data-lightbox="masonry" data-title="image-<?= $prt->sumber ?>"><?= ucwords($prt->nama) ?></a></h4>
+                    <h4><a href="/web/detail_obwisata/<?= $prt->id_sumber ?>"><?= ucwords($prt->nama) ?></a></h4>
                   </div>
                 </div>
               </div>
