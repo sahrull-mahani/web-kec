@@ -1,5 +1,7 @@
 <?php
+
 use CodeIgniter\I18n\Time;
+
 function get_format_date_sql($date)
 {
   $tgl = new DateTime($date);
@@ -307,32 +309,117 @@ function getImage($id, $like)
 function getHumanize($date)
 {
   $time = Time::parse($date)->humanize();
-  switch($time) {
-    case str_contains($time, 'second') :
+  switch ($time) {
+    case str_contains($time, 'second'):
       $value = str_replace('second ago', 'detik yang lalu', $time);
       break;
-    case str_contains($time, 'minutes') :
+    case str_contains($time, 'minutes'):
       $value = str_replace('minutes ago', 'menit yang lalu', $time);
       break;
-    case str_contains($time, 'hours') :
+    case str_contains($time, 'hours'):
       $value = str_replace('hours ago', 'jam yang lalu', $time);
       break;
-    case str_contains($time, 'days') :
+    case str_contains($time, 'days'):
       $value = str_replace('days ago', 'hari yang lalu', $time);
       break;
-    case str_contains($time, 'weeks') :
+    case str_contains($time, 'weeks'):
       $value = str_replace('weeks ago', 'minggu yang lalu', $time);
       break;
-    case str_contains($time, 'months') :
+    case str_contains($time, 'months'):
       $value = str_replace('months ago', 'bulan yang lalu', $time);
       break;
-    case str_contains($time, 'years') :
+    case str_contains($time, 'years'):
       $value = str_replace('years ago', 'tahun yang lalu', $time);
       break;
-    default :
+    default:
       $value = $time;
       break;
   }
-  
+
   return $value;
+}
+
+function get_visitor_for_today()
+{
+  $db = db_connect();
+  $query = $db->query('SELECT Count(ip_address) as visits FROM visitor_log WHERE CURDATE()=DATE(access_date)')->getRow();
+  return $query->visits;
+}
+function get_visitor_for_last_week()
+{
+  $db = db_connect();
+  // $query = $db->query('SELECT Count(ip_address) as visits FROM visitor_log  WHERE DATE(access_date) >= CURDATE() - INTERVAL DAYOFWEEK(CURDATE())+6 DAY AND DATE(access_date) < CURDATE() - INTERVAL DAYOFWEEK(CURDATE())-1 DAY')->getRow();
+  $query = $db->query('SELECT Count(ip_address) as visits FROM visitor_log  WHERE DATE(access_date) >= CURDATE() - 7')->getRow();
+  return $query->visits;
+}
+function get_total_visitor()
+{
+  $db = db_connect();
+  $query = $db->query('SELECT Count(ip_address) as visits FROM visitor_log')->getRow();
+  return $query->visits;
+}
+function get_hit_for_today()
+{
+  $db = db_connect();
+  $query = $db->query('SELECT SUM(no_of_visits) as hits FROM visitors WHERE CURDATE()=DATE(access_date) GROUP BY requested_url')->getRow();
+  return $query->hits;
+}
+function get_hit_for_last_week()
+{
+  $db = db_connect();
+  // $query = $db->query('SELECT SUM(no_of_visits) as hits FROM visitors  WHERE DATE(access_date) >= CURDATE() - INTERVAL DAYOFWEEK(CURDATE())+6 DAY AND DATE(access_date) < CURDATE() - INTERVAL DAYOFWEEK(CURDATE())-1 DAY')->getRow();
+  $query = $db->query('SELECT SUM(no_of_visits) as hits FROM visitors  WHERE DATE(access_date) >= CURDATE() - 7 GROUP BY requested_url')->getRow();
+  return $query->hits;
+}
+function get_total_hit()
+{
+  $db = db_connect();
+  $query = $db->query('SELECT SUM(no_of_visits) as hits FROM visitors GROUP BY requested_url')->getRow();
+  return $query->hits;
+}
+function count_pengunjung_by_time($status)
+{
+  switch ($status) {
+    case "tahun":
+      $b = "WHERE YEAR(access_date) = " . date('Y');
+      break;
+    case "bulan":
+      $b = "WHERE MONTH(access_date) = " . date('m');
+      break;
+    case "minggu":
+      $b = "WHERE YEARWEEK(access_date)=YEARWEEK(NOW())";
+      break;
+    case "hari":
+      $b = "WHERE CURDATE()=DATE(access_date)";
+      break;
+    default:
+      $b = '';
+      break;
+  }
+  $db = db_connect();
+  $q = $db->query("SELECT Count(ip_address) as visits FROM visitor_log $b")->getRow();
+  return $q->visits;
+}
+function count_hits_by_time($status)
+{
+  switch ($status) {
+    case "tahun":
+      $b = "WHERE YEAR(access_date) = " . date('Y');
+      break;
+    case "bulan":
+      $b = "WHERE MONTH(access_date) = " . date('m');
+      break;
+    case "minggu":
+      $b = "WHERE YEARWEEK(access_date)=YEARWEEK(NOW())";
+      break;
+    case "hari":
+      $b = "WHERE CURDATE()=DATE(access_date)";
+      break;
+    default:
+      $b = '';
+      break;
+  }
+  $db = db_connect();
+  $q = $db->query("SELECT SUM(no_of_visits) as hits FROM page_log $b")->getRow();
+  return $q->hits;
 }

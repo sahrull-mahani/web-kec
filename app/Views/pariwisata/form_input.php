@@ -4,6 +4,10 @@
         <label for="nama">Nama Wisata</label>
         <input type="text" class="form-control" id="nama" name="nama" value="<?= (isset($get->nama)) ? $get->nama : ''; ?>" placeholder="Nama Wisata" required />
     </div>
+    <div class="form-group item">
+        <label for="keterangan">Ketrangan</label>
+        <textarea name="ketrangan" id="ketrangan" cols="30" rows="10" placeholder="Ketrangan Tempat Wisata" required><?= (isset($get->keterangan)) ? $get->keterangan : ''; ?></textarea>
+    </div>
     <input id="input-edit-pariwisata" type="file" name="userfile[]" accept=".jpg, .png, image/jpeg, image/png" multiple>
 </div>
 <?php foreach ($gambar as $pic) {

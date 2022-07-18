@@ -82,6 +82,7 @@ class Pariwisata extends BaseController
 
                 $data =  array(
                     'nama' => $this->request->getVar('nama'),
+                    'keterangan' => $this->request->getVar('keterangan'),
                     'published_at' => null
                 );
                 if ($this->pariwisatam->insert($data)) {
@@ -118,8 +119,10 @@ class Pariwisata extends BaseController
                     if ($files[0]->getError() !== 4) {
                         $get = $this->galerim->where('id_sumber', $id)->findAll();
                         foreach ($get as $pic) {
-                            unlink(WRITEPATH . "uploads/img/$pic->sumber"); // delete terlebih dahulu
-                            unlink(WRITEPATH . "uploads/thumbs/$pic->sumber"); // delete terlebih dahulu
+                            if (file_exists(WRITEPATH . "uploads/img/$pic->sumber") && file_exists(WRITEPATH . "uploads/thumbs/$pic->sumber")) {
+                                unlink(WRITEPATH . "uploads/img/$pic->sumber"); // delete terlebih dahulu
+                                unlink(WRITEPATH . "uploads/thumbs/$pic->sumber"); // delete terlebih dahulu
+                            }
                         }
                         $this->galerim->where('id_sumber', $id)->delete(); // delete dari database
                         foreach ($files as $pic) { // masukan gambar baru
@@ -168,16 +171,20 @@ class Pariwisata extends BaseController
                     foreach ($id as $aidi) {
                         $get = $this->galerim->where('id_sumber', $aidi)->findAll();
                         foreach ($get as $pic) {
-                            unlink(WRITEPATH . "uploads/img/$pic->sumber"); // delete terlebih dahulu
-                            unlink(WRITEPATH . "uploads/thumbs/$pic->sumber"); // delete terlebih dahulu
+                            if (file_exists(WRITEPATH . "uploads/img/$pic->sumber") && file_exists(WRITEPATH . "uploads/thumbs/$pic->sumber")) {
+                                unlink(WRITEPATH . "uploads/img/$pic->sumber"); // delete terlebih dahulu
+                                unlink(WRITEPATH . "uploads/thumbs/$pic->sumber"); // delete terlebih dahulu
+                            }
                         }
                         $ids[] = $aidi;
                     }
                 }else{
                     $get = $this->galerim->where('id_sumber', $id)->findAll();
                     foreach ($get as $pic) {
-                        unlink(WRITEPATH . "uploads/img/$pic->sumber"); // delete terlebih dahulu
-                        unlink(WRITEPATH . "uploads/thumbs/$pic->sumber"); // delete terlebih dahulu
+                        if (file_exists(WRITEPATH . "uploads/img/$pic->sumber") && file_exists(WRITEPATH . "uploads/thumbs/$pic->sumber")) {
+                            unlink(WRITEPATH . "uploads/img/$pic->sumber"); // delete terlebih dahulu
+                            unlink(WRITEPATH . "uploads/thumbs/$pic->sumber"); // delete terlebih dahulu
+                        }
                     }
                     $ids = $id;
                 }

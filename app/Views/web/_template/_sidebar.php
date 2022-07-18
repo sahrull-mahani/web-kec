@@ -34,32 +34,32 @@
           <tr>
             <td><i class="fa fa-eye"></i> Hari ini</td>
             <td>:</td>
-            <td>25</td>
+            <td><?= get_visitor_for_today() ?></td>
           </tr>
           <tr>
             <td><i class="fa fa-eye"></i> Minggu Ini</td>
             <td>:</td>
-            <td>280</td>
+            <td><?= get_visitor_for_last_week() ?></td>
           </tr>
           <tr>
             <td><i class="fa fa-users"></i> Total Pengunjung</td>
             <td>:</td>
-            <td>1580</td>
+            <td><?= get_total_visitor() ?></td>
           </tr>
           <tr>
             <td><i class="fa fa-users"></i> HIT Hari Ini</td>
             <td>:</td>
-            <td>1580</td>
+            <td><?= get_hit_for_today() ?></td>
           </tr>
           <tr>
             <td><i class="fa fa-users"></i> HIT Minggu Ini</td>
             <td>:</td>
-            <td>1580</td>
+            <td><?= get_hit_for_last_week() ?></td>
           </tr>
           <tr>
             <td><i class="fa fa-users"></i> Total HIT</td>
             <td>:</td>
-            <td>1580</td>
+            <td><?= get_total_hit() ?></td>
           </tr>
           <tr>
             <td><i class="fa fa-users"></i> IP Anda</td>

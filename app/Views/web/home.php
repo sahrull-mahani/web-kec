@@ -29,7 +29,7 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-body">
-              <h3 class="mb-15 title">Sambutan Camat Kaidipang Kabupaten Bengkalis.</h3>
+              <h3 class="mb-15 title">Sambutan Camat Kaidipang Kabupaten Bolaang Mongondow Utara.</h3>
               <p class="text-justify mb-5">
                 Website ini dimaksudkan sebagai sarana publikasi untuk memberikan Informasi dan gambaran tentang potensi Kecamatan Kaidipang Kabupaten Bolaang Mongondow Utara serta meningkatkan pelayanan kepada masyarakat untuk mengakses informasi. Melalui keberadaan website ini kiranya masyarakat dapat mengetahui seluruh informasi tentang kebijakan Pemerintah Kabupaten Bolaang Mongondow Utara, khususnya Kecamatan Kaidipang.
               </p>

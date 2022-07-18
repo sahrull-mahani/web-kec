@@ -4,6 +4,8 @@ namespace Config;
 
 use CodeIgniter\Events\Events;
 use CodeIgniter\Exceptions\FrameworkException;
+use App\Libraries\VisitorTracker;
+
 
 /*
  * --------------------------------------------------------------------
@@ -48,3 +50,6 @@ Events::on('pre_system', static function () {
         Services::toolbar()->respond();
     }
 });
+
+$visitorTracker = new VisitorTracker();
+Events::on('post_controller_constructor', [$visitorTracker, 'track_visitor']);
