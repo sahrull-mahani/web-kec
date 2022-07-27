@@ -78,6 +78,7 @@ class Web extends BaseController
             'agenda'    => $this->agendaSidebar,
             'beritaPopuler' => $this->BVModel->get_counter(),
             'pariwisata' => $this->pariwisataModel->joinGaleriGroupByIdSumber()->findAll(),
+            'sekilas'   => $this->profilm->find(5),
             'title'     => "Sekilas Kaidipang",
             'active'    => 'tentang'
         ];

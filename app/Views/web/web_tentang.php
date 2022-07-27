@@ -8,9 +8,7 @@
         <div class="col-md-12">
           <h2>Tentang Kecamantan Kaidipang</h2>
 
-          <p class="text-justify text-alinea">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, mollitia! Maxime adipisci minima, expedita tempora eos illo nobis eius deserunt ad quidem quo quam placeat corrupti iste pariatur qui vero distinctio harum. Error corrupti aut delectus? Praesentium eos voluptatum dolorem quasi nemo id odio modi facilis facere ut debitis expedita odit quam ratione ipsa laboriosam sed aperiam, adipisci vitae doloribus iste voluptatibus impedit dolores earum. Atque aliquid sed eius commodi laborum quod libero distinctio assumenda, dolore sequi cupiditate deleniti quibusdam nisi tenetur blanditiis hic accusamus, quisquam iure est quasi. Itaque repellat atque, non reprehenderit perferendis voluptatibus quidem beatae dolores nam. Odit minima deleniti, nisi mollitia, harum perferendis reprehenderit, ullam ducimus numquam unde nemo dolores tenetur vel accusamus impedit corporis eligendi? At, nisi! Asperiores laudantium deleniti, labore est perferendis illum maiores dicta alias. Laborum incidunt provident, debitis qui fugit optio ad sint vitae exercitationem, hic consequuntur sit nisi corrupti assumenda ullam.
-          </p>
+          <div class="text-justify text-alinea"><?= $sekilas->body ?></div>
 
           <h2 class="mt-5">Obyek Wisata</h2>
           <div class="featured-carousel owl-carousel">
