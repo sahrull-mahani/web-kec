@@ -168,6 +168,12 @@
                     </ul>
                 </li>
                 <li class="nav-item">
+                    <a href="<?= site_url('/profil'); ?>" class="nav-link <?= isset($m_profil) ? $m_profil : ''; ?>">
+                        <i class="nav-icon fa fa-info"></i>
+                        <p>Profil</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="<?= site_url('/agenda'); ?>" class="nav-link <?= isset($m_agenda) ? $m_agenda : ''; ?>">
                         <i class="nav-icon fa fa-calendar-check"></i>
                         <p>

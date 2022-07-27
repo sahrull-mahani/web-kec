@@ -6,7 +6,9 @@
     <div class="col-lg-8 mb-10">
       <h2 class="mb-5">Adat & Budaya</h2>
 
-      </div>
+      <h4 class="text-center mb-5 text-capitalize"><?= $adat->judul ?></h4>
+      <div class="text-justify text-alinea"><?= $adat->body ?></div>
+    </div>
     <!-- SIDEBAR -->
     <div class="col-lg-4">
       <?= $this->include('web/_template/_sidebar') ?>

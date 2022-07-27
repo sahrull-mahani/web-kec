@@ -11,6 +11,7 @@ use App\Models\PariwisataModel;
 use App\Models\PegawaiM;
 use App\Models\PenginapanModel;
 use App\Models\PotensiModel;
+use App\Models\ProfilM;
 use App\Models\ProgramModel;
 use App\Models\StatistikModel;
 use CodeIgniter\I18n\Time;
@@ -32,6 +33,7 @@ class Web extends BaseController
         $this->statistikModel = new StatistikModel();
         $this->BVModel = new BeritaViewModel();
         $this->pegawaim = new PegawaiM();
+        $this->profilm = new ProfilM();
         $this->db = db_connect();
         $this->agendaSidebar = $this->agendaModel->orderBy('id', 'desc')->findAll(5);
     }
@@ -124,6 +126,7 @@ class Web extends BaseController
         $data = [
             'agenda'    => $this->agendaSidebar,
             'beritaPopuler' => $this->BVModel->get_counter(),
+            'sejarah'   => $this->profilm->find(1),
             'title'     => "Sejarah",
             'active'    => "profil"
         ];
@@ -135,6 +138,7 @@ class Web extends BaseController
         $data = [
             'agenda'    => $this->agendaSidebar,
             'beritaPopuler' => $this->BVModel->get_counter(),
+            'geografis' => $this->profilm->find(2),
             'title'     => "Letak Geografis",
             'active'    => "profil"
         ];
@@ -146,6 +150,7 @@ class Web extends BaseController
         $data = [
             'agenda'    => $this->agendaSidebar,
             'beritaPopuler' => $this->BVModel->get_counter(),
+            'adat'   => $this->profilm->find(3),
             'title'     => "Adat & Budaya",
             'active'    => "profil"
         ];
@@ -157,6 +162,7 @@ class Web extends BaseController
         $data = [
             'agenda'    => $this->agendaSidebar,
             'beritaPopuler' => $this->BVModel->get_counter(),
+            'visimisi'  => $this->profilm->find(4),
             'title'     => "Visi & Misi",
             'active'    => "profil"
         ];
