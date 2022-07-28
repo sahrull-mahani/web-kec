@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\AgendaM;
 use App\Models\BeritaModel;
 use App\Models\BeritaViewModel;
+use App\Models\CarouselM;
 use App\Models\GaleriModel;
 use App\Models\KulinerModel;
 use App\Models\PariwisataModel;
@@ -34,6 +35,7 @@ class Web extends BaseController
         $this->BVModel = new BeritaViewModel();
         $this->pegawaim = new PegawaiM();
         $this->profilm = new ProfilM();
+        $this->carouselm = new CarouselM();
         $this->db = db_connect();
         $this->agendaSidebar = $this->agendaModel->orderBy('id', 'desc')->findAll(5);
     }
@@ -63,6 +65,7 @@ class Web extends BaseController
             'beritaPopuler' => $this->BVModel->get_counter(),
             'title'     => "Home",
             'active'    => 'home',
+            'carousel' => $this->carouselm->where('status', 1)->findAll(),
             'berita'    => $this->beritaModel->joinGaleriThumbPublish()->orderBy('berita.id', 'DESC')->findAll(10),
             'pariwisata' => $this->pariwisataModel->joinGaleriGroupByIdSumber()->findAll(),
             'program'   => $this->programModel->joinGaleriGroupByIdSumber()->where(['program.published_at !=' => null])->findAll(),

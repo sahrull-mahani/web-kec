@@ -3,15 +3,11 @@
 
 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="/assets_new/img/1.jpg" class="d-block w-100 img-fluid" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="/assets_new/img/2.jpg" class="d-block w-100 img-fluid" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="/assets_new/img/3.jpg" class="d-block w-100 img-fluid" alt="...">
-    </div>
+    <?php foreach ($carousel as $key => $row) : ?>
+      <div class="carousel-item <?= $key == 0 ? 'active' : '' ?>">
+        <img src="<?= site_url("Web/img_medium/$row->gambar") ?>" class="d-block w-100 img-fluid" alt="...">
+      </div>
+    <?php endforeach ?>
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
