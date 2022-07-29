@@ -79,7 +79,7 @@
     </header>
     <nav class="bd-subnavbar navbar navbar-expand-md navbar-dark fixed-top bg-custom-1">
       <div class="container">
-        <a class="navbar-brand" href="/">Kecamatan Bolangitang Barat</a>
+        <a class="navbar-brand" href="/">Kecamatan Bolangitang Timur</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -100,7 +100,7 @@
                 <li><a class="dropdown-item" href="/web/geografis">Letak Geografis</a></li>
                 <li><a class="dropdown-item" href="/web/adat_budaya">Adat & Budaya</a></li>
                 <li><a class="dropdown-item" href="/web/visi_misi">Visi & Misi</a></li>
-                <li><a class="dropdown-item" href="/web/prestasi">Prestasi Bolangitang Barat</a></li>
+                <li><a class="dropdown-item" href="/web/prestasi">Prestasi Bolangitang Timur</a></li>
                 <li><a class="dropdown-item" href="/web/struktur">Struktur Organisasi & Kepegawaian</a></li>
               </ul>
             </li>
@@ -125,7 +125,7 @@
               <a class="nav-link <?= $active == 'potensi' ? "active" : '' ?>" aria-current="page" href="/web/potensi">Potensi</a>
             </li> -->
             <li class="nav-item">
-              <a class="nav-link <?= $active == 'tentang' ? "active" : '' ?>" aria-current="page" href="/web/tentang">Sekilas Bolangitang Barat</a>
+              <a class="nav-link <?= $active == 'tentang' ? "active" : '' ?>" aria-current="page" href="/web/tentang">Sekilas Bolangitang Timur</a>
             </li>
           </ul>
 
@@ -172,7 +172,7 @@
             <li class="list-group-item"><a href="/home/geografis">Letak Geografis</a></li>
             <li class="list-group-item"><a href="/home/adat_budaya">Adat & Budaya</a></li>
             <li class="list-group-item"><a href="/home/visi_misi">Visi & Misi</a></li>
-            <li class="list-group-item"><a href="/home/prestasi">Prestasi Bolangitang Barat</a></li>
+            <li class="list-group-item"><a href="/home/prestasi">Prestasi Bolangitang Timur</a></li>
             <li class="list-group-item"><a href="/home/struktur">Struktur Organisasi & Tupoksi</a></li>
           </ul>
         </div>
@@ -192,19 +192,19 @@
             <li class="list-group-item d-flex justify-content-between align-items-start">
               <div class="ms-2 me-auto">
                 <div class="fw-bold"><i class="fa fa-map-marker"></i> Alamat</div>
-                Kec. Bolangitang Barat Kab. Bolaang Mongondow Utara
+                Kec. Bolangitang Timur Kab. Bolaang Mongondow Utara
               </div>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-start">
               <div class="ms-2 me-auto">
                 <div class="fw-bold"><i class="fa fa-envelope"></i> Email</div>
-                camatBolangitang Barat@gmail.com
+                camatBolangitang Timur@gmail.com
               </div>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-start">
               <div class="ms-2 me-auto">
                 <div class="fw-bold"><i class="fa fa-globe"></i> Website</div>
-                camatBolangitang Barat.bolmutkab.go.id
+                camatBolangitang Timur.bolmutkab.go.id
               </div>
             </li>
           </ul>
@@ -220,7 +220,7 @@
     </div>
   </footer>
   <div class="footer-bottom py-3">
-    <p class="m-0">Copyright &copy; <?= date("Y") ?> | Kecamatan Bolangitang Barat Kabupaten Bolaang Mongondow Utaran</p class="m-0">
+    <p class="m-0">Copyright &copy; <?= date("Y") ?> | Kecamatan Bolangitang Timur Kabupaten Bolaang Mongondow Utaran</p class="m-0">
   </div>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

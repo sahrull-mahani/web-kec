@@ -195,7 +195,7 @@ a.dropdown-item:hover, a.dropdown-item:hover::before {
 
 /*COLOR CUSTOM*/
 .bg-custom-1 {
-  background-color: #251D3A !important;
+  background-color: #E8AA42 !important;
 }
 .bg-custom-2 {
   background-color: #2FA4FF !important;
@@ -249,7 +249,7 @@ a.dropdown-item:hover, a.dropdown-item:hover::before {
   outline: none;
   border-radius: 25px;
   transition: all .5s ease-in-out;
-  background-color: #22a6b3;
+  background-color: #231955;
   padding-right: 40px;
   color:#fff;
 }
