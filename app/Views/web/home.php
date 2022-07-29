@@ -25,17 +25,17 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-body">
-              <h3 class="mb-15 title">Sambutan Camat Bintauna Kabupaten Bolaang Mongondow Utara.</h3>
+              <h3 class="mb-15 title">Sambutan Camat Bolangitang Barat Kabupaten Bolaang Mongondow Utara.</h3>
               <p class="text-justify mb-5">
-                Website ini dimaksudkan sebagai sarana publikasi untuk memberikan Informasi dan gambaran tentang potensi Kecamatan Bintauna Kabupaten Bolaang Mongondow Utara serta meningkatkan pelayanan kepada masyarakat untuk mengakses informasi. Melalui keberadaan website ini kiranya masyarakat dapat mengetahui seluruh informasi tentang kebijakan Pemerintah Kabupaten Bolaang Mongondow Utara, khususnya Kecamatan Bintauna.
+                Website ini dimaksudkan sebagai sarana publikasi untuk memberikan Informasi dan gambaran tentang potensi Kecamatan Bolangitang Barat Kabupaten Bolaang Mongondow Utara serta meningkatkan pelayanan kepada masyarakat untuk mengakses informasi. Melalui keberadaan website ini kiranya masyarakat dapat mengetahui seluruh informasi tentang kebijakan Pemerintah Kabupaten Bolaang Mongondow Utara, khususnya Kecamatan Bolangitang Barat.
               </p>
               <div class="d-flex mt-2">
                 <div class="flex-shrink-0">
-                  <img src="https://source.unsplash.com/300x300?person" alt="Camat Bintauna" class="mr-3 rounded-circle" style="width:60px;">
+                  <img src="https://source.unsplash.com/300x300?person" alt="Camat Bolangitang Barat" class="mr-3 rounded-circle" style="width:60px;">
                 </div>
                 <div class="flex-grow-1 ms-3">
                   <h5 class="mb-0">Kamdin Thalib, Gelar</h5>
-                  <p class="text-muted">Camat Bintauna</p>
+                  <p class="text-muted">Camat Bolangitang Barat</p>
                 </div>
               </div>
             </div>
@@ -77,7 +77,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12 text-center mb-5">
-        <h2 class="heading-section">#KecamatanBintauna</h2>
+        <h2 class="heading-section">#KecamatanBolangitang Barat</h2>
         <div class="divider-custom"></div>
       </div>
       <div class="col-md-12">
