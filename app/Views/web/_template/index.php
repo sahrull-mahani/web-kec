@@ -100,7 +100,7 @@
                 <li><a class="dropdown-item" href="/web/geografis">Letak Geografis</a></li>
                 <li><a class="dropdown-item" href="/web/adat_budaya">Adat & Budaya</a></li>
                 <li><a class="dropdown-item" href="/web/visi_misi">Visi & Misi</a></li>
-                <li><a class="dropdown-item" href="/web/prestasi">Prestasi Kaidipang</a></li>
+                <li><a class="dropdown-item" href="/web/prestasi">Prestasi Pinogaluman</a></li>
                 <li><a class="dropdown-item" href="/web/struktur">Struktur Organisasi & Kepegawaian</a></li>
               </ul>
             </li>
@@ -125,7 +125,7 @@
               <a class="nav-link <?= $active == 'potensi' ? "active" : '' ?>" aria-current="page" href="/web/potensi">Potensi</a>
             </li> -->
             <li class="nav-item">
-              <a class="nav-link <?= $active == 'tentang' ? "active" : '' ?>" aria-current="page" href="/web/tentang">Sekilas Kaidipang</a>
+              <a class="nav-link <?= $active == 'tentang' ? "active" : '' ?>" aria-current="page" href="/web/tentang">Sekilas Pinogaluman</a>
             </li>
           </ul>
 
@@ -172,7 +172,7 @@
             <li class="list-group-item"><a href="/home/geografis">Letak Geografis</a></li>
             <li class="list-group-item"><a href="/home/adat_budaya">Adat & Budaya</a></li>
             <li class="list-group-item"><a href="/home/visi_misi">Visi & Misi</a></li>
-            <li class="list-group-item"><a href="/home/prestasi">Prestasi Kaidipang</a></li>
+            <li class="list-group-item"><a href="/home/prestasi">Prestasi Pinogaluman</a></li>
             <li class="list-group-item"><a href="/home/struktur">Struktur Organisasi & Tupoksi</a></li>
           </ul>
         </div>
@@ -192,19 +192,19 @@
             <li class="list-group-item d-flex justify-content-between align-items-start">
               <div class="ms-2 me-auto">
                 <div class="fw-bold"><i class="fa fa-map-marker"></i> Alamat</div>
-                Kec. Kaidipang Kab. Bolaang Mongondow Utara
+                Kec. Pinogaluman Kab. Bolaang Mongondow Utara
               </div>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-start">
               <div class="ms-2 me-auto">
                 <div class="fw-bold"><i class="fa fa-envelope"></i> Email</div>
-                camatkaidipang@gmail.com
+                camatPinogaluman@gmail.com
               </div>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-start">
               <div class="ms-2 me-auto">
                 <div class="fw-bold"><i class="fa fa-globe"></i> Website</div>
-                camatkaidipang.bolmutkab.go.id
+                camatPinogaluman.bolmutkab.go.id
               </div>
             </li>
           </ul>
@@ -220,7 +220,7 @@
     </div>
   </footer>
   <div class="footer-bottom py-3">
-    <p class="m-0">Copyright &copy; <?= date("Y") ?> | Kecamatan Kaidipang Kabupaten Bolaang Mongondow Utaran</p class="m-0">
+    <p class="m-0">Copyright &copy; <?= date("Y") ?> | Kecamatan Pinogaluman Kabupaten Bolaang Mongondow Utaran</p class="m-0">
   </div>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
