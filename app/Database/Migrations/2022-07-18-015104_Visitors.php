@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class Visitor extends Migration
+class Visitors extends Migration
 {
     public function up()
     {
@@ -74,7 +74,7 @@ class Visitor extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->createTable('visitor');
+        $this->forge->createTable('visitor_log');
     }
 
     public function down()
