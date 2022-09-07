@@ -167,6 +167,29 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item <?= isset($m_open_kuesioner) ? $m_open_kuesioner : ''; ?>">
+                    <a href="#" class="nav-link <?= isset($mm_kuesioner) ? $mm_kuesioner : ''; ?>">
+                        <i class="nav-icon fas fa-th-large"></i>
+                        <p>
+                           Kuesioner
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= site_url('rumah_tangga'); ?>" class="nav-link <?= isset($m_rumah_tangga) ? $m_rumah_tangga: ''; ?>">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>Rumah Tangga</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= site_url('individu'); ?>" class="nav-link <?= isset($m_individu) ? $m_individu: ''; ?>">
+                                <i class="nav-icon fas fa-user"></i>
+                                <p>Individu</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="nav-item">
                     <a href="<?= site_url('/profil'); ?>" class="nav-link <?= isset($m_profil) ? $m_profil : ''; ?>">
                         <i class="nav-icon fa fa-info"></i>

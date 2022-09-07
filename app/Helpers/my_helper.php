@@ -362,20 +362,20 @@ function get_hit_for_today()
 {
   $db = db_connect();
   $query = $db->query('SELECT SUM(no_of_visits) as hits FROM visitors WHERE CURDATE()=DATE(access_date) GROUP BY requested_url')->getRow();
-  return $query->hits;
+  // return $query->hits;
 }
 function get_hit_for_last_week()
 {
   $db = db_connect();
   // $query = $db->query('SELECT SUM(no_of_visits) as hits FROM visitors  WHERE DATE(access_date) >= CURDATE() - INTERVAL DAYOFWEEK(CURDATE())+6 DAY AND DATE(access_date) < CURDATE() - INTERVAL DAYOFWEEK(CURDATE())-1 DAY')->getRow();
   $query = $db->query('SELECT SUM(no_of_visits) as hits FROM visitors  WHERE DATE(access_date) >= CURDATE() - 7 GROUP BY requested_url')->getRow();
-  return $query->hits;
+  // return $query->hits;
 }
 function get_total_hit()
 {
   $db = db_connect();
   $query = $db->query('SELECT SUM(no_of_visits) as hits FROM visitors GROUP BY requested_url')->getRow();
-  return $query->hits;
+  // return $query->hits;
 }
 function count_pengunjung_by_time($status)
 {

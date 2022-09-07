@@ -44,15 +44,16 @@ class Visitor extends Migration
             ],
             'access_date'     => [
                 'type'          => 'TIMESTAMP',
-                'default'       => time()
+                'null'          => TRUE
+
             ],
         ]);
-        $this->forge->addKey('id', true);
+        $this->forge->addKey('visitor_id', true);
         $this->forge->createTable('visitors');
 
 
         $this->forge->addField([
-            'id_visitor'        => [
+            'visitor_id'        => [
                 'type'          => 'INT',
                 'constraint'    => 11,
                 'unsign'        => true,
@@ -69,11 +70,10 @@ class Visitor extends Migration
             ],
             'access_date'     => [
                 'type'          => 'TIMESTAMP',
-                'default'       => time(),
                 'null'          => TRUE
             ],
         ]);
-        $this->forge->addKey('id', true);
+        $this->forge->addKey('visitor_id', true);
         $this->forge->createTable('visitor_log');
     }
 

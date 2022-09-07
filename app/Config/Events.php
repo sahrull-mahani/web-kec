@@ -52,4 +52,4 @@ Events::on('pre_system', static function () {
 });
 
 $visitorTracker = new VisitorTracker();
-Events::on('post_controller_constructor', [$visitorTracker, 'track_visitor']);
+// Events::on('post_controller_constructor', [$visitorTracker, 'track_visitor']);
