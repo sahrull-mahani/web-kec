@@ -71,5 +71,103 @@ $(".tag-with-input").select2({
     tokenSeparators: [',', ' ']
 })
 
+window.onload = function(){
+    document.getElementById("Lokasi").style.display='none';
+    document.getElementById("Keluarga").style.display='none';
+    document.getElementById("Permukiman").style.display='none';
+    // $("#Lokasi").hide();
+    // $("#Keluarga").hide();
+    // $("#Permukiman").hide();
+  };
+
+
+function Step() {
+    var w = document.getElementById("Enum");
+    var x = document.getElementById("Lokasi");
+    var y = document.getElementById("Keluarga");
+    var z = document.getElementById("Permukiman");
+    if (w.style.display === "none",
+        x.style.display === "none",
+        y.style.display === "none",
+        z.style.display === "none"
+        ) {
+        w.style.display = "block";
+        x.style.display = "none";
+        y.style.display = "none";
+        z.style.display = "none";
+    } else {
+        w.style.display = "none";
+        x.style.display = "block";
+        y.style.display = "block";
+        z.style.display = "block";
+    }
+}
+
+function Step2() {
+    var w = document.getElementById("Enum");
+    var x = document.getElementById("Lokasi");
+    var y = document.getElementById("Keluarga");
+    var z = document.getElementById("Permukiman");
+    if (w.style.display === "none",
+        x.style.display === "none",
+        y.style.display === "none",
+        z.style.display === "none"
+        ) {
+        w.style.display = "none";
+        x.style.display = "block";
+        y.style.display = "none";
+        z.style.display = "none";
+    } else {
+        w.style.display = "block";
+        x.style.display = "none";
+        y.style.display = "block";
+        z.style.display = "block";
+    }
+}
+
+function Step3() {
+    var w = document.getElementById("Enum");
+    var x = document.getElementById("Lokasi");
+    var y = document.getElementById("Keluarga");
+    var z = document.getElementById("Permukiman");
+    if (w.style.display === "none",
+        x.style.display === "none",
+        y.style.display === "none",
+        z.style.display === "none"
+        ) {
+        w.style.display = "none";
+        x.style.display = "none";
+        y.style.display = "block";
+        z.style.display = "none";
+    } else {
+        w.style.display = "none";
+        x.style.display = "none";
+        y.style.display = "block";
+        z.style.display = "none";
+    }  
+}
+function Step4() {
+    var w = document.getElementById("Enum");
+    var x = document.getElementById("Lokasi");
+    var y = document.getElementById("Keluarga");
+    var z = document.getElementById("Permukiman");
+    if (w.style.display === "none",
+        x.style.display === "none",
+        y.style.display === "none",
+        z.style.display === "none"
+        ) {
+        w.style.display = "none";
+        x.style.display = "none";
+        y.style.display = "none";
+        z.style.display = "block";
+    } else {
+        w.style.display = "block";
+        x.style.display = "block";
+        y.style.display = "block";
+        z.style.display = "none";
+    }
+}
+
+
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))

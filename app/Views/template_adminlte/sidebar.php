@@ -29,6 +29,189 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item <?= isset($m_open_penduduk) ? $m_open_penduduk : ''; ?>">
+                    <a href="#" class="nav-link <?= isset($mm_penduduk) ? $mm_penduduk : ''; ?>">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            Data Penduduk
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item <?= isset($m_open_jumlahpenduduk) ? $m_open_jumlahpenduduk : ''; ?>">
+                            <a href="#" class="nav-link <?= isset($mm_jumlahpenduduk) ? $mm_jumlahpenduduk : ''; ?>">
+                                <i class="nav-icon fas fa-user-plus"></i>
+                                <p>
+                                    Jumlah Penduduk
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="<?= site_url('post-jumlahpenduduk'); ?>" class="nav-link <?= isset($m_post_jumlahpenduduk) ? $m_post_jumlahpenduduk : ''; ?>">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Post Jumlah Penduduk</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= site_url('jumlahpenduduk'); ?>" class="nav-link <?= isset($m_jumlahpenduduk) ? $m_jumlahpenduduk : ''; ?>">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>List Jumlah Penduduk</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item <?= isset($m_open_keadaanpenduduk) ? $m_open_keadaanpenduduk : ''; ?>">
+                            <a href="#" class="nav-link <?= isset($mm_keadaanpenduduk) ? $mm_keadaanpenduduk : ''; ?>">
+                                <i class="nav-icon fas fa-newspaper"></i>
+                                <p>
+                                    Keadaan Penduduk
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="<?= site_url('post-keadaanpenduduk'); ?>" class="nav-link <?= isset($m_post) ? $m_post : ''; ?>">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Post Keadaan Penduduk</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= site_url('keadaanpenduduk'); ?>" class="nav-link <?= isset($m_jumlahpenduduk) ? $m_jumlahpenduduk : ''; ?>">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>List Keadaan Penduduk</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item <?= isset($m_open_datapindah) ? $m_open_datapindah : ''; ?>">
+                            <a href="#" class="nav-link <?= isset($mm_datapindah) ? $mm_datapindah : ''; ?>">
+                                <i class="nav-icon fas fa-newspaper"></i>
+                                <p>
+                                    Data Pindah
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="<?= site_url('post-datapindah'); ?>" class="nav-link <?= isset($m_post) ? $m_post : ''; ?>">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Post Data Pindah</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= site_url('datapindah'); ?>" class="nav-link <?= isset($m_datapindah) ? $m_datapindah : ''; ?>">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>List Data Pindah</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item <?= isset($m_open_datakematian) ? $m_open_datakematian : ''; ?>">
+                            <a href="#" class="nav-link <?= isset($mm_datakematian) ? $mm_datakematian : ''; ?>">
+                                <i class="nav-icon fas fa-newspaper"></i>
+                                <p>
+                                    Data Kematian
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="<?= site_url('post-datakematian'); ?>" class="nav-link <?= isset($m_post) ? $m_post : ''; ?>">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Post Data Kematian</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= site_url('datakematian'); ?>" class="nav-link <?= isset($m_datakematian) ? $m_datakematian : ''; ?>">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>List Data Kematian</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item <?= isset($m_open_datapajak) ? $m_open_datapajak : ''; ?>">
+                            <a href="#" class="nav-link <?= isset($mm_datapajak) ? $mm_datapajak : ''; ?>">
+                                <i class="nav-icon fas fa-newspaper"></i>
+                                <p>
+                                    Data Pajak
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="<?= site_url('post-datapajak'); ?>" class="nav-link <?= isset($m_post) ? $m_post : ''; ?>">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Post Data Pajak</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= site_url('datapajak'); ?>" class="nav-link <?= isset($m_datapajak) ? $m_datapajak : ''; ?>">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>List Data Pajak</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item <?= isset($m_open_kuisioner) ? $m_open_kuisioner : ''; ?>">
+                    <a href="#" class="nav-link <?= isset($mm_kuisioner) ? $mm_kuisioner : ''; ?>">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            Kuisioner
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item <?= isset($m_open_rumahtangga) ? $m_open_rumahtangga : ''; ?>">
+                            <a href="#" class="nav-link <?= isset($mm_rumahtangga) ? $mm_rumahtangga : ''; ?>">
+                                <i class="nav-icon fas fa-user-plus"></i>
+                                <p>
+                                    Rumah Tangga
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="<?= site_url('post-rumahtangga'); ?>" class="nav-link <?= isset($m_post_rumahtangga) ? $m_post_rumahtangga : ''; ?>">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Post Rumah Tangga</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= site_url('rumahtangga'); ?>" class="nav-link <?= isset($m_rumahtangga) ? $m_rumahtangga : ''; ?>">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>List Rumah Tangga</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item <?= isset($m_open_individu) ? $m_open_individu : ''; ?>">
+                            <a href="#" class="nav-link <?= isset($mm_individu) ? $mm_individu : ''; ?>">
+                                <i class="nav-icon fas fa-newspaper"></i>
+                                <p>
+                                    Individu
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="<?= site_url('post-individu'); ?>" class="nav-link <?= isset($m_post) ? $m_post : ''; ?>">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Post Individu</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= site_url('individu'); ?>" class="nav-link <?= isset($m_individu) ? $m_individu : ''; ?>">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>List Individu</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
                 <li class="nav-item <?= isset($m_open_berita) ? $m_open_berita : ''; ?>">
                     <a href="#" class="nav-link <?= isset($mm_berita) ? $mm_berita : ''; ?>">
                         <i class="nav-icon fas fa-newspaper"></i>

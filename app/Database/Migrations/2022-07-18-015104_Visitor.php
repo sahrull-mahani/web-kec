@@ -48,7 +48,7 @@ class Visitor extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->createTable('visitors');
+        $this->forge->createTable('visitor');
 
 
         $this->forge->addField([

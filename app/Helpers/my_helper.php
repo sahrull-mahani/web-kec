@@ -362,7 +362,7 @@ function get_hit_for_today()
 {
   $db = db_connect();
   $query = $db->query('SELECT SUM(no_of_visits) as hits FROM visitors WHERE CURDATE()=DATE(access_date) GROUP BY requested_url')->getRow();
-  return $query->hits;
+  // return $query->hits;
 }
 function get_hit_for_last_week()
 {
