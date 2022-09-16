@@ -171,3 +171,61 @@ function Step4() {
 
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+// fetch(`https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json`)
+// .then(response => response.json())
+// .then(provinces => console.log(provinces));
+
+$(document).ready(function(){
+    $('#provinsi').change(function(){
+        var id_provinsi = $(this).val();
+        $.ajax({
+            type:'POST',
+            url:"/RumahTangga/getKab",
+            dataType: "JSON",
+            data: {
+                id_provinsi : id_provinsi,
+            },
+            success:function(response){
+                $('#kabupaten').html(response);
+                // console.log(response);
+            }
+        });
+
+    });
+
+    $('#kabupaten').change(function(){
+        var id_kabupaten = $(this).val();
+        $.ajax({
+            type:'POST',
+            url:"/RumahTangga/getKec",
+            dataType: "JSON",
+            data: {
+                id_kabupaten : id_kabupaten,
+            },
+            success:function(response){
+                $('#kecamatan').html(response);
+                // console.log(response);
+            }
+        });
+
+    });
+
+    $('#kecamatan').change(function(){
+        var id_kecamatan = $(this).val();
+        $.ajax({
+            type:'POST',
+            url:"/RumahTangga/getDesa",
+            dataType: "JSON",
+            data: {
+                id_kecamatan : id_kecamatan,
+            },
+            success:function(response){
+                $('#desa').html(response);
+                // console.log(response);
+            }
+        });
+
+    });
+    
+});

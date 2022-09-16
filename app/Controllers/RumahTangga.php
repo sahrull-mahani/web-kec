@@ -43,10 +43,22 @@ class RumahTangga extends BaseController
 
     public function Post()
     {
-        $this->data = array('title' => 'Post Kuisioner Rumah Tangga | Admin', 'breadcome' => 'Post Kuisioner Rumah Tangga', 'url' => 'rumahtangga/', 'm_open_rumahtangga' => 'menu-open', 'mm_rumahtangga' => 'active', 'm_post_rumahtangga' => 'active', 'session' => $this->session);
+ 
+        // dd(getApi('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json'));
+
+        $this->data = array(
+            'title' => 'Post Kuisioner Rumah Tangga | Admin',
+            'breadcome' => 'Post Kuisioner Rumah Tangga',
+            'url' => 'rumahtangga/',
+            'm_open_rumahtangga' => 'menu-open',
+            'mm_rumahtangga' => 'active', 
+            'm_post_rumahtangga' => 'active',
+            'provinsi' => getApi('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json'),
+            'session' => $this->session);
 
         echo view('App\Views\rumahtangga\post-rumahtangga', $this->data);
     }
+
     public function edit()
     {
         $id = $this->request->getPost('id');
@@ -220,7 +232,40 @@ class RumahTangga extends BaseController
                 break;
         }
     }
+
+    function getKab(){
+        $id_provinsi = $this->request->getPost('id_provinsi');
+        $kabupaten = getApi("https://www.emsifa.com/api-wilayah-indonesia/api/regencies/$id_provinsi.json");
+        $output ='<option value="">--Pilih Kabupaten--<option>';
+        foreach($kabupaten as $row){
+            $output .="<option value=".$row['id'].">".$row['name']."<option>";
+        }
+        echo json_encode($output);
+      }
+
+      function getKec(){
+        $id_kabupaten = $this->request->getPost('id_kabupaten');
+        $kecamatan = getApi("https://www.emsifa.com/api-wilayah-indonesia/api/districts/$id_kabupaten.json");
+        $output ='<option value="">--Pilih Kecamatan--<option>';
+        foreach($kecamatan as $row){
+            $output .="<option value=".$row['id'].">".$row['name']."<option>";
+        }
+        echo json_encode($output);
+      }
+
+      function getDesa(){
+        $id_kecamatan = $this->request->getPost('id_kecamatan');
+        $desa = getApi("https://www.emsifa.com/api-wilayah-indonesia/api/villages/$id_kecamatan.json");
+        $output ='<option value="">--Pilih Desa--<option>';
+        foreach($desa as $row){
+            $output .="<option value=".$row['id'].">".$row['name']."<option>";
+        }
+        echo json_encode($output);
+        // echo json_encode($output);
+      }
 }
+
+
 
 /* End of file RumahTangga.php */
 /* Location: ./app/controllers/RumahTangga.php */
