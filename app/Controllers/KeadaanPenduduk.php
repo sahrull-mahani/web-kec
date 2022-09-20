@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\IndividuM;
 use App\Models\KeadaanPendudukM;
 use CodeIgniter\I18n\Time;
 
@@ -10,6 +11,7 @@ class KeadaanPenduduk extends BaseController
     function __construct()
     {
         $this->keadaanpendudukm = new KeadaanPendudukM();
+        $this->individum = new IndividuM();
     }
     public function index()
     {
@@ -61,9 +63,19 @@ class KeadaanPenduduk extends BaseController
         echo json_encode($output);
     }
 
+    public function keadaan()
+    {
+        $nik = $this->request->getPost('value');
+        $dusun = $this->request->getPost('dusun');
+        if ($this->individum->where('dusun', $dusun)->where('nik', $nik)->countAllResults() > 0) {
+            return json_encode(['data' => $this->individum->where('dusun', $dusun)->where('nik', $nik)->first()]);
+        }
+        return '404';
+    }
+
     public function Post()
     {
-        $this->data = array('title' => 'Post Keadaan Penduduk | Admin', 'breadcome' => 'Post Keadaan Penduduk', 'url' => 'keadaanpenduduk/', 'm_open_keadaanpenduduk' => 'menu-open', 'mm_keadaanpenduduk' => 'active', 'm_post_keadaanpenduduk' => 'active', 'session' => $this->session);
+        $this->data = array('title' => 'Post Keadaan Penduduk | Admin', 'breadcome' => 'Post Keadaan Penduduk', 'url' => 'keadaanpenduduk/', 'm_open_keadaanpenduduk' => 'menu-open', 'mm_keadaanpenduduk' => 'active', 'm_post_keadaanpenduduk' => 'active', 'session' => $this->session, 'dusun' => $this->individum->findAll());
 
         echo view('App\Views\keadaanpenduduk\post-keadaanpenduduk', $this->data);
     }

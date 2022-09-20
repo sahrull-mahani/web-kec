@@ -43,7 +43,7 @@
                                     </div>
                                     <div class="form-group item col-md-6">
                                         <label for="nik">Nomor Induk Kependudukan</label>
-                                        <input type="text" class="form-control" id="nik" name="nik" placeholder="Nomor Induk Kependudukan" required />
+                                        <input type="text" class="form-control" id="nik_pajak" name="nik" placeholder="Nomor Induk Kependudukan" required />
                                     </div>
                                 </div>
                                 <div class="form-group item">
@@ -62,7 +62,7 @@
                                             'Ya' => 'Ya',
                                             'Tidak' => 'Tidak',
                                         );
-                                        echo form_dropdown('wajib_pajak[]', $defaults + $options, (isset($get->wajib_pajak)) ? $get->wajib_pajak : '', 'class="form-control select2" id="wajib_pajak" required');
+                                        echo form_dropdown('wajib_pajak[]', $defaults + $options, (isset($get->wajib_pajak)) ? $get->wajib_pajak : '', 'class="form-control" id="wajib_pajak" required');
                                         ?>
                                     </div>
                                     <div class="form-group item col-md-4">
@@ -76,7 +76,7 @@
                                             'Lunas' => 'Lunas',
                                             'Belum Lunas' => 'Belum Lunas',
                                         );
-                                        echo form_dropdown('keterangan[]', $defaults + $options, (isset($get->keterangan)) ? $get->keterangan : '', 'class="form-control select2" id="keterangan" required');
+                                        echo form_dropdown('keterangan[]', $defaults + $options, (isset($get->keterangan)) ? $get->keterangan : '', 'class="form-control" id="keterangan" required');
                                         ?>
                                     </div>
                                 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\IndividuM;
 use App\Models\JumlahPendudukM;
 use CodeIgniter\I18n\Time;
 
@@ -10,11 +11,19 @@ class JumlahPenduduk extends BaseController
     function __construct()
     {
         $this->jumlahpendudukm = new JumlahPendudukM();
+        $this->individum = new IndividuM();
     }
     public function index()
     {
-        $this->data = array('title' => 'Jumlah Penduduk | Admin', 'breadcome' => 'Jumlah Penduduk', 'url' => 'jumlahpenduduk/', 'm_open_jumlahpenduduk' => 'menu-open', 'mm_jumlahpenduduk' => 'active', 'm_jumlahpenduduk' => 'active', 'session' => $this->session);
-
+        $this->data = array(
+            'title' => 'Jumlah Penduduk | Admin',
+            'breadcome' => 'Jumlah Penduduk',
+            'url' => 'jumlahpenduduk/',
+            'm_open_jumlahpenduduk' => 'menu-open',
+            'mm_jumlahpenduduk' => 'active',
+            'm_jumlahpenduduk' => 'active',
+            'session' => $this->session,
+        );
         echo view('App\Views\jumlahpenduduk\jumlahpenduduk_list', $this->data);
     }
 
@@ -41,10 +50,45 @@ class JumlahPenduduk extends BaseController
         echo json_encode($output);
     }
 
+    public function umur()
+    {
+        $umur = $this->request->getPost('value');
+        $pria = $this->individum->where('umur', $umur)->where('jenis_kelamin', 'Laki - Laki')->countAllResults();
+        $wanita = $this->individum->where('umur', $umur)->where('jenis_kelamin', 'Perempuan')->countAllResults();
+        return json_encode(['pria' => $pria, 'wanita' => $wanita]);
+    }
+
+    public function dusun()
+    {
+        $dusun = $this->request->getPost('value');
+        $nik = $this->individum->where('dusun', $dusun)->findAll();
+        foreach ($nik as $row) {
+            $niks[] = $row->nik;
+        }
+        $jumlahJiwa = $this->individum->where('dusun', $dusun)->whereIn('nik', $niks)->countAllResults();
+        $jumlahKK = $this->individum->where('dusun', $dusun)->groupBy('no_kk')->countAllResults();
+        $islam = $this->individum->where('dusun', $dusun)->where('agama', 'Islam')->countAllResults();
+        $kristen = $this->individum->where('dusun', $dusun)->where('agama', 'Kristen')->countAllResults();
+        $katolik = $this->individum->where('dusun', $dusun)->where('agama', 'Katolik')->countAllResults();
+        $hindu = $this->individum->where('dusun', $dusun)->where('agama', 'Hindu')->countAllResults();
+        $budha = $this->individum->where('dusun', $dusun)->where('agama', 'Budha')->countAllResults();
+        // return json_encode(['nik' => $no_nik, 'wanita' => $wanita]);
+        return json_encode(['agama_islam' => $islam, 'agama_kristen' => $kristen, 'agama_katolik' => $katolik, 'agama_hindu' => $hindu, 'agama_budha' => $budha, 'jumlahJiwa' => $jumlahJiwa, 'jumlahKK' => $jumlahKK]);
+    }
+
     public function Post()
     {
-        $this->data = array('title' => 'Post Jumlah Penduduk | Admin', 'breadcome' => 'Post Jumlah Penduduk', 'url' => 'jumlahpenduduk/', 'm_open_jumlahpenduduk' => 'menu-open', 'mm_jumlahpenduduk' => 'active', 'm_post_jumlahpenduduk' => 'active', 'session' => $this->session);
-
+        // dd($this->individum->where('jenis_kelamin', 'Laki - Laki')->first()->jenis_kelamin);
+        $this->data = array(
+            'title' => 'Post Jumlah Penduduk | Admin',
+            'breadcome' => 'Post Jumlah Penduduk',
+            'url' => 'jumlahpenduduk/',
+            'm_open_jumlahpenduduk' => 'menu-open',
+            'mm_jumlahpenduduk' => 'active',
+            'm_post_jumlahpenduduk' => 'active',
+            'session' => $this->session,
+            'data2' => count($this->individum->where('jenis_kelamin', 'Perempuan')->findall())
+        );
         echo view('App\Views\jumlahpenduduk\post-jumlahpenduduk', $this->data);
     }
     public function edit()

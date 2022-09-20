@@ -423,3 +423,21 @@ function count_hits_by_time($status)
   $q = $db->query("SELECT SUM(no_of_visits) as hits FROM page_log $b")->getRow();
   return $q->hits;
 }
+
+function getApi($url)
+{
+  $curl = curl_init();
+  curl_setopt($curl, CURLOPT_URL, $url);
+  curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+  $result = curl_exec($curl);
+  curl_close($curl);
+
+  $result = json_decode($result, true);
+  return $result;
+}
+
+function getDB($table)
+{
+  $db = db_connect();
+  return $db->table($table)->get()->getResult();
+}

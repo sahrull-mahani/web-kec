@@ -39,27 +39,10 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item <?= isset($m_open_jumlahpenduduk) ? $m_open_jumlahpenduduk : ''; ?>">
-                            <a href="#" class="nav-link <?= isset($mm_jumlahpenduduk) ? $mm_jumlahpenduduk : ''; ?>">
-                                <i class="nav-icon fas fa-user-plus"></i>
-                                <p>
-                                    Jumlah Penduduk
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
+                            <a href="<?= site_url('jumlahpenduduk'); ?>" class="nav-link <?= isset($m_jumlahpenduduk) ? $m_jumlahpenduduk : ''; ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Jumlah Penduduk</p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="<?= site_url('post-jumlahpenduduk'); ?>" class="nav-link <?= isset($m_post_jumlahpenduduk) ? $m_post_jumlahpenduduk : ''; ?>">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Post Jumlah Penduduk</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="<?= site_url('jumlahpenduduk'); ?>" class="nav-link <?= isset($m_jumlahpenduduk) ? $m_jumlahpenduduk : ''; ?>">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>List Jumlah Penduduk</p>
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
                         <li class="nav-item <?= isset($m_open_keadaanpenduduk) ? $m_open_keadaanpenduduk : ''; ?>">
                             <a href="#" class="nav-link <?= isset($mm_keadaanpenduduk) ? $mm_keadaanpenduduk : ''; ?>">
@@ -206,6 +189,12 @@
                                     <a href="<?= site_url('individu'); ?>" class="nav-link <?= isset($m_individu) ? $m_individu : ''; ?>">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>List Individu</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= site_url('detail-individu'); ?>" class="nav-link <?= isset($m_detail) ? $m_detail : ''; ?>">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Detail Individu</p>
                                     </a>
                                 </li>
                             </ul>

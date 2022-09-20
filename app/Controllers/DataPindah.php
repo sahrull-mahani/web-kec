@@ -44,7 +44,20 @@ class DataPindah extends BaseController
 
     public function Post()
     {
-        $this->data = array('title' => 'Post Data Pindah | Admin', 'breadcome' => 'Post Data Pindah', 'url' => 'datapindah/', 'm_open_datapindah' => 'menu-open', 'mm_datapindah' => 'active', 'm_post_datapindah' => 'active', 'session' => $this->session);
+        $this->data = array(
+            'title' => 'Post Data Pindah | Admin',
+            'breadcome' => 'Post Data Pindah',
+            'url' => 'datapindah/',
+            'm_open_datapindah' => 'menu-open',
+            'mm_datapindah' => 'active',
+            'm_post_datapindah' => 'active',
+            'session' => $this->session,
+            'wilayah' => getApi('https://emsifa.github.io/api-wilayah-indonesia/static/api/provinces.json'),
+        );
+
+        // $wilayah = getApi('https://emsifa.github.io/api-wilayah-indonesia/api/provinces.json');
+
+        // dd($this->data['wilayah']);
 
         echo view('App\Views\datapindah\post-datapindah', $this->data);
     }

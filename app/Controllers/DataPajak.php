@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\DataPajakM;
+use App\Models\IndividuM;
 use CodeIgniter\I18n\Time;
 
 class DataPajak extends BaseController
@@ -10,6 +11,7 @@ class DataPajak extends BaseController
     function __construct()
     {
         $this->datapajakm = new DataPajakM();
+        $this->individum = new IndividuM();
         helper('number');
     }
     public function index()
@@ -41,6 +43,15 @@ class DataPajak extends BaseController
             "rows" => $data,
         );
         echo json_encode($output);
+    }
+
+    public function pajak()
+    {
+        $nik = $this->request->getPost('value');
+        if ($this->individum->where('nik', $nik)->countAllResults() > 0) {
+            return json_encode(['data' => $this->individum->where('nik', $nik)->first()]);
+        }
+        return '404';
     }
 
     public function Post()

@@ -169,5 +169,184 @@ function Step4() {
 }
 
 
+$("#rowAdder").click(function () {
+    newRowAdd =
+    '<div id="baris">' +
+    '<label for="sumber_penghasilan">Penghasilan Setahun Terakhir Dari (Rp)</label>' +
+    '<div class="row">' +
+    '<div class="form-group item col-md-10">' +
+    '<select class="form-control select2" id="sumber_penghasilan[]" name="sumber_penghasilan" required />' +
+    '<option value="">Sumber Penghasilan</option>' +
+    '<option value="Padi">Padi</option>' +
+    '<option value="Palawija (Jagung, Kacang-kacangan, Ubi-ubian, Dll)">Palawija (Jagung, Kacang-kacangan, Ubi-ubian, Dll)</option>' +
+    '<option value="Hortikultura (Buah-buahan, Sayur-sayuran, Tanaman Hias, Tanaman Obat-obatan, Dll)">Hortikultura (Buah-buahan, Sayur-sayuran, Tanaman Hias, Tanaman Obat-obatan, Dll)</option>' +
+    '<option value="Karet">Karet</option>' +
+    '<option value="Kelapa Sawit">Kelapa Sawit</option>' +
+    '<option value="Kopi">Kopi</option>' +
+    '<option value="Kakao">Kakao</option>' +
+    '<option value="Kelapa">Kelapa</option>' +
+    '<option value="Lada">Lada</option>' +
+    '<option value="Cengkeh">Cengkeh</option>' +
+    '<option value="Tembakau">Tembakau</option>' +
+    '<option value="Tebu">Tebu</option>' +
+    '<option value="Sapi Potong">Sapi Potong</option>' +
+    '<option value="Susu Sapi">Susu Sapi</option>' +
+    '<option value="Domba">Domba</option>' +
+    '<option value="Ternak Besar Lainnya (Kuda, Kerbau, Dll)">Ternak Besar Lainnya (Kuda, Kerbau, Dll)</option>' +
+    '<option value="Ayam Pedaging">Ayam Pedaging</option>' +
+    '<option value="Telur Ayam">Telur Ayam</option>' +
+    '<option value="Ternak Kecil Lainnya (Bebek, Burung, Dll)">Ternak Kecil Lainnya (Bebek, Burung, Dll)</option>' +
+    '<option value="Perikanan Tangkap (Termasuk Biota Lainnya)">Perikanan Tangkap (Termasuk Biota Lainnya)</option>' +
+    '<option value="Perikanan Budidaya (Termasuk Biota Lainnya)">Perikanan Budidaya (Termasuk Biota Lainnya)</option>' +
+    '<option value="Bambu">Bambu</option>' +
+    '<option value="Budidaya Tanaman Kehutanan (Jati, Mahoni, Sengon, Dll)">Budidaya Tanaman Kehutanan (Jati, Mahoni, Sengon, Dll)</option>' +
+    '<option value="Pemungutan Hasil Hutan (Madu, Gaharu, Buah-buahan, Kayu Bakar, Rotan, Dll)">Pemungutan Hasil Hutan (Madu, Gaharu, Buah-buahan, Kayu Bakar, Rotan, Dll)</option>' +
+    '<option value="Penangkapan Satwa Liar (Babi, Ayam Hutan, Kijang, Dll)">Penangkapan Satwa Liar (Babi, Ayam Hutan, Kijang, Dll)</option>' +
+    '<option value="Penangkaran Satwa Liar (Arwana, Buaya, Dll)">Penangkaran Satwa Liar (Arwana, Buaya, Dll)</option>' +
+    '<option value="Jasa Pertanian (Sewa Traktor, Penggilingan, Dll)">Jasa Pertanian (Sewa Traktor, Penggilingan, Dll)</option>' +
+    '<option value="Pertambangan dan Penggalian">Pertambangan dan Penggalian</option>' +
+    '<option value="Industri Kerajinan">Industri Kerajinan</option>' +
+    '<option value="Industri Pengolahan">Industri Pengolahan</option>' +
+    '<option value="Perdagangan">Perdagangan</option>' +
+    '<option value="Warung dan Rumah Makan">Warung dan Rumah Makan</option>' +
+    '<option value="Angkutan">Angkutan</option>' +
+    '<option value="Pergudangan">Pergudangan</option>' +
+    '<option value="Komunikasi">Komunikasi</option>' +
+    '<option value="Jasa Di Luar Pertanian">Jasa Di Luar Pertanian</option>' +
+    '<option value="Karyawan Tetap">Karyawan Tetap</option>' +
+    '<option value="Karyawan Tidak Tetap">Karyawan Tidak Tetap</option>' +
+    '<option value="TNI">TNI</option>' +
+    '<option value="PNS">PNS</option>' +
+    '<option value="TKI Di Luar Negeri">TKI Di Luar Negeri</option>' +
+    '<option value="Sumbangan (Dari Keluarga, Dari Pemerintah)">Sumbangan (Dari Keluarga, Dari Pemerintah)</option>' +
+    '<option value="Lainnya">Lainnya</option>' +
+    '</select>' +
+    '</div>' +
+    '<div class="form-group item col-md-2">' +
+    '<input type="text" class="form-control" id="jumlah[]" name="jumlah" placeholder="Jumlah" required />' +
+    '</div>' +
+    '</div>' +
+    '<div class="row">' +
+    '<div class="form-group item col-md-3">' +
+    '<select class="form-control select2" id="satuan[]" name="satuan" required />' +
+    '<option value="">Satuan</option>' +
+    '<option value="Batang">Batang</option>' +
+    '<option value="Bulan">Bulan</option>' +
+    '<option value="Ekor">Ekor</option>' +
+    '<option value="Hari">Hari</option>' +
+    '<option value="Kg">Kg</option>' +
+    '<option value="Liter">Liter</option>' +
+    '<option value="Ton">Ton</option>' +
+    '</select>' +
+    '</div>' +
+    '<div class="form-group item col-md-4">' +
+    '<input type="text" class="form-control" id="penghasilan[]" name="penghasilan" placeholder="Penghasilan Setahun (Rp)" required />' +
+    '</div>' +
+    '<div class="form-group item col-md-3">' +
+    '<select class="form-control select2" id="ekspor[]" name="ekspor" required />' +
+    '<option value="">Diekspor :</option>' +
+    '<option value="Semua">Semua</option>' +
+    '<option value="Sebagian Besar">Sebagian Besar</option>' +
+    '<option value="Tidak">Tidak</option>' +
+    '</select>' +
+    '</div>' +
+    '<div class="form-group item col-md-2">' +
+    '<button class="btn btn-danger float-right" id="DeleteRow" type="button">' +
+    '<i class="bi bi-Minus"></i> Hapus</button>' + 
+    '</div>' +
+    '</div>' +
+    '</div>';
+
+    $('#newinput').append(newRowAdd);
+});
+
+$("body").on("click", "#DeleteRow", function () {
+    $(this).parents("#baris").remove();
+})
+
+$('#umur').on('change', function() {
+    let val = $(this).val()
+
+    $.ajax({
+        url: location.origin + '/JumlahPenduduk/umur',
+        type: 'POST',
+        data: {value: val},
+        success: function(res) {
+            let data = $.parseJSON(res)
+            $('#jumlah_pria').val(data.pria)
+            $('#jumlah_wanita').val(data.wanita)
+            $('#jumlah').val(data.wanita + data.pria)
+        }
+    })
+})
+
+$('#dusun').on('keyup', function() {
+    let val = $(this).val()
+
+    $.ajax({
+        url: location.origin + '/JumlahPenduduk/dusun',
+        type: 'POST',
+        data: {value: val},
+        success: function(res) {
+            let data = $.parseJSON(res)
+            $('#agama_islam').val(data.agama_islam)
+            $('#agama_kristen').val(data.agama_kristen)
+            $('#agama_katolik').val(data.agama_katolik)
+            $('#agama_hindu').val(data.agama_hindu)
+            $('#agama_budha').val(data.agama_budha)
+            $('#jumlah_jiwa').val(data.jumlahJiwa)
+            $('#jumlah_kk').val(data.jumlahKK)
+            // $('#jumlah').val(data.wanita + data.pria)
+        }
+    })
+})
+
+$('#nik').on('change',function(){
+    let val = $(this).val()
+    let dusun = $('#dusun').val()
+
+    $.ajax({
+        url: location.origin + '/KeadaanPenduduk/keadaan',
+        type: 'POST',
+        data: {value: val, dusun: dusun},
+        success: function(res){
+            let data = $.parseJSON(res)
+            if(res == 404){
+                alert('NIK tidak ditemukan pada Dusun Ini')
+            }else{
+                $('#no_kk').val(data.data.no_kk)
+                $('#nama').val(data.data.nama)
+                $('#pekerjaan option[value="' + data.data.pekerjaan + '"]').prop('selected', true);
+                $('#muntaber_diare option[value="' + data.data.muntaber_diare + '"]').prop('selected', true);
+            }
+        }
+    })
+})
+
+$('#nik_pajak').on('change',function(){
+    let val = $(this).val()
+
+    $.ajax({
+        url: location.origin + '/DataPajak/pajak',
+        type: 'POST',
+        data: {value: val},
+        success: function(res){
+            let data = $.parseJSON(res)
+            if(res == 404){
+                alert('NIK tidak ditemukan')
+            }else{
+                $('#no_kk').val(data.data.no_kk)
+                $('#nama').val(data.data.nama)
+                $('#alamat').val(data.data.alamat)
+                $('#jumlah').val(data.data.jumlah_pajak)
+                $('#wajib_pajak option[value="' + data.data.wajib_pajak + '"]').prop('selected', true);
+                $('#keterangan option[value="' + data.data.keterangan + '"]').prop('selected', true);
+            }
+        }
+    })
+})
+
+
+
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))

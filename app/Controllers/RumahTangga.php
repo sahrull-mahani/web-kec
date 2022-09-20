@@ -41,8 +41,22 @@ class RumahTangga extends BaseController
         echo json_encode($output);
     }
 
+    private function getApi($url)
+    {
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        $result = curl_exec($curl);
+        curl_close($curl);
+
+        $result = json_decode($result, true);
+        return $result;
+    }
+
     public function Post()
     {
+        // dd($this->getApi('https://emsifa.github.io/api-wilayah-indonesia/api/provinces.json'));
+
         $this->data = array('title' => 'Post Kuisioner Rumah Tangga | Admin', 'breadcome' => 'Post Kuisioner Rumah Tangga', 'url' => 'rumahtangga/', 'm_open_rumahtangga' => 'menu-open', 'mm_rumahtangga' => 'active', 'm_post_rumahtangga' => 'active', 'session' => $this->session);
 
         echo view('App\Views\rumahtangga\post-rumahtangga', $this->data);
@@ -107,6 +121,10 @@ class RumahTangga extends BaseController
                     'jarak_kesehatan'    => $this->request->getVar('jarak_kesehatan'),
                     'waktu_kesehatan'    => $this->request->getVar('waktu_kesehatan'),
                     'kemudahan_kesehatan'    => $this->request->getVar('kemudahan_kesehatan'),
+                    'akses_nakes'    => $this->request->getVar('akses_nakes'),
+                    'jarak_nakes'    => $this->request->getVar('jarak_nakes'),
+                    'waktu_nakes'    => $this->request->getVar('waktu_nakes'),
+                    'kemudahan_nakes'    => $this->request->getVar('kemudahan_nakes'),
                     'akses_transportasi'    => $this->request->getVar('akses_transportasi'),
                     'jenis_transportasi'    => $this->request->getVar('jenis_transportasi'),
                     'penggunaan_transportasi'    => $this->request->getVar('penggunaan_transportasi'),
@@ -181,6 +199,10 @@ class RumahTangga extends BaseController
                     'jarak_kesehatan'    => $this->request->getPost('jarak_kesehatan'),
                     'waktu_kesehatan'    => $this->request->getPost('waktu_kesehatan'),
                     'kemudahan_kesehatan'    => $this->request->getPost('kemudahan_kesehatan'),
+                    'akses_nakes'    => $this->request->getPost('akses_nakes'),
+                    'jarak_nakes'    => $this->request->getPost('jarak_nakes'),
+                    'waktu_nakes'    => $this->request->getPost('waktu_nakes'),
+                    'kemudahan_nakes'    => $this->request->getPost('kemudahan_nakes'),
                     'akses_transportasi'    => $this->request->getPost('akses_transportasi'),
                     'jenis_transportasi'    => $this->request->getPost('jenis_transportasi'),
                     'penggunaan_transportasi'    => $this->request->getPost('penggunaan_transportasi'),

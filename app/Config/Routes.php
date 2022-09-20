@@ -42,6 +42,8 @@ $routes->get('post-datapindah', 'DataPindah::post');
 $routes->get('post-datakematian', 'DataKematian::post');
 $routes->get('post-datapajak', 'DataPajak::post');
 $routes->get('post-rumahtangga', 'RumahTangga::post');
+$routes->get('post-individu', 'Individu::post');
+$routes->get('detail-individu', 'Individu::detail');
 $routes->get('post-berita', 'Berita::post');
 $routes->get('post-pariwisata', 'Pariwisata::post');
 $routes->get('post-kuliner', 'Kuliner::post');

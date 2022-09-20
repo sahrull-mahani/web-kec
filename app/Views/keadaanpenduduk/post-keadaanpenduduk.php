@@ -38,7 +38,11 @@
                             <div class="col-md-12">
                                 <div class="form-group item">
                                     <label for="dusun">Dusun</label>
-                                    <input type="text" class="form-control" id="dusun" name="dusun" placeholder="Dusun" required />
+                                    <select class="form-control select2" name="dusun" id="dusun">
+                                        <?php foreach ($dusun as $row) : ?>
+                                            <option value='<?= $row->dusun ?>'><?= $row->dusun ?></option>
+                                        <?php endforeach ?>
+                                    </select>
                                 </div>
                                 <div class="row">
                                     <div class="form-group item col-md-6">
@@ -56,27 +60,48 @@
                                 </div>
                                 <div class="form-group item">
                                     <label for="pekerjaan">Pekerjaan</label>
-                                    <?php $defaults = array('' => 'Pilih Pekerjaan');
-                                    $options = array(
-                                        'Petani Pemilik Lahan' => 'Petani Pemilik Lahan Tahun',
-                                        'Petani Penyewa' => 'Petani Penyewa',
-                                        'Buruh Tani' => 'Buruh Tani',
-                                        'Nelayan Pemilik Kapal/Perahu' => 'Nelayan Pemilik Kapal/Perahu',
-                                        'Nelayan Penyewa Kapal/Perahu' => 'Nelayan Penyewa Kapal/Perahu',
-                                        'Buruh Nelayan' => 'Buruh Nelayan',
-                                        'Guru' => 'Guru',
-                                        'Guru Agama' => 'Guru Agama',
-                                        'Pedagang' => 'Pedagang',
-                                        'Pengolahan/Industri' => 'Pengolahan/Industri',
-                                        'PNS' => 'PNS',
-                                        'TNI' => 'TNI',
-                                        'Perangkat Desa' => 'Perangkat Desa',
-                                        'Pegawai Kantor Desa' => 'Pegawai Kantor Desa',
-                                        'TKI' => 'TKI',
-                                        'Lainnya' => 'Lainnya',
-                                    );
-                                    echo form_dropdown('pekerjaan[]', $defaults + $options, (isset($get->pekerjaan)) ? $get->pekerjaan : '', 'class="form-control select2" id="pekerjaan" required');
-                                    ?>
+                                    <select class="form-control" name="pekerjaan[]" id="pekerjaan">
+                                        <option value="">Pilih Pekerjaan</option>
+
+                                        <option value="Petani Pemilik Lahan">Petani Pemilik Lahan Tahun</option>
+                                        <option value="Petani Penyewa">Petani Penyewa</option>
+                                        <option value="Buruh Tani">Buruh Tani</option>
+                                        <option value="Nelayan Pemilik Kapal/Perahu">Nelayan Pemilik Kapal/Perahu</option>
+                                        <option value="Nelayan Penyewa Kapal/Perahu">Nelayan Penyewa Kapal/Perahu</option>
+                                        <option value="Buruh Nelayan">Buruh Nelayan</option>
+                                        <option value="Guru">Guru</option>
+                                        <option value="Guru Agama">Guru Agama</option>
+                                        <option value="Pedagang">Pedagang</option>
+                                        <option value="Pengolahan/Industri">Pengolahan/Industri</option>
+                                        <option value="PNS">PNS</option>
+                                        <option value="TNI">TNI</option>
+                                        <option value="Perangkat Desa">Perangkat Desa</option>
+                                        <option value="Pegawai Kantor Desa">Pegawai Kantor Desa</option>
+                                        <option value="TKI">TKI</option>
+                                        <option value="Lainnya">Lainnya</option>
+
+                                    </select>
+                                    <!-- <?php $defaults = array('' => 'Pilih Pekerjaan');
+                                            $options = array(
+                                                'Petani Pemilik Lahan' => 'Petani Pemilik Lahan Tahun',
+                                                'Petani Penyewa' => 'Petani Penyewa',
+                                                'Buruh Tani' => 'Buruh Tani',
+                                                'Nelayan Pemilik Kapal/Perahu' => 'Nelayan Pemilik Kapal/Perahu',
+                                                'Nelayan Penyewa Kapal/Perahu' => 'Nelayan Penyewa Kapal/Perahu',
+                                                'Buruh Nelayan' => 'Buruh Nelayan',
+                                                'Guru' => 'Guru',
+                                                'Guru Agama' => 'Guru Agama',
+                                                'Pedagang' => 'Pedagang',
+                                                'Pengolahan/Industri' => 'Pengolahan/Industri',
+                                                'PNS' => 'PNS',
+                                                'TNI' => 'TNI',
+                                                'Perangkat Desa' => 'Perangkat Desa',
+                                                'Pegawai Kantor Desa' => 'Pegawai Kantor Desa',
+                                                'TKI' => 'TKI',
+                                                'Lainnya' => 'Lainnya',
+                                            );
+                                            echo form_dropdown('pekerjaan[]', $defaults + $options, (isset($get->pekerjaan)) ? $get->pekerjaan : '', 'class="form-control select2" id="pekerjaan" required');
+                                            ?> -->
                                 </div>
                                 <div class="card-header">
                                     <h3 class="card-title">Penyakit Yang Di Derita Selama 1 Tahun Terakhir</h3>
@@ -90,7 +115,7 @@
                                                 'Ya' => 'Ya',
                                                 'Tidak' => 'Tidak',
                                             );
-                                            echo form_dropdown('muntaber_diare[]', $defaults + $options, (isset($get->muntaber_diare)) ? $get->muntaber_diare : '', 'class="form-control select2" id="muntaber_diare" required');
+                                            echo form_dropdown('muntaber_diare[]', $defaults + $options, (isset($get->muntaber_diare)) ? $get->muntaber_diare : '', 'class="form-control" id="muntaber_diare" required');
                                             ?>
                                         </div>
                                         <div class="form-group item col-md-4">
