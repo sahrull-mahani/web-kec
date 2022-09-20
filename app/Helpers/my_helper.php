@@ -27,6 +27,19 @@ function getTime($date)
   $tgl = new DateTime($date);
   return $tgl->format("H:i:s");
 }
+
+function getApi($url)
+{
+    $curl = curl_init();
+    curl_setopt($curl, CURLOPT_URL, $url);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    $result = curl_exec($curl);
+    curl_close($curl);
+
+    $result = json_decode($result, true);
+    return $result;
+}
+
 function arrBulan()
 {
   $bulan = array(

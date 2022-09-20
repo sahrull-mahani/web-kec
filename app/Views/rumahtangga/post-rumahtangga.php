@@ -1,6 +1,25 @@
 <?= $this->extend("template_adminlte/index") ?>
 <?= $this->section("page-content") ?>
 
+<!-- <script>
+    $(document).ready(function(){
+        $('#provinsi').change(function(){
+            let id_provinsi = $(this).val();
+
+            fetch(`https://www.emsifa.com/api-wilayah-indonesia/api/regencies/{id_provinsi}.json`)
+            .then(response => response.json())
+            .then(regencies => console.log(regencies));
+
+            // $.ajax({
+            //     type:'POST',
+            //     url: 
+            // })
+
+        });
+    });
+</script> -->
+
+
 <div class="content-wrapper">
     <section class="content-header">
         <div class="container-fluid">
@@ -61,24 +80,36 @@
                                         <h3 class="card-title">Deskripsi Lokasi</h3>
                                     </div>
                                     <div class="row">
-                                        <div class="form-group item col-md-4">
-                                            <label for="provinsi">Provinsi</label>
-                                            <input type="text" class="form-control" id="provinsi" name="provinsi" placeholder="Provinsi" required />
-                                        </div>
-                                        <div class="form-group item col-md-4">
-                                            <label for="kab_kota">Kabupaten/Kota</label>
-                                            <input type="text" class="form-control" id="kab_kota" name="kab_kota" placeholder="Kabupaten/Kota" required />
-                                        </div>
-                                        <div class="form-group item col-md-4">
-                                            <label for="kecamatan">Kecamatan</label>
-                                            <input type="text" class="form-control" id="kecamatan" name="kecamatan" placeholder="Kecamatan" required />
-                                        </div>
+
+                                    <div class="form-group item col-md-4">
+                                    <label for="provinsi">Provinsi</label>
+                                        <select name="provinsi" id="provinsi" class="form-control">
+                                            <option>--Pilih Provinsi--</option>
+                                            <?php foreach($provinsi as $prov): ?>
+                                                <option value="<?= $prov['id']; ?>"><?= $prov['name']; ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                    <div class="form-group item col-md-4">
+                                        <label for="kabupaten">Kabupaten/Kota</label>
+                                        <select name="kabupaten" id="kabupaten" class="form-control">
+                                             <option>--Pilih Kabupaten--</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group item col-md-4">
+                                        <label for="kecamatan">Kecamatan</label>
+                                        <select name="kecamatan" id="kecamatan" class="form-control">
+                                            <option>--Pilih Kecamatan--</option>
+                                        </select>
+                                    </div>
                                     </div>
                                     <div class="row">
-                                        <div class="form-group item col-md-8">
-                                            <label for="desa">Desa</label>
-                                            <input type="text" class="form-control" id="desa" name="desa" placeholder="Desa" required />
-                                        </div>
+                                    <div class="form-group item col-md-8">
+                                        <label for="desa">Desa</label>
+                                        <select name="desa" id="desa" class="form-control">
+                                            <option>--Pilih Desa--</option>
+                                        </select>
+                                    </div>
                                         <div class="form-group item col-md-4">
                                             <label for="rt_rw">RT/RW</label>
                                             <input type="text" class="form-control" id="rt_rw" name="rt_rw" placeholder="RT/RW" required />
