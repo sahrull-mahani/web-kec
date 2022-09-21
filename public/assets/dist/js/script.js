@@ -175,7 +175,7 @@ $("#rowAdder").click(function () {
     '<label for="sumber_penghasilan">Penghasilan Setahun Terakhir Dari (Rp)</label>' +
     '<div class="row">' +
     '<div class="form-group item col-md-10">' +
-    '<select class="form-control select2" id="sumber_penghasilan[]" name="sumber_penghasilan" required />' +
+    '<select class="form-control select2" id="sumber_penghasilan" name="sumber_penghasilan[]" required />' +
     '<option value="">Sumber Penghasilan</option>' +
     '<option value="Padi">Padi</option>' +
     '<option value="Palawija (Jagung, Kacang-kacangan, Ubi-ubian, Dll)">Palawija (Jagung, Kacang-kacangan, Ubi-ubian, Dll)</option>' +
@@ -223,12 +223,12 @@ $("#rowAdder").click(function () {
     '</select>' +
     '</div>' +
     '<div class="form-group item col-md-2">' +
-    '<input type="text" class="form-control" id="jumlah[]" name="jumlah" placeholder="Jumlah" required />' +
+    '<input type="text" class="form-control" id="jumlah" name="jumlah[]" placeholder="Jumlah" required />' +
     '</div>' +
     '</div>' +
     '<div class="row">' +
     '<div class="form-group item col-md-3">' +
-    '<select class="form-control select2" id="satuan[]" name="satuan" required />' +
+    '<select class="form-control select2" id="satuan" name="satuan[]" required />' +
     '<option value="">Satuan</option>' +
     '<option value="Batang">Batang</option>' +
     '<option value="Bulan">Bulan</option>' +
@@ -240,10 +240,10 @@ $("#rowAdder").click(function () {
     '</select>' +
     '</div>' +
     '<div class="form-group item col-md-4">' +
-    '<input type="text" class="form-control" id="penghasilan[]" name="penghasilan" placeholder="Penghasilan Setahun (Rp)" required />' +
+    '<input type="text" class="form-control" id="penghasilan" name="penghasilan[]" placeholder="Penghasilan Setahun (Rp)" required />' +
     '</div>' +
     '<div class="form-group item col-md-3">' +
-    '<select class="form-control select2" id="ekspor[]" name="ekspor" required />' +
+    '<select class="form-control select2" id="ekspor" name="ekspor[]" required />' +
     '<option value="">Diekspor :</option>' +
     '<option value="Semua">Semua</option>' +
     '<option value="Sebagian Besar">Sebagian Besar</option>' +
@@ -356,6 +356,28 @@ const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstra
 // .then(provinces => console.log(provinces));
 
 $(document).ready(function(){
+    let valProv = $('#provinsi').val()
+    let valKab = $('#kabupaten').val()
+    let idKab = $('#kabupaten').data('kabupaten')
+    if (valProv !== null) {
+        $.ajax({
+            type:'POST',
+            url:"/RumahTangga/getKab",
+            dataType: "JSON",
+            data: {
+                id_provinsi : valProv,
+            },
+            success:function(response){
+                var output = `<option value="" disabled>-- pilih --</option>`
+                $.each(response, function(i, val) {
+                    output += `<option value="${val.split('|')[1]}" ${idKab == val.split('|')[0] ? 'selected' : ''}>${val.split('|')[1]}</option>`
+                })
+                console.log(output)
+                let coba = $('#kabupaten').html(output);
+                // let valKABB = $('#kabupaten').children().val()
+            }
+        });
+    }
     $('#provinsi').change(function(){
         var id_provinsi = $(this).val();
         $.ajax({

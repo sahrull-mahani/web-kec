@@ -261,9 +261,10 @@ class RumahTangga extends BaseController
         $kabupaten = getApi("https://www.emsifa.com/api-wilayah-indonesia/api/regencies/$id_provinsi.json");
         $output = '<option value="">--Pilih Kabupaten--<option>';
         foreach ($kabupaten as $row) {
-            $output .= "<option value=" . $row['id'] . ">" . $row['name'] . "<option>";
+            // $output .= "<option value=" . $row['id'] . ">" . $row['name'] . "<option>";
+            $kab[] = $row['id'] . '|' . $row['name'];
         }
-        echo json_encode($output);
+        echo json_encode($kab);
     }
 
     function getKec()
