@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\IndividuM;
 use App\Models\KesehatanM;
 use App\Models\PekerjaanM;
+use App\Models\PendidikanM;
 use CodeIgniter\I18n\Time;
 
 class Individu extends BaseController
@@ -14,6 +15,7 @@ class Individu extends BaseController
         $this->individum = new IndividuM();
         $this->kesehatanm = new KesehatanM();
         $this->pekerjaanm = new PekerjaanM();
+        $this->pendidikanm = new PendidikanM();
         helper('number');
     }
     public function index()
@@ -35,7 +37,7 @@ class Individu extends BaseController
             $row['nomor'] = $no++;
             $row['no kk'] = $rows->no_kk;
             $row['nik'] = $rows->nik;
-            $row['nama'] = $rows->nama;
+            $row['nama'] = ucwords($rows->nama);
             $row['jenis kelamin'] = $rows->jenis_kelamin;
             $row['nomor hp'] = $rows->no_hp;
             $data[] = $row;
@@ -61,12 +63,13 @@ class Individu extends BaseController
     {
         $id = $this->request->getPost('id');
 
-        $get = $this->individum->join('pekerjaan p', 'p.individu_id = individu.id')->find($id);
+        $get = $this->individum->select('individu.*, k.*, pk.*, pd.*, k.id kesID, pk.id pekID, pd.id penID')->join('pekerjaan pk', 'pk.individu_id = individu.id')->join('kesehatan k', 'k.individu_id = individu.id')->join('pendidikan pd', 'pd.individu_id = individu.id')->where('individu.id', $id)->first();
         $this->data = array(
-            'get' => $get,
+            'provinsi' => getApi('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json'),
+            'get' => $get
         );
         $status['html']         = view('App\Views\individu\detail-individu', $this->data);
-        $status['modal_title']  = '<b>Detail Kuisioner Individu : </b>';
+        $status['modal_title']  = '<b>Detail Kuisioner Individu : </b>' . $get->nama;
         $status['modal_size']   = 'modal-xl';
         echo json_encode($status);
         // echo json_encode($get->nama);
@@ -74,7 +77,7 @@ class Individu extends BaseController
 
     public function single_edit($id)
     {
-        $get = $this->individum->select('individu.*, k.*, p.*, k.id kesID, p.id pekID')->join('pekerjaan p', 'p.individu_id = individu.id')->join('kesehatan k', 'k.individu_id = individu.id')->where('individu.id', $id)->first();
+        $get = $this->individum->select('individu.*, k.*, pk.*, pd.*, k.id kesID, pk.id pekID, pd.id penID')->join('pekerjaan pk', 'pk.individu_id = individu.id')->join('kesehatan k', 'k.individu_id = individu.id')->join('pendidikan pd', 'pd.individu_id = individu.id')->where('individu.id', $id)->first();
         $this->data = array('title' => 'Post Kuisioner Individu | Admin', 'breadcome' => 'Post Kuisioner Individu', 'url' => 'individu/', 'm_open_individu' => 'menu-open', 'mm_individu' => 'active', 'm_post_individu' => 'active', 'session' => $this->session, 'provinsi' => getApi('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json'), 'get' => $get);
 
         return view('App\Views\individu\post-individu', $this->data);
@@ -123,16 +126,8 @@ class Individu extends BaseController
                     'facebook'          => $this->request->getVar('facebook'),
                     'twitter'          => $this->request->getVar('twitter'),
                     'instagram'          => $this->request->getVar('instagram'),
-                    'pendidikan'          => $this->request->getVar('pendidikan'),
-                    'bahasa_lokal'          => $this->request->getVar('bahasa_lokal'),
-                    'bahasa_formal'          => $this->request->getVar('bahasa_formal'),
-                    'kerja_bakti'          => $this->request->getVar('kerja_bakti'),
-                    'siskamling'          => $this->request->getVar('siskamling'),
-                    'pesta_rakyat'          => $this->request->getVar('pesta_rakyat'),
-                    'pertolongan_kematian'          => $this->request->getVar('pertolongan_kematian'),
-                    'pertolongan_sakit'          => $this->request->getVar('pertolongan_sakit'),
-                    'pertolongan_kecelakaan'          => $this->request->getVar('pertolongan_kecelakaan'),
                 );
+
                 $data2 =  array(
                     // 'individu_id'          => $this->request->getVar('individu_id'),
                     // 'individu_id'          => '2',
@@ -183,6 +178,7 @@ class Individu extends BaseController
                     'cacat_ganda'          => $this->request->getVar('cacat_ganda'),
                     'pasung'          => $this->request->getVar('pasung'),
                 );
+
                 $data3 =  array(
                     // 'individu_id' => $this->request->getVar('individu_id'),
                     'individu_id' => '2',
@@ -194,7 +190,19 @@ class Individu extends BaseController
                     'satuan'          => implode('|', $this->request->getVar('satuan')),
                     'penghasilan'          => implode('|', $this->request->getVar('penghasilan')),
                     'ekspor'          => implode('|', $this->request->getVar('ekspor')),
+                );
 
+                $data4 =  array(
+                    // 'individu_id' => $this->request->getVar('individu_id'),
+                    'pendidikan'          => $this->request->getVar('pendidikan'),
+                    'bahasa_lokal'          => $this->request->getVar('bahasa_lokal'),
+                    'bahasa_formal'          => $this->request->getVar('bahasa_formal'),
+                    'kerja_bakti'          => $this->request->getVar('kerja_bakti'),
+                    'siskamling'          => $this->request->getVar('siskamling'),
+                    'pesta_rakyat'          => $this->request->getVar('pesta_rakyat'),
+                    'pertolongan_kematian'          => $this->request->getVar('pertolongan_kematian'),
+                    'pertolongan_sakit'          => $this->request->getVar('pertolongan_sakit'),
+                    'pertolongan_kecelakaan'          => $this->request->getVar('pertolongan_kecelakaan'),
                 );
 
                 // var_dump($data3);
@@ -202,8 +210,10 @@ class Individu extends BaseController
                     $id_individu = $this->individum->orderBy('id', 'DESC')->first()->id;
                     $data2['individu_id'] = $id_individu;
                     $data3['individu_id'] = $id_individu;
+                    $data4['individu_id'] = $id_individu;
                     $this->kesehatanm->insert($data2);
                     $this->pekerjaanm->insert($data3);
+                    $this->pendidikanm->insert($data4);
                     $status['title'] = 'success';
                     $status['type'] = 'success';
                     $status['text'] = 'Kuisioner Individu Baru Telah Di Tambahkan';

@@ -172,19 +172,17 @@ function readFile(url) {
         });
     });
     $edit.bind('click', function (e) {
-        var ids = $.map($table.bootstrapTable('getSelections'), function (row) {
-            return row.id
-        })
+        e.stopImmediatePropagation();
+        var ids = JSON.stringify($table.bootstrapTable('getSelections'))
+        var a = JSON.parse(ids);
+        $('#modal_content').modal('show')
         $.ajax({
             url: url + $(this).attr('method'),
             type: 'POST',
-            data: {
-                id: ids
-            },
+            data: { id: a[0].id, status: a[0].status },
             dataType: "html",
             success: function (response) {
                 var data = $.parseJSON(response);
-                $('#modal_content').modal('show')
                 $('#modal_content').modal({
                     backdrop: 'static'
                 })
@@ -195,7 +193,31 @@ function readFile(url) {
             error: function (jqXHR, exception, thrownError) {
                 ajax_error_handling(jqXHR, exception, thrownError);
             }
-        });
+        })
+        // var ids = $.map($table.bootstrapTable('getSelections'), function (row) {
+        //     return row.id
+        // })
+        // $.ajax({
+        //     url: url + $(this).attr('method'),
+        //     type: 'POST',
+        //     data: {
+        //         id: ids
+        //     },
+        //     dataType: "html",
+        //     success: function (response) {
+        //         var data = $.parseJSON(response);
+        //         $('#modal_content').modal('show')
+        //         $('#modal_content').modal({
+        //             backdrop: 'static'
+        //         })
+        //         $('.isi-modal').html(data.html)
+        //         $('.modal-title').html(data.modal_title)
+        //         $('#modal-size').addClass(data.modal_size)
+        //     },
+        //     error: function (jqXHR, exception, thrownError) {
+        //         ajax_error_handling(jqXHR, exception, thrownError);
+        //     }
+        // });
     });
     $detail.bind('click', function (e) {
         e.stopImmediatePropagation();

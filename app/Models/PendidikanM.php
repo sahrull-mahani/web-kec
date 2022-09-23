@@ -4,19 +4,20 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class PekerjaanM extends Model
+class PendidikanM extends Model
 {
-    protected $table = "pekerjaan";
+    protected $table = "pendidikan";
     protected $allowedFields = [
         'individu_id',
-        'kondisi_pekerjaan',
-        'pekerjaan',
-        'jamsos',
-        'sumber_penghasilan',
-        'jumlah',
-        'satuan',
-        'penghasilan',
-        'ekspor'
+        'pendidikan',
+        'bahasa_lokal',
+        'bahasa_formal',
+        'kerja_bakti',
+        'siskamling',
+        'pesta_rakyat',
+        'pertolongan_kematian',
+        'pertolongan_sakit',
+        'pertolongan_kecelakaan'
     ];
     protected $primarykey = 'id';
     protected $returnType = 'object';
@@ -28,29 +29,33 @@ class PekerjaanM extends Model
     protected $deletedField  = 'deleted_at';
 
     protected $validationRules = [
-        'kondisi_pekerjaan' => 'required',
-        'pekerjaan' => 'required',
-        'jamsos' => 'required',
-        'sumber_penghasilan' => 'required',
-        'jumlah' => 'required',
-        'satuan' => 'required',
-        'penghasilan' => 'required',
-        'ekspor' => 'required',
+        'individu_id' => 'required',
+        'pendidikan' => 'required',
+        'bahasa_lokal' => 'required',
+        'bahasa_formal' => 'required',
+        'kerja_bakti' => 'required',
+        'siskamling' => 'required',
+        'pesta_rakyat' => 'required',
+        'pertolongan_kematian' => 'required',
+        'pertolongan_sakit' => 'required',
+        'pertolongan_kecelakaan' => 'required'
     ];
 
     protected $validationMessages = [
-        'kondisi_pekerjaan' => ['required' => 'tidak boleh kosong'],
-        'pekerjaan' => ['required' => 'tidak boleh kosong'],
-        'jamsos' => ['required' => 'tidak boleh kosong'],
-        'sumber_penghasilan' => ['required' => 'tidak boleh kosong'],
-        'jumlah' => ['required' => 'tidak boleh kosong'],
-        'satuan' => ['required' => 'tidak boleh kosong'],
-        'penghasilan' => ['required' => 'tidak boleh kosong'],
-        'ekspor' => ['required' => 'tidak boleh kosong'],
+        'individu_id' => ['required' => 'tidak boleh kosong'],
+        'pendidikan' => ['required' => 'tidak boleh kosong'],
+        'bahasa_lokal' => ['required' => 'tidak boleh kosong'],
+        'bahasa_formal' => ['required' => 'tidak boleh kosong'],
+        'kerja_bakti' => ['required' => 'tidak boleh kosong'],
+        'siskamling' => ['required' => 'tidak boleh kosong'],
+        'pesta_rakyat' => ['required' => 'tidak boleh kosong'],
+        'pertolongan_kematian' => ['required' => 'tidak boleh kosong'],
+        'pertolongan_sakit' => ['required' => 'tidak boleh kosong'],
+        'pertolongan_kecelakaan' => ['required' => 'tidak boleh kosong'],
     ];
     private function _get_datatables()
     {
-        $column_search = array('kondisi_pekerjaan', 'pekerjaan', 'jamsos', 'sumber_penghasilan');
+        $column_search = array('pendidikan', 'bahasa_lokal', 'bahasa_formal');
         $i = 0;
         foreach ($column_search as $item) { // loop column 
             if ($_GET['search']) {

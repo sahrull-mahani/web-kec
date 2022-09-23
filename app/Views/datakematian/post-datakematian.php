@@ -39,7 +39,12 @@
                                 <div class="row">
                                     <div class="form-group item col-md-8">
                                         <label for="nama">Nama</label>
-                                        <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Lengkap" required />
+                                        <select name="individu_id" id="datakematian" class="form-control select2">
+                                            <option value="" disabled <?= (isset($get->individu_id) ? '' : 'selected') ?>>Pilih Data</option>
+                                            <?php foreach ($individu as $row) : ?>
+                                                <option value="<?= $row->id; ?>" <?= (isset($get->individu_id) ? ($get->individu_id == $row->id ? 'selected' : '') : '') ?>><?= $row->nik . ' - ' .  ucwords($row->nama) ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
                                     </div>
                                     <div class="form-group item col-md-4">
                                         <label for="jenis_kelamin">Jenis Kelamin</label>
@@ -48,7 +53,7 @@
                                             'Laki - Laki' => 'Laki - Laki',
                                             'Perempuan' => 'Perempuan',
                                         );
-                                        echo form_dropdown('jenis_kelamin[]', $defaults + $options, (isset($get->jenis_kelamin)) ? $get->jenis_kelamin : '', 'class="form-control select2" id="jenis_kelamin" required');
+                                        echo form_dropdown('jenis_kelamin[]', $defaults + $options, (isset($get->jenis_kelamin)) ? $get->jenis_kelamin : '', 'class="form-control" id="jenis_kelamin" disabled');
                                         ?>
                                     </div>
                                 </div>
@@ -82,7 +87,7 @@
                                 </div>
                                 <div class="form-group item">
                                     <label for="alamat">Alamat Pekuburan</label>
-                                    <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat Pekuburan" required />
+                                    <input type="text" class="form-control" id="alamat" name="alamat_kubur" placeholder="Alamat Pekuburan" required />
                                 </div>
                             </div>
                         </div>

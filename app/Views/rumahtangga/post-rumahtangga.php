@@ -62,16 +62,16 @@
                                     <div class="row">
                                         <div class="form-group item col-md-8">
                                             <label for="nama_enum">Nama</label>
-                                            <input type="text" class="form-control" id="nama_enum" name="nama_enum" placeholder="Nama Lengkap" required />
+                                            <input type="text" class="form-control" id="nama_enum" name="nama_enum" placeholder="Nama Lengkap" />
                                         </div>
                                         <div class="form-group item col-md-4">
                                             <label for="notelp_enum">HP/Telepon</label>
-                                            <input type="text" class="form-control" id="notelp_enum" name="notelp_enum" placeholder="No. HP/Telepon" required />
+                                            <input type="text" class="form-control" id="notelp_enum" name="notelp_enum" placeholder="No. HP/Telepon" />
                                         </div>
                                     </div>
                                     <div class="form-group item">
                                         <label for="alamat_enum">Alamat</label>
-                                        <input type="text" class="form-control" id="alamat_enum" name="alamat_enum" placeholder="Alamat Enumerator" required />
+                                        <input type="text" class="form-control" id="alamat_enum" name="alamat_enum" placeholder="Alamat Enumerator" />
                                     </div>
                                     <button type="button" name="next" class="btn btn-sm btn-primary btn-user float-right next" onclick="Step2()">Selanjutnya</button>
                                 </div>
@@ -81,56 +81,61 @@
                                     </div>
                                     <div class="row">
 
-                                    <div class="form-group item col-md-4">
-                                    <label for="provinsi">Provinsi</label>
-                                        <select name="provinsi" id="provinsi" class="form-control">
-                                            <option>--Pilih Provinsi--</option>
-                                            <?php foreach($provinsi as $prov): ?>
-                                                <option value="<?= $prov['id']; ?>"><?= $prov['name']; ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    </div>
-                                    <div class="form-group item col-md-4">
-                                        <label for="kabupaten">Kabupaten/Kota</label>
-                                        <select name="kabupaten" id="kabupaten" class="form-control">
-                                             <option>--Pilih Kabupaten--</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group item col-md-4">
-                                        <label for="kecamatan">Kecamatan</label>
-                                        <select name="kecamatan" id="kecamatan" class="form-control">
-                                            <option>--Pilih Kecamatan--</option>
-                                        </select>
-                                    </div>
+                                        <div class="form-group item col-md-4">
+                                            <label for="provinsi">Provinsi</label>
+                                            <select name="provinsi" id="provinsi" class="form-control">
+                                                <option value="" disabled <?= (isset($get->provinsi) ? '' : 'selected') ?>>--Pilih Provinsi--</option>
+                                                <?php foreach ($provinsi as $prov) : ?>
+                                                    <option value="<?= $prov['id']; ?>" <?= (isset($get->provinsi) ? ($get->provinsi == $prov['id'] ? 'selected' : '') : '') ?>><?= $prov['name'] ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                        <div class="form-group item col-md-4">
+                                            <label for="kabupaten">Kabupaten/Kota</label>
+                                            <select name="kab_kota" id="kabupaten" class="form-control" data-kabupaten="<?= @$get->kab_kota ?>">
+                                                <option>--Pilih Kabupaten--</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group item col-md-4">
+                                            <label for="kecamatan">Kecamatan</label>
+                                            <select name="kecamatan" id="kecamatan" class="form-control" data-kecamatan="<?= @$get->kecamatan ?>">
+                                                <option>--Pilih Kecamatan--</option>
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="row">
-                                    <div class="form-group item col-md-8">
-                                        <label for="desa">Desa</label>
-                                        <select name="desa" id="desa" class="form-control">
-                                            <option>--Pilih Desa--</option>
-                                        </select>
-                                    </div>
+                                        <div class="form-group item col-md-8">
+                                            <label for="desa">Desa</label>
+                                            <select name="kelurahan" id="desa" class="form-control" data-kelurahan="<?= @$get->kelurahan ?>">
+                                                <option>--Pilih Desa--</option>
+                                            </select>
+                                        </div>
                                         <div class="form-group item col-md-4">
                                             <label for="rt_rw">RT/RW</label>
-                                            <input type="text" class="form-control" id="rt_rw" name="rt_rw" placeholder="RT/RW" required />
+                                            <input type="text" class="form-control" id="rt_rw" name="rt_rw" placeholder="RT/RW" />
                                         </div>
                                     </div>
                                     <div class="form-group item">
                                         <label for="nama_lokasi">Nama</label>
-                                        <input type="text" class="form-control" id="nama_lokasi" name="nama_lokasi" placeholder="Nama Lengkap" required />
+                                        <select name="individu_id" id="individu" class="form-control select2">
+                                            <option value="" disabled <?= (isset($get->individu_id) ? '' : 'selected') ?>>--Pilih Nama--</option>
+                                            <?php foreach ($individu as $row) : ?>
+                                                <option value="<?= $row->id; ?>" <?= (isset($get->individu_id) ? ($get->individu_id == $row->id ? 'selected' : '') : '') ?>><?= $row->nama ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
                                     </div>
                                     <div class="form-group item">
                                         <label for="alamat_lokasi">Alamat</label>
-                                        <input type="text" class="form-control" id="alamat_lokasi" name="alamat_lokasi" placeholder="Alamat" required />
+                                        <input type="text" class="form-control" id="alamat_lokasi" name="alamat_lokasi" placeholder="Alamat" />
                                     </div>
                                     <div class="row">
                                         <div class="form-group item col-md-6">
-                                            <label for="notelp_lokasi">Nomor HP</label>
-                                            <input type="text" class="form-control" id="notelp_lokasi" name="notelp_lokasi" placeholder="Nomor HP" required />
+                                            <label for="nohp_lokasi">Nomor HP</label>
+                                            <input type="text" class="form-control" id="nohp_lokasi" name="nohp_lokasi" placeholder="Nomor HP" />
                                         </div>
                                         <div class="form-group item col-md-6">
-                                            <label for="nohp_lokasi">Nomor Telepon Kabel/Rumah</label>
-                                            <input type="text" class="form-control" id="nohp_lokasi" name="nohp_lokasi" placeholder="Nomor Telepon Kabel/Rumah" required />
+                                            <label for="no_telp">Nomor Telepon Kabel/Rumah</label>
+                                            <input type="text" class="form-control" id="no_telp" name="no_telp" placeholder="Nomor Telepon Kabel/Rumah" />
                                         </div>
                                     </div>
                                     <button type="button" class="btn btn-sm btn-secondary btn-user float-left" onclick="Step()">Sebelumnya</button>
@@ -142,21 +147,11 @@
                                     </div>
                                     <div class="form-group item">
                                         <label for="no_kk">Nomor Kartu Keluarga</label>
-                                        <input type="text" class="form-control" id="no_kk" name="no_kk" placeholder="Nomor Kartu Keluarga" required />
+                                        <input type="text" class="form-control" id="no_kk" name="no_kk" placeholder="Nomor Kartu Keluarga" />
                                     </div>
                                     <div class="form-group item">
                                         <label for="nik">NIK Kepala Keluarga</label>
-                                        <input type="text" class="form-control" id="nik" name="nik" placeholder="Nomor Induk Kependudukan Kepala Keluarga" required />
-                                    </div>
-                                    <div class="form-group item">
-                                        <label for="jenis_kelamin">Jenis Kelamin</label>
-                                        <?php $defaults = array('' => 'Pilih');
-                                        $options = array(
-                                            'Laki - Laki' => 'Laki - Laki',
-                                            'Wanita' => 'Wanita',
-                                        );
-                                        echo form_dropdown('jenis_kelamin[]', $defaults + $options, (isset($get->jenis_kelamin)) ? $get->jenis_kelamin : '', 'class="form-control select2" id="jenis_kelamin" required');
-                                        ?>
+                                        <input type="text" class="form-control" id="nik" name="nik" placeholder="Nomor Induk Kependudukan Kepala Keluarga" />
                                     </div>
                                     <button type="button" class="btn btn-sm btn-secondary btn-user float-left" onclick="Step2()">Sebelumnya</button>
                                     <button type="button" class="btn btn-sm btn-primary btn-user float-right" onclick="Step4()">Selanjutnya</button>
@@ -176,11 +171,11 @@
                                             'Dinas' => 'Dinas',
                                             'Lainnya' => 'Lainnya',
                                         );
-                                        echo form_dropdown('tempat_tinggal[]', $defaults + $options, (isset($get->tempat_tinggal)) ? $get->tempat_tinggal : '', 'class="form-control select2" id="tempat_tinggal" required');
+                                        echo form_dropdown('tempat_tinggal[]', $defaults + $options, (isset($get->tempat_tinggal)) ? $get->tempat_tinggal : '', 'class="form-control select2" id="tempat_tinggal" ');
                                         ?>
                                     </div>
                                     <div class="form-group item">
-                                        <label for="status_tempat">Status Lahan Tempat Tinggal Yang Ditempati</label>
+                                        <label for="status_lahan">Status Lahan Tempat Tinggal Yang Ditempati</label>
                                         <?php $defaults = array('' => 'Pilih');
                                         $options = array(
                                             'Milik Sendiri' => 'Milik Sendiri',
@@ -188,17 +183,17 @@
                                             'Tanah Negara' => 'Tanah Negara',
                                             'Lainnya' => 'Lainnya',
                                         );
-                                        echo form_dropdown('status_tempat[]', $defaults + $options, (isset($get->status_tempat)) ? $get->status_tempat : '', 'class="form-control select2" id="status_tempat" required');
+                                        echo form_dropdown('status_lahan[]', $defaults + $options, (isset($get->status_lahan)) ? $get->status_lahan : '', 'class="form-control select2" id="status_lahan" ');
                                         ?>
                                     </div>
                                     <div class="row">
                                         <div class="form-group item col-md-6">
                                             <label for="luas_lantai">Luas Lantai (m2)</label>
-                                            <input type="text" class="form-control" id="luas_lantai" name="luas_lantai" placeholder="Luas Lantai (m2)" required />
+                                            <input type="text" class="form-control" id="luas_lantai" name="luas_lantai" placeholder="Luas Lantai (m2)" />
                                         </div>
                                         <div class="form-group item col-md-6">
                                             <label for="luas_lahan">Luas Lahan (m2)</label>
-                                            <input type="text" class="form-control" id="luas_lahan" name="luas_lahan" placeholder="Luas Lahan (m2)" required />
+                                            <input type="text" class="form-control" id="luas_lahan" name="luas_lahan" placeholder="Luas Lahan (m2)" />
                                         </div>
                                     </div>
                                     <div class="form-group item">
@@ -215,7 +210,7 @@
                                             'Kayu/Papan Kualitas Rendah' => 'Kayu/Papan Kualitas Rendah',
                                             'Lainnya' => 'Lainnya',
                                         );
-                                        echo form_dropdown('jenis_lantai[]', $defaults + $options, (isset($get->jenis_lantai)) ? $get->jenis_lantai : '', 'class="form-control select2" id="jenis_lantai" required');
+                                        echo form_dropdown('jenis_lantai[]', $defaults + $options, (isset($get->jenis_lantai)) ? $get->jenis_lantai : '', 'class="form-control select2" id="jenis_lantai" ');
                                         ?>
                                     </div>
                                     <div class="form-group item">
@@ -226,7 +221,7 @@
                                             'Kayu Berkualitas Rendah/Bambu' => 'Kayu Berkualitas Rendah/Bambu',
                                             'Lainnya' => 'Lainnya',
                                         );
-                                        echo form_dropdown('dinding[]', $defaults + $options, (isset($get->dinding)) ? $get->dinding : '', 'class="form-control select2" id="dinding" required');
+                                        echo form_dropdown('dinding[]', $defaults + $options, (isset($get->dinding)) ? $get->dinding : '', 'class="form-control select2" id="dinding" ');
                                         ?>
                                     </div>
                                     <div class="row">
@@ -238,7 +233,7 @@
                                                 'Ada, Tidak Berfungsi' => 'Ada, Tidak Berfungsi',
                                                 'Tidak Ada' => 'Tidak Ada',
                                             );
-                                            echo form_dropdown('jendela[]', $defaults + $options, (isset($get->jendela)) ? $get->jendela : '', 'class="form-control select2" id="jendela" required');
+                                            echo form_dropdown('jendela[]', $defaults + $options, (isset($get->jendela)) ? $get->jendela : '', 'class="form-control select2" id="jendela" ');
                                             ?>
                                         </div>
                                         <div class="form-group item col-md-6">
@@ -249,7 +244,7 @@
                                                 'Kayu/Jerami' => 'Kayu/Jerami',
                                                 'Lainnya' => 'Lainnya',
                                             );
-                                            echo form_dropdown('atap[]', $defaults + $options, (isset($get->atap)) ? $get->atap : '', 'class="form-control select2" id="atap" required');
+                                            echo form_dropdown('atap[]', $defaults + $options, (isset($get->atap)) ? $get->atap : '', 'class="form-control select2" id="atap" ');
                                             ?>
                                         </div>
                                     </div>
@@ -264,7 +259,7 @@
                                                 'Sumber Penerangan Lainnya' => 'Sumber Penerangan Lainnya',
                                                 'Tidak Ada' => 'Tidak Ada',
                                             );
-                                            echo form_dropdown('penerangan[]', $defaults + $options, (isset($get->penerangan)) ? $get->penerangan : '', 'class="form-control select2" id="penerangan" required');
+                                            echo form_dropdown('penerangan[]', $defaults + $options, (isset($get->penerangan)) ? $get->penerangan : '', 'class="form-control select2" id="penerangan" ');
                                             ?>
                                         </div>
                                         <div class="form-group item col-md-6">
@@ -276,7 +271,7 @@
                                                 'Kayu Bakar' => 'Kayu Bakar',
                                                 'Lainnya (Ke P407)' => 'Lainnya (Ke P407)',
                                             );
-                                            echo form_dropdown('energi[]', $defaults + $options, (isset($get->energi)) ? $get->energi : '', 'class="form-control select2" id="energi" required');
+                                            echo form_dropdown('energi[]', $defaults + $options, (isset($get->energi)) ? $get->energi : '', 'class="form-control select2" id="energi" ');
                                             ?>
                                         </div>
                                     </div>
@@ -289,7 +284,7 @@
                                             'Diambil Di Luar/Bukan Hutan' => 'Diambil Di Luar/Bukan Hutan',
                                             'Lainnya' => 'Lainnya',
                                         );
-                                        echo form_dropdown('sumber_kayubakar[]', $defaults + $options, (isset($get->sumber_kayubakar)) ? $get->sumber_kayubakar : '', 'class="form-control select2" id="sumber_kayubakar" required');
+                                        echo form_dropdown('sumber_kayubakar[]', $defaults + $options, (isset($get->sumber_kayubakar)) ? $get->sumber_kayubakar : '', 'class="form-control select2" id="sumber_kayubakar" ');
                                         ?>
                                     </div>
                                     <div class="row">
@@ -303,7 +298,7 @@
                                                 'Tempat Sampah' => 'Tempat Sampah',
                                                 'Tidak' => 'Tidak',
                                             );
-                                            echo form_dropdown('tps[]', $defaults + $options, (isset($get->tps)) ? $get->tps : '', 'class="form-control select2" id="tps" required');
+                                            echo form_dropdown('tps[]', $defaults + $options, (isset($get->tps)) ? $get->tps : '', 'class="form-control select2" id="tps" ');
                                             ?>
                                         </div>
                                         <div class="form-group item col-md-6">
@@ -315,7 +310,7 @@
                                                 'MCK Umum' => 'MCK Umum',
                                                 'Tidak Ada' => 'Tidak Ada',
                                             );
-                                            echo form_dropdown('mck[]', $defaults + $options, (isset($get->mck)) ? $get->mck : '', 'class="form-control select2" id="mck" required');
+                                            echo form_dropdown('mck[]', $defaults + $options, (isset($get->mck)) ? $get->mck : '', 'class="form-control select2" id="mck" ');
                                             ?>
                                         </div>
                                     </div>
@@ -330,7 +325,7 @@
                                             'Tadah Air Hujan' => 'Tadah Air Hujan',
                                             'Lainnya' => 'Lainnya',
                                         );
-                                        echo form_dropdown('sumber_airmandi[]', $defaults + $options, (isset($get->sumber_airmandi)) ? $get->sumber_airmandi : '', 'class="form-control select2" id="sumber_airmandi" required');
+                                        echo form_dropdown('sumber_airmandi[]', $defaults + $options, (isset($get->sumber_airmandi)) ? $get->sumber_airmandi : '', 'class="form-control select2" id="sumber_airmandi" ');
                                         ?>
                                     </div>
                                     <div class="form-group item">
@@ -342,7 +337,7 @@
                                             'Jamban Umum' => 'Jamban Umum',
                                             'Lainnya' => 'Lainnya',
                                         );
-                                        echo form_dropdown('fasilitas_bab[]', $defaults + $options, (isset($get->fasilitas_bab)) ? $get->fasilitas_bab : '', 'class="form-control select2" id="fasilitas_bab" required');
+                                        echo form_dropdown('fasilitas_bab[]', $defaults + $options, (isset($get->fasilitas_bab)) ? $get->fasilitas_bab : '', 'class="form-control select2" id="fasilitas_bab" ');
                                         ?>
                                     </div>
                                     <div class="form-group item">
@@ -355,7 +350,7 @@
                                             'Tadah Air Hujan' => 'Tadah Air Hujan',
                                             'Lainnya' => 'Lainnya',
                                         );
-                                        echo form_dropdown('sumber_airminum[]', $defaults + $options, (isset($get->sumber_airminum)) ? $get->sumber_airminum : '', 'class="form-control select2" id="sumber_airminum" required');
+                                        echo form_dropdown('sumber_airminum[]', $defaults + $options, (isset($get->sumber_airminum)) ? $get->sumber_airminum : '', 'class="form-control select2" id="sumber_airminum" ');
                                         ?>
                                     </div>
                                     <div class="form-group item">
@@ -367,7 +362,7 @@
                                             'Lubang Di Tanah' => 'Lubang Di Tanah',
                                             'Lainnya' => 'Lainnya',
                                         );
-                                        echo form_dropdown('tempat_plc[]', $defaults + $options, (isset($get->tempat_plc)) ? $get->tempat_plc : '', 'class="form-control select2" id="tempat_plc" required');
+                                        echo form_dropdown('tempat_plc[]', $defaults + $options, (isset($get->tempat_plc)) ? $get->tempat_plc : '', 'class="form-control select2" id="tempat_plc" ');
                                         ?>
                                     </div>
                                     <div class="form-group item">
@@ -377,7 +372,7 @@
                                             'Ya' => 'Ya',
                                             'Tidak' => 'Tidak',
                                         );
-                                        echo form_dropdown('tower[]', $defaults + $options, (isset($get->tower)) ? $get->tower : '', 'class="form-control select2" id="tower" required');
+                                        echo form_dropdown('tower[]', $defaults + $options, (isset($get->tower)) ? $get->tower : '', 'class="form-control select2" id="tower" ');
                                         ?>
                                     </div>
                                     <div class="row">
@@ -388,7 +383,7 @@
                                                 'Ya' => 'Ya',
                                                 'Tidak' => 'Tidak',
                                             );
-                                            echo form_dropdown('rumah_sungai[]', $defaults + $options, (isset($get->rumah_sungai)) ? $get->rumah_sungai : '', 'class="form-control select2" id="rumah_sungai" required');
+                                            echo form_dropdown('rumah_sungai[]', $defaults + $options, (isset($get->rumah_sungai)) ? $get->rumah_sungai : '', 'class="form-control select2" id="rumah_sungai" ');
                                             ?>
                                         </div>
                                         <div class="form-group item col-md-6">
@@ -398,7 +393,7 @@
                                                 'Ya' => 'Ya',
                                                 'Tidak' => 'Tidak',
                                             );
-                                            echo form_dropdown('rumah_bukit[]', $defaults + $options, (isset($get->rumah_bukit)) ? $get->rumah_bukit : '', 'class="form-control select2" id="rumah_bukit" required');
+                                            echo form_dropdown('rumah_bukit[]', $defaults + $options, (isset($get->rumah_bukit)) ? $get->rumah_bukit : '', 'class="form-control select2" id="rumah_bukit" ');
                                             ?>
                                         </div>
                                     </div>
@@ -409,7 +404,7 @@
                                             'Kumuh' => 'Kumuh',
                                             'Tidak Kumuh' => 'Tidak Kumuh',
                                         );
-                                        echo form_dropdown('kondisi_rumah[]', $defaults + $options, (isset($get->kondisi_rumah)) ? $get->kondisi_rumah : '', 'class="form-control select2" id="kondisi_rumah" required');
+                                        echo form_dropdown('kondisi_rumah[]', $defaults + $options, (isset($get->kondisi_rumah)) ? $get->kondisi_rumah : '', 'class="form-control select2" id="kondisi_rumah" ');
                                         ?>
                                     </div>
                                     <div class="form-group item">
@@ -426,15 +421,15 @@
                                             'Seminari' => 'Seminari',
                                             'Pendidikan Keagamaan Lain' => 'Pendidikan Keagamaan Lain',
                                         );
-                                        echo form_dropdown('akses_pendidikan[]', $defaults + $options, (isset($get->akses_pendidikan)) ? $get->akses_pendidikan : '', 'class="form-control select2" id="akses_pendidikan" required');
+                                        echo form_dropdown('akses_pendidikan[]', $defaults + $options, (isset($get->akses_pendidikan)) ? $get->akses_pendidikan : '', 'class="form-control select2" id="akses_pendidikan" ');
                                         ?>
                                     </div>
                                     <div class="row">
                                         <div class="form-group item col-md-4">
-                                            <input type="text" class="form-control" id="jarak_pendidikan" name="jarak_pendidikan" placeholder="Jarak (km)" required />
+                                            <input type="text" class="form-control" id="jarak_pendidikan" name="jarak_pendidikan" placeholder="Jarak (km)" />
                                         </div>
                                         <div class="form-group item col-md-4">
-                                            <input type="text" class="form-control" id="waktu_pendidikan" name="waktu_pendidikan" placeholder="Waktu Tempuh (jam)" required />
+                                            <input type="text" class="form-control" id="waktu_pendidikan" name="waktu_pendidikan" placeholder="Waktu Tempuh (jam)" />
                                         </div>
                                         <div class="form-group item col-md-4">
                                             <?php $defaults = array('' => 'Kemudahan');
@@ -442,7 +437,7 @@
                                                 'Sulit' => 'Sulit',
                                                 'Mudah' => 'Mudah',
                                             );
-                                            echo form_dropdown('kemudahan_pendidikan[]', $defaults + $options, (isset($get->kemudahan_pendidikan)) ? $get->kemudahan_pendidikan : '', 'class="form-control select2" id="kemudahan_pendidikan" required');
+                                            echo form_dropdown('kemudahan_pendidikan[]', $defaults + $options, (isset($get->kemudahan_pendidikan)) ? $get->kemudahan_pendidikan : '', 'class="form-control select2" id="kemudahan_pendidikan" ');
                                             ?>
                                         </div>
                                     </div>
@@ -461,15 +456,15 @@
                                             'Apotik' => 'Apotik',
                                             'Toko Obat' => 'Toko Obat',
                                         );
-                                        echo form_dropdown('akses_kesehatan[]', $defaults + $options, (isset($get->akses_kesehatan)) ? $get->akses_kesehatan : '', 'class="form-control select2" id="akses_kesehatan" required');
+                                        echo form_dropdown('akses_kesehatan[]', $defaults + $options, (isset($get->akses_kesehatan)) ? $get->akses_kesehatan : '', 'class="form-control select2" id="akses_kesehatan" ');
                                         ?>
                                     </div>
                                     <div class="row">
                                         <div class="form-group item col-md-4">
-                                            <input type="text" class="form-control" id="jarak_kesehatan" name="jarak_kesehatan" placeholder="Jarak (km)" required />
+                                            <input type="text" class="form-control" id="jarak_kesehatan" name="jarak_kesehatan" placeholder="Jarak (km)" />
                                         </div>
                                         <div class="form-group item col-md-4">
-                                            <input type="text" class="form-control" id="waktu_kesehatan" name="waktu_kesehatan" placeholder="Waktu Tempuh (jam)" required />
+                                            <input type="text" class="form-control" id="waktu_kesehatan" name="waktu_kesehatan" placeholder="Waktu Tempuh (jam)" />
                                         </div>
                                         <div class="form-group item col-md-4">
                                             <?php $defaults = array('' => 'Kemudahan');
@@ -477,7 +472,7 @@
                                                 'Sulit' => 'Sulit',
                                                 'Mudah' => 'Mudah',
                                             );
-                                            echo form_dropdown('kemudahan_kesehatan[]', $defaults + $options, (isset($get->kemudahan_kesehatan)) ? $get->kemudahan_kesehatan : '', 'class="form-control select2" id="kemudahan_kesehatan" required');
+                                            echo form_dropdown('kemudahan_kesehatan[]', $defaults + $options, (isset($get->kemudahan_kesehatan)) ? $get->kemudahan_kesehatan : '', 'class="form-control select2" id="kemudahan_kesehatan" ');
                                             ?>
                                         </div>
                                     </div>
@@ -491,15 +486,15 @@
                                             'Tenaga Kesehatan' => 'Tenaga Kesehatan',
                                             'Dukun' => 'Dukun',
                                         );
-                                        echo form_dropdown('akses_nakes[]', $defaults + $options, (isset($get->akses_nakes)) ? $get->akses_nakes : '', 'class="form-control select2" id="akses_nakes" required');
+                                        echo form_dropdown('akses_nakes[]', $defaults + $options, (isset($get->akses_nakes)) ? $get->akses_nakes : '', 'class="form-control select2" id="akses_nakes" ');
                                         ?>
                                     </div>
                                     <div class="row">
                                         <div class="form-group item col-md-4">
-                                            <input type="text" class="form-control" id="jarak_nakes" name="jarak_nakes" placeholder="Jarak (km)" required />
+                                            <input type="text" class="form-control" id="jarak_nakes" name="jarak_nakes" placeholder="Jarak (km)" />
                                         </div>
                                         <div class="form-group item col-md-4">
-                                            <input type="text" class="form-control" id="waktu_nakes" name="waktu_nakes" placeholder="Waktu Tempuh (jam)" required />
+                                            <input type="text" class="form-control" id="waktu_nakes" name="waktu_nakes" placeholder="Waktu Tempuh (jam)" />
                                         </div>
                                         <div class="form-group item col-md-4">
                                             <?php $defaults = array('' => 'Kemudahan');
@@ -507,7 +502,7 @@
                                                 'Sulit' => 'Sulit',
                                                 'Mudah' => 'Mudah',
                                             );
-                                            echo form_dropdown('kemudahan_nakes[]', $defaults + $options, (isset($get->kemudahan_nakes)) ? $get->kemudahan_nakes : '', 'class="form-control select2" id="kemudahan_nakes" required');
+                                            echo form_dropdown('kemudahan_nakes[]', $defaults + $options, (isset($get->kemudahan_nakes)) ? $get->kemudahan_nakes : '', 'class="form-control select2" id="kemudahan_nakes" ');
                                             ?>
                                         </div>
                                     </div>
@@ -522,7 +517,7 @@
                                             'Beribadah Mingguan/Bulanan/Tahunan' => 'Beribadah Mingguan/Bulanan/Tahunan',
                                             'Rekreasi Terdekat' => 'Rekreasi Terdekat',
                                         );
-                                        echo form_dropdown('akses_transportasi[]', $defaults + $options, (isset($get->akses_transportasi)) ? $get->akses_transportasi : '', 'class="form-control select2" id="akses_transportasi" required');
+                                        echo form_dropdown('akses_transportasi[]', $defaults + $options, (isset($get->akses_transportasi)) ? $get->akses_transportasi : '', 'class="form-control select2" id="akses_transportasi" ');
                                         ?>
                                     </div>
                                     <div class="row">
@@ -533,7 +528,7 @@
                                                 'Air' => 'Air',
                                                 'Udara' => 'Udara',
                                             );
-                                            echo form_dropdown('jenis_transportasi[]', $defaults + $options, (isset($get->jenis_transportasi)) ? $get->jenis_transportasi : '', 'class="form-control select2" id="jenis_transportasi" required');
+                                            echo form_dropdown('jenis_transportasi[]', $defaults + $options, (isset($get->jenis_transportasi)) ? $get->jenis_transportasi : '', 'class="form-control select2" id="jenis_transportasi" ');
                                             ?>
                                         </div>
                                         <div class="form-group item col-md-6">
@@ -542,16 +537,16 @@
                                                 'Ya' => 'Ya',
                                                 'Tidak' => 'Tidak',
                                             );
-                                            echo form_dropdown('penggunaan_transportasi[]', $defaults + $options, (isset($get->penggunaan_transportasi)) ? $get->penggunaan_transportasi : '', 'class="form-control select2" id="penggunaan_transportasi" required');
+                                            echo form_dropdown('penggunaan_transportasi[]', $defaults + $options, (isset($get->penggunaan_transportasi)) ? $get->penggunaan_transportasi : '', 'class="form-control select2" id="penggunaan_transportasi" ');
                                             ?>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group item col-md-4">
-                                            <input type="text" class="form-control" id="waktu_tempuh" name="waktu_tempuh" placeholder="Waktu Tempuh (jam)" required />
+                                            <input type="text" class="form-control" id="waktu_tempuh" name="waktu_tempuh" placeholder="Waktu Tempuh (jam)" />
                                         </div>
                                         <div class="form-group item col-md-4">
-                                            <input type="text" class="form-control" id="biaya" name="biaya" placeholder="Biaya Sekali Jalan (Rp)" required />
+                                            <input type="text" class="form-control" id="biaya" name="biaya" placeholder="Biaya Sekali Jalan (Rp)" />
                                         </div>
                                         <div class="form-group item col-md-4">
                                             <?php $defaults = array('' => 'Kemudahan');
@@ -559,7 +554,7 @@
                                                 'Sulit' => 'Sulit',
                                                 'Mudah' => 'Mudah',
                                             );
-                                            echo form_dropdown('kemudahan_transportasi[]', $defaults + $options, (isset($get->kemudahan_transportasi)) ? $get->kemudahan_transportasi : '', 'class="form-control select2" id="kemudahan_transportasi" required');
+                                            echo form_dropdown('kemudahan_transportasi[]', $defaults + $options, (isset($get->kemudahan_transportasi)) ? $get->kemudahan_transportasi : '', 'class="form-control select2" id="kemudahan_transportasi" ');
                                             ?>
                                         </div>
                                     </div>
@@ -571,7 +566,7 @@
                                                 'Ya' => 'Ya',
                                                 'Tidak' => 'Tidak',
                                             );
-                                            echo form_dropdown('blt[]', $defaults + $options, (isset($get->blt)) ? $get->blt : '', 'class="form-control select2" id="blt" required');
+                                            echo form_dropdown('blt[]', $defaults + $options, (isset($get->blt)) ? $get->blt : '', 'class="form-control select2" id="blt" ');
                                             ?>
                                         </div>
                                         <div class="form-group item col-md-4">
@@ -580,7 +575,7 @@
                                                 'Ya' => 'Ya',
                                                 'Tidak' => 'Tidak',
                                             );
-                                            echo form_dropdown('pkh[]', $defaults + $options, (isset($get->pkh)) ? $get->pkh : '', 'class="form-control select2" id="pkh" required');
+                                            echo form_dropdown('pkh[]', $defaults + $options, (isset($get->pkh)) ? $get->pkh : '', 'class="form-control select2" id="pkh" ');
                                             ?>
                                         </div>
                                     </div>
@@ -591,7 +586,7 @@
                                                 'Ya' => 'Ya',
                                                 'Tidak' => 'Tidak',
                                             );
-                                            echo form_dropdown('banst[]', $defaults + $options, (isset($get->banst)) ? $get->banst : '', 'class="form-control select2" id="banst" required');
+                                            echo form_dropdown('banst[]', $defaults + $options, (isset($get->banst)) ? $get->banst : '', 'class="form-control select2" id="banst" ');
                                             ?>
                                         </div>
                                         <div class="form-group item col-md-4">
@@ -600,7 +595,7 @@
                                                 'Ya' => 'Ya',
                                                 'Tidak' => 'Tidak',
                                             );
-                                            echo form_dropdown('banpres[]', $defaults + $options, (isset($get->banpres)) ? $get->banpres : '', 'class="form-control select2" id="banpres" required');
+                                            echo form_dropdown('banpres[]', $defaults + $options, (isset($get->banpres)) ? $get->banpres : '', 'class="form-control select2" id="banpres" ');
                                             ?>
                                         </div>
                                         <div class="form-group item col-md-4">
@@ -609,7 +604,7 @@
                                                 'Ya' => 'Ya',
                                                 'Tidak' => 'Tidak',
                                             );
-                                            echo form_dropdown('banumkm[]', $defaults + $options, (isset($get->banumkm)) ? $get->banumkm : '', 'class="form-control select2" id="banumkm" required');
+                                            echo form_dropdown('banumkm[]', $defaults + $options, (isset($get->banumkm)) ? $get->banumkm : '', 'class="form-control select2" id="banumkm" ');
                                             ?>
                                         </div>
                                     </div>
@@ -620,7 +615,7 @@
                                                 'Ya' => 'Ya',
                                                 'Tidak' => 'Tidak',
                                             );
-                                            echo form_dropdown('buk[]', $defaults + $options, (isset($get->buk)) ? $get->buk : '', 'class="form-control select2" id="buk" required');
+                                            echo form_dropdown('buk[]', $defaults + $options, (isset($get->buk)) ? $get->buk : '', 'class="form-control select2" id="buk" ');
                                             ?>
                                         </div>
                                         <div class="form-group item col-md-4">
@@ -629,7 +624,7 @@
                                                 'Ya' => 'Ya',
                                                 'Tidak' => 'Tidak',
                                             );
-                                            echo form_dropdown('bpa[]', $defaults + $options, (isset($get->bpa)) ? $get->bpa : '', 'class="form-control select2" id="bpa" required');
+                                            echo form_dropdown('bpa[]', $defaults + $options, (isset($get->bpa)) ? $get->bpa : '', 'class="form-control select2" id="bpa" ');
                                             ?>
                                         </div>
                                         <div class="form-group item col-md-4">
@@ -638,7 +633,7 @@
                                                 'Ya' => 'Ya',
                                                 'Tidak' => 'Tidak',
                                             );
-                                            echo form_dropdown('lainnya[]', $defaults + $options, (isset($get->lainnya)) ? $get->lainnya : '', 'class="form-control select2" id="lainnya" required');
+                                            echo form_dropdown('lainnya[]', $defaults + $options, (isset($get->lainnya)) ? $get->lainnya : '', 'class="form-control select2" id="lainnya" ');
                                             ?>
                                         </div>
                                     </div>

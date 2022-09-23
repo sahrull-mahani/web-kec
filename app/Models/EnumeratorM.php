@@ -4,19 +4,14 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class PekerjaanM extends Model
+class EnumeratorM extends Model
 {
-    protected $table = "pekerjaan";
+    protected $table = "enumerator";
     protected $allowedFields = [
-        'individu_id',
-        'kondisi_pekerjaan',
-        'pekerjaan',
-        'jamsos',
-        'sumber_penghasilan',
-        'jumlah',
-        'satuan',
-        'penghasilan',
-        'ekspor'
+        'rumahtangga_id',
+        'nama_enum',
+        'notelp_enum',
+        'alamat_enum'
     ];
     protected $primarykey = 'id';
     protected $returnType = 'object';
@@ -28,29 +23,19 @@ class PekerjaanM extends Model
     protected $deletedField  = 'deleted_at';
 
     protected $validationRules = [
-        'kondisi_pekerjaan' => 'required',
-        'pekerjaan' => 'required',
-        'jamsos' => 'required',
-        'sumber_penghasilan' => 'required',
-        'jumlah' => 'required',
-        'satuan' => 'required',
-        'penghasilan' => 'required',
-        'ekspor' => 'required',
+        'nama_enum' => 'required',
+        'notelp_enum' => 'required',
+        'alamat_enum' => 'required',
     ];
 
     protected $validationMessages = [
-        'kondisi_pekerjaan' => ['required' => 'tidak boleh kosong'],
-        'pekerjaan' => ['required' => 'tidak boleh kosong'],
-        'jamsos' => ['required' => 'tidak boleh kosong'],
-        'sumber_penghasilan' => ['required' => 'tidak boleh kosong'],
-        'jumlah' => ['required' => 'tidak boleh kosong'],
-        'satuan' => ['required' => 'tidak boleh kosong'],
-        'penghasilan' => ['required' => 'tidak boleh kosong'],
-        'ekspor' => ['required' => 'tidak boleh kosong'],
+        'nama_enum' => ['required' => 'tidak boleh kosong'],
+        'notelp_enum' => ['required' => 'tidak boleh kosong'],
+        'alamat_enum' => ['required' => 'tidak boleh kosong']
     ];
     private function _get_datatables()
     {
-        $column_search = array('kondisi_pekerjaan', 'pekerjaan', 'jamsos', 'sumber_penghasilan');
+        $column_search = array('nama_enum', 'notelp_enum', 'alamat_enum');
         $i = 0;
         foreach ($column_search as $item) { // loop column 
             if ($_GET['search']) {

@@ -58,6 +58,12 @@ class KesehatanM extends Model
     ];
     protected $primarykey = 'id';
     protected $returnType = 'object';
+    protected $useSoftDeletes = false;
+
+    protected $useTimestamps = true;
+    protected $createdField  = 'created_at';
+    protected $updatedField  = 'updated_at';
+    protected $deletedField  = 'deleted_at';
 
     protected $validationRules = [
         'bpjs_kes' => 'required',

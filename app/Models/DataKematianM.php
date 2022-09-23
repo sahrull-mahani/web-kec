@@ -7,32 +7,28 @@ use CodeIgniter\Model;
 class DataKematianM extends Model
 {
   protected $table = "datakematian";
-  protected $allowedFields = ['nama', 'jenis_kelamin', 'tgl_kematian', 'jam_kematian', 'tempat_kematian', 'tgl_kubur', 'jam_kubur', 'tempat_kubur', 'alamat'];
+  protected $allowedFields = ['individu_id', 'tgl_kematian', 'jam_kematian', 'tempat_kematian', 'tgl_kubur', 'jam_kubur', 'tempat_kubur', 'alamat_kubur'];
   protected $primarykey = 'id';
   protected $returnType = 'object';
 
   protected $validationRules = [
-    'nama' => 'required|max_length[150]',
-    'jenis_kelamin' => 'required',
     'tgl_kematian' => 'required',
     'jam_kematian' => 'required',
     'tempat_kematian' => 'required|max_length[150]',
     'tgl_kubur' => 'required',
     'jam_kubur' => 'required',
     'tempat_kubur' => 'required|max_length[150]',
-    'alamat' => 'required|max_length[150]',
+    'alamat_kubur' => 'required|max_length[150]',
   ];
 
   protected $validationMessages = [
-    'nama' => ['required' => 'tidak boleh kosong', 'max_length' => 'Maximal 150 Karakter'],
-    'jenis_kelamin' => ['required' => 'tidak boleh kosong'],
     'tgl_kematian' => ['required' => 'tidak boleh kosong'],
-    'jam+kematian' => ['required' => 'tidak boleh kosong'],
+    'jam_kematian' => ['required' => 'tidak boleh kosong'],
     'tempat_kematian' => ['required' => 'tidak boleh kosong', 'max_length' => 'Maximal 150 Karakter'],
     'tgl_kubur' => ['required' => 'tidak boleh kosong'],
     'jam_kubur' => ['required' => 'tidak boleh kosong'],
     'tempat_kubur' => ['required' => 'tidak boleh kosong', 'max_length' => 'Maximal 150 Karakter'],
-    'alamat' => ['required' => 'tidak boleh kosong', 'max_length' => 'Maximal 150 Karakter'],
+    'alamat_kubur' => ['required' => 'tidak boleh kosong', 'max_length' => 'Maximal 150 Karakter'],
   ];
   private function _get_datatables()
   {
@@ -56,6 +52,8 @@ class DataKematianM extends Model
     } else {
       $this->orderBy('id', 'asc');
     }
+    $this->select('datakematian.*, nama,jenis_kelamin');
+    $this->join('individu', 'individu.id=datakematian.individu_id');
   }
   public function get_datatables()
   {

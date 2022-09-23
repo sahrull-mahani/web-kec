@@ -38,7 +38,12 @@
                             <div class="col-md-12">
                                 <div class="form-group item">
                                     <label for="nama">Nama</label>
-                                    <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Lengkap" required />
+                                    <select name="individu_id" id="datapindah" class="form-control select2">
+                                        <option value="" disabled <?= (isset($get->individu_id) ? '' : 'selected') ?>>Pilih Data</option>
+                                        <?php foreach ($individu as $row) : ?>
+                                            <option value="<?= $row->id; ?>" <?= (isset($get->individu_id) ? ($get->individu_id == $row->id ? 'selected' : '') : '') ?>><?= $row->nik . ' - ' .  ucwords($row->nama) ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
                                 </div>
                                 <div class="form-group item">
                                     <label for="status">Status Dalam KK</label>
@@ -49,9 +54,9 @@
                                     <?php $defaults = array('' => 'Pilih');
                                     $options = array(
                                         'Laki - Laki' => 'Laki - Laki',
-                                        'Wanita' => 'Wanita',
+                                        'Perempuan' => 'Perempuan',
                                     );
-                                    echo form_dropdown('jenis_kelamin[]', $defaults + $options, (isset($get->jenis_kelamin)) ? $get->jenis_kelamin : '', 'class="form-control select2" id="jenis_kelamin" required');
+                                    echo form_dropdown('jenis_kelamin[]', $defaults + $options, (isset($get->jenis_kelamin)) ? $get->jenis_kelamin : '', 'class="form-control " id="jenis_kelamin" disabled');
                                     ?>
                                 </div>
                                 <div class="form-group">
@@ -64,7 +69,7 @@
                                 </div>
                                 <div class="form-group item">
                                     <label for="keterangan">Keterangan</label>
-                                    <input type="text" class="form-control" id="keterangan" name="keterangan" placeholder="Keterangan" required />
+                                    <input type="text" class="form-control" id="keterangan" name="keterangan_pindah" placeholder="Keterangan" required />
                                 </div>
                             </div>
                         </div>

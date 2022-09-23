@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Models\EnumeratorM;
+use App\Models\IndividuM;
 use App\Models\RumahTanggaM;
 use CodeIgniter\I18n\Time;
 
@@ -10,6 +12,8 @@ class RumahTangga extends BaseController
     function __construct()
     {
         $this->rumahtanggam = new RumahTanggaM();
+        $this->individum = new IndividuM();
+        $this->enumeratorm = new EnumeratorM();
         helper('number');
     }
     public function index()
@@ -28,9 +32,9 @@ class RumahTangga extends BaseController
             $row = array();
             $row['id'] = $rows->id;
             $row['nomor'] = $no++;
-            $row['nama'] = $rows->nama_enum;
-            $row['alamat'] = $rows->alamat_enum;
-            $row['nomor telepon'] = $rows->notelp_enum;
+            $row['nama'] = $rows->nama;
+            $row['alamat'] = $rows->alamat;
+            $row['nomor telepon'] = $rows->no_hp;
             $data[] = $row;
         }
         $output = array(
@@ -53,10 +57,19 @@ class RumahTangga extends BaseController
         return $result;
     }
 
+    public function rt()
+    {
+        $id = $this->request->getPost('value');
+        if ($this->individum->where('id', $id)->countAllResults() > 0) {
+            return json_encode(['data' => $this->individum->where('id', $id)->first()]);
+        }
+        return '404';
+    }
+
     public function Post()
     {
 
-        $this->data = array('title' => 'Post Kuisioner Rumah Tangga | Admin', 'breadcome' => 'Post Kuisioner Rumah Tangga', 'url' => 'rumahtangga/', 'm_open_rumahtangga' => 'menu-open', 'mm_rumahtangga' => 'active', 'm_post_rumahtangga' => 'active', 'session' => $this->session);
+        // $this->data = array('title' => 'Post Kuisioner Rumah Tangga | Admin', 'breadcome' => 'Post Kuisioner Rumah Tangga', 'url' => 'rumahtangga/', 'm_open_rumahtangga' => 'menu-open', 'mm_rumahtangga' => 'active', 'm_post_rumahtangga' => 'active', 'session' => $this->session);
 
 
         $this->data = array(
@@ -66,6 +79,7 @@ class RumahTangga extends BaseController
             'm_open_rumahtangga' => 'menu-open',
             'mm_rumahtangga' => 'active',
             'm_post_rumahtangga' => 'active',
+            'individu' => $this->individum->findAll(),
             'provinsi' => getApi('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json'),
             'session' => $this->session
         );
@@ -77,7 +91,10 @@ class RumahTangga extends BaseController
     {
         $id = $this->request->getPost('id');
         $get = $this->rumahtanggam->find($id);
-        $this->data = array('get' => $get);
+        $this->data = array(
+            'get' => $get,
+            'individu' => $this->individum->findAll()
+        );
         $status['html']         = view('App\Views\rumahtangga\form_input', $this->data);
         $status['modal_title']  = '<b>Update Kuisioner Rumah Tangga : </b>' . $get->nama_enum;
         $status['modal_size']   = 'modal-xl';
@@ -90,22 +107,11 @@ class RumahTangga extends BaseController
                 // $files = $this->request->getFileMultiple('userfile');
 
                 $data =  array(
-                    'nama_enum'          => $this->request->getVar('nama_enum'),
-                    'notelp_enum'    => $this->request->getVar('notelp_enum'),
-                    'alamat_enum'    => $this->request->getVar('alamat_enum'),
-                    'provinsi'    => $this->request->getVar('provinsi'),
-                    'kab_kota'    => $this->request->getVar('kab_kota'),
-                    'kecamatan'    => $this->request->getVar('kecamatan'),
-                    'desa'    => $this->request->getVar('desa'),
+                    'individu_id'    => $this->request->getVar('individu_id'),
                     'rt_rw'    => $this->request->getVar('rt_rw'),
-                    'nama_lokasi'    => $this->request->getVar('nama_lokasi'),
-                    'alamat_lokasi'    => $this->request->getVar('alamat_lokasi'),
-                    'nohp_lokasi'    => $this->request->getVar('nohp_lokasi'),
-                    'notelp_lokasi'    => $this->request->getVar('notelp_lokasi'),
-                    'no_kk'    => $this->request->getVar('no_kk'),
-                    'nik'    => $this->request->getVar('nik'),
+                    'no_telp'    => $this->request->getVar('no_telp'),
                     'tempat_tinggal'    => $this->request->getVar('tempat_tinggal'),
-                    'status_tempat'    => $this->request->getVar('status_tempat'),
+                    'status_lahan'    => $this->request->getVar('status_lahan'),
                     'luas_lantai'    => $this->request->getVar('luas_lantai'),
                     'luas_lahan'    => $this->request->getVar('luas_lahan'),
                     'jenis_lantai'    => $this->request->getVar('jenis_lantai'),
@@ -152,7 +158,16 @@ class RumahTangga extends BaseController
                     'bpa'    => $this->request->getVar('bpa'),
                     'lainnya'    => $this->request->getVar('lainnya'),
                 );
+
+                $data2 = array(
+                    'nama_enum'          => $this->request->getVar('nama_enum'),
+                    'notelp_enum'    => $this->request->getVar('notelp_enum'),
+                    'alamat_enum'    => $this->request->getVar('alamat_enum'),
+                );
                 if ($this->rumahtanggam->insert($data)) {
+                    $id_rumahtangga = $this->rumahtanggam->orderBy('id', 'DESC')->first()->id;
+                    $data2['rumahtangga_id'] = $id_rumahtangga;
+                    $this->enumeratorm->insert($data2);
                     $status['title'] = 'success';
                     $status['type'] = 'success';
                     $status['text'] = 'Kuisioner Rumah Tangga Baru Telah Di Tambahkan';
@@ -274,8 +289,9 @@ class RumahTangga extends BaseController
         $output = '<option value="">--Pilih Kecamatan--<option>';
         foreach ($kecamatan as $row) {
             $output .= "<option value=" . $row['id'] . ">" . $row['name'] . "<option>";
+            $kec[] = $row['id'] . '|' . $row['name'];
         }
-        echo json_encode($output);
+        echo json_encode($kec);
     }
 
     function getDesa()
@@ -284,10 +300,10 @@ class RumahTangga extends BaseController
         $desa = getApi("https://www.emsifa.com/api-wilayah-indonesia/api/villages/$id_kecamatan.json");
         $output = '<option value="">--Pilih Desa--<option>';
         foreach ($desa as $row) {
-            $output .= "<option value=" . $row['id'] . ">" . $row['name'] . "<option>";
+            // $output .= "<option value=" . $row['id'] . ">" . $row['name'] . "<option>";
+            $desas[] = $row['id'] . '|' . $row['name'];
         }
-        echo json_encode($output);
-        // echo json_encode($output);
+        echo json_encode($desas);
     }
 }
 

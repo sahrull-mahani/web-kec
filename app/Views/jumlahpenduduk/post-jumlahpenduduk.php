@@ -38,7 +38,12 @@
                             <div class="col-md-12">
                                 <div class="form-group item">
                                     <label for="dusun">Dusun</label>
-                                    <input type="text" class="form-control" id="dusun" name="dusun" placeholder="Dusun" required />
+                                    <select name="individu_id" id="dusun" class="form-control select2">
+                                        <option value="" disabled <?= (isset($get->individu_id) ? '' : 'selected') ?>>Pilih Dusun</option>
+                                        <?php foreach ($individu as $row) : ?>
+                                            <option value="<?= $row->dusun; ?>" <?= (isset($get->individu_id) ? ($get->individu_id == $row->id ? 'selected' : '') : '') ?>><?= $row->dusun ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
                                 </div>
                                 <div class="row">
                                     <div class="form-group item col-md-6">

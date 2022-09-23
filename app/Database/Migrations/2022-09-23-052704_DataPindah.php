@@ -15,17 +15,15 @@ class DataPindah extends Migration
                 'unsign'        => true,
                 'auto_increment' => true
             ],
-            'nama'     => [
-                'type'          => 'CHAR',
-                'constraint'    => 255,
+            'individu_id' => [
+                'type' => 'int',
+                'constraint' => 11,
+                'unsigned' => true,
+                'null' => true
             ],
             'status'     => [
                 'type'          => 'CHAR',
                 'constraint'    => 255,
-            ],
-            'jenis_kelamin'     => [
-                'type'          => 'ENUM',
-                'constraint'    => ['Laki - Laki', 'Perempuan'],
             ],
             'tgl_pindah'     => [
                 'type'          => 'DATE',
@@ -34,8 +32,12 @@ class DataPindah extends Migration
                 'type'          => 'CHAR',
                 'constraint'    => 255,
             ],
-            'keterangan'     => [
+            'keterangan_pindah'     => [
                 'type'          => 'TEXT',
+            ],
+            'created_at'     => [
+                'type'          => 'DATE',
+                'null'          => true
             ],
             'updated_at'     => [
                 'type'          => 'DATE',
@@ -47,6 +49,7 @@ class DataPindah extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
+        $this->forge->addForeignKey('individu_id', 'individu', 'id', 'SET NULL', 'CASCADE');
         $this->forge->createTable('datapindah');
     }
 

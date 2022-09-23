@@ -35,6 +35,7 @@
                         </div>
                         <div class="card-body">
                             <div id="toolbar">
+                                <a href="post-datakematian"><button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah</button></a>
                                 <button type="button" class="btn btn-warning" id="single-edit" method="edit" disabled><i class="fa fa-edit"></i> Update</button>
                                 <button type="button" class="btn btn-danger" id="remove" disabled><i class="fa fa-trash"></i> Hapus</button>
                             </div>
