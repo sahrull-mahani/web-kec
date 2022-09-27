@@ -59,20 +59,21 @@ class Individu extends BaseController
         echo view('App\Views\individu\post-individu', $this->data);
     }
 
-    public function detail()
+    public function single_detail($id)
     {
-        $id = $this->request->getPost('id');
-
         $get = $this->individum->select('individu.*, k.*, pk.*, pd.*, k.id kesID, pk.id pekID, pd.id penID')->join('pekerjaan pk', 'pk.individu_id = individu.id')->join('kesehatan k', 'k.individu_id = individu.id')->join('pendidikan pd', 'pd.individu_id = individu.id')->where('individu.id', $id)->first();
-        $this->data = array(
-            'provinsi' => getApi('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json'),
-            'get' => $get
-        );
-        $status['html']         = view('App\Views\individu\detail-individu', $this->data);
-        $status['modal_title']  = '<b>Detail Kuisioner Individu : </b>' . $get->nama;
-        $status['modal_size']   = 'modal-xl';
-        echo json_encode($status);
-        // echo json_encode($get->nama);
+        $this->data = array('title' => 'Post Kuisioner Individu | Admin', 'breadcome' => 'Post Kuisioner Individu', 'url' => 'individu/', 'm_open_individu' => 'menu-open', 'mm_individu' => 'active', 'm_post_individu' => 'active', 'session' => $this->session, 'provinsi' => getApi('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json'), 'get' => $get);
+        // $id = $this->request->getPost('id');
+
+        // $get = $this->individum->select('individu.*, k.*, pk.*, pd.*, k.id kesID, pk.id pekID, pd.id penID')->join('pekerjaan pk', 'pk.individu_id = individu.id')->join('kesehatan k', 'k.individu_id = individu.id')->join('pendidikan pd', 'pd.individu_id = individu.id')->where('individu.id', $id)->first();
+        // $this->data = array(
+        //     'provinsi' => getApi('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json'),
+        //     'get' => $get
+        // );
+        // $status['html']         = view('App\Views\individu\detail-individu', $this->data);
+        // $status['modal_title']  = '<b>Detail Kuisioner Individu : </b>' . $get->nama;
+        // $status['modal_size']   = 'modal-xl';
+        return view('App\Views\individu\detail-individu', $this->data);
     }
 
     public function single_edit($id)

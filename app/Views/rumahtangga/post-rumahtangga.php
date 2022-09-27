@@ -296,7 +296,7 @@
                                                 'Di Kebun/Sungai/Drainase' => 'Di Kebun/Sungai/Drainase',
                                                 'Dibakar' => 'Dibakar',
                                                 'Tempat Sampah' => 'Tempat Sampah',
-                                                'Tidak' => 'Tidak',
+                                                'Tempat Sampah Diangkut Reguler' => 'Tempat Sampah Diangkut Reguler',
                                             );
                                             echo form_dropdown('tps[]', $defaults + $options, (isset($get->tps)) ? $get->tps : '', 'class="form-control select2" id="tps" ');
                                             ?>

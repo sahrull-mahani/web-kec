@@ -88,6 +88,31 @@ class RumahTangga extends BaseController
         echo view('App\Views\rumahtangga\post-rumahtangga', $this->data);
     }
 
+    public function single_detail($id)
+    {
+        $get = $this->rumahtanggam->select('rumahtangga.*, ind.*, enum.*, ind.id indID, enum.id enumID')->join('individu ind', 'ind.id = rumahtangga.individu_id')->join('enumerator enum', 'enum.rumahtangga_id = rumahtangga.id')->where('rumahtangga.id', $id)->first();
+        $this->data = array('title' => 'Detail Kuisioner Rumah Tangga | Admin', 'breadcome' => 'Detail Kuisioner Rumah Tangga', 'url' => 'rumahtangga/', 'm_open_rumahtangga' => 'menu-open', 'mm_rumahtangga' => 'active', 'm_post_rumahtangga' => 'active', 'session' => $this->session, 'provinsi' => getApi('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json'), 'get' => $get);
+        // $id = $this->request->getPost('id');
+
+        // $get = $this->individum->select('individu.*, k.*, pk.*, pd.*, k.id kesID, pk.id pekID, pd.id penID')->join('pekerjaan pk', 'pk.individu_id = individu.id')->join('kesehatan k', 'k.individu_id = individu.id')->join('pendidikan pd', 'pd.individu_id = individu.id')->where('individu.id', $id)->first();
+        // $this->data = array(
+        //     'provinsi' => getApi('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json'),
+        //     'get' => $get
+        // );
+        // $status['html']         = view('App\Views\individu\detail-individu', $this->data);
+        // $status['modal_title']  = '<b>Detail Kuisioner Individu : </b>' . $get->nama;
+        // $status['modal_size']   = 'modal-xl';
+        return view('App\Views\rumahtangga\detail-rumahtangga', $this->data);
+    }
+
+    public function single_edit($id)
+    {
+        $get = $this->individum->select('individu.*, k.*, pk.*, pd.*, k.id kesID, pk.id pekID, pd.id penID')->join('pekerjaan pk', 'pk.individu_id = individu.id')->join('kesehatan k', 'k.individu_id = individu.id')->join('pendidikan pd', 'pd.individu_id = individu.id')->where('individu.id', $id)->first();
+        $this->data = array('title' => 'Post Kuisioner Rumah Tangga | Admin', 'breadcome' => 'Post Kuisioner Rumah Tangga', 'url' => 'rumahtangga/', 'm_open_rumahtangga' => 'menu-open', 'mm_rumahtangga' => 'active', 'm_post_rumahtangga' => 'active', 'session' => $this->session, 'provinsi' => getApi('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json'), 'get' => $get);
+
+        return view('App\Views\rumahtangga\post-rumahtangga', $this->data);
+    }
+
     public function edit()
     {
         $id = $this->request->getPost('id');

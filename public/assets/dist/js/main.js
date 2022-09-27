@@ -10,6 +10,7 @@ var $table = $('#table')
 var $remove = $('#remove')
 var $edit = $('#edit')
 var $single = $('#single-edit')
+var $singledetail = $('#single-detail')
 var $restore = $('#restore')
 var $publish = $('#publish')
 var $detail = $('#detail')
@@ -137,15 +138,16 @@ function readFile(url) {
     $table.on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table', function () {
         if ($table.bootstrapTable('getSelections').length > 1) {
             $single.attr('disabled', true)
-            $detail.attr('disabled', true)
+            $singledetail.attr('disabled', true)
         } else {
             $single.prop('disabled', !$table.bootstrapTable('getSelections').length)
-            $detail.prop('disabled', !$table.bootstrapTable('getSelections').length)
+            $singledetail.prop('disabled', !$table.bootstrapTable('getSelections').length)
         }
         $remove.prop('disabled', !$table.bootstrapTable('getSelections').length)
         $publish.prop('disabled', !$table.bootstrapTable('getSelections').length)
         $edit.prop('disabled', !$table.bootstrapTable('getSelections').length)
         $restore.prop('disabled', !$table.bootstrapTable('getSelections').length)
+        $detail.prop('disabled', !$table.bootstrapTable('getSelections').length)
     })
     $('.create').bind('click', function (e) {
         e.preventDefault();
@@ -467,6 +469,14 @@ function readFile(url) {
         //         ajax_error_handling(jqXHR, exception, thrownError);
         //     }
         // })
+    })
+    $singledetail.bind('click', function (e) {
+        let href = $(this).data('href')
+        e.stopImmediatePropagation();
+        var ids = JSON.stringify($table.bootstrapTable('getSelections'))
+        var a = JSON.parse(ids);
+        let id = a[0].id
+        document.location.href = location.origin + `/${href}/single_detail/` + id
     })
     $('form').on('blur', 'input[required], input.optional, select.required', validator.checkField).on('change', 'select.required', validator.checkField).on('keypress', 'input[required][pattern]', validator.keypress);
     $('.multi.required').on('keyup blur', 'input', function () {
