@@ -547,7 +547,7 @@ class IonAuthModel{
 		$builder = $this->db->table($this->tables['users']);
 		return $builder->get()->getResult();
 	}
-    public function user(int $id=0){
+    public function user($id=0){
         $this->triggerEvents('user');
         $id = $id ?: $this->session->get('user_id');
 
@@ -576,9 +576,11 @@ class IonAuthModel{
         if(isset($_GET['order'])){
             $builder->orderBy($_GET['sort'], $_GET['order']);
         }else{
-            $builder->orderBy('id', 'asc');
+			$builder->orderBy('id', 'asc');
         }
-
+		$builder->select('users.*, desa.nama_desa');
+		$builder->join('desa', 'desa.id=users.desa_id');
+	
         if($_GET['limit'] != -1) $builder->limit($_GET['limit'], $_GET['offset']);
         return $builder;
     }
@@ -636,7 +638,7 @@ class IonAuthModel{
 		}
 		return $checkAll;
 	}
-    public function getUsersGroups(int $id=0){
+    public function getUsersGroups($id=0){
         $this->triggerEvents('get_users_group');
 
 		$id || $id = $this->session->get('user_id');

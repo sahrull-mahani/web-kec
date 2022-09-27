@@ -53,9 +53,11 @@ class Ionauth extends Migration
 			'active' => ['type' => 'tinyint', 'constraint' => 1, 'null' => true],
 			'nama_user' => ['type' => 'varchar', 'constraint' => 50, 'null' => true],
 			'img' => ['type' => 'varchar', 'constraint' => 50, 'null' => true],
+			'desa_id' => ['type' => 'int', 'constraint' => 11, 'unsigned' => true, 'null' => true],
 			'phone' => ['type' => 'varchar', 'constraint' => 20, 'null' => true],
 		]);
 		$this->forge->addKey('id', true);
+		$this->forge->addForeignKey('desa_id', 'desa', 'id', 'SET NULL', 'CASCADE');
 		$this->forge->createTable('users', true);
 
 		// Drop table 'users_groups' if it exists

@@ -39,8 +39,8 @@
                                     <div id="toolbar">
                                         <!-- <input type="number" class="btn  btn-default" value="1" id="number-of-row"> -->
                                         <button type="button" class="btn btn-primary create" method="groups" data-toggle="modal"><i class="fa fa-users"></i> Groups</button>
-                                        <button type="button" class="btn btn-primary create" method="create_user""><i class="fa fa-plus"></i> <?= lang('Auth.index_create_user_link'); ?></button>
-                                        <button type="button" class="btn btn-warning single-edit" method="edit_user" disabled><i class="fa fa-edit"></i>  <?= lang('Auth.edit_user_heading'); ?></button>
+                                        <button type="button" class="btn btn-primary create" method="create_user"><i class="fa fa-plus"></i> <?= lang('Auth.index_create_user_link'); ?></button>
+                                        <button type="button" class="btn btn-warning single-edit" id="edit" method="edit_user"><i class="fa fa-edit"></i>  <?= lang('Auth.edit_user_heading'); ?></button>
                                         <button type="button" class="btn btn-danger" id="remove" disabled><i class="fa fa-trash"></i> Hapus</button>
                                     </div>
                                     <table id="table" data-toggle="table" data-ajax="ajaxRequest" data-side-pagination="server" data-pagination="true" data-search="true" data-show-columns="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-click-to-select="true" data-toolbar="#toolbar">
@@ -50,8 +50,9 @@
                                                 <th data-field="id" data-visible="false">ID</th>
                                                 <th data-field="nomor">No</th>
                                                 <th data-field="nama_user"><?= lang('Auth.index_name_th');?></th>
-                                                <th data-field="username">User Name</th>
-                                                <th data-field="email"><?= lang('Auth.index_email_th');?></th>
+                                                <th data-field="desa" >Desa</th>
+                                                <!-- <th data-field="username">User Name</th> -->
+                                                <th data-field="email"><?= lang('Auth.index_email_th');?> dan Username</th>
                                                 <th data-field="group"><?= lang('Auth.index_groups_th');?></th>
                                                 <th data-field="active"><?= lang('Auth.index_status_th');?></th>
                                             </tr>

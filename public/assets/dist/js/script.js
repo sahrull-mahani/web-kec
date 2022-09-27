@@ -72,9 +72,9 @@ $(".tag-with-input").select2({
 })
 
 window.onload = function(){
-    document.getElementById("Lokasi").style.display='none';
-    document.getElementById("Keluarga").style.display='none';
-    document.getElementById("Permukiman").style.display='none';
+    // document.getElementById("Lokasi").style.display='none';
+    // document.getElementById("Keluarga").style.display='none';
+    // document.getElementById("Permukiman").style.display='none';
     // $("#Lokasi").hide();
     // $("#Keluarga").hide();
     // $("#Permukiman").hide();
@@ -380,6 +380,9 @@ $(document).ready(function(){
     }
     $('#provinsi').change(function(){
         var id_provinsi = $(this).val();
+//         $kabupaten =fetch(`http://www.emsifa.com/api-wilayah-indonesia/api/regencies/${id_provinsi}.json`)
+// .then(response => response.json())
+// .then(regencies => console.log(regencies));
         $.ajax({
             type:'POST',
             url:"/RumahTangga/getKab",
@@ -388,10 +391,19 @@ $(document).ready(function(){
                 id_provinsi : id_provinsi,
             },
             success:function(response){
-                $('#kabupaten').html(response);
+                var hasilKab = `<option value="" disabled>-- pilih --</option>`
+                $.each(response, function(i, val) {
+                    hasilKab += `<option value="${val.split('|')[1]}" ${idKab == val.split('|')[0] ? 'selected' : ''}>${val.split('|')[1]}</option>`
+                })
+                $('#kabupaten').html(hasilKab);
                 // console.log(response);
             }
         });
+        // var hasilKab = `<option value="" disabled>-- pilih --</option>`
+        // $.each(regencies, function(i, val) {
+        //     hasilKab += `<option value="${val.split('|')[1]}" ${idKab == val.split('|')[0] ? 'selected' : ''}>${val.split('|')[1]}</option>`
+        // })
+        // $('#kabupaten').html(hasilKab);
 
     });
 
