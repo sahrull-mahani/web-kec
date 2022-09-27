@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controllers;
-
+use App\Models\DesaM;
 use App\Models\ThlM;
 
 class Auth extends BaseController
@@ -13,6 +13,7 @@ class Auth extends BaseController
     {
         $this->validation = \Config\Services::validation();
         $this->configIonAuth = config('IonAuth');
+        $this->desa = new DesaM();
     }
     public function index()
     {
@@ -96,10 +97,21 @@ class Auth extends BaseController
         if (!$this->ionAuth->loggedIn() || !$this->ionAuth->isAdmin()) {
             return redirect()->to('/auth');
         }
-        $this->data['action'] = 'insert';
-        $this->data['btn'] = lang('Auth.create_user_submit_btn');
-        $this->data['required'] = 'required="required"';
-        $this->data['identity_column'] = $this->configIonAuth->identity;
+        // $desa = $this->desam->findAll();
+        $user = $this->ionAuth->user();
+        $groups = $this->ionAuth->groups();
+        $currentGroups = $this->ionAuth->getUsersGroups()->getResult();
+        $desa = $this->desa->findAll();
+        $this->data = array(
+                            'action' => 'insert',
+                            'btn' => lang('Auth.create_user_submit_btn'),
+                            'required' => 'required="required"',
+                            'user' => $user,
+                            'desa' => $desa,
+                            'groups' => $groups,
+                            'currentGroups' => $currentGroups,
+                            'identity_column' => $this->configIonAuth->identity,
+                        );
 
         $status['html']         = view('App\Views\auth\form_user', $this->data);
         $status['modal_title']  = lang('Auth.create_user_heading');
@@ -116,11 +128,13 @@ class Auth extends BaseController
         }
         $user = $this->ionAuth->user($id);
         $groups = $this->ionAuth->groups();
+        $desa = $this->desa->findAll();
         $currentGroups = $this->ionAuth->getUsersGroups($id)->getResult();
 
         // pass the user to the view
         $this->data['user'] = $user;
         $this->data['groups'] = $groups;
+        $this->data['desa'] = $desa;
         $this->data['currentGroups'] = $currentGroups;
 
         $this->data['ionAuth'] = $this->ionAuth;
@@ -136,11 +150,6 @@ class Auth extends BaseController
     }
     public function save()
     {
-        // $this->validation->setRule(
-        //     'skpd_id',
-        //     'Field SKPD Tidak Boleh Kosong',
-        //     'required'
-        // );
         $this->validation->setRule(
             'phone',
             lang('Auth.edit_user_validation_phone_label'),
@@ -181,14 +190,27 @@ class Auth extends BaseController
                     $additionalData = [
                         'nama_user' => $this->request->getPost('nama_user'),
                         'phone' => $this->request->getPost('phone'),
-                        // 'skpd_id' => $this->request->getPost('skpd_id'),
+                        'desa_id' => $this->request->getPost('desa'),
                     ];
+
+                    if ($this->ionAuth->isAdmin()) {
+                       
+                        $groupData = $this->request->getPost('groups');
+                        if (!empty($groupData)) {
+                            $this->ionAuth->removeFromGroup();
+                            foreach ($groupData as $grp) {
+                                $this->ionAuth->addToGroup($grp);
+                            }
+                        }
+                    }
+
                     if (
                         $this->ionAuth->register(
                             $identity,
                             $password,
                             $email,
-                            $additionalData
+                            $additionalData,
+                            $groupData
                         )
                     ) {
                         // check to see if we are creating the user
@@ -240,9 +262,10 @@ class Auth extends BaseController
                 if ($this->validation->withRequest($this->request)->run()) {
                     $identity = $identityColumn === 'email' ? $email : $this->request->getPost('identity');
                     $data = [
+                  
                         'nama_user' => $this->request->getPost('nama_user'),
                         'phone' => $this->request->getPost('phone'),
-                        // 'skpd_id' => $this->request->getPost('skpd_id'),
+                        'desa_id' => $this->request->getPost('desa'),
                         'email' => $email,
                     ];
                     if ($identityColumn === 'username') {
@@ -513,6 +536,9 @@ class Auth extends BaseController
         if (!$this->ionAuth->loggedIn()) {
             return redirect()->to('/auth/login');
         }
+
+
+        // $this->db->table($this->tables['users'])->join('desa, desa.id=users.desa.id');
         $list = $this->ionAuth->get_datatables();
         $data = [];
         $no = isset($_GET['offset']) ? $_GET['offset'] + 1 : 1;
@@ -525,6 +551,7 @@ class Auth extends BaseController
             $row['id'] = $rows->id;
             $row['nomor'] = $no++;
             $row['nama_user'] = $rows->nama_user;
+            $row['desa'] = $rows->nama_desa;
             $row['username'] = $rows->username;
             $row['email'] = $rows->email;
             $row['group'] = $group;

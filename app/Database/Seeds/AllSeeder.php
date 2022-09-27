@@ -15,6 +15,16 @@ class AllSeeder extends Seeder
 		$this->DBGroup = empty($config->databaseGroupName) ? '' : $config->databaseGroupName;
 		$tables        = $config->tables;
 
+	// desa
+	$desa = [
+		[
+			'nama_desa' => 'Boroko',
+			'kepala_desa' => 'Alam',
+		],
+		
+	];
+	$this->db->table('desa')->insertBatch($desa);
+
 		$groups = [
 			[
 				'id'          => 1,
@@ -23,8 +33,8 @@ class AllSeeder extends Seeder
 			],
 			[
 				'id'          => 2,
-				'name'        => 'members',
-				'description' => 'General User',
+				'name'        => 'operator-desa',
+				'description' => 'Operator Desa',
 			],
 		];
 		$this->db->table($tables['groups'])->insertBatch($groups);
@@ -41,23 +51,10 @@ class AllSeeder extends Seeder
 				'last_login'              => '1268889823',
 				'active'                  => '1',
 				'nama_user'               => 'Admin',
-				'img'                     => null,
+				'desa_id'                 => 1,
 				'phone'                   => '0',
 			],
-			[
-				'ip_address'              => '127.0.0.1',
-				'username'                => 'msm',
-				'password'                => '$2y$08$200Z6ZZbp3RAEXoaWcMA6uJOFicwNZaqk4oDhqTUiFXFe63MG.Daa',
-				'email'                   => 'sural@admin.com',
-				'activation_code'         => '',
-				'forgotten_password_code' => null,
-				'created_on'              => '1268889823',
-				'last_login'              => '1268889823',
-				'active'                  => '1',
-				'nama_user'               => 'Sural Mahajani',
-				'img'                     => null,
-				'phone'                   => '0',
-			],
+		
 		];
 		$this->db->table($tables['users'])->insertBatch($users);
 
@@ -65,22 +62,11 @@ class AllSeeder extends Seeder
 			[
 				'user_id'  => '1',
 				'group_id' => '1',
-			],
-			[
-				'user_id'  => '1',
-				'group_id' => '2',
-			],
-			[
-				'user_id'  => '2',
-				'group_id' => '2',
-			],
+			]
+			
 		];
 		$this->db->table($tables['users_groups'])->insertBatch($usersGroups);
-
-
-
-
-
+		
 		$agenda = [];
 		for ($i = 1; $i <= 10; $i++) {
 			$judul = "ini agenda " . sprintf('%02d', $i);
@@ -155,8 +141,6 @@ class AllSeeder extends Seeder
 			],
 		];
 		$this->db->table('profil')->insertBatch($dataProfil);
-
-
 		$individu = [
 			[
 				'id' => '1',

@@ -3,21 +3,26 @@
     <div class="form-group row">
         <label for="nama_user" class="col-sm-3 col-form-label">Nama User :</label>
         <div class="col-sm-9 item">
-            <input type="text" name="nama_user" value="<?= isset($user->nama_user) ? $user->nama_user : ''; ?>" id="nama_user" class="form-control" required="required" />
+            <input type="text" name="nama_user" value="<?= isset($user->nama_user)  && $action == 'update' ? $user->nama_user : ''; ?>" id="nama_user" class="form-control" required="required" />
         </div>
     </div>
-    <div class="form-group row mode2">
-        <label for="id_peg" class="col-sm-3 col-form-label">SKPD</label>
+    <div class="form-group row">
+        <label for="nama_user" class="col-sm-3 col-form-label">Desa :</label>
         <div class="col-sm-9 item">
-            <?php $defaults = array('none' => 'Pilih SKPD');
-            echo form_dropdown('skpd_id', $defaults + skpd(), isset($user->skpd_id) ? $user->skpd_id : '', 'class="form-control" id="skpd_id" required'); ?>
+
+            <select name="desa" id="desa" class="form-control">
+                <option value="">--pilih desa--</option>
+                <?php foreach($desa as $row): ?>
+                        <option value="<?= $row->id ?>" <?php if($row->id == $user->desa_id && $action == 'update') {echo 'selected';} ?> ><?= $row->nama_desa ?></option>
+                <?php endforeach; ?>
+            </select>
         </div>
     </div>
     <?php if ($identity_column !== 'email') { ?>
         <div class="form-group row mode2">
             <?= form_label(lang('Auth.create_user_identity_label'), 'identity', array("class" => "col-sm-3 col-form-label")); ?>
             <div class="col-sm-9 item">
-                <input type="text" name="identity" value="<?= isset($user->username) ? $user->username : ''; ?>" id="identity" class="form-control" required="required" />
+                <input type="text" name="identity" value="<?= isset($user->username)  && $action == 'update' ? $user->username : ''; ?>" id="identity" class="form-control" required="required" />
             </div>
             <?= '<p>' . \Config\Services::validation()->getError('identity') . '</p>'; ?>
         </div>
@@ -25,27 +30,29 @@
     <div class="form-group row mode2">
         <?php echo form_label(lang('Auth.create_user_email_label'), 'email', array("class" => "col-sm-3 col-form-label")); ?>
         <div class="col-sm-9 item">
-            <input type="text" name="email" value="<?= isset($user->email) ? $user->email : ''; ?>" id="email" class="form-control" required="required" />
+            <input type="text" name="email" value="<?= isset($user->email) && $action == 'update' ? $user->email : ''; ?>" id="email" class="form-control" required="required" />
         </div>
     </div>
     <div class="form-group row mode2">
         <?php echo form_label(lang('Auth.create_user_phone_label'), 'phone', array("class" => "col-sm-3 col-form-label")); ?>
         <div class="col-sm-9 item">
-            <input type="text" name="phone" value="<?= isset($user->phone) ? $user->phone : '08'; ?>" id="phone" class="form-control" required="required" />
+            <input type="text" name="phone" value="<?= isset($user->phone)  && $action == 'update' ? $user->phone : ''; ?>" id="phone" class="form-control" placeholder="08xxx" required="required" />
         </div>
     </div>
-    <?php if ($action == 'update') : ?>
-        <div class="form-group row mode2">
-            <label for="jenis_user" class="col-sm-3 col-form-label">Jenis User **</label>
-            <div class="col-sm-9 item">
-                <?php $no = 1;
+    <div class="form-group row mode2">
+        <label for="jenis_user" class="col-sm-3 col-form-label">Jenis User **</label>
+        <div class="col-sm-9 item">
+            <?php //if ($action == 'update') : ?>
+            <?php $no = 1;
                 foreach ($groups as $group) :
                     $gID = $group->id;
                     $checked = null;
                     foreach ($currentGroups as $grp) {
-                        if ($gID == $grp->id) {
-                            $checked = ' checked="checked"';
-                            break;
+                        if ($action == 'update') {
+                            if ($gID == $grp->id) {
+                                $checked = ' checked="checked"';
+                                break;
+                            }
                         }
                     } ?>
                     <div class="custom-control custom-checkbox">
@@ -54,9 +61,9 @@
                     </div>
                 <?php $no++;
                 endforeach ?>
+                <?php// endif ?>
             </div>
         </div>
-    <?php endif ?>
     <div class="form-group row mode2">
         <?php echo form_label(lang('Auth.create_user_password_label'), 'password', array("class" => "col-sm-3 col-form-label")); ?>
         <div class="col-sm-9 item">

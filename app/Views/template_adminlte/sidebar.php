@@ -93,6 +93,7 @@
                         </li>
                     </ul>
                 </li>
+                <?php if (is_admin()) : ?>
                 <li class="nav-item <?= isset($m_open_berita) ? $m_open_berita : ''; ?>">
                     <a href="#" class="nav-link <?= isset($mm_berita) ? $mm_berita : ''; ?>">
                         <i class="nav-icon fas fa-newspaper"></i>
@@ -116,6 +117,8 @@
                         </li>
                     </ul>
                 </li>
+                <?php endif; ?>
+                <?php if (is_admin()) : ?>
                 <li class="nav-item <?= isset($m_open_pariwisata) ? $m_open_pariwisata : ''; ?>">
                     <a href="#" class="nav-link <?= isset($mm_pariwisata) ? $mm_pariwisata : ''; ?>">
                         <i class="nav-icon fas fa-tree"></i>
@@ -139,6 +142,8 @@
                         </li>
                     </ul>
                 </li>
+                <?php endif; ?>
+                <?php if (is_admin()) : ?>
                 <li class="nav-item <?= isset($m_open_kuliner) ? $m_open_kuliner : ''; ?>">
                     <a href="#" class="nav-link <?= isset($mm_kuliner) ? $mm_kuliner : ''; ?>">
                         <i class='nav-icon bx bxs-bowl-hot'></i>
@@ -162,6 +167,8 @@
                         </li>
                     </ul>
                 </li>
+                <?php endif; ?>
+                <?php if (is_admin()) : ?>
                 <li class="nav-item <?= isset($m_open_penginapan) ? $m_open_penginapan : ''; ?>">
                     <a href="#" class="nav-link <?= isset($mm_penginapan) ? $mm_penginapan : ''; ?>">
                         <i class='nav-icon bx bxs-store-alt'></i>
@@ -185,6 +192,8 @@
                         </li>
                     </ul>
                 </li>
+                <?php endif; ?>
+                <?php if (is_admin()) : ?>
                 <li class="nav-item <?= isset($m_open_program) ? $m_open_program : ''; ?>">
                     <a href="#" class="nav-link <?= isset($mm_program) ? $mm_program : ''; ?>">
                         <i class="nav-icon fas fa-bullhorn"></i>
@@ -208,6 +217,8 @@
                         </li>
                     </ul>
                 </li>
+                <?php endif; ?>
+                <?php if (is_admin()) : ?>
                 <li class="nav-item <?= isset($m_open_potensi) ? $m_open_potensi : ''; ?>">
                     <a href="#" class="nav-link <?= isset($mm_potensi) ? $mm_potensi : ''; ?>">
                         <i class="nav-icon fas fa-hammer"></i>
@@ -231,12 +242,16 @@
                         </li>
                     </ul>
                 </li>
+                <?php endif; ?>
+                <?php if (is_admin()) : ?>
                 <li class="nav-item">
                     <a href="<?= site_url('/profil'); ?>" class="nav-link <?= isset($m_profil) ? $m_profil : ''; ?>">
                         <i class="nav-icon fa fa-info"></i>
                         <p>Profil</p>
                     </a>
                 </li>
+                <?php endif; ?>
+                <?php if (is_admin()) : ?>
                 <li class="nav-item">
                     <a href="<?= site_url('/agenda'); ?>" class="nav-link <?= isset($m_agenda) ? $m_agenda : ''; ?>">
                         <i class="nav-icon fa fa-calendar-check"></i>
@@ -245,6 +260,8 @@
                         </p>
                     </a>
                 </li>
+                <?php endif; ?>
+                <?php if (is_admin()) : ?>
                 <li class="nav-item">
                     <a href="<?= site_url('/statistik'); ?>" class="nav-link <?= isset($m_statistik) ? $m_statistik : ''; ?>">
                         <i class="nav-icon fa fa-chart-bar"></i>
@@ -253,6 +270,8 @@
                         </p>
                     </a>
                 </li>
+                <?php endif; ?>
+                <?php if (is_admin()) : ?>
                 <li class="nav-item">
                     <a href="<?= site_url('/pegawai'); ?>" class="nav-link <?= isset($m_statistik) ? $m_statistik : ''; ?>">
                         <i class='nav-icon bx bx-user'></i>
@@ -261,6 +280,8 @@
                         </p>
                     </a>
                 </li>
+                <?php endif; ?>
+                <?php if (is_admin()) : ?>
                 <li class="nav-item">
                     <a href="<?= site_url('/carousel'); ?>" class="nav-link <?= isset($m_carousel) ? $m_carousel : ''; ?>">
                         <i class='nav-icon bx bxs-carousel'></i>
@@ -269,6 +290,17 @@
                         </p>
                     </a>
                 </li>
+                <?php endif; ?>
+                <?php if (is_admin()) : ?>
+                <li class="nav-item">
+                    <a href="<?= site_url('/desa'); ?>" class="nav-link <?= isset($m_desa) ? $m_desa : ''; ?>">
+                        <i class='nav-icon bx bxs-carousel'></i>
+                        <p>
+                            Desa
+                        </p>
+                    </a>
+                </li>
+                <?php endif; ?>
                 <?php if (is_admin()) : ?>
                     <li class="nav-item">
                         <a href="<?= site_url('/users'); ?>" class="nav-link <?= isset($m_users) ? $m_users : ''; ?>">
