@@ -52,9 +52,10 @@ class JumlahPenduduk extends BaseController
 
     public function umur()
     {
+        $dusun = $this->request->getVar('dusun');
         $umur = $this->request->getPost('value');
-        $pria = $this->individum->where('umur', $umur)->where('jenis_kelamin', 'Laki - Laki')->countAllResults();
-        $wanita = $this->individum->where('umur', $umur)->where('jenis_kelamin', 'Perempuan')->countAllResults();
+        $pria = $this->individum->where('umur', $umur)->where('dusun', $dusun)->where('jenis_kelamin', 'Laki - Laki')->countAllResults();
+        $wanita = $this->individum->where('umur', $umur)->where('dusun', $dusun)->where('jenis_kelamin', 'Perempuan')->countAllResults();
         return json_encode(['pria' => $pria, 'wanita' => $wanita]);
     }
 
@@ -74,6 +75,25 @@ class JumlahPenduduk extends BaseController
         $budha = $this->individum->where('dusun', $dusun)->where('agama', 'Budha')->countAllResults();
         // return json_encode(['nik' => $no_nik, 'wanita' => $wanita]);
         return json_encode(['agama_islam' => $islam, 'agama_kristen' => $kristen, 'agama_katolik' => $katolik, 'agama_hindu' => $hindu, 'agama_budha' => $budha, 'jumlahJiwa' => $jumlahJiwa, 'jumlahKK' => $jumlahKK]);
+    }
+
+    public function single_edit($id)
+    {
+        $get = $this->jumlahpendudukm->find($id);
+        // dd($get);
+        $this->data = array(
+            'title' => 'Jumlah Penduduk | Admin',
+            'breadcome' => 'Jumlah Penduduk',
+            'url' => 'jumlahpenduduk/',
+            'm_open_jumlahpenduduk' => 'menu-open',
+            'mm_jumlahpenduduk' => 'active',
+            'm_jumlahpenduduk' => 'active',
+            'session' => $this->session,
+            'individu' => $this->individum->groupBy('dusun')->findAll(),
+            'get' => $get
+        );
+
+        return view('App\Views\jumlahpenduduk\post-jumlahpenduduk', $this->data);
     }
 
     public function Post()
@@ -96,7 +116,10 @@ class JumlahPenduduk extends BaseController
     {
         $id = $this->request->getPost('id');
         $get = $this->jumlahpendudukm->find($id);
-        $this->data = array('get' => $get);
+        $this->data = array(
+            'get' => $get,
+            'individu' => $this->individum->groupBy('dusun')->find($id)
+        );
         $status['html']         = view('App\Views\jumlahpenduduk\form_input', $this->data);
         $status['modal_title']  = '<b>Update Jumlah Penduduk : </b>' . $get->dusun;
         $status['modal_size']   = 'modal-xl';
@@ -109,6 +132,7 @@ class JumlahPenduduk extends BaseController
                 // $files = $this->request->getFileMultiple('userfile');
 
                 $data =  array(
+                    'user_id' => session('user_id'),
                     'dusun'          => $this->request->getVar('dusun'),
                     'jumlah_jiwa'    => $this->request->getVar('jumlah_jiwa'),
                     'jumlah_kk'    => $this->request->getVar('jumlah_kk'),
@@ -139,6 +163,7 @@ class JumlahPenduduk extends BaseController
                 $id = $this->request->getPost('id');
                 // $files = $this->request->getFileMultiple('userfile');
                 $data =  array(
+                    'user_id'          => session('user_id'),
                     'dusun'          => $this->request->getPost('dusun'),
                     'jumlah_jiwa'    => $this->request->getPost('jumlah_jiwa'),
                     'jumlah_kk'    => $this->request->getPost('jumlah_kk'),

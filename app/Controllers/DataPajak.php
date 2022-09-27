@@ -60,23 +60,33 @@ class DataPajak extends BaseController
 
         echo view('App\Views\datapajak\post-datapajak', $this->data);
     }
-    public function edit()
+
+    public function single_edit($id)
     {
-        $id = $this->request->getPost('id');
+        // dd($id);
         $get = $this->datapajakm->find($id);
-        $this->data = array('get' => $get);
-        $status['html']         = view('App\Views\datapajak\form_input', $this->data);
-        $status['modal_title']  = '<b>Update Data Pajak : </b>' . $get->nama;
-        $status['modal_size']   = 'modal-xl';
-        echo json_encode($status);
+        $this->data = array(
+            'title' => 'Post Data Pajak | Admin',
+            'breadcome' => 'Post Data Pajak',
+            'url' => 'datapajak/',
+            'm_open_datapajak' => 'menu-open',
+            'mm_datapajak' => 'active',
+            'm_post_datapajak' => 'active',
+            'session' => $this->session,
+            'individu' => $this->individum->findall(),
+            'get' => $get,
+            'data' => $this->datapajakm->select('datapajak.*, ind.*, k.*, pk.*, pd.*, k.id kesID, pk.id pekID, pd.id kpID')->join('individu ind', 'ind.id = datapajak.individu_id')->join('kesehatan k', 'k.individu_id = ind.id')->join('pekerjaan pk', 'pk.individu_id = ind.id')->join('pendidikan pd', 'pd.individu_id = ind.id')->where('datapajak.id', $id)->first()
+        );
+
+        return view('App\Views\datapajak\post-datapajak', $this->data);
     }
+
     public function save()
     {
         switch ($this->request->getPost('action')) {
             case 'insert':
-                // $files = $this->request->getFileMultiple('userfile');
-
                 $data =  array(
+                    'user_id'          => session('user_id'),
                     'individu_id'          => $this->request->getVar('individu_id'),
                 );
                 if ($this->datapajakm->insert($data)) {
@@ -95,6 +105,7 @@ class DataPajak extends BaseController
                 $id = $this->request->getPost('id');
                 // $files = $this->request->getFileMultiple('userfile');
                 $data =  array(
+                    'user_id'          => session('user_id'),
                     'individu_id'          => $this->request->getPost('individu_id'),
                 );
                 if ($this->datapajakm->update($id, $data)) {

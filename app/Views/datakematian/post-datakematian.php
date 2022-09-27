@@ -53,46 +53,47 @@
                                             'Laki - Laki' => 'Laki - Laki',
                                             'Perempuan' => 'Perempuan',
                                         );
-                                        echo form_dropdown('jenis_kelamin[]', $defaults + $options, (isset($get->jenis_kelamin)) ? $get->jenis_kelamin : '', 'class="form-control" id="jenis_kelamin" disabled');
+                                        echo form_dropdown('jenis_kelamin[]', $defaults + $options, (isset($data->jenis_kelamin)) ? $data->jenis_kelamin : '', 'class="form-control" id="jenis_kelamin" readonly');
                                         ?>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group item col-md-6">
                                         <label for="tgl_kematian">Tanggal Kematian</label>
-                                        <input type="date" class="form-control" id="tgl_kematian" name="tgl_kematian" required />
+                                        <input type="date" class="form-control" id="tgl_kematian" name="tgl_kematian" value="<?= @$get->tgl_kematian ?>" required />
                                     </div>
                                     <div class="form-group item col-md-6">
                                         <label for="jam_kematian">Tanggal Kematian</label>
-                                        <input type="time" class="form-control" id="jam_kematian" name="jam_kematian" required />
+                                        <input type="time" class="form-control" id="jam_kematian" name="jam_kematian" value="<?= @$get->jam_kematian ?>" required />
                                     </div>
                                 </div>
                                 <div class="form-group item">
                                     <label for="tempat_kematian">Tempat Kematian</label>
-                                    <input type="text" class="form-control" id="tempat_kematian" name="tempat_kematian" placeholder="Tempat Kematian" required />
+                                    <input type="text" class="form-control" id="tempat_kematian" name="tempat_kematian" placeholder="Tempat Kematian" value="<?= @$get->tempat_kematian ?>" required />
                                 </div>
                                 <div class="row">
                                     <div class="form-group item col-md-6">
                                         <label for="tgl_kubur">Tanggal Dikebumikan</label>
-                                        <input type="date" class="form-control" id="tgl_kubur" name="tgl_kubur" required />
+                                        <input type="date" class="form-control" id="tgl_kubur" name="tgl_kubur" value="<?= @$get->tgl_kubur ?>" required />
                                     </div>
                                     <div class="form-group item col-md-6">
                                         <label for="jam_kubur">Jam Dikebumikan</label>
-                                        <input type="time" class="form-control" id="jam_kubur" name="jam_kubur" required />
+                                        <input type="time" class="form-control" id="jam_kubur" name="jam_kubur" value="<?= @$get->jam_kubur ?>" required />
                                     </div>
                                 </div>
                                 <div class="form-group item">
                                     <label for="tempat_kubur">Tempat Pekuburan</label>
-                                    <input type="text" class="form-control" id="tempat_kubur" name="tempat_kubur" placeholder="Tempat Pekuburan" required />
+                                    <input type="text" class="form-control" id="tempat_kubur" name="tempat_kubur" placeholder="Tempat Pekuburan" value="<?= @$get->tempat_kubur ?>" required />
                                 </div>
                                 <div class="form-group item">
                                     <label for="alamat">Alamat Pekuburan</label>
-                                    <input type="text" class="form-control" id="alamat" name="alamat_kubur" placeholder="Alamat Pekuburan" required />
+                                    <input type="text" class="form-control" id="alamat" name="alamat_kubur" placeholder="Alamat Pekuburan" value="<?= @$get->alamat_kubur ?>" required />
                                 </div>
                             </div>
                         </div>
                         <div class="card-footer">
-                            <input type='hidden' name='action' value="insert" />
+                            <input type="hidden" name="id" value="<?= (isset($get->id)) ? $get->id : ''; ?>" />
+                            <input type='hidden' name='action' value="<?= (isset($get->id)) ? 'update' : 'insert'; ?>" />
                             <button type="submit" class="btn btn-primary btn-sub">Submit</button>
                             <button class="btn btn-primary btn-load d-none" type="button" disabled>
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>

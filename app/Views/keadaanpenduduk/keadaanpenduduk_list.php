@@ -36,7 +36,7 @@
                         <div class="card-body">
                             <div id="toolbar">
                                 <a href="post-keadaanpenduduk"><button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah</button></a>
-                                <button type="button" class="btn btn-warning" id="edit" method="edit" disabled><i class="fa fa-edit"></i> Update</button>
+                                <button type="button" class="btn btn-warning" id="single-edit" data-href="keadaanpenduduk" method="edit" disabled><i class="fa fa-edit"></i> Update</button>
                                 <button type="button" class="btn btn-danger" id="remove" disabled><i class="fa fa-trash"></i> Hapus</button>
                             </div>
                             <table id="table" data-toggle="table" data-ajax="ajaxRequest" data-side-pagination="server" data-pagination="true" data-search="true" data-show-columns="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-click-to-select="true" data-toolbar="#toolbar">

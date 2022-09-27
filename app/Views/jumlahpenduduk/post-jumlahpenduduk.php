@@ -38,21 +38,21 @@
                             <div class="col-md-12">
                                 <div class="form-group item">
                                     <label for="dusun">Dusun</label>
-                                    <select name="individu_id" id="dusun" class="form-control select2">
-                                        <option value="" disabled <?= (isset($get->individu_id) ? '' : 'selected') ?>>Pilih Dusun</option>
+                                    <select name="dusun" id="dusun" class="form-control select2">
+                                        <option value="" disabled <?= (isset($get->dusun) ? '' : 'selected') ?>>Pilih Dusun</option>
                                         <?php foreach ($individu as $row) : ?>
-                                            <option value="<?= $row->dusun; ?>" <?= (isset($get->individu_id) ? ($get->individu_id == $row->id ? 'selected' : '') : '') ?>><?= $row->dusun ?></option>
+                                            <option value="<?= $row->dusun; ?>" <?= (isset($get->dusun) ? ($get->dusun == $row->dusun ? 'selected' : '') : '') ?>><?= $row->dusun ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
                                 <div class="row">
                                     <div class="form-group item col-md-6">
                                         <label for="jumlah_jiwa">Jumlah Jiwa</label>
-                                        <input type="text" class="form-control" id="jumlah_jiwa" name="jumlah_jiwa" placeholder="Jumlah Jiwa" required />
+                                        <input type="text" class="form-control" id="jumlah_jiwa" name="jumlah_jiwa" placeholder="Jumlah Jiwa" value="<?= @$get->jumlah_jiwa ?>" required />
                                     </div>
                                     <div class="form-group item col-md-6">
                                         <label for="jumlah_kk">Jumlah Kartu Keluarga</label>
-                                        <input type="text" class="form-control" id="jumlah_kk" name="jumlah_kk" placeholder="Jumlah Kartu Keluarga" required />
+                                        <input type="text" class="form-control" id="jumlah_kk" name="jumlah_kk" placeholder="Jumlah Kartu Keluarga" value="<?= @$get->jumlah_kk ?>" required />
                                     </div>
                                 </div>
                                 <div class="card-header">
@@ -88,15 +88,15 @@
                                     <div class="row">
                                         <div class="form-group item col-md-4">
                                             <label for="jumlah_pria">Laki - Laki</label>
-                                            <input type="text" class="form-control" id="jumlah_pria" name="jumlah_pria" placeholder="Jumlah Pria" required />
+                                            <input type="text" class="form-control" id="jumlah_pria" name="jumlah_pria" placeholder="Jumlah Pria" value="<?= @$get->jumlah_pria ?>" required />
                                         </div>
                                         <div class="form-group item col-md-4">
                                             <label for="jumlah_wanita">Perempuan</label>
-                                            <input type="text" class="form-control" id="jumlah_wanita" name="jumlah_wanita" placeholder="Jumlah Wanita" required />
+                                            <input type="text" class="form-control" id="jumlah_wanita" name="jumlah_wanita" placeholder="Jumlah Wanita" value="<?= @$get->jumlah_wanita ?>" required />
                                         </div>
                                         <div class="form-group item col-md-4">
                                             <label for="jumlah">Jumlah</label>
-                                            <input type="text" class="form-control" id="jumlah" name="jumlah" placeholder="Jumlah" required />
+                                            <input type="text" class="form-control" id="jumlah" name="jumlah" placeholder="Jumlah" value="<?= @$get->jumlah ?>" required />
                                         </div>
                                     </div>
                                 </div>
@@ -107,30 +107,31 @@
                                     <div class="row">
                                         <div class="form-group item col-md">
                                             <label for="agama_islam">Islam</label>
-                                            <input type="text" class="form-control" id="agama_islam" name="agama_islam" placeholder="Jumlah Agama Islam" required />
+                                            <input type="text" class="form-control" id="agama_islam" name="agama_islam" placeholder="Jumlah Agama Islam" value="<?= @$get->agama_islam ?>" required />
                                         </div>
                                         <div class="form-group item col-md">
                                             <label for="agama_kristen">Kristen</label>
-                                            <input type="text" class="form-control" id="agama_kristen" name="agama_kristen" placeholder="Jumlah Agama Kristen" required />
+                                            <input type="text" class="form-control" id="agama_kristen" name="agama_kristen" placeholder="Jumlah Agama Kristen" value="<?= @$get->agama_kristen ?>" required />
                                         </div>
                                         <div class="form-group item col-md">
                                             <label for="agama_katolik">Katolik</label>
-                                            <input type="text" class="form-control" id="agama_katolik" name="agama_katolik" placeholder="Jumlah Agama Katolik" required />
+                                            <input type="text" class="form-control" id="agama_katolik" name="agama_katolik" placeholder="Jumlah Agama Katolik" value="<?= @$get->agama_katolik ?>" required />
                                         </div>
                                         <div class="form-group item col-md">
                                             <label for="agama_hindu">Hindu</label>
-                                            <input type="text" class="form-control" id="agama_hindu" name="agama_hindu" placeholder="Jumlah Agama Hindu" required />
+                                            <input type="text" class="form-control" id="agama_hindu" name="agama_hindu" placeholder="Jumlah Agama Hindu" value="<?= @$get->agama_hindu ?>" required />
                                         </div>
                                         <div class="form-group item col-md">
                                             <label for="agama_budha">Budha</label>
-                                            <input type="text" class="form-control" id="agama_budha" name="agama_budha" placeholder="Jumlah Agama Budha" required />
+                                            <input type="text" class="form-control" id="agama_budha" name="agama_budha" placeholder="Jumlah Agama Budha" value="<?= @$get->agama_budha ?>" required />
                                         </div>
                                     </div>
                                 </div>
-                                <textarea name="keterangan" id="keterangan" class="text-area" cols="10" rows="10" placeholder="Keterangan...."></textarea>
+                                <textarea name="keterangan" id="keterangan" class="text-area" cols="10" rows="10" placeholder="Keterangan...."><?= @$get->keterangan ?></textarea>
+                                <input type="hidden" name="id" value="<?= (isset($get->id)) ? $get->id : ''; ?>" />
                             </div>
                             <div class="card-footer">
-                                <input type='hidden' name='action' value="insert" />
+                                <input type='hidden' name='action' value="<?= (isset($get->id)) ? 'update' : 'insert'; ?>" />
                                 <button type="submit" class="btn btn-primary btn-sub">Submit</button>
                                 <button class="btn btn-primary btn-load d-none" type="button" disabled>
                                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>

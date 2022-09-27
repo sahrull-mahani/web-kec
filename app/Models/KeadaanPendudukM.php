@@ -7,9 +7,15 @@ use CodeIgniter\Model;
 class KeadaanPendudukM extends Model
 {
   protected $table = "keadaanpenduduk";
-  protected $allowedFields = ['individu_id'];
+  protected $allowedFields = ['user_id', 'individu_id'];
   protected $primarykey = 'id';
   protected $returnType = 'object';
+  protected $useSoftDeletes = false;
+
+  protected $useTimestamps = true;
+  protected $createdField  = 'created_at';
+  protected $updatedField  = 'updated_at';
+  protected $deletedField  = 'deleted_at';
 
   private function _get_datatables()
   {

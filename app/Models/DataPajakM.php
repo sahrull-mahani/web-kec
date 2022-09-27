@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class DataPajakM extends Model
 {
   protected $table = "datapajak";
-  protected $allowedFields = ['individu_id'];
+  protected $allowedFields = ['user_id', 'individu_id'];
   protected $primarykey = 'id';
   protected $returnType = 'object';
 

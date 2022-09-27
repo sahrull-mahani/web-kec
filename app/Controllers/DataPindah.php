@@ -53,6 +53,26 @@ class DataPindah extends BaseController
         return '404';
     }
 
+    public function single_edit($id)
+    {
+        // dd($id);
+        $get = $this->datapindahm->find($id);
+        $this->data = array(
+            'title' => 'Post Data Pindah | Admin',
+            'breadcome' => 'Post Data Pindah',
+            'url' => 'datapindah/',
+            'm_open_datapindah' => 'menu-open',
+            'mm_datapindah' => 'active',
+            'm_post_datapindah' => 'active',
+            'session' => $this->session,
+            'individu' => $this->individum->findall(),
+            'get' => $get,
+            'data' => $this->datapindahm->select('datapindah.*, ind.*, k.*, pk.*, pd.*, k.id kesID, pk.id pekID, pd.id kpID')->join('individu ind', 'ind.id = datapindah.individu_id')->join('kesehatan k', 'k.individu_id = ind.id')->join('pekerjaan pk', 'pk.individu_id = ind.id')->join('pendidikan pd', 'pd.individu_id = ind.id')->where('datapindah.id', $id)->first()
+        );
+
+        return view('App\Views\datapindah\post-datapindah', $this->data);
+    }
+
     public function Post()
     {
         $this->data = array(
@@ -67,29 +87,15 @@ class DataPindah extends BaseController
             'wilayah' => getApi('https://emsifa.github.io/api-wilayah-indonesia/static/api/provinces.json'),
         );
 
-        // $wilayah = getApi('https://emsifa.github.io/api-wilayah-indonesia/api/provinces.json');
-
-        // dd($this->data['wilayah']);
-
         echo view('App\Views\datapindah\post-datapindah', $this->data);
-    }
-    public function edit()
-    {
-        $id = $this->request->getPost('id');
-        $get = $this->datapindahm->find($id);
-        $this->data = array('get' => $get);
-        $status['html']         = view('App\Views\datapindah\form_input', $this->data);
-        $status['modal_title']  = '<b>Update Data Pindah : </b>' . $get->dusun;
-        $status['modal_size']   = 'modal-xl';
-        echo json_encode($status);
     }
     public function save()
     {
         switch ($this->request->getPost('action')) {
             case 'insert':
-                // $files = $this->request->getFileMultiple('userfile');
 
                 $data =  array(
+                    'user_id'          => session('user_id'),
                     'individu_id'          => $this->request->getVar('individu_id'),
                     'status'    => $this->request->getVar('status'),
                     'tgl_pindah'    => $this->request->getVar('tgl_pindah'),
@@ -112,6 +118,7 @@ class DataPindah extends BaseController
                 $id = $this->request->getPost('id');
                 // $files = $this->request->getFileMultiple('userfile');
                 $data =  array(
+                    'user_id'          => session('user_id'),
                     'individu_id'          => $this->request->getPost('individu_id'),
                     'status'    => $this->request->getPost('status'),
                     'tgl_pindah'    => $this->request->getPost('tgl_pindah'),

@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class DataPindahM extends Model
 {
   protected $table = "datapindah";
-  protected $allowedFields = ['individu_id', 'status', 'tgl_pindah', 'alamat_pindah', 'keterangan_pindah'];
+  protected $allowedFields = ['user_id', 'individu_id', 'status', 'tgl_pindah', 'alamat_pindah', 'keterangan_pindah'];
   protected $primarykey = 'id';
   protected $returnType = 'object';
   protected $useSoftDeletes = false;

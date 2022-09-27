@@ -15,6 +15,11 @@ class Individu extends Migration
                 'unsigned'        => true,
                 'auto_increment' => true
             ],
+            'user_id' => [
+                'type'       => 'INT',
+                'constraint' => '6',
+                'unsigned'   => true,
+            ],
             'no_kk'     => [
                 'type'          => 'CHAR',
                 'constraint' => 16,
@@ -132,6 +137,7 @@ class Individu extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
+        $this->forge->addForeignKey('user_id', 'users', 'id', 'NO ACTION', 'CASCADE');
         $this->forge->createTable('individu');
     }
 

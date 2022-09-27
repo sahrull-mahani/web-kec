@@ -47,12 +47,12 @@
                                         </div>
                                         <div class="form-group item col-md-6">
                                             <label for="nik">Nomor Induk Kependudukan (NIK)</label>
-                                            <input type="text" class="form-control" id="nik_individu" name="nik" placeholder="Nomor Indik Kependudukan" />
+                                            <input type="text" class="form-control" id="nik_individu" name="nik" placeholder="Nomor Indik Kependudukan" value="<?= @$get->nik ?>" />
                                         </div>
                                     </div>
                                     <div class="form-group item">
                                         <label for="nama">Nama</label>
-                                        <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Lengkap" />
+                                        <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Lengkap" value="<?= @$get->nama ?>" />
                                     </div>
                                     <div class="row">
                                         <div class="form-group item col-md-4">
@@ -86,12 +86,12 @@
                                         </div>
                                         <div class="form-group item col-md-4">
                                             <label for="dusun">Dusun</label>
-                                            <input type="text" class="form-control" id="dusun_individu" name="dusun" placeholder="Dusun" />
+                                            <input type="text" class="form-control" id="dusun_individu" name="dusun" placeholder="Dusun" value="<?= @$get->dusun ?>" />
                                         </div>
                                     </div>
                                     <div class="form-group item">
                                         <label for="alamat">Alamat</label>
-                                        <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat" />
+                                        <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat" value="<?= @$get->alamat ?>" />
                                     </div>
                                     <div class="row">
                                         <div class="form-group item col-md-4">
@@ -106,11 +106,11 @@
                                         </div>
                                         <div class="form-group item col-md-4">
                                             <label for="tempat_lahir">Tempat Lahir</label>
-                                            <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" placeholder="Tempat Lahir" />
+                                            <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" placeholder="Tempat Lahir" value="<?= @$get->tempat_lahir ?>" />
                                         </div>
                                         <div class="form-group item col-md-4">
                                             <label for="tgl_lahir">Tanggal Lahir</label>
-                                            <input type="date" class="form-control" id="tgl_lahir" name="tgl_lahir" />
+                                            <input type="date" class="form-control" id="tgl_lahir" name="tgl_lahir" value="<?= @$get->tgl_lahir ?>" />
                                         </div>
                                     </div>
                                     <div class="row">
@@ -167,7 +167,7 @@
                                     <div class="row">
                                         <div class="form-group item col-md-6">
                                             <label for="suku">Suku Bangsa</label>
-                                            <input type="text" class="form-control" id="suku" name="suku" placeholder="Suku Bangsa" />
+                                            <input type="text" class="form-control" id="suku" name="suku" placeholder="Suku Bangsa" value="<?= @$get->suku ?>" />
                                         </div>
                                         <div class="form-group item col-md-6">
                                             <label for="kewarganegaraan">Warga Negara</label>
@@ -183,11 +183,11 @@
                                     <div class="row">
                                         <div class="form-group item col-md-6">
                                             <label for="no_hp">Nomor HP</label>
-                                            <input type="text" class="form-control" id="no_hp" name="no_hp" placeholder="Nomor HP" />
+                                            <input type="text" class="form-control" id="no_hp" name="no_hp" placeholder="Nomor HP" value="<?= @$get->no_hp ?>" />
                                         </div>
                                         <div class="form-group item col-md-6">
                                             <label for="no_wa">Nomor WhatsApp</label>
-                                            <input type="text" class="form-control" id="no_wa" name="no_wa" placeholder="Nomor WhatsApp" />
+                                            <input type="text" class="form-control" id="no_wa" name="no_wa" placeholder="Nomor WhatsApp" value="<?= @$get->no_wa ?>" />
                                         </div>
                                     </div>
                                     <div class="row">
@@ -203,7 +203,7 @@
                                         </div>
                                         <div class="form-group item col-md-4">
                                             <label for="jumlah_pajak">Besarnya</label>
-                                            <input type="text" class="form-control" id="jumlah_pajak" name="jumlah_pajak" placeholder="Jumlah Pajak" />
+                                            <input type="text" class="form-control" id="jumlah_pajak" name="jumlah_pajak" placeholder="Jumlah Pajak" value="<?= @$get->jumlah_pajak ?>" />
                                         </div>
                                         <div class="form-group item col-md-4">
                                             <label for="keterangan">Keterangan</label>
@@ -219,21 +219,21 @@
                                     <div class="row">
                                         <div class="form-group item col-md-6">
                                             <label for="email">Alamat email Pribadi</label>
-                                            <input type="text" class="form-control" id="email" name="email" placeholder="xxxxxx@gmail.com" />
+                                            <input type="text" class="form-control" id="email" name="email" placeholder="xxxxxx@gmail.com" value="<?= @$get->email ?>" />
                                         </div>
                                         <div class="form-group item col-md-6">
                                             <label for="facebook">Alamat Facebook Pribadi</label>
-                                            <input type="text" class="form-control" id="facebook" name="facebook" placeholder="Nama Facebook" />
+                                            <input type="text" class="form-control" id="facebook" name="facebook" placeholder="Nama Facebook" value="<?= @$get->facebook ?>" />
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group item col-md-6">
                                             <label for="twitter">Alamat Twitter Pribadi</label>
-                                            <input type="text" class="form-control" id="twitter" name="twitter" placeholder="Nama Twitter" />
+                                            <input type="text" class="form-control" id="twitter" name="twitter" placeholder="Nama Twitter" value="<?= @$get->twitter ?>" />
                                         </div>
                                         <div class="form-group item col-md-6">
                                             <label for="instagram">Alamat Instagram Pribadi</label>
-                                            <input type="text" class="form-control" id="instagram" name="instagram" placeholder="Nama Instagram" />
+                                            <input type="text" class="form-control" id="instagram" name="instagram" placeholder="Nama Instagram" value="<?= @$get->instagram ?>" />
                                         </div>
                                     </div>
                                     <button type="button" name="next" class="btn btn-sm btn-primary btn-user float-right next" onclick="Step2()">Selanjutnya</button>
@@ -341,7 +341,7 @@
                                             </select>
                                         </div>
                                         <div class="form-group item col-md-2">
-                                            <input type="text" class="form-control" id="jumlah" name="jumlah[]" placeholder="Jumlah" />
+                                            <input type="text" class="form-control" id="jumlah" name="jumlah[]" placeholder="Jumlah" value="<?= @$get->jumlah ?>" />
                                         </div>
                                     </div>
                                     <div class="row">
@@ -357,7 +357,7 @@
                                             </select>
                                         </div>
                                         <div class="form-group item col-md-4">
-                                            <input type="text" class="form-control" id="penghasilan" name="penghasilan[]" placeholder="Penghasilan Setahun (Rp)" />
+                                            <input type="text" class="form-control" id="penghasilan" name="penghasilan[]" placeholder="Penghasilan Setahun (Rp)" value="<?= @$get->penghasilan ?>" />
                                         </div>
                                         <div class="form-group item col-md-3">
                                             <select class="form-control select2" name="ekspor[]" id="ekspor">
@@ -367,7 +367,7 @@
                                             </select>
                                         </div>
                                         <div class="form-group item col-md-2">
-                                            <button id="rowAdder" type="button" class="btn btn-primary float-right"><i class="bi bi-plus"></i> Tambah</button>
+                                            <button id="rowAdder" type="button" data-edit="<?= @$get->id ?>" class="btn btn-primary float-right"><i class="bi bi-plus"></i> Tambah</button>
                                         </div>
                                     </div>
                                     <div id="newinput">
@@ -608,81 +608,81 @@
                                             <div class="row">
                                                 <div class="form-group item col-md-6">
                                                     <label for="rs">Rumah Sakit</label>
-                                                    <input type="text" class="form-control" id="rs" name="rs" />
+                                                    <input type="text" class="form-control" id="rs" name="rs" value="<?= @$get->rs ?>" />
                                                 </div>
                                                 <div class="form-group item col-md-6">
                                                     <label for="praktik_bidan">Tempat Praktik Bidan</label>
-                                                    <input type="text" class="form-control" id="praktik_bidan" name="praktik_bidan" />
+                                                    <input type="text" class="form-control" id="praktik_bidan" name="praktik_bidan" value="<?= @$get->praktik_bidan ?>" />
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="form-group item col-md-6">
                                                     <label for="rs_bersalin">Rumah Sakit Bersalin</label>
-                                                    <input type="text" class="form-control" id="rs_bersalin" name="rs_bersalin" />
+                                                    <input type="text" class="form-control" id="rs_bersalin" name="rs_bersalin" value="<?= @$get->rs_bersalin ?>" />
                                                 </div>
                                                 <div class="form-group item col-md-6">
                                                     <label for="poskesdes">Poskesdes</label>
-                                                    <input type="text" class="form-control" id="poskesdes" name="poskesdes" />
+                                                    <input type="text" class="form-control" id="poskesdes" name="poskesdes" value="<?= @$get->poskesdes ?>" />
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="form-group item col-md-6">
                                                     <label for="puskesmas_inap">Puskesmas Dengan Rawat Inap</label>
-                                                    <input type="text" class="form-control" id="puskesmas_inap" name="puskesmas_inap" />
+                                                    <input type="text" class="form-control" id="puskesmas_inap" name="puskesmas_inap" value="<?= @$get->puskesmas_inap ?>" />
                                                 </div>
                                                 <div class="form-group item col-md-6">
                                                     <label for="polindes">Polindes</label>
-                                                    <input type="text" class="form-control" id="polindes" name="polindes" />
+                                                    <input type="text" class="form-control" id="polindes" name="polindes" value="<?= @$get->polindes ?>" />
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="form-group item col-md-6">
                                                     <label for="puskesmas_tanpainap">Puskesmas Tanpa Rawat Inap</label>
-                                                    <input type="text" class="form-control" id="puskesmas_tanpainap" name="puskesmas_tanpainap" />
+                                                    <input type="text" class="form-control" id="puskesmas_tanpainap" name="puskesmas_tanpainap" value="<?= @$get->puskesmas_tanpainap ?>" />
                                                 </div>
                                                 <div class="form-group item col-md-6">
                                                     <label for="apotik">Apotik</label>
-                                                    <input type="text" class="form-control" id="apotik" name="apotik" />
+                                                    <input type="text" class="form-control" id="apotik" name="apotik" value="<?= @$get->apotik ?>" />
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="form-group item col-md-6">
                                                     <label for="pustu">Puskesmas Pembantu</label>
-                                                    <input type="text" class="form-control" id="pustu" name="pustu" />
+                                                    <input type="text" class="form-control" id="pustu" name="pustu" value="<?= @$get->pustu ?>" />
                                                 </div>
                                                 <div class="form-group item col-md-6">
                                                     <label for="toko_obat">Toko Khusus Obat/Jamu</label>
-                                                    <input type="text" class="form-control" id="toko_obat" name="toko_obat" />
+                                                    <input type="text" class="form-control" id="toko_obat" name="toko_obat" value="<?= @$get->toko_obat ?>" />
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="form-group item col-md-6">
                                                     <label for="poliklinik">Poliklinik/ Balai Pengobatan</label>
-                                                    <input type="text" class="form-control" id="poliklinik" name="poliklinik" />
+                                                    <input type="text" class="form-control" id="poliklinik" name="poliklinik" value="<?= @$get->poliklinik ?>" />
                                                 </div>
                                                 <div class="form-group item col-md-6">
                                                     <label for="posyandu">Posyandu</label>
-                                                    <input type="text" class="form-control" id="posyandu" name="posyandu" />
+                                                    <input type="text" class="form-control" id="posyandu" name="posyandu" value="<?= @$get->posyandu ?>" />
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="form-group item col-md-6">
                                                     <label for="praktik_dokter">Tempat Praktik Dokter</label>
-                                                    <input type="text" class="form-control" id="praktik_dokter" name="praktik_dokter" />
+                                                    <input type="text" class="form-control" id="praktik_dokter" name="praktik_dokter" value="<?= @$get->praktik_dokter ?>" />
                                                 </div>
                                                 <div class="form-group item col-md-6">
                                                     <label for="posbindu">Posbindu</label>
-                                                    <input type="text" class="form-control" id="posbindu" name="posbindu" />
+                                                    <input type="text" class="form-control" id="posbindu" name="posbindu" value="<?= @$get->posbindu ?>" />
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="form-group item col-md-6">
                                                     <label for="rumah_bersalin">Rumah Bersalin</label>
-                                                    <input type="text" class="form-control" id="rumah_bersalin" name="rumah_bersalin" />
+                                                    <input type="text" class="form-control" id="rumah_bersalin" name="rumah_bersalin" value="<?= @$get->rumah_bersalin ?>" />
                                                 </div>
                                                 <div class="form-group item col-md-6">
                                                     <label for="praktik_dukun">Tempat Praktik Dukun Bayi/Bersalin/Paraji</label>
-                                                    <input type="text" class="form-control" id="praktik_dukun" name="praktik_dukun" />
+                                                    <input type="text" class="form-control" id="praktik_dukun" name="praktik_dukun" value="<?= @$get->praktik_dukun ?>" />
                                                 </div>
                                             </div>
                                         </div>
@@ -832,38 +832,39 @@
                                     </div>
                                     <div class="form-group item">
                                         <label for="bahasa_lokal">Bahasa Digunakan Di Rumah dan Permukiman (Tuliskan)</label>
-                                        <input type="text" class="form-control" id="bahasa_lokal" name="bahasa_lokal" />
+                                        <input type="text" class="form-control" id="bahasa_lokal" name="bahasa_lokal" value="<?= @$get->bahasa_lokal ?>" />
                                     </div>
                                     <div class="form-group item">
                                         <label for="bahasa_formal">Bahasa Digunakan Di Lembaga Formal (Sekolah, Tempat Kerja, Tuliskan)</label>
-                                        <input type="text" class="form-control" id="bahasa_formal" name="bahasa_formal" />
+                                        <input type="text" class="form-control" id="bahasa_formal" name="bahasa_formal" value="<?= @$get->bahasa_formal ?>" />
                                     </div>
                                     <div class="form-group item">
                                         <label for="kerja_bakti">Kerja Bakti Setahun Terakhir (Jumlah)</label>
-                                        <input type="text" class="form-control" id="kerja_bakti" name="kerja_bakti" />
+                                        <input type="text" class="form-control" id="kerja_bakti" name="kerja_bakti" value="<?= @$get->kerja_bakti ?>" />
                                     </div>
                                     <div class="form-group item">
                                         <label for="siskamling">Siskamling Setahun Terakhir (Jumlah)</label>
-                                        <input type="text" class="form-control" id="siskamling" name="siskamling" />
+                                        <input type="text" class="form-control" id="siskamling" name="siskamling" value="<?= @$get->siskamling ?>" />
                                     </div>
                                     <div class="form-group item">
                                         <label for="pesta_rakyat">Pesta Rakyat/Adat Setahun Terakhir (Jumlah)</label>
-                                        <input type="text" class="form-control" id="pesta_rakyat" name="pesta_rakyat" />
+                                        <input type="text" class="form-control" id="pesta_rakyat" name="pesta_rakyat" value="<?= @$get->pesta_rakyat ?>" />
                                     </div>
                                     <div class="form-group item">
                                         <label for="pertolongan_kematian">Menolong Warga yang Mengalami Kematian Setahun Terakhir (Jumlah)</label>
-                                        <input type="text" class="form-control" id="pertolongan_kematian" name="pertolongan_kematian" />
+                                        <input type="text" class="form-control" id="pertolongan_kematian" name="pertolongan_kematian" value="<?= @$get->pertolongan_kematian ?>" />
                                     </div>
                                     <div class="form-group item">
                                         <label for="pertolongan_sakit">Menolong Warga yang Sedang Sakit Setahun Terakhir (Jumlah)</label>
-                                        <input type="text" class="form-control" id="pertolongan_sakit" name="pertolongan_sakit" />
+                                        <input type="text" class="form-control" id="pertolongan_sakit" name="pertolongan_sakit" value="<?= @$get->pertolongan_sakit ?>" />
                                     </div>
                                     <div class="form-group item">
                                         <label for="pertolongan_kecelakaan">Menolong Warga yang Kecelakaan Setahun Terakhir (Jumlah)</label>
-                                        <input type="text" class="form-control" id="pertolongan_kecelakaan" name="pertolongan_kecelakaan" />
+                                        <input type="text" class="form-control" id="pertolongan_kecelakaan" name="pertolongan_kecelakaan" value="<?= @$get->pertolongan_kecelakaan ?>" />
                                     </div>
+                                    <input type="hidden" name="id" value="<?= (isset($get->id)) ? $get->id : ''; ?>" />
                                     <button type="button" class="btn btn-sm btn-secondary btn-user float-left" onclick="Step3()">Sebelumnya</button>
-                                    <input type='hidden' name='action' value="insert" />
+                                    <input type='hidden' name='action' value="<?= (isset($get->id)) ? 'update' : 'insert'; ?>" />
                                     <button type="submit" class="btn btn-sm btn-primary btn-user float-right">Submit</button>
                                     <button class="btn btn-primary btn-load d-none" type="button" disabled>
                                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>

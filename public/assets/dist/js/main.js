@@ -434,11 +434,12 @@ function readFile(url) {
         $('#modal_content').modal('hide');
     });
     $single.bind('click', function (e) {
+        let href = $(this).data('href')
         e.stopImmediatePropagation();
         var ids = JSON.stringify($table.bootstrapTable('getSelections'))
         var a = JSON.parse(ids);
         let id = a[0].id
-        document.location.href = location.origin + '/individu/single_edit/' + id
+        document.location.href = location.origin + `/${href}/single_edit/` + id
         // $.ajax({
         //     url : location.origin + '/individu/single_edit/',
         //     type: 'POST',

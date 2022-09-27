@@ -168,7 +168,16 @@ function Step4() {
     }
 }
 
-
+let editID = $('#rowAdder').data('edit')
+switch(editID) {
+    case undefined:
+        break
+    case '':
+        break
+    default:
+        
+        break
+}
 $("#rowAdder").click(function () {
     newRowAdd =
     '<div id="baris">' +
@@ -265,12 +274,16 @@ $("body").on("click", "#DeleteRow", function () {
 })
 
 $('#umur').on('change', function() {
+    let dusun = $('#dusun').val()
     let val = $(this).val()
 
     $.ajax({
         url: location.origin + '/JumlahPenduduk/umur',
         type: 'POST',
-        data: {value: val},
+        data: {
+            dusun: dusun,
+            value: val
+        },
         success: function(res) {
             let data = $.parseJSON(res)
             $('#jumlah_pria').val(data.pria)
@@ -358,6 +371,7 @@ $('#individu').on('change',function(){
                 $('#nama_lokasi').val(data.data.nama)
                 $('#alamat_lokasi').val(data.data.alamat)
                 $('#nohp_lokasi').val(data.data.no_hp)
+                $('#provinsi').val(data.data.provinsi)
                 $('#jenis_kelamin option[value="' + data.data.pekerjaan + '"]').prop('selected', true);
                 $('#muntaber_diare option[value="' + data.data.muntaber_diare + '"]').prop('selected', true);
             }

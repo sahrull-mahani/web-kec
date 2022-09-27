@@ -32,8 +32,8 @@ class RumahTangga extends BaseController
             $row = array();
             $row['id'] = $rows->id;
             $row['nomor'] = $no++;
-            $row['nama'] = $rows->nama;
-            $row['alamat'] = $rows->alamat;
+            $row['nama'] = ucwords($rows->nama);
+            $row['alamat'] = ucwords($rows->alamat);
             $row['nomor telepon'] = $rows->no_hp;
             $data[] = $row;
         }
@@ -79,6 +79,7 @@ class RumahTangga extends BaseController
             'm_open_rumahtangga' => 'menu-open',
             'mm_rumahtangga' => 'active',
             'm_post_rumahtangga' => 'active',
+            'get' => $this->rumahtanggam->findAll(),
             'individu' => $this->individum->findAll(),
             'provinsi' => getApi('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json'),
             'session' => $this->session
@@ -107,6 +108,7 @@ class RumahTangga extends BaseController
                 // $files = $this->request->getFileMultiple('userfile');
 
                 $data =  array(
+                    'user_id'    => session('user_id'),
                     'individu_id'    => $this->request->getVar('individu_id'),
                     'rt_rw'    => $this->request->getVar('rt_rw'),
                     'no_telp'    => $this->request->getVar('no_telp'),
@@ -183,22 +185,12 @@ class RumahTangga extends BaseController
                 $id = $this->request->getPost('id');
                 // $files = $this->request->getFileMultiple('userfile');
                 $data =  array(
-                    'nama_enum'          => $this->request->getPost('nama_enum'),
-                    'notelp_enum'    => $this->request->getPost('notelp_enum'),
-                    'alamat_enum'    => $this->request->getPost('alamat_enum'),
-                    'provinsi'    => $this->request->getPost('provinsi'),
-                    'kab_kota'    => $this->request->getPost('kab_kota'),
-                    'kecamatan'    => $this->request->getPost('kecamatan'),
-                    'desa'    => $this->request->getPost('desa'),
+                    'user_id'    => session('user_id'),
+                    'individu_id'    => $this->request->getPost('individu_id'),
                     'rt_rw'    => $this->request->getPost('rt_rw'),
-                    'nama_lokasi'    => $this->request->getPost('nama_lokasi'),
-                    'alamat_lokasi'    => $this->request->getPost('alamat_lokasi'),
-                    'nohp_lokasi'    => $this->request->getPost('nohp_lokasi'),
-                    'notelp_lokasi'    => $this->request->getPost('notelp_lokasi'),
-                    'no_kk'    => $this->request->getPost('no_kk'),
-                    'nik'    => $this->request->getPost('nik'),
+                    'no_telp'    => $this->request->getPost('no_telp'),
                     'tempat_tinggal'    => $this->request->getPost('tempat_tinggal'),
-                    'status_tempat'    => $this->request->getPost('status_tempat'),
+                    'status_lahan'    => $this->request->getPost('status_lahan'),
                     'luas_lantai'    => $this->request->getPost('luas_lantai'),
                     'luas_lahan'    => $this->request->getPost('luas_lahan'),
                     'jenis_lantai'    => $this->request->getPost('jenis_lantai'),
@@ -211,7 +203,7 @@ class RumahTangga extends BaseController
                     'tps'    => $this->request->getPost('tps'),
                     'mck'    => $this->request->getPost('mck'),
                     'sumber_airmandi'    => $this->request->getPost('sumber_airmandi'),
-                    'fasilitasi_bab'    => $this->request->getPost('fasilitasi_bab'),
+                    'fasilitas_bab'    => $this->request->getPost('fasilitas_bab'),
                     'sumber_airminum'    => $this->request->getPost('sumber_airminum'),
                     'tempat_plc'    => $this->request->getPost('tempat_plc'),
                     'tower'    => $this->request->getPost('tower'),
@@ -245,7 +237,14 @@ class RumahTangga extends BaseController
                     'bpa'    => $this->request->getPost('bpa'),
                     'lainnya'    => $this->request->getPost('lainnya'),
                 );
+
+                $data2 = array(
+                    'nama_enum'          => $this->request->getPost('nama_enum'),
+                    'notelp_enum'    => $this->request->getPost('notelp_enum'),
+                    'alamat_enum'    => $this->request->getPost('alamat_enum'),
+                );
                 if ($this->rumahtanggam->update($id, $data)) {
+                    $this->enumeratorm->update($id, $data2);
                     $status['title'] = 'success';
                     $status['type'] = 'success';
                     $status['text'] = 'Kuisioner Rumah Tangga Telah Di Ubah';

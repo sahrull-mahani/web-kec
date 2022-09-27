@@ -98,8 +98,8 @@ class Individu extends BaseController
 
         switch ($this->request->getPost('action')) {
             case 'insert':
-
                 $data =  array(
+                    'user_id'          => session('user_id'),
                     'no_kk'          => $this->request->getVar('no_kk'),
                     'nik'          => $this->request->getVar('nik'),
                     'nama'          => $this->request->getVar('nama'),
@@ -129,8 +129,6 @@ class Individu extends BaseController
                 );
 
                 $data2 =  array(
-                    // 'individu_id'          => $this->request->getVar('individu_id'),
-                    // 'individu_id'          => '2',
                     'bpjs_kes'          => $this->request->getVar('bpjs_kes'),
                     'muntaber_diare'          => $this->request->getVar('muntaber_diare'),
                     'hepatitis_e'          => $this->request->getVar('hepatitis_e'),
@@ -180,8 +178,6 @@ class Individu extends BaseController
                 );
 
                 $data3 =  array(
-                    // 'individu_id' => $this->request->getVar('individu_id'),
-                    'individu_id' => '2',
                     'kondisi_pekerjaan'          => $this->request->getVar('kondisi_pekerjaan'),
                     'pekerjaan'          => $this->request->getVar('pekerjaan'),
                     'jamsos'          => $this->request->getVar('jamsos'),
@@ -193,7 +189,6 @@ class Individu extends BaseController
                 );
 
                 $data4 =  array(
-                    // 'individu_id' => $this->request->getVar('individu_id'),
                     'pendidikan'          => $this->request->getVar('pendidikan'),
                     'bahasa_lokal'          => $this->request->getVar('bahasa_lokal'),
                     'bahasa_formal'          => $this->request->getVar('bahasa_formal'),
@@ -205,7 +200,6 @@ class Individu extends BaseController
                     'pertolongan_kecelakaan'          => $this->request->getVar('pertolongan_kecelakaan'),
                 );
 
-                // var_dump($data3);
                 if ($this->individum->insert($data)) {
                     $id_individu = $this->individum->orderBy('id', 'DESC')->first()->id;
                     $data2['individu_id'] = $id_individu;
@@ -229,10 +223,110 @@ class Individu extends BaseController
                 $id = $this->request->getPost('id');
                 // $files = $this->request->getFileMultiple('userfile');
                 $data =  array(
+                    'user_id'          => session('user_id'),
+                    'no_kk'          => $this->request->getPost('no_kk'),
+                    'nik'          => $this->request->getPost('nik'),
                     'nama'          => $this->request->getPost('nama'),
+                    'provinsi'          => $this->request->getPost('provinsi'),
+                    'kab_kota'          => $this->request->getPost('kab_kota'),
+                    'kecamatan'          => $this->request->getPost('kecamatan'),
+                    'kelurahan'          => $this->request->getPost('kelurahan'),
+                    'dusun'          => $this->request->getPost('dusun'),
+                    'alamat'          => $this->request->getPost('alamat'),
+                    'jenis_kelamin'          => $this->request->getPost('jenis_kelamin'),
+                    'tempat_lahir'          => $this->request->getPost('tempat_lahir'),
+                    'tgl_lahir'          => $this->request->getPost('tgl_lahir'),
+                    'umur'          => $this->request->getPost('umur'),
+                    'status_nikah'          => $this->request->getPost('status_nikah'),
+                    'agama'          => $this->request->getPost('agama'),
+                    'suku'          => $this->request->getPost('suku'),
+                    'kewarganegaraan'          => $this->request->getPost('kewarganegaraan'),
+                    'no_hp'          => $this->request->getPost('no_hp'),
+                    'no_wa'          => $this->request->getPost('no_wa'),
+                    'wajib_pajak'          => $this->request->getPost('wajib_pajak'),
+                    'jumlah_pajak'          => $this->request->getPost('jumlah_pajak'),
+                    'keterangan'          => $this->request->getPost('keterangan'),
+                    'email'          => $this->request->getPost('email'),
+                    'facebook'          => $this->request->getPost('facebook'),
+                    'twitter'          => $this->request->getPost('twitter'),
+                    'instagram'          => $this->request->getPost('instagram'),
+                );
 
+                $data2 =  array(
+                    'bpjs_kes'          => $this->request->getPost('bpjs_kes'),
+                    'muntaber_diare'          => $this->request->getPost('muntaber_diare'),
+                    'hepatitis_e'          => $this->request->getPost('hepatitis_e'),
+                    'jantung'          => $this->request->getPost('jantung'),
+                    'demam_berdarah'          => $this->request->getPost('demam_berdarah'),
+                    'difteri'          => $this->request->getPost('difteri'),
+                    'tbc_paru'          => $this->request->getPost('tbc_paru'),
+                    'campak'          => $this->request->getPost('campak'),
+                    'chikungunya'          => $this->request->getPost('chikungunya'),
+                    'kanker'          => $this->request->getPost('kanker'),
+                    'malaria'          => $this->request->getPost('malaria'),
+                    'leptospirosis'          => $this->request->getPost('leptospirosis'),
+                    'diabetes'          => $this->request->getPost('diabetes'),
+                    'fluburung_sars'          => $this->request->getPost('fluburung_sars'),
+                    'kolera'          => $this->request->getPost('kolera'),
+                    'lumpuh'          => $this->request->getPost('lumpuh'),
+                    'covid_19'          => $this->request->getPost('covid_19'),
+                    'gizi_buruk'          => $this->request->getPost('gizi_buruk'),
+                    'hepatitis_b'          => $this->request->getPost('hepatitis_b'),
+                    'lainnya'          => $this->request->getPost('lainnya'),
+                    'rs'          => $this->request->getPost('rs'),
+                    'praktik_bidan'          => $this->request->getPost('praktik_bidan'),
+                    'rs_bersalin'          => $this->request->getPost('rs_bersalin'),
+                    'poskesdes'          => $this->request->getPost('poskesdes'),
+                    'puskesmas_inap'          => $this->request->getPost('puskesmas_inap'),
+                    'apotik'          => $this->request->getPost('apotik'),
+                    'polindes'          => $this->request->getPost('polindes'),
+                    'praktik_dokter'          => $this->request->getPost('praktik_dokter'),
+                    'puskesmas_tanpainap'          => $this->request->getPost('puskesmas_tanpainap'),
+                    'pustu'          => $this->request->getPost('pustu'),
+                    'toko_obat'          => $this->request->getPost('toko_obat'),
+                    'poliklinik'          => $this->request->getPost('poliklinik'),
+                    'posyandu'          => $this->request->getPost('posyandu'),
+                    'posbindu'          => $this->request->getPost('posbindu'),
+                    'rumah_bersalin'          => $this->request->getPost('rumah_bersalin'),
+                    'praktik_dukun'          => $this->request->getPost('praktik_dukun'),
+                    'tunanetra'          => $this->request->getPost('tunanetra'),
+                    'tunarungu'          => $this->request->getPost('tunarungu'),
+                    'tunawicara'          => $this->request->getPost('tunawicara'),
+                    'tunarungu_wicara'          => $this->request->getPost('tunarungu_wicara'),
+                    'tunadaksa'          => $this->request->getPost('tunadaksa'),
+                    'tunagrahita'          => $this->request->getPost('tunagrahita'),
+                    'tunalaras'          => $this->request->getPost('tunalaras'),
+                    'eks_kusta'          => $this->request->getPost('eks_kusta'),
+                    'cacat_ganda'          => $this->request->getPost('cacat_ganda'),
+                    'pasung'          => $this->request->getPost('pasung'),
+                );
+
+                $data3 =  array(
+                    'kondisi_pekerjaan'          => $this->request->getPost('kondisi_pekerjaan'),
+                    'pekerjaan'          => $this->request->getPost('pekerjaan'),
+                    'jamsos'          => $this->request->getPost('jamsos'),
+                    'sumber_penghasilan' => implode('|', $this->request->getPost('sumber_penghasilan')),
+                    'jumlah'          => implode('|', $this->request->getPost('jumlah')),
+                    'satuan'          => implode('|', $this->request->getPost('satuan')),
+                    'penghasilan'          => implode('|', $this->request->getPost('penghasilan')),
+                    'ekspor'          => implode('|', $this->request->getPost('ekspor')),
+                );
+
+                $data4 =  array(
+                    'pendidikan'          => $this->request->getPost('pendidikan'),
+                    'bahasa_lokal'          => $this->request->getPost('bahasa_lokal'),
+                    'bahasa_formal'          => $this->request->getPost('bahasa_formal'),
+                    'kerja_bakti'          => $this->request->getPost('kerja_bakti'),
+                    'siskamling'          => $this->request->getPost('siskamling'),
+                    'pesta_rakyat'          => $this->request->getPost('pesta_rakyat'),
+                    'pertolongan_kematian'          => $this->request->getPost('pertolongan_kematian'),
+                    'pertolongan_sakit'          => $this->request->getPost('pertolongan_sakit'),
+                    'pertolongan_kecelakaan'          => $this->request->getPost('pertolongan_kecelakaan'),
                 );
                 if ($this->individum->update($id, $data)) {
+                    $this->kesehatanm->update($id, $data2);
+                    $this->pekerjaanm->update($id, $data3);
+                    $this->pendidikanm->update($id, $data4);
                     $status['title'] = 'success';
                     $status['type'] = 'success';
                     $status['text'] = 'Kuisioner Individu Telah Di Ubah';

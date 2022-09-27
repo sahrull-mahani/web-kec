@@ -38,16 +38,16 @@
                             <div class="col-md-12">
                                 <div class="form-group item">
                                     <label for="dusun">Dusun</label>
-                                    <input type="text" class="form-control" id="dusun" name="dusun" placeholder="Dusun" required />
+                                    <input type="text" class="form-control" id="dusun" name="dusun" placeholder="Dusun" value="<?= @$data->dusun ?>" required />
                                 </div>
                                 <div class="row">
                                     <div class="form-group item col-md-6">
                                         <label for="no_kk">Nomor Kartu Keluarga</label>
-                                        <input type="text" class="form-control" id="no_kk" name="no_kk" placeholder="Nomor Kartu Keluarga" required />
+                                        <input type="text" class="form-control" id="no_kk" name="no_kk" placeholder="Nomor Kartu Keluarga" value="<?= @$data->no_kk ?>" required />
                                     </div>
                                     <div class="form-group item col-md-6">
                                         <label for="nik">Nomor Induk Kependudukan</label>
-                                        <select name="individu_id" id="nik" class="form-control select2">
+                                        <select name="individu_id" id="nik" class="form-control">
                                             <option value="" disabled <?= (isset($get->individu_id) ? '' : 'selected') ?>>--Pilih NIK--</option>
                                             <?php foreach ($individu as $row) : ?>
                                                 <option value="<?= $row->id; ?>" <?= (isset($get->individu_id) ? ($get->individu_id == $row->id ? 'selected' : '') : '') ?>><?= $row->nik . ' - ' . ucwords($row->nama) ?></option>
@@ -57,34 +57,13 @@
                                 </div>
                                 <div class="form-group item">
                                     <label for="nama">Nama</label>
-                                    <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Lengkap" required />
+                                    <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Lengkap" value="<?= @ucwords($data->nama) ?>" required />
                                 </div>
                                 <div class="form-group item">
                                     <label for="pekerjaan">Pekerjaan</label>
-                                    <!-- <select class="form-control" name="pekerjaan[]" id="pekerjaan">
-                                        <option value="">Pilih Pekerjaan</option>
-
-                                        <option value="Petani Pemilik Lahan">Petani Pemilik Lahan Tahun</option>
-                                        <option value="Petani Penyewa">Petani Penyewa</option>
-                                        <option value="Buruh Tani">Buruh Tani</option>
-                                        <option value="Nelayan Pemilik Kapal/Perahu">Nelayan Pemilik Kapal/Perahu</option>
-                                        <option value="Nelayan Penyewa Kapal/Perahu">Nelayan Penyewa Kapal/Perahu</option>
-                                        <option value="Buruh Nelayan">Buruh Nelayan</option>
-                                        <option value="Guru">Guru</option>
-                                        <option value="Guru Agama">Guru Agama</option>
-                                        <option value="Pedagang">Pedagang</option>
-                                        <option value="Pengolahan/Industri">Pengolahan/Industri</option>
-                                        <option value="PNS">PNS</option>
-                                        <option value="TNI">TNI</option>
-                                        <option value="Perangkat Desa">Perangkat Desa</option>
-                                        <option value="Pegawai Kantor Desa">Pegawai Kantor Desa</option>
-                                        <option value="TKI">TKI</option>
-                                        <option value="Lainnya">Lainnya</option>
-
-                                    </select> -->
                                     <?php $defaults = array('' => 'Pilih Pekerjaan');
                                     $options = array(
-                                        'Petani Pemilik Lahan' => 'Petani Pemilik Lahan Tahun',
+                                        'Petani Pemilik Lahan' => 'Petani Pemilik Lahan',
                                         'Petani Penyewa' => 'Petani Penyewa',
                                         'Buruh Tani' => 'Buruh Tani',
                                         'Nelayan Pemilik Kapal/Perahu' => 'Nelayan Pemilik Kapal/Perahu',
@@ -101,7 +80,7 @@
                                         'TKI' => 'TKI',
                                         'Lainnya' => 'Lainnya',
                                     );
-                                    echo form_dropdown('pekerjaan[]', $defaults + $options, (isset($get->pekerjaan)) ? $get->pekerjaan : '', 'class="form-control" id="pekerjaan" required');
+                                    echo form_dropdown('pekerjaan[]', $defaults + $options, (isset($data->pekerjaan)) ? $data->pekerjaan : '', 'class="form-control " id="pekerjaan" required');
                                     ?>
                                 </div>
                                 <div class="card-header">
@@ -116,7 +95,7 @@
                                                 'Ya' => 'Ya',
                                                 'Tidak' => 'Tidak',
                                             );
-                                            echo form_dropdown('muntaber_diare[]', $defaults + $options, (isset($get->muntaber_diare)) ? $get->muntaber_diare : '', 'class="form-control" id="muntaber_diare" required');
+                                            echo form_dropdown('muntaber_diare[]', $defaults + $options, (isset($data->muntaber_diare)) ? $data->muntaber_diare : '', 'class="form-control " id="muntaber_diare" required');
                                             ?>
                                         </div>
                                         <div class="form-group item col-md-4">
@@ -126,7 +105,7 @@
                                                 'Ya' => 'Ya',
                                                 'Tidak' => 'Tidak',
                                             );
-                                            echo form_dropdown('hepatitis_e[]', $defaults + $options, (isset($get->hepatitis_e)) ? $get->hepatitis_e : '', 'class="form-control" id="hepatitis_e" required');
+                                            echo form_dropdown('hepatitis_e[]', $defaults + $options, (isset($data->hepatitis_e)) ? $data->hepatitis_e : '', 'class="form-control " id="hepatitis_e" required');
                                             ?>
                                         </div>
                                         <div class="form-group item col-md-4">
@@ -136,7 +115,7 @@
                                                 'Ya' => 'Ya',
                                                 'Tidak' => 'Tidak',
                                             );
-                                            echo form_dropdown('jantung[]', $defaults + $options, (isset($get->jantung)) ? $get->jantung : '', 'class="form-control" id="jantung" required');
+                                            echo form_dropdown('jantung[]', $defaults + $options, (isset($data->jantung)) ? $data->jantung : '', 'class="form-control " id="jantung" required');
                                             ?>
                                         </div>
                                     </div>
@@ -148,7 +127,7 @@
                                                 'Ya' => 'Ya',
                                                 'Tidak' => 'Tidak',
                                             );
-                                            echo form_dropdown('demam_berdarah[]', $defaults + $options, (isset($get->demam_berdarah)) ? $get->demam_berdarah : '', 'class="form-control" id="demam_berdarah" required');
+                                            echo form_dropdown('demam_berdarah[]', $defaults + $options, (isset($data->demam_berdarah)) ? $data->demam_berdarah : '', 'class="form-control " id="demam_berdarah" required');
                                             ?>
                                         </div>
                                         <div class="form-group item col-md-4">
@@ -158,7 +137,7 @@
                                                 'Ya' => 'Ya',
                                                 'Tidak' => 'Tidak',
                                             );
-                                            echo form_dropdown('difteri[]', $defaults + $options, (isset($get->difteri)) ? $get->difteri : '', 'class="form-control" id="difteri" required');
+                                            echo form_dropdown('difteri[]', $defaults + $options, (isset($data->difteri)) ? $data->difteri : '', 'class="form-control " id="difteri" required');
                                             ?>
                                         </div>
                                         <div class="form-group item col-md-4">
@@ -168,7 +147,7 @@
                                                 'Ya' => 'Ya',
                                                 'Tidak' => 'Tidak',
                                             );
-                                            echo form_dropdown('tbc_paru[]', $defaults + $options, (isset($get->tbc_paru)) ? $get->tbc_paru : '', 'class="form-control" id="tbc_paru" required');
+                                            echo form_dropdown('tbc_paru[]', $defaults + $options, (isset($data->tbc_paru)) ? $data->tbc_paru : '', 'class="form-control " id="tbc_paru" required');
                                             ?>
                                         </div>
                                     </div>
@@ -180,7 +159,7 @@
                                                 'Ya' => 'Ya',
                                                 'Tidak' => 'Tidak',
                                             );
-                                            echo form_dropdown('campak[]', $defaults + $options, (isset($get->campak)) ? $get->campak : '', 'class="form-control" id="campak" required');
+                                            echo form_dropdown('campak[]', $defaults + $options, (isset($data->campak)) ? $data->campak : '', 'class="form-control " id="campak" required');
                                             ?>
                                         </div>
                                         <div class="form-group item col-md-4">
@@ -190,7 +169,7 @@
                                                 'Ya' => 'Ya',
                                                 'Tidak' => 'Tidak',
                                             );
-                                            echo form_dropdown('cikungunya[]', $defaults + $options, (isset($get->cikungunya)) ? $get->cikungunya : '', 'class="form-control" id="cikungunya" required');
+                                            echo form_dropdown('cikungunya[]', $defaults + $options, (isset($data->cikungunya)) ? $data->cikungunya : '', 'class="form-control " id="cikungunya" required');
                                             ?>
                                         </div>
                                         <div class="form-group item col-md-4">
@@ -200,7 +179,7 @@
                                                 'Ya' => 'Ya',
                                                 'Tidak' => 'Tidak',
                                             );
-                                            echo form_dropdown('kanker[]', $defaults + $options, (isset($get->kanker)) ? $get->kanker : '', 'class="form-control" id="kanker" required');
+                                            echo form_dropdown('kanker[]', $defaults + $options, (isset($data->kanker)) ? $data->kanker : '', 'class="form-control " id="kanker" required');
                                             ?>
                                         </div>
                                     </div>
@@ -212,7 +191,7 @@
                                                 'Ya' => 'Ya',
                                                 'Tidak' => 'Tidak',
                                             );
-                                            echo form_dropdown('malaria[]', $defaults + $options, (isset($get->malaria)) ? $get->malaria : '', 'class="form-control" id="malaria" required');
+                                            echo form_dropdown('malaria[]', $defaults + $options, (isset($data->malaria)) ? $data->malaria : '', 'class="form-control " id="malaria" required');
                                             ?>
                                         </div>
                                         <div class="form-group item col-md-4">
@@ -222,7 +201,7 @@
                                                 'Ya' => 'Ya',
                                                 'Tidak' => 'Tidak',
                                             );
-                                            echo form_dropdown('leptospirosis[]', $defaults + $options, (isset($get->leptospirosis)) ? $get->leptospirosis : '', 'class="form-control" id="leptospirosis" required');
+                                            echo form_dropdown('leptospirosis[]', $defaults + $options, (isset($data->leptospirosis)) ? $data->leptospirosis : '', 'class="form-control " id="leptospirosis" required');
                                             ?>
                                         </div>
                                         <div class="form-group item col-md-4">
@@ -232,7 +211,7 @@
                                                 'Ya' => 'Ya',
                                                 'Tidak' => 'Tidak',
                                             );
-                                            echo form_dropdown('diabetes[]', $defaults + $options, (isset($get->diabetes)) ? $get->diabetes : '', 'class="form-control" id="diabetes" required');
+                                            echo form_dropdown('diabetes[]', $defaults + $options, (isset($data->diabetes)) ? $data->diabetes : '', 'class="form-control " id="diabetes" required');
                                             ?>
                                         </div>
                                     </div>
@@ -244,7 +223,7 @@
                                                 'Ya' => 'Ya',
                                                 'Tidak' => 'Tidak',
                                             );
-                                            echo form_dropdown('fluburung_sars[]', $defaults + $options, (isset($get->fluburung_sars)) ? $get->fluburung_sars : '', 'class="form-control" id="fluburung_sars" required');
+                                            echo form_dropdown('fluburung_sars[]', $defaults + $options, (isset($data->fluburung_sars)) ? $data->fluburung_sars : '', 'class="form-control " id="fluburung_sars" required');
                                             ?>
                                         </div>
                                         <div class="form-group item col-md-4">
@@ -254,7 +233,7 @@
                                                 'Ya' => 'Ya',
                                                 'Tidak' => 'Tidak',
                                             );
-                                            echo form_dropdown('kolera[]', $defaults + $options, (isset($get->kolera)) ? $get->kolera : '', 'class="form-control" id="kolera" required');
+                                            echo form_dropdown('kolera[]', $defaults + $options, (isset($data->kolera)) ? $data->kolera : '', 'class="form-control " id="kolera" required');
                                             ?>
                                         </div>
                                         <div class="form-group item col-md-4">
@@ -264,7 +243,7 @@
                                                 'Ya' => 'Ya',
                                                 'Tidak' => 'Tidak',
                                             );
-                                            echo form_dropdown('lumpuh[]', $defaults + $options, (isset($get->lumpuh)) ? $get->lumpuh : '', 'class="form-control" id="lumpuh" required');
+                                            echo form_dropdown('lumpuh[]', $defaults + $options, (isset($data->lumpuh)) ? $data->lumpuh : '', 'class="form-control " id="lumpuh" required');
                                             ?>
                                         </div>
                                     </div>
@@ -276,7 +255,7 @@
                                                 'Ya' => 'Ya',
                                                 'Tidak' => 'Tidak',
                                             );
-                                            echo form_dropdown('covid_19[]', $defaults + $options, (isset($get->covid_19)) ? $get->covid_19 : '', 'class="form-control" id="covid_19" required');
+                                            echo form_dropdown('covid_19[]', $defaults + $options, (isset($data->covid_19)) ? $data->covid_19 : '', 'class="form-control " id="covid_19" required');
                                             ?>
                                         </div>
                                         <div class="form-group item col-md-4">
@@ -286,7 +265,7 @@
                                                 'Ya' => 'Ya',
                                                 'Tidak' => 'Tidak',
                                             );
-                                            echo form_dropdown('gizi_buruk[]', $defaults + $options, (isset($get->gizi_buruk)) ? $get->gizi_buruk : '', 'class="form-control" id="gizi_buruk" required');
+                                            echo form_dropdown('gizi_buruk[]', $defaults + $options, (isset($data->gizi_buruk)) ? $data->gizi_buruk : '', 'class="form-control " id="gizi_buruk" required');
                                             ?>
                                         </div>
                                         <div class="form-group item col-md-4">
@@ -296,7 +275,7 @@
                                                 'Ya' => 'Ya',
                                                 'Tidak' => 'Tidak',
                                             );
-                                            echo form_dropdown('hepatitis_b[]', $defaults + $options, (isset($get->hepatitis_b)) ? $get->hepatitis_b : '', 'class="form-control" id="hepatitis_b" required');
+                                            echo form_dropdown('hepatitis_b[]', $defaults + $options, (isset($data->hepatitis_b)) ? $data->hepatitis_b : '', 'class="form-control " id="hepatitis_b" required');
                                             ?>
                                         </div>
                                     </div>
@@ -308,14 +287,15 @@
                                                 'Ya' => 'Ya',
                                                 'Tidak' => 'Tidak',
                                             );
-                                            echo form_dropdown('lainnya[]', $defaults + $options, (isset($get->lainnya)) ? $get->lainnya : '', 'class="form-control" id="lainnya" required');
+                                            echo form_dropdown('lainnya[]', $defaults + $options, (isset($data->lainnya)) ? $data->lainnya : '', 'class="form-control " id="lainnya" required');
                                             ?>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <input type='hidden' name='action' value="insert" />
+                                <input type="hidden" name="id" value="<?= (isset($get->id)) ? $get->id : ''; ?>" />
+                                <input type='hidden' name='action' value="<?= (isset($get->id)) ? 'update' : 'insert'; ?>" />
                                 <button type="submit" class="btn btn-primary btn-sub">Submit</button>
                                 <button class="btn btn-primary btn-load d-none" type="button" disabled>
                                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>

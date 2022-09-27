@@ -7,9 +7,15 @@ use CodeIgniter\Model;
 class JumlahPendudukM extends Model
 {
   protected $table = "jumlahpenduduk";
-  protected $allowedFields = ['dusun', 'jumlah_jiwa', 'jumlah_kk', 'umur', 'jumlah_pria', 'jumlah_wanita', 'jumlah', 'agama_islam', 'agama_kristen', 'agama_katolik', 'agama_hindu', 'agama_budha', 'keterangan'];
+  protected $allowedFields = ['user_id', 'dusun', 'jumlah_jiwa', 'jumlah_kk', 'umur', 'jumlah_pria', 'jumlah_wanita', 'jumlah', 'agama_islam', 'agama_kristen', 'agama_katolik', 'agama_hindu', 'agama_budha', 'keterangan'];
   protected $primarykey = 'id';
   protected $returnType = 'object';
+  protected $useSoftDeletes = false;
+
+  protected $useTimestamps = true;
+  protected $createdField  = 'created_at';
+  protected $updatedField  = 'updated_at';
+  protected $deletedField  = 'deleted_at';
 
   protected $validationRules = [
     'dusun' => 'required|max_length[150]',

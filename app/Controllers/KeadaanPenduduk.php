@@ -36,7 +36,7 @@ class KeadaanPenduduk extends BaseController
             $row['dusun'] = $rows->dusun;
             $row['no_kk'] = $rows->no_kk;
             $row['nik'] = $rows->nik;
-            $row['nama'] = $rows->nama;
+            $row['nama'] = ucwords($rows->nama);
             $row['pekerjaan'] = $rows->pekerjaan;
             // $row['penyakit'] = ($rows->muntaber_diare == 'Ya' ? 'Muntaber/Diare, ' : '');
             $row['penyakit'] = ($rows->muntaber_diare == 'Ya' ? 'Muntaber/Diare, ' : '') .
@@ -78,6 +78,26 @@ class KeadaanPenduduk extends BaseController
         return '404';
     }
 
+    public function single_edit($id)
+    {
+        // dd($id);
+        $get = $this->keadaanpendudukm->find($id);
+        $this->data = array(
+            'title' => 'Post Keadaan Penduduk | Admin',
+            'breadcome' => 'Post Keadaan Penduduk',
+            'url' => 'keadaanpenduduk/',
+            'm_open_keadaanpenduduk' => 'menu-open',
+            'mm_keadaanpenduduk' => 'active',
+            'm_post_keadaanpenduduk' => 'active',
+            'session' => $this->session,
+            'provinsi' => getApi('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json'), 'individu' => $this->individum->findall(),
+            'get' => $get,
+            'data' => $this->keadaanpendudukm->select('keadaanpenduduk.*, ind.*, k.*, pk.*, pd.*, k.id kesID, pk.id pekID, pd.id kpID')->join('individu ind', 'ind.id = keadaanpenduduk.individu_id')->join('kesehatan k', 'k.individu_id = ind.id')->join('pekerjaan pk', 'pk.individu_id = ind.id')->join('pendidikan pd', 'pd.individu_id = ind.id')->where('keadaanpenduduk.id', $id)->first()
+        );
+
+        return view('App\Views\keadaanpenduduk\post-keadaanpenduduk', $this->data);
+    }
+
     public function Post()
     {
         $this->data = array('title' => 'Post Keadaan Penduduk | Admin', 'breadcome' => 'Post Keadaan Penduduk', 'url' => 'keadaanpenduduk/', 'm_open_keadaanpenduduk' => 'menu-open', 'mm_keadaanpenduduk' => 'active', 'm_post_keadaanpenduduk' => 'active', 'session' => $this->session, 'individu' => $this->individum->findAll());
@@ -105,6 +125,7 @@ class KeadaanPenduduk extends BaseController
                 // $files = $this->request->getFileMultiple('userfile');
 
                 $data =  array(
+                    'user_id'          => session('user_id'),
                     'individu_id'          => $this->request->getVar('individu_id'),
                 );
                 if ($this->keadaanpendudukm->insert($data)) {
@@ -123,6 +144,7 @@ class KeadaanPenduduk extends BaseController
                 $id = $this->request->getPost('id');
                 // $files = $this->request->getFileMultiple('userfile');
                 $data =  array(
+                    'user_id'          => session('user_id'),
                     'individu_id'          => $this->request->getPost('individu_id'),
                 );
                 if ($this->keadaanpendudukm->update($id, $data)) {

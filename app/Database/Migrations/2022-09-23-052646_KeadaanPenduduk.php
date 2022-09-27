@@ -14,7 +14,13 @@ class KeadaanPenduduk extends Migration
                 'constraint'    => 11,
                 'unsign'        => true,
                 'auto_increment' => true
-            ], 'individu_id' => [
+            ],
+            'user_id' => [
+                'type'       => 'INT',
+                'constraint' => '6',
+                'unsigned'   => true,
+            ],
+            'individu_id' => [
                 'type' => 'int',
                 'constraint' => 11,
                 'unsigned' => true,
@@ -34,6 +40,7 @@ class KeadaanPenduduk extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
+        $this->forge->addForeignKey('user_id', 'users', 'id', 'NO ACTION', 'CASCADE');
         $this->forge->addForeignKey('individu_id', 'individu', 'id', 'SET NULL', 'CASCADE');
         $this->forge->createTable('keadaanpenduduk');
     }

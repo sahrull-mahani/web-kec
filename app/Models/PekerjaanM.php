@@ -27,27 +27,27 @@ class PekerjaanM extends Model
     protected $updatedField  = 'updated_at';
     protected $deletedField  = 'deleted_at';
 
-    protected $validationRules = [
-        'kondisi_pekerjaan' => 'required',
-        'pekerjaan' => 'required',
-        'jamsos' => 'required',
-        'sumber_penghasilan' => 'required',
-        'jumlah' => 'required',
-        'satuan' => 'required',
-        'penghasilan' => 'required',
-        'ekspor' => 'required',
-    ];
+    // protected $validationRules = [
+    //     'kondisi_pekerjaan' => 'required',
+    //     'pekerjaan' => 'required',
+    //     'jamsos' => 'required',
+    //     'sumber_penghasilan' => 'required',
+    //     'jumlah' => 'required',
+    //     'satuan' => 'required',
+    //     'penghasilan' => 'required',
+    //     'ekspor' => 'required',
+    // ];
 
-    protected $validationMessages = [
-        'kondisi_pekerjaan' => ['required' => 'tidak boleh kosong'],
-        'pekerjaan' => ['required' => 'tidak boleh kosong'],
-        'jamsos' => ['required' => 'tidak boleh kosong'],
-        'sumber_penghasilan' => ['required' => 'tidak boleh kosong'],
-        'jumlah' => ['required' => 'tidak boleh kosong'],
-        'satuan' => ['required' => 'tidak boleh kosong'],
-        'penghasilan' => ['required' => 'tidak boleh kosong'],
-        'ekspor' => ['required' => 'tidak boleh kosong'],
-    ];
+    // protected $validationMessages = [
+    //     'kondisi_pekerjaan' => ['required' => 'tidak boleh kosong'],
+    //     'pekerjaan' => ['required' => 'tidak boleh kosong'],
+    //     'jamsos' => ['required' => 'tidak boleh kosong'],
+    //     'sumber_penghasilan' => ['required' => 'tidak boleh kosong'],
+    //     'jumlah' => ['required' => 'tidak boleh kosong'],
+    //     'satuan' => ['required' => 'tidak boleh kosong'],
+    //     'penghasilan' => ['required' => 'tidak boleh kosong'],
+    //     'ekspor' => ['required' => 'tidak boleh kosong'],
+    // ];
     private function _get_datatables()
     {
         $column_search = array('kondisi_pekerjaan', 'pekerjaan', 'jamsos', 'sumber_penghasilan');

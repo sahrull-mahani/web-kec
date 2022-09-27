@@ -15,6 +15,11 @@ class RumahTangga extends Migration
                 'unsigned'        => true,
                 'auto_increment' => true
             ],
+            'user_id' => [
+                'type'       => 'INT',
+                'constraint' => '6',
+                'unsigned'   => true,
+            ],
             'individu_id' => ['type' => 'int', 'constraint' => 11, 'unsigned' => true, 'null' => true],
             'rt_rw'     => [
                 'type'          => 'CHAR',
@@ -226,6 +231,7 @@ class RumahTangga extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
+        $this->forge->addForeignKey('user_id', 'users', 'id', 'NO ACTION', 'CASCADE');
         $this->forge->addForeignKey('individu_id', 'individu', 'id', 'SET NULL', 'CASCADE');
         $this->forge->createTable('rumahtangga');
     }

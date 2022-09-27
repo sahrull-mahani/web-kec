@@ -53,22 +53,33 @@ class DataKematian extends BaseController
         return '404';
     }
 
+    public function single_edit($id)
+    {
+        // dd($id);
+        $get = $this->datakematianm->find($id);
+        $this->data = array(
+            'title' => 'Post Data Kematian | Admin',
+            'breadcome' => 'Post Data Kematian',
+            'url' => 'datakematian/',
+            'm_open_datakematian' => 'menu-open',
+            'mm_datakematian' => 'active',
+            'm_post_datakematian' => 'active',
+            'session' => $this->session,
+            'individu' => $this->individum->findall(),
+            'get' => $get,
+            'data' => $this->datakematianm->select('datakematian.*, ind.*, k.*, pk.*, pd.*, k.id kesID, pk.id pekID, pd.id kpID')->join('individu ind', 'ind.id = datakematian.individu_id')->join('kesehatan k', 'k.individu_id = ind.id')->join('pekerjaan pk', 'pk.individu_id = ind.id')->join('pendidikan pd', 'pd.individu_id = ind.id')->where('datakematian.id', $id)->first()
+        );
+
+        return view('App\Views\datakematian\post-datakematian', $this->data);
+    }
+
     public function Post()
     {
         $this->data = array('title' => 'Post Data Kematian | Admin', 'breadcome' => 'Post Data Kematian', 'url' => 'datakematian/', 'm_open_datakematian' => 'menu-open', 'mm_datakematian' => 'active', 'm_post_datakematian' => 'active', 'individu' => $this->individum->findAll(), 'session' => $this->session);
 
         echo view('App\Views\datakematian\post-datakematian', $this->data);
     }
-    public function edit()
-    {
-        $id = $this->request->getPost('id');
-        $get = $this->datakematianm->find($id);
-        $this->data = array('get' => $get);
-        $status['html']         = view('App\Views\datakematian\form_input', $this->data);
-        $status['modal_title']  = '<b>Update Data Kematian : </b>' . $get->nama;
-        $status['modal_size']   = 'modal-xl';
-        echo json_encode($status);
-    }
+
     public function save()
     {
         switch ($this->request->getPost('action')) {
@@ -76,6 +87,7 @@ class DataKematian extends BaseController
                 // $files = $this->request->getFileMultiple('userfile');
 
                 $data =  array(
+                    'user_id'          => session('user_id'),
                     'individu_id'          => $this->request->getVar('individu_id'),
                     'tgl_kematian'    => $this->request->getVar('tgl_kematian'),
                     'jam_kematian'    => $this->request->getVar('jam_kematian'),
@@ -99,8 +111,8 @@ class DataKematian extends BaseController
                 break;
             case 'update':
                 $id = $this->request->getPost('id');
-                // $files = $this->request->getFileMultiple('userfile');
                 $data =  array(
+                    'user_id'          => session('user_id'),
                     'individu_id'          => $this->request->getPost('individu_id'),
                     'tgl_kematian'    => $this->request->getPost('tgl_kematian'),
                     'jam_kematian'    => $this->request->getPost('jam_kematian'),

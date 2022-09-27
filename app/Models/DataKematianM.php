@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class DataKematianM extends Model
 {
   protected $table = "datakematian";
-  protected $allowedFields = ['individu_id', 'tgl_kematian', 'jam_kematian', 'tempat_kematian', 'tgl_kubur', 'jam_kubur', 'tempat_kubur', 'alamat_kubur'];
+  protected $allowedFields = ['user_id', 'individu_id', 'tgl_kematian', 'jam_kematian', 'tempat_kematian', 'tgl_kubur', 'jam_kubur', 'tempat_kubur', 'alamat_kubur'];
   protected $primarykey = 'id';
   protected $returnType = 'object';
 
