@@ -15,12 +15,6 @@ class Pekerjaan extends Migration
                 'unsigned'        => true,
                 'auto_increment' => true
             ],
-            // 'individu_id'        => [
-            //     'type'          => 'INT',
-            //     'constraint'    => 11,
-            //     'unsigned' => true,
-            //     'null' => true
-            // ],
             'individu_id' => ['type' => 'int', 'constraint' => 11, 'unsigned' => true, 'null' => true],
             'kondisi_pekerjaan'     => [
                 'type'          => 'ENUM',

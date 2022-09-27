@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\DataPindahM;
+use App\Models\IndividuM;
 use CodeIgniter\I18n\Time;
 
 class DataPindah extends BaseController
@@ -10,6 +11,7 @@ class DataPindah extends BaseController
     function __construct()
     {
         $this->datapindahm = new DataPindahM();
+        $this->individum = new IndividuM();
     }
     public function index()
     {
@@ -27,11 +29,11 @@ class DataPindah extends BaseController
             $row = array();
             $row['id'] = $rows->id;
             $row['nomor'] = $no++;
-            $row['nama'] = $rows->nama;
-            $row['status'] = $rows->status;
+            $row['nama'] = ucwords($rows->nama);
+            $row['status'] = ucwords($rows->status);
             $row['jk'] = $rows->jenis_kelamin;
             $row['tanggal'] = $rows->tgl_pindah;
-            $row['alamat'] = $rows->alamat_pindah;
+            $row['alamat'] = ucwords($rows->alamat_pindah);
             $data[] = $row;
         }
         $output = array(
@@ -40,6 +42,15 @@ class DataPindah extends BaseController
             "rows" => $data,
         );
         echo json_encode($output);
+    }
+
+    public function pindah()
+    {
+        $id = $this->request->getPost('value');
+        if ($this->individum->where('id', $id)->countAllResults() > 0) {
+            return json_encode(['data' => $this->individum->where('id', $id)->first()]);
+        }
+        return '404';
     }
 
     public function Post()
@@ -52,6 +63,7 @@ class DataPindah extends BaseController
             'mm_datapindah' => 'active',
             'm_post_datapindah' => 'active',
             'session' => $this->session,
+            'individu' => $this->individum->findAll(),
             'wilayah' => getApi('https://emsifa.github.io/api-wilayah-indonesia/static/api/provinces.json'),
         );
 
@@ -78,12 +90,11 @@ class DataPindah extends BaseController
                 // $files = $this->request->getFileMultiple('userfile');
 
                 $data =  array(
-                    'nama'          => $this->request->getVar('nama'),
+                    'individu_id'          => $this->request->getVar('individu_id'),
                     'status'    => $this->request->getVar('status'),
-                    'jenis_kelamin'    => $this->request->getVar('jenis_kelamin'),
                     'tgl_pindah'    => $this->request->getVar('tgl_pindah'),
                     'alamat_pindah'    => $this->request->getVar('alamat_pindah'),
-                    'keterangan'    => $this->request->getVar('keterangan'),
+                    'keterangan_pindah'    => $this->request->getVar('keterangan_pindah'),
                 );
                 if ($this->datapindahm->insert($data)) {
                     $status['title'] = 'success';
@@ -101,9 +112,8 @@ class DataPindah extends BaseController
                 $id = $this->request->getPost('id');
                 // $files = $this->request->getFileMultiple('userfile');
                 $data =  array(
-                    'nama'          => $this->request->getPost('nama'),
+                    'individu_id'          => $this->request->getPost('individu_id'),
                     'status'    => $this->request->getPost('status'),
-                    'jenis_kelamin'    => $this->request->getPost('jenis_kelamin'),
                     'tgl_pindah'    => $this->request->getPost('tgl_pindah'),
                     'alamat_pindah'    => $this->request->getPost('alamat_pindah'),
                     'keterangan'    => $this->request->getPost('keterangan'),

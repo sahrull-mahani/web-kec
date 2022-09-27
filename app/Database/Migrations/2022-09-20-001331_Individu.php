@@ -118,38 +118,6 @@ class Individu extends Migration
                 'type'          => 'CHAR',
                 'constraint' => 150,
             ],
-            'bahasa_lokal'     => [
-                'type'          => 'CHAR',
-                'constraint' => 150,
-            ],
-            'bahasa_formal'     => [
-                'type'          => 'CHAR',
-                'constraint' => 150,
-            ],
-            'kerja_bakti'     => [
-                'type'          => 'INT',
-                'constraint' => 11,
-            ],
-            'siskamling'     => [
-                'type'          => 'INT',
-                'constraint' => 11,
-            ],
-            'pesta_rakyat'     => [
-                'type'          => 'INT',
-                'constraint' => 11,
-            ],
-            'pertolongan_kematian'     => [
-                'type'          => 'INT',
-                'constraint' => 11,
-            ],
-            'pertolongan_sakit'     => [
-                'type'          => 'INT',
-                'constraint' => 11,
-            ],
-            'pertolongan_kecelakaan'     => [
-                'type'          => 'INT',
-                'constraint' => 11,
-            ],
             'created_at'     => [
                 'type'          => 'DATETIME',
                 'null'          => true

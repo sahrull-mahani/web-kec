@@ -3,211 +3,400 @@
     <div class="col-md-12">
         <div class="form-group item">
             <label for="dusun">Dusun</label>
-            <input type="text" class="form-control" id="dusun" name="dusun" value="<?= (isset($get->dusun)) ? $get->dusun : ''; ?>" placeholder="Dusun" required />
+            <input type="text" class="form-control" id="dusun" name="dusun" placeholder="Dusun" value="<?= (isset($data->individu_id) ? $data->dusun : '') ?>" required />
         </div>
         <div class="row">
             <div class="form-group item col-md-6">
-                <label for="jumlah_jiwa">Jumlah Jiwa</label>
-                <input type="text" class="form-control" id="jumlah_jiwa" name="jumlah_jiwa" value="<?= (isset($get->jumlah_jiwa)) ? $get->jumlah_jiwa : ''; ?>" placeholder="Jumlah Jiwa" required />
+                <label for="no_kk">Nomor Kartu Keluarga</label>
+                <input type="text" class="form-control" id="no_kk" name="no_kk" placeholder="Nomor Kartu Keluarga" value="<?= (isset($data->individu_id) ? $data->no_kk : '') ?>" required />
             </div>
             <div class="form-group item col-md-6">
-                <label for="jumlah_kk">Jumlah Kartu Keluarga</label>
-                <input type="text" class="form-control" id="jumlah_kk" name="jumlah_kk" value="<?= (isset($get->jumlah_kk)) ? $get->jumlah_kk : ''; ?>" placeholder="Jumlah Kartu Keluarga" required />
+                <label for="nik">Nomor Induk Kependudukan</label>
+                <select name="individu_id" id="nik" class="form-control select2">
+                    <option value="" disabled <?= (isset($get->individu_id) ? '' : 'selected') ?>>--Pilih NIK--</option>
+                    <?php foreach ($individu as $row) : ?>
+                        <option value="<?= $row->id; ?>" <?= (isset($get->individu_id) ? ($get->individu_id == $row->id ? 'selected' : '') : '') ?>><?= $row->nik . ' - ' . ucwords($row->nama) ?></option>
+                    <?php endforeach; ?>
+                </select>
             </div>
         </div>
+        <div class="form-group item">
+            <label for="nama">Nama</label>
+            <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Lengkap" value="<?= (isset($data->individu_id) ? $data->nama : '') ?>" required />
+        </div>
+        <div class="form-group item">
+            <label for="pekerjaan">Pekerjaan</label>
+            <!-- <select class="form-control" name="pekerjaan[]" id="pekerjaan">
+                                        <option value="">Pilih Pekerjaan</option>
+
+                                        <option value="Petani Pemilik Lahan">Petani Pemilik Lahan Tahun</option>
+                                        <option value="Petani Penyewa">Petani Penyewa</option>
+                                        <option value="Buruh Tani">Buruh Tani</option>
+                                        <option value="Nelayan Pemilik Kapal/Perahu">Nelayan Pemilik Kapal/Perahu</option>
+                                        <option value="Nelayan Penyewa Kapal/Perahu">Nelayan Penyewa Kapal/Perahu</option>
+                                        <option value="Buruh Nelayan">Buruh Nelayan</option>
+                                        <option value="Guru">Guru</option>
+                                        <option value="Guru Agama">Guru Agama</option>
+                                        <option value="Pedagang">Pedagang</option>
+                                        <option value="Pengolahan/Industri">Pengolahan/Industri</option>
+                                        <option value="PNS">PNS</option>
+                                        <option value="TNI">TNI</option>
+                                        <option value="Perangkat Desa">Perangkat Desa</option>
+                                        <option value="Pegawai Kantor Desa">Pegawai Kantor Desa</option>
+                                        <option value="TKI">TKI</option>
+                                        <option value="Lainnya">Lainnya</option>
+
+                                    </select> -->
+            <?php $defaults = array('' => 'Pilih Pekerjaan');
+            $options = array(
+                'Petani Pemilik Lahan' => 'Petani Pemilik Lahan Tahun',
+                'Petani Penyewa' => 'Petani Penyewa',
+                'Buruh Tani' => 'Buruh Tani',
+                'Nelayan Pemilik Kapal/Perahu' => 'Nelayan Pemilik Kapal/Perahu',
+                'Nelayan Penyewa Kapal/Perahu' => 'Nelayan Penyewa Kapal/Perahu',
+                'Buruh Nelayan' => 'Buruh Nelayan',
+                'Guru' => 'Guru',
+                'Guru Agama' => 'Guru Agama',
+                'Pedagang' => 'Pedagang',
+                'Pengolahan/Industri' => 'Pengolahan/Industri',
+                'PNS' => 'PNS',
+                'TNI' => 'TNI',
+                'Perangkat Desa' => 'Perangkat Desa',
+                'Pegawai Kantor Desa' => 'Pegawai Kantor Desa',
+                'TKI' => 'TKI',
+                'Lainnya' => 'Lainnya',
+            );
+            echo form_dropdown('pekerjaan[]', $defaults + $options, (isset($data->individu_id)) ? $data->pekerjaan : '', 'class="form-control select2" id="pekerjaan" required');
+            ?>
+        </div>
         <div class="card-header">
-            <h3 class="card-title">Jumlah Menurut Usia</h3>
+            <h3 class="card-title">Penyakit Yang Di Derita Selama 1 Tahun Terakhir</h3>
         </div>
         <div class="card-body">
-            <div class="form-group item">
-                <label for="umur">Umur</label>
-                <?php $defaults = array('' => 'Pilih Berdasarkan Umur');
-                $options = array(
-                    '0 - 4' => '0 - 4 Tahun',
-                    '5 - 9' => '5 - 9 Tahun',
-                    '10 - 14' => '10 - 14 Tahun',
-                    '15 - 19' => '15 - 19 Tahun',
-                    '20 - 24' => '20 - 24 Tahun',
-                    '25 - 29' => '25 - 29 Tahun',
-                    '30 - 34' => '30 - 34 Tahun',
-                    '35 - 39' => '35 - 39 Tahun',
-                    '40 - 44' => '40 - 44 Tahun',
-                    '45 - 49' => '45 - 49 Tahun',
-                    '50 - 54' => '50 - 54 Tahun',
-                    '55 - 59' => '55 - 59 Tahun',
-                    '60 - 64' => '60 - 64 Tahun',
-                    '65 - 69' => '65 - 69 Tahun',
-                    '70 - 74' => '70 - 74 Tahun',
-                    '75 - 79' => '75 - 79 Tahun',
-                    '80 - 84' => '80 - 84 Tahun',
-                );
-                echo form_dropdown('umur[]', $defaults + $options, (isset($get->umur)) ? $get->umur : '', 'class="form-control select2" id="umur" required');
-                ?>
-
+            <div class="row">
+                <div class="form-group item col-md-4">
+                    <label for="muntaber_diare">Muntaber/Diare</label>
+                    <?php $defaults = array('' => 'Pilih');
+                    $options = array(
+                        'Ya' => 'Ya',
+                        'Tidak' => 'Tidak',
+                    );
+                    echo form_dropdown('muntaber_diare[]', $defaults + $options, (isset($data->individu_id)) ? $data->muntaber_diare : '', 'class="form-control" id="muntaber_diare" required');
+                    ?>
+                </div>
+                <div class="form-group item col-md-4">
+                    <label for="hepatitis_e">Hepatitis E</label>
+                    <?php $defaults = array('' => 'Pilih');
+                    $options = array(
+                        'Ya' => 'Ya',
+                        'Tidak' => 'Tidak',
+                    );
+                    echo form_dropdown('hepatitis_e[]', $defaults + $options, (isset($data->individu_id)) ? $data->hepatitis_e : '', 'class="form-control" id="hepatitis_e" required');
+                    ?>
+                </div>
+                <div class="form-group item col-md-4">
+                    <label for="jantung">Jantung</label>
+                    <?php $defaults = array('' => 'Pilih');
+                    $options = array(
+                        'Ya' => 'Ya',
+                        'Tidak' => 'Tidak',
+                    );
+                    echo form_dropdown('jantung[]', $defaults + $options, (isset($data->individu_id)) ? $data->jantung : '', 'class="form-control" id="jantung" required');
+                    ?>
+                </div>
             </div>
             <div class="row">
                 <div class="form-group item col-md-4">
-                    <label for="jumlah_pria">Laki - Laki</label>
-                    <input type="text" class="form-control" id="jumlah_pria" name="jumlah_pria" value="<?= (isset($get->jumlah_pria)) ? $get->jumlah_pria : ''; ?>" placeholder="Jumlah Pria" required />
+                    <label for="demam_berdarah">Demam Berdarah</label>
+                    <?php $defaults = array('' => 'Pilih');
+                    $options = array(
+                        'Ya' => 'Ya',
+                        'Tidak' => 'Tidak',
+                    );
+                    echo form_dropdown('demam_berdarah[]', $defaults + $options, (isset($data->individu_id)) ? $data->demam_berdarah : '', 'class="form-control" id="demam_berdarah" required');
+                    ?>
                 </div>
                 <div class="form-group item col-md-4">
-                    <label for="jumlah_wanita">Perempuan</label>
-                    <input type="text" class="form-control" id="jumlah_wanita" name="jumlah_wanita" value="<?= (isset($get->jumlah_wanita)) ? $get->jumlah_wanita : ''; ?>" placeholder="Jumlah Wanita" required />
+                    <label for="difteri">Difteri</label>
+                    <?php $defaults = array('' => 'Pilih');
+                    $options = array(
+                        'Ya' => 'Ya',
+                        'Tidak' => 'Tidak',
+                    );
+                    echo form_dropdown('difteri[]', $defaults + $options, (isset($data->individu_id)) ? $data->difteri : '', 'class="form-control" id="difteri" required');
+                    ?>
                 </div>
                 <div class="form-group item col-md-4">
-                    <label for="jumlah">Jumlah</label>
-                    <input type="text" class="form-control" id="jumlah" name="jumlah" value="<?= (isset($get->jumlah)) ? $get->jumlah : ''; ?>" placeholder="Jumlah" required />
+                    <label for="tbc_paru">TBC Paru Paru</label>
+                    <?php $defaults = array('' => 'Pilih');
+                    $options = array(
+                        'Ya' => 'Ya',
+                        'Tidak' => 'Tidak',
+                    );
+                    echo form_dropdown('tbc_paru[]', $defaults + $options, (isset($data->individu_id)) ? $data->tbc_paru : '', 'class="form-control" id="tbc_paru" required');
+                    ?>
                 </div>
             </div>
-        </div>
-        <div class="card-header">
-            <h3 class="card-title">Jumlah Menurut Agama</h3>
-        </div>
-        <div class="card-body">
             <div class="row">
-                <div class="form-group item col-md">
-                    <label for="agama_islam">Islam</label>
-                    <input type="text" class="form-control" id="agama_islam" name="agama_islam" value="<?= (isset($get->agama_islam)) ? $get->agama_islam : ''; ?>" placeholder="Jumlah Agama Islam" required />
+                <div class="form-group item col-md-4">
+                    <label for="campak">Campak</label>
+                    <?php $defaults = array('' => 'Pilih');
+                    $options = array(
+                        'Ya' => 'Ya',
+                        'Tidak' => 'Tidak',
+                    );
+                    echo form_dropdown('campak[]', $defaults + $options, (isset($data->individu_id)) ? $data->campak : '', 'class="form-control" id="campak" required');
+                    ?>
                 </div>
-                <div class="form-group item col-md">
-                    <label for="agama_kristen">Kristen</label>
-                    <input type="text" class="form-control" id="agama_kristen" name="agama_kristen" value="<?= (isset($get->agama_kristen)) ? $get->agama_kristen : ''; ?>" placeholder="Jumlah Agama Kristen" required />
+                <div class="form-group item col-md-4">
+                    <label for="cikungunya">Cikungunya</label>
+                    <?php $defaults = array('' => 'Pilih');
+                    $options = array(
+                        'Ya' => 'Ya',
+                        'Tidak' => 'Tidak',
+                    );
+                    echo form_dropdown('cikungunya[]', $defaults + $options, (isset($data->individu_id)) ? $data->chikungunya : '', 'class="form-control" id="cikungunya" required');
+                    ?>
                 </div>
-                <div class="form-group item col-md">
-                    <label for="agama_katolik">Katolik</label>
-                    <input type="text" class="form-control" id="agama_katolik" name="agama_katolik" value="<?= (isset($get->agama_katolik)) ? $get->agama_katolik : ''; ?>" placeholder="Jumlah Agama Katolik" required />
+                <div class="form-group item col-md-4">
+                    <label for="kanker">Kanker</label>
+                    <?php $defaults = array('' => 'Pilih');
+                    $options = array(
+                        'Ya' => 'Ya',
+                        'Tidak' => 'Tidak',
+                    );
+                    echo form_dropdown('kanker[]', $defaults + $options, (isset($data->individu_id)) ? $data->kanker : '', 'class="form-control" id="kanker" required');
+                    ?>
                 </div>
-                <div class="form-group item col-md">
-                    <label for="agama_hindu">Hindu</label>
-                    <input type="text" class="form-control" id="agama_hindu" name="agama_hindu" value="<?= (isset($get->agama_hindu)) ? $get->agama_hindu : ''; ?>" placeholder="Jumlah Agama Hindu" required />
+            </div>
+            <div class="row">
+                <div class="form-group item col-md-4">
+                    <label for="malaria">Malaria</label>
+                    <?php $defaults = array('' => 'Pilih');
+                    $options = array(
+                        'Ya' => 'Ya',
+                        'Tidak' => 'Tidak',
+                    );
+                    echo form_dropdown('malaria[]', $defaults + $options, (isset($data->individu_id)) ? $data->malaria : '', 'class="form-control" id="malaria" required');
+                    ?>
                 </div>
-                <div class="form-group item col-md">
-                    <label for="agama_budha">Budha</label>
-                    <input type="text" class="form-control" id="agama_budha" name="agama_budha" value="<?= (isset($get->agama_budha)) ? $get->agama_budha : ''; ?>" placeholder="Jumlah Agama Budha" required />
+                <div class="form-group item col-md-4">
+                    <label for="leptospirosis">Leptospirosis</label>
+                    <?php $defaults = array('' => 'Pilih');
+                    $options = array(
+                        'Ya' => 'Ya',
+                        'Tidak' => 'Tidak',
+                    );
+                    echo form_dropdown('leptospirosis[]', $defaults + $options, (isset($data->individu_id)) ? $data->leptospirosis : '', 'class="form-control" id="leptospirosis" required');
+                    ?>
+                </div>
+                <div class="form-group item col-md-4">
+                    <label for="diabetes">Diabetes</label>
+                    <?php $defaults = array('' => 'Pilih');
+                    $options = array(
+                        'Ya' => 'Ya',
+                        'Tidak' => 'Tidak',
+                    );
+                    echo form_dropdown('diabetes[]', $defaults + $options, (isset($data->individu_id)) ? $data->diabetes : '', 'class="form-control" id="diabetes" required');
+                    ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group item col-md-4">
+                    <label for="fluburung_sars">Flu Burung/SARS</label>
+                    <?php $defaults = array('' => 'Pilih');
+                    $options = array(
+                        'Ya' => 'Ya',
+                        'Tidak' => 'Tidak',
+                    );
+                    echo form_dropdown('fluburung_sars[]', $defaults + $options, (isset($data->individu_id)) ? $data->fluburung_sars : '', 'class="form-control" id="fluburung_sars" required');
+                    ?>
+                </div>
+                <div class="form-group item col-md-4">
+                    <label for="kolera">Kolera</label>
+                    <?php $defaults = array('' => 'Pilih');
+                    $options = array(
+                        'Ya' => 'Ya',
+                        'Tidak' => 'Tidak',
+                    );
+                    echo form_dropdown('kolera[]', $defaults + $options, (isset($data->individu_id)) ? $data->kolera : '', 'class="form-control" id="kolera" required');
+                    ?>
+                </div>
+                <div class="form-group item col-md-4">
+                    <label for="lumpuh">Lumpuh</label>
+                    <?php $defaults = array('' => 'Pilih');
+                    $options = array(
+                        'Ya' => 'Ya',
+                        'Tidak' => 'Tidak',
+                    );
+                    echo form_dropdown('lumpuh[]', $defaults + $options, (isset($data->individu_id)) ? $data->lumpuh : '', 'class="form-control" id="lumpuh" required');
+                    ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group item col-md-4">
+                    <label for="covid_19">Covid-19</label>
+                    <?php $defaults = array('' => 'Pilih');
+                    $options = array(
+                        'Ya' => 'Ya',
+                        'Tidak' => 'Tidak',
+                    );
+                    echo form_dropdown('covid_19[]', $defaults + $options, (isset($data->individu_id)) ? $data->covid_19 : '', 'class="form-control" id="covid_19" required');
+                    ?>
+                </div>
+                <div class="form-group item col-md-4">
+                    <label for="gizi_buruk">Gizi Buruk</label>
+                    <?php $defaults = array('' => 'Pilih');
+                    $options = array(
+                        'Ya' => 'Ya',
+                        'Tidak' => 'Tidak',
+                    );
+                    echo form_dropdown('gizi_buruk[]', $defaults + $options, (isset($data->individu_id)) ? $data->gizi_buruk : '', 'class="form-control" id="gizi_buruk" required');
+                    ?>
+                </div>
+                <div class="form-group item col-md-4">
+                    <label for="hepatitis_b">Hepatitis B</label>
+                    <?php $defaults = array('' => 'Pilih');
+                    $options = array(
+                        'Ya' => 'Ya',
+                        'Tidak' => 'Tidak',
+                    );
+                    echo form_dropdown('hepatitis_b[]', $defaults + $options, (isset($data->individu_id)) ? $data->hepatitis_b : '', 'class="form-control" id="hepatitis_b" required');
+                    ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group item col-md-4">
+                    <label for="lainnya">Lainnya</label>
+                    <?php $defaults = array('' => 'Pilih');
+                    $options = array(
+                        'Ya' => 'Ya',
+                        'Tidak' => 'Tidak',
+                    );
+                    echo form_dropdown('lainnya[]', $defaults + $options, (isset($data->individu_id)) ? $data->lainnya : '', 'class="form-control" id="lainnya" required');
+                    ?>
                 </div>
             </div>
         </div>
-        <textarea name="keterangan" id="keterangan" class="form-control my-4" cols="10" rows="10" placeholder="Keterangan...."><?= (isset($get->keterangan)) ? $get->keterangan : ''; ?></textarea>
-    </div>
 
-    <div class="card-footer">
-        <input type="hidden" name="id" value="<?= (isset($get->id)) ? $get->id : ''; ?>" />
-        <input type='hidden' name='action' value="update" />
-        <button type="submit" class="btn btn-primary">UPDATE</button>
+        <div class="card-footer">
+            <input type="hidden" name="id" value="<?= (isset($get->id)) ? $get->id : ''; ?>" />
+            <input type='hidden' name='action' value="update" />
+            <button type="submit" class="btn btn-primary">UPDATE</button>
 
-    </div>
-    <?= form_close(); ?>
-    <script type='text/javascript'>
-        $.fn.fileinputBsVersion = "3.3.7"; // if not set, this will be auto-derived
-        // with plugin options
-        // $("#input-id").fileinput({
-        //     'dropZoneEnabled': false
-        // })
+        </div>
+        <?= form_close(); ?>
+        <script type='text/javascript'>
+            $.fn.fileinputBsVersion = "3.3.7"; // if not set, this will be auto-derived
+            // with plugin options
+            // $("#input-id").fileinput({
+            //     'dropZoneEnabled': false
+            // })
 
 
-        $.fn.modal.Constructor.prototype._enforceFocus = function() {};
-        $('form').on('blur', 'input[required], input.optional, select.required', validator.checkField).on('change', 'select.required', validator.checkField).on('keypress', 'input[required][pattern]', validator.keypress);
-        $('.multi.required').on('keyup blur', 'input', function() {
-            validator.checkField.apply($(this).siblings().last()[0]);
-        });
-        $('form').submit(function(e) {
-            e.preventDefault();
-            if (!validator.checkAll($(this))) {
-                return false;
-            } else {
-                var data = new FormData(this)
-                var url = $(this).attr('action')
-                simpan(url, data)
-            }
-        });
-
-        $('#publish').click(function(e) {
-            e.preventDefault()
-            Swal.fire({
-                title: 'Anda Yakin',
-                text: "Publish Kuliner Ini..!",
-                icon: 'question',
-                showDenyButton: true,
-                showCancelButton: false,
-                confirmButtonText: 'OK',
-                denyButtonText: `Batal`,
-            }).then((result) => {
-                console.log(result)
-                /* Read more about isConfirmed, isDenied below */
-                if (result.isConfirmed) {
-                    $.ajax({
-                        url: location.origin + "/jumlahpenduduk/save",
-                        type: 'POST',
-                        data: {
-                            id: '<?= $get->id ?>',
-                            action: 'publish',
-                        },
-                        dataType: "html",
-                        success: function(response) {
-                            var data = $.parseJSON(response);
-                            Swal.fire({
-                                title: data.title,
-                                html: data.text,
-                                type: data.type
-                            }).then((result) => {
-                                if (data.type == "success") {
-                                    $('#modal_content').modal('hide');
-                                    $('#table').bootstrapTable('refresh');
-                                } else {
-                                    $('#spinner').hide();
-                                }
-                            });
-                        },
-                        error: function(jqXHR, exception, thrownError) {
-                            Swal.fire({
-                                title: 'Error code' + jqXHR.status,
-                                html: thrownError + ', ' + exception,
-                                type: 'error'
-                            }).then((result) => {
-                                $('#spinner').hide();
-                            });
-                        }
-                    })
-                } else if (result.isDenied) {
-                    Swal.fire('Anda Membatalkan Proses Approve', '', 'info')
-                }
-            })
-        })
-
-        function simpan(url, data) {
-            $.ajax({
-                url: url,
-                type: 'post',
-                data: data,
-                processData: false,
-                contentType: false,
-                cache: false,
-                async: false,
-                success: function(response) {
-                    var data = $.parseJSON(response);
-                    Swal.fire({
-                        title: data.title,
-                        html: data.text,
-                        type: data.type
-                    }).then((result) => {
-                        if (data.type == "success") {
-                            $('#modal_content').modal('hide');
-                            $('#table').bootstrapTable('refresh');
-                        } else {
-                            $('#spinner').hide();
-                        }
-                    });
-                },
-                error: function(jqXHR, exception, thrownError) {
-                    Swal.fire({
-                        title: 'Error code' + jqXHR.status,
-                        html: thrownError + ', ' + exception,
-                        type: 'error'
-                    }).then((result) => {
-                        $('#spinner').hide();
-                    });
+            $.fn.modal.Constructor.prototype._enforceFocus = function() {};
+            $('form').on('blur', 'input[required], input.optional, select.required', validator.checkField).on('change', 'select.required', validator.checkField).on('keypress', 'input[required][pattern]', validator.keypress);
+            $('.multi.required').on('keyup blur', 'input', function() {
+                validator.checkField.apply($(this).siblings().last()[0]);
+            });
+            $('form').submit(function(e) {
+                e.preventDefault();
+                if (!validator.checkAll($(this))) {
+                    return false;
+                } else {
+                    var data = new FormData(this)
+                    var url = $(this).attr('action')
+                    simpan(url, data)
                 }
             });
-        }
-    </script>
-    <script src="<?= base_url('assets/dist/js/script.js') ?>"></script>
+
+            $('#publish').click(function(e) {
+                e.preventDefault()
+                Swal.fire({
+                    title: 'Anda Yakin',
+                    text: "Publish Kuliner Ini..!",
+                    icon: 'question',
+                    showDenyButton: true,
+                    showCancelButton: false,
+                    confirmButtonText: 'OK',
+                    denyButtonText: `Batal`,
+                }).then((result) => {
+                    console.log(result)
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: location.origin + "/jumlahpenduduk/save",
+                            type: 'POST',
+                            data: {
+                                id: '<?= $get->id ?>',
+                                action: 'publish',
+                            },
+                            dataType: "html",
+                            success: function(response) {
+                                var data = $.parseJSON(response);
+                                Swal.fire({
+                                    title: data.title,
+                                    html: data.text,
+                                    type: data.type
+                                }).then((result) => {
+                                    if (data.type == "success") {
+                                        $('#modal_content').modal('hide');
+                                        $('#table').bootstrapTable('refresh');
+                                    } else {
+                                        $('#spinner').hide();
+                                    }
+                                });
+                            },
+                            error: function(jqXHR, exception, thrownError) {
+                                Swal.fire({
+                                    title: 'Error code' + jqXHR.status,
+                                    html: thrownError + ', ' + exception,
+                                    type: 'error'
+                                }).then((result) => {
+                                    $('#spinner').hide();
+                                });
+                            }
+                        })
+                    } else if (result.isDenied) {
+                        Swal.fire('Anda Membatalkan Proses Approve', '', 'info')
+                    }
+                })
+            })
+
+            function simpan(url, data) {
+                $.ajax({
+                    url: url,
+                    type: 'post',
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    async: false,
+                    success: function(response) {
+                        var data = $.parseJSON(response);
+                        Swal.fire({
+                            title: data.title,
+                            html: data.text,
+                            type: data.type
+                        }).then((result) => {
+                            if (data.type == "success") {
+                                $('#modal_content').modal('hide');
+                                $('#table').bootstrapTable('refresh');
+                            } else {
+                                $('#spinner').hide();
+                            }
+                        });
+                    },
+                    error: function(jqXHR, exception, thrownError) {
+                        Swal.fire({
+                            title: 'Error code' + jqXHR.status,
+                            html: thrownError + ', ' + exception,
+                            type: 'error'
+                        }).then((result) => {
+                            $('#spinner').hide();
+                        });
+                    }
+                });
+            }
+        </script>
+        <script src="<?= base_url('assets/dist/js/script.js') ?>"></script>

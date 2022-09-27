@@ -280,7 +280,7 @@ $('#umur').on('change', function() {
     })
 })
 
-$('#dusun').on('keyup', function() {
+$('#dusun').on('change', function() {
     let val = $(this).val()
 
     $.ajax({
@@ -303,20 +303,62 @@ $('#dusun').on('keyup', function() {
 
 $('#nik').on('change',function(){
     let val = $(this).val()
-    let dusun = $('#dusun').val()
 
     $.ajax({
         url: location.origin + '/KeadaanPenduduk/keadaan',
         type: 'POST',
-        data: {value: val, dusun: dusun},
+        data: {value: val},
         success: function(res){
             let data = $.parseJSON(res)
             if(res == 404){
-                alert('NIK tidak ditemukan pada Dusun Ini')
+                alert('NIK Tidak Ditemukan')
             }else{
                 $('#no_kk').val(data.data.no_kk)
                 $('#nama').val(data.data.nama)
+                $('#dusun').val(data.data.dusun)
                 $('#pekerjaan option[value="' + data.data.pekerjaan + '"]').prop('selected', true);
+                $('#muntaber_diare option[value="' + data.data.muntaber_diare + '"]').prop('selected', true);
+                $('#hepatitis_e option[value="' + data.data.hepatitis_e + '"]').prop('selected', true);
+                $('#jantung option[value="' + data.data.jantung + '"]').prop('selected', true);
+                $('#demam_berdarah option[value="' + data.data.demam_berdarah + '"]').prop('selected', true);
+                $('#difteri option[value="' + data.data.difteri + '"]').prop('selected', true);
+                $('#tbc_paru option[value="' + data.data.tbc_paru + '"]').prop('selected', true);
+                $('#campak option[value="' + data.data.campak + '"]').prop('selected', true);
+                $('#cikungunya option[value="' + data.data.chikungunya + '"]').prop('selected', true);
+                $('#kanker option[value="' + data.data.kanker + '"]').prop('selected', true);
+                $('#malaria option[value="' + data.data.malaria + '"]').prop('selected', true);
+                $('#leptospirosis option[value="' + data.data.leptospirosis + '"]').prop('selected', true);
+                $('#diabetes option[value="' + data.data.diabetes + '"]').prop('selected', true);
+                $('#fluburung_sars option[value="' + data.data.fluburung_sars + '"]').prop('selected', true);
+                $('#kolera option[value="' + data.data.kolera + '"]').prop('selected', true);
+                $('#lumpuh option[value="' + data.data.lumpuh + '"]').prop('selected', true);
+                $('#covid_19 option[value="' + data.data.covid_19 + '"]').prop('selected', true);
+                $('#gizi_buruk option[value="' + data.data.gizi_buruk + '"]').prop('selected', true);
+                $('#hepatitis_b option[value="' + data.data.hepatitis_b + '"]').prop('selected', true);
+                $('#lainnya option[value="' + data.data.lainnya + '"]').prop('selected', true);
+            }
+        }
+    })
+})
+
+$('#individu').on('change',function(){
+    let val = $(this).val()
+
+    $.ajax({
+        url: location.origin + '/RumahTangga/rt',
+        type: 'POST',
+        data: {value: val},
+        success: function(res){
+            let data = $.parseJSON(res)
+            if(res == 404){
+                alert('Data Tidak Ditemukan')
+            }else{
+                $('#nik').val(data.data.nik)
+                $('#no_kk').val(data.data.no_kk)
+                $('#nama_lokasi').val(data.data.nama)
+                $('#alamat_lokasi').val(data.data.alamat)
+                $('#nohp_lokasi').val(data.data.no_hp)
+                $('#jenis_kelamin option[value="' + data.data.pekerjaan + '"]').prop('selected', true);
                 $('#muntaber_diare option[value="' + data.data.muntaber_diare + '"]').prop('selected', true);
             }
         }
@@ -346,6 +388,42 @@ $('#nik_pajak').on('change',function(){
     })
 })
 
+$('#datapindah').on('change',function(){
+    let val = $(this).val()
+
+    $.ajax({
+        url: location.origin + '/DataPindah/pindah',
+        type: 'POST',
+        data: {value: val},
+        success: function(res){
+            let data = $.parseJSON(res)
+            if(res == 404){
+                alert('NIK tidak ditemukan')
+            }else{
+                $('#jenis_kelamin option[value="' + data.data.jenis_kelamin + '"]').prop('selected', true);
+            }
+        }
+    })
+})
+
+$('#datakematian').on('change',function(){
+    let val = $(this).val()
+
+    $.ajax({
+        url: location.origin + '/DataKematian/kematian',
+        type: 'POST',
+        data: {value: val},
+        success: function(res){
+            let data = $.parseJSON(res)
+            if(res == 404){
+                alert('NIK tidak ditemukan')
+            }else{
+                $('#jenis_kelamin option[value="' + data.data.jenis_kelamin + '"]').prop('selected', true);
+            }
+        }
+    })
+})
+
 
 
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
@@ -357,8 +435,9 @@ const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstra
 
 $(document).ready(function(){
     let valProv = $('#provinsi').val()
-    let valKab = $('#kabupaten').val()
     let idKab = $('#kabupaten').data('kabupaten')
+    let idKec = $('#kecamatan').data('kecamatan')
+    let idKel = $('#desa').data('kelurahan')
     if (valProv !== null) {
         $.ajax({
             type:'POST',
@@ -368,13 +447,42 @@ $(document).ready(function(){
                 id_provinsi : valProv,
             },
             success:function(response){
-                var output = `<option value="" disabled>-- pilih --</option>`
+                var kab = `<option value="" disabled>-- pilih --</option>`
                 $.each(response, function(i, val) {
-                    output += `<option value="${val.split('|')[1]}" ${idKab == val.split('|')[0] ? 'selected' : ''}>${val.split('|')[1]}</option>`
+                    kab += `<option value="${val.split('|')[1]}" ${idKab == val.split('|')[0] ? 'selected' : ''}>${val.split('|')[1]}</option>`
                 })
-                console.log(output)
-                let coba = $('#kabupaten').html(output);
-                // let valKABB = $('#kabupaten').children().val()
+                $.ajax({
+                    type:'POST',
+                    url:"/RumahTangga/getKec",
+                    dataType: "JSON",
+                    data: {
+                        id_kabupaten : idKab,
+                    },
+                    success:function(dataKec){
+                        var kec = `<option value="" disabled>-- pilih --</option>`
+                        $.each(dataKec, function(i, val) {
+                            kec += `<option value="${val.split('|')[1]}" ${idKec == val.split('|')[0] ? 'selected' : ''}>${val.split('|')[1]} </option>`
+                        })
+                        $('#kecamatan').html(kec);
+
+                        $.ajax({
+                            type:'POST',
+                            url:"/RumahTangga/getDesa",
+                            dataType: "JSON",
+                            data: {
+                                id_kecamatan : idKec,
+                            },
+                            success:function(resDesa){
+                                var desa = `<option value="" disabled>-- pilih --</option>`
+                                $.each(resDesa, function(i, val) {
+                                    desa += `<option value="${val.split('|')[1]}" ${idKel == val.split('|')[0] ? 'selected' : ''}>${val.split('|')[1]} </option>`
+                                })
+                                $('#desa').html(desa);
+                            }
+                        })
+                    }
+                })
+                $('#kabupaten').html(kab)
             }
         });
     }
@@ -417,7 +525,11 @@ $(document).ready(function(){
                 id_kabupaten : id_kabupaten,
             },
             success:function(response){
-                $('#kecamatan').html(response);
+                var hasilKec = `<option value="" disabled selected>-- pilih --</option>`
+                $.each(response, function(i, val) {
+                    hasilKec += `<option value="${val.split('|')[0]}">${val.split('|')[1]}</option>`
+                })
+                $('#kecamatan').html(hasilKec);
                 // console.log(response);
             }
         });
@@ -434,7 +546,11 @@ $(document).ready(function(){
                 id_kecamatan : id_kecamatan,
             },
             success:function(response){
-                $('#desa').html(response);
+                var hasilKel = `<option value="" disabled selected>-- pilih --</option>`
+                $.each(response, function(i, val) {
+                    hasilKel += `<option value="${val.split('|')[0]}">${val.split('|')[1]}</option>`
+                })
+                $('#desa').html(hasilKel);
                 // console.log(response);
             }
         });

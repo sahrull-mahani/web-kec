@@ -15,13 +15,11 @@ class DataKematian extends Migration
                 'unsign'        => true,
                 'auto_increment' => true
             ],
-            'nama'     => [
-                'type'          => 'CHAR',
-                'constraint'    => 255,
-            ],
-            'jenis_kelamin'     => [
-                'type'          => 'ENUM',
-                'constraint'    => ['Laki - Laki', 'Perempuan'],
+            'individu_id' => [
+                'type' => 'int',
+                'constraint' => 11,
+                'unsigned' => true,
+                'null' => true
             ],
             'tgl_kematian'     => [
                 'type'          => 'DATE',
@@ -43,7 +41,11 @@ class DataKematian extends Migration
                 'type'          => 'CHAR',
                 'constraint'    => 255,
             ],
-            'alamat'     => [
+            'tempat_kubur'     => [
+                'type'          => 'CHAR',
+                'constraint'    => 255,
+            ],
+            'alamat_kubur'     => [
                 'type'          => 'CHAR',
                 'constraint'    => 255,
             ],
@@ -57,6 +59,7 @@ class DataKematian extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
+        $this->forge->addForeignKey('individu_id', 'individu', 'id', 'SET NULL', 'CASCADE');
         $this->forge->createTable('datakematian');
     }
 

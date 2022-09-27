@@ -7,32 +7,19 @@ use CodeIgniter\Model;
 class DataPajakM extends Model
 {
   protected $table = "datapajak";
-  protected $allowedFields = ['no_kk', 'nik', 'nama', 'alamat', 'wajib_pajak', 'jumlah', 'keterangan'];
+  protected $allowedFields = ['individu_id'];
   protected $primarykey = 'id';
   protected $returnType = 'object';
 
-  protected $validationRules = [
-    'no_kk' => 'required|max_length[16]',
-    'nik' => 'required|max_length[16]',
-    'nama' => 'required|max_length[150]',
-    'alamat' => 'required|max_length[500]',
-    'wajib_pajak' => 'required',
-    'jumlah' => 'required|max_length[100]',
-    'keterangan' => 'required',
-  ];
+  protected $useSoftDeletes = false;
 
-  protected $validationMessages = [
-    'no_kk' => ['required' => 'tidak boleh kosong', 'max_length' => 'Maximal 16 Digit'],
-    'nik' => ['required' => 'tidak boleh kosong', 'max_length' => 'Maximal 16 Digit'],
-    'nama' => ['required' => 'tidak boleh kosong', 'max_length' => 'Maximal 150 Karakter'],
-    'alamat' => ['required' => 'tidak boleh kosong', 'max_length' => 'Maximal 150 Karakter'],
-    'wajib_pajak' => ['required' => 'tidak boleh kosong'],
-    'jumlah' => ['required' => 'tidak boleh kosong', 'max_length' => 'Maximal 100 Digit'],
-    'keterangan' => ['required' => 'tidak boleh kosong'],
-  ];
+  protected $useTimestamps = true;
+  protected $createdField  = 'created_at';
+  protected $updatedField  = 'updated_at';
+  protected $deletedField  = 'deleted_at';
   private function _get_datatables()
   {
-    $column_search = array('nama', 'wajib_pajak', 'jumlah', 'keterangan', 'alamat');
+    $column_search = array('nama', 'wajib_pajak', 'jumlah_pajak', 'keterangan', 'alamat');
     $i = 0;
     foreach ($column_search as $item) { // loop column 
       if ($_GET['search']) {
@@ -52,6 +39,8 @@ class DataPajakM extends Model
     } else {
       $this->orderBy('id', 'asc');
     }
+    $this->select('datapajak.*, nama,wajib_pajak,jumlah_pajak,keterangan,alamat');
+    $this->join('individu', 'individu.id=datapajak.individu_id');
   }
   public function get_datatables()
   {

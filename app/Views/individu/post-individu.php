@@ -66,13 +66,13 @@
                                         </div>
                                         <div class="form-group item col-md-4">
                                             <label for="kab_kota">Kabupaten/Kota</label>
-                                            <select name="kab_kota" id="kabupaten" class="form-control" data-kabupaten="<?= @$get->kabupaten ?>">
+                                            <select name="kab_kota" id="kabupaten" class="form-control" data-kabupaten="<?= @$get->kab_kota ?>">
                                                 <option value="">--Pilih Kabupaten--</option>
                                             </select>
                                         </div>
                                         <div class="form-group item col-md-4">
                                             <label for="kecamatan">Kecamatan</label>
-                                            <select name="kecamatan" id="kecamatan" class="form-control">
+                                            <select name="kecamatan" id="kecamatan" class="form-control" data-kecamatan="<?= @$get->kecamatan ?>">
                                                 <option>--Pilih Kecamatan--</option>
                                             </select>
                                         </div>
@@ -80,7 +80,7 @@
                                     <div class="row">
                                         <div class="form-group item col-md-4">
                                             <label for="kelurahan">Desa/Kelurahan</label>
-                                            <select name="kelurahan" id="desa" class="form-control">
+                                            <select name="kelurahan" id="desa" class="form-control" data-kelurahan="<?= @$get->kelurahan ?>">
                                                 <option>--Pilih Desa--</option>
                                             </select>
                                         </div>

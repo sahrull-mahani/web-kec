@@ -30,9 +30,9 @@ class DataPajak extends BaseController
             $row = array();
             $row['id'] = $rows->id;
             $row['nomor'] = $no++;
-            $row['nama'] = $rows->nama;
+            $row['nama'] = ucwords($rows->nama);
             $row['pajak'] = $rows->wajib_pajak;
-            $row['besaran'] = number_to_currency($rows->jumlah, 'IDR', 'en_US', 2);
+            $row['besaran'] = number_to_currency($rows->jumlah_pajak, 'IDR', 'en_US', 2);
             $row['ket pajak'] = $rows->keterangan;
             $row['alamat'] = $rows->alamat;
             $data[] = $row;
@@ -47,16 +47,16 @@ class DataPajak extends BaseController
 
     public function pajak()
     {
-        $nik = $this->request->getPost('value');
-        if ($this->individum->where('nik', $nik)->countAllResults() > 0) {
-            return json_encode(['data' => $this->individum->where('nik', $nik)->first()]);
+        $id = $this->request->getPost('value');
+        if ($this->individum->where('id', $id)->countAllResults() > 0) {
+            return json_encode(['data' => $this->individum->where('id', $id)->first()]);
         }
         return '404';
     }
 
     public function Post()
     {
-        $this->data = array('title' => 'Post Data Pajak | Admin', 'breadcome' => 'Post Data Pajak', 'url' => 'datapajak/', 'm_open_datapajak' => 'menu-open', 'mm_datapajak' => 'active', 'm_post_datapajak' => 'active', 'session' => $this->session);
+        $this->data = array('title' => 'Post Data Pajak | Admin', 'breadcome' => 'Post Data Pajak', 'url' => 'datapajak/', 'm_open_datapajak' => 'menu-open', 'mm_datapajak' => 'active', 'm_post_datapajak' => 'active', 'individu' => $this->individum->findAll(), 'session' => $this->session);
 
         echo view('App\Views\datapajak\post-datapajak', $this->data);
     }
@@ -77,13 +77,7 @@ class DataPajak extends BaseController
                 // $files = $this->request->getFileMultiple('userfile');
 
                 $data =  array(
-                    'no_kk'          => $this->request->getVar('no_kk'),
-                    'nik'    => $this->request->getVar('nik'),
-                    'nama'    => $this->request->getVar('nama'),
-                    'alamat'    => $this->request->getVar('alamat'),
-                    'wajib_pajak'    => $this->request->getVar('wajib_pajak'),
-                    'jumlah'    => $this->request->getVar('jumlah'),
-                    'keterangan'    => $this->request->getVar('keterangan'),
+                    'individu_id'          => $this->request->getVar('individu_id'),
                 );
                 if ($this->datapajakm->insert($data)) {
                     $status['title'] = 'success';
@@ -101,13 +95,7 @@ class DataPajak extends BaseController
                 $id = $this->request->getPost('id');
                 // $files = $this->request->getFileMultiple('userfile');
                 $data =  array(
-                    'no_kk'          => $this->request->getPost('no_kk'),
-                    'nik'    => $this->request->getPost('nik'),
-                    'nama'    => $this->request->getPost('nama'),
-                    'alamat'    => $this->request->getPost('alamat'),
-                    'wajib_pajak'    => $this->request->getPost('wajib_pajak'),
-                    'jumlah'    => $this->request->getPost('jumlah'),
-                    'keterangan'    => $this->request->getPost('keterangan'),
+                    'individu_id'          => $this->request->getPost('individu_id'),
                 );
                 if ($this->datapajakm->update($id, $data)) {
                     $status['title'] = 'success';

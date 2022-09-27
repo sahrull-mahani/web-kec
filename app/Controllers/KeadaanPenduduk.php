@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use App\Models\IndividuM;
 use App\Models\KeadaanPendudukM;
+use App\Models\KesehatanM;
+use App\Models\PekerjaanM;
 use CodeIgniter\I18n\Time;
 
 class KeadaanPenduduk extends BaseController
@@ -12,6 +14,8 @@ class KeadaanPenduduk extends BaseController
     {
         $this->keadaanpendudukm = new KeadaanPendudukM();
         $this->individum = new IndividuM();
+        $this->pekerjaanm = new PekerjaanM();
+        $this->kesehatanm = new KesehatanM();
     }
     public function index()
     {
@@ -34,6 +38,7 @@ class KeadaanPenduduk extends BaseController
             $row['nik'] = $rows->nik;
             $row['nama'] = $rows->nama;
             $row['pekerjaan'] = $rows->pekerjaan;
+            // $row['penyakit'] = ($rows->muntaber_diare == 'Ya' ? 'Muntaber/Diare, ' : '');
             $row['penyakit'] = ($rows->muntaber_diare == 'Ya' ? 'Muntaber/Diare, ' : '') .
                 ($rows->hepatitis_e == 'Ya' ? 'Hepatitis E, ' : '') .
                 ($rows->jantung == 'Ya' ? 'Jantung, ' : '') .
@@ -41,7 +46,7 @@ class KeadaanPenduduk extends BaseController
                 ($rows->difteri == 'Ya' ? 'Difteri, ' : '') .
                 ($rows->tbc_paru == 'Ya' ? 'TBC Paru Paru, ' : '') .
                 ($rows->campak == 'Ya' ? 'Campak, ' : '') .
-                ($rows->cikungunya == 'Ya' ? 'Cikungunya, ' : '') .
+                ($rows->chikungunya == 'Ya' ? 'Cikungunya, ' : '') .
                 ($rows->kanker == 'Ya' ? 'Kanker, ' : '') .
                 ($rows->malaria == 'Ya' ? 'Malaria, ' : '') .
                 ($rows->leptospirosis == 'Ya' ? 'Leptospirosis, ' : '') .
@@ -65,17 +70,17 @@ class KeadaanPenduduk extends BaseController
 
     public function keadaan()
     {
-        $nik = $this->request->getPost('value');
-        $dusun = $this->request->getPost('dusun');
-        if ($this->individum->where('dusun', $dusun)->where('nik', $nik)->countAllResults() > 0) {
-            return json_encode(['data' => $this->individum->where('dusun', $dusun)->where('nik', $nik)->first()]);
+        $id = $this->request->getPost('value');
+        // $get = $this->individum->select('individu.*, k.*, pk.*, pd.*, k.id kesID, pk.id pekID, pd.id penID')->join('pekerjaan pk', 'pk.individu_id = individu.id')->join('kesehatan k', 'k.individu_id = individu.id')->join('pendidikan pd', 'pd.individu_id = individu.id')->where('individu.id', $id)->first();
+        if ($this->individum->select('individu.*, k.*, pk.*, pd.*, k.id kesID, pk.id pekID, pd.id penID')->join('pekerjaan pk', 'pk.individu_id = individu.id')->join('kesehatan k', 'k.individu_id = individu.id')->join('pendidikan pd', 'pd.individu_id = individu.id')->where('individu.id', $id)->countAllResults() > 0) {
+            return json_encode(['data' => $this->individum->select('individu.*, k.*, pk.*, pd.*, k.id kesID, pk.id pekID, pd.id penID')->join('pekerjaan pk', 'pk.individu_id = individu.id')->join('kesehatan k', 'k.individu_id = individu.id')->join('pendidikan pd', 'pd.individu_id = individu.id')->where('individu.id', $id)->first()]);
         }
         return '404';
     }
 
     public function Post()
     {
-        $this->data = array('title' => 'Post Keadaan Penduduk | Admin', 'breadcome' => 'Post Keadaan Penduduk', 'url' => 'keadaanpenduduk/', 'm_open_keadaanpenduduk' => 'menu-open', 'mm_keadaanpenduduk' => 'active', 'm_post_keadaanpenduduk' => 'active', 'session' => $this->session, 'dusun' => $this->individum->findAll());
+        $this->data = array('title' => 'Post Keadaan Penduduk | Admin', 'breadcome' => 'Post Keadaan Penduduk', 'url' => 'keadaanpenduduk/', 'm_open_keadaanpenduduk' => 'menu-open', 'mm_keadaanpenduduk' => 'active', 'm_post_keadaanpenduduk' => 'active', 'session' => $this->session, 'individu' => $this->individum->findAll());
 
         echo view('App\Views\keadaanpenduduk\post-keadaanpenduduk', $this->data);
     }
@@ -83,9 +88,13 @@ class KeadaanPenduduk extends BaseController
     {
         $id = $this->request->getPost('id');
         $get = $this->keadaanpendudukm->find($id);
-        $this->data = array('get' => $get);
+        $this->data = array(
+            'get' => $get,
+            'individu' => $this->individum->findAll(),
+            'data' => $this->individum->select('individu.*, k.*, pk.*, pd.*, k.id kesID, pk.id pekID, pd.id penID')->join('pekerjaan pk', 'pk.individu_id = individu.id')->join('kesehatan k', 'k.individu_id = individu.id')->join('pendidikan pd', 'pd.individu_id = individu.id')->where('individu.id', $id)->first()
+        );
         $status['html']         = view('App\Views\keadaanpenduduk\form_input', $this->data);
-        $status['modal_title']  = '<b>Update Keadaan Penduduk : </b>' . $get->dusun;
+        $status['modal_title']  = '<b>Update Keadaan Penduduk : </b>';
         $status['modal_size']   = 'modal-xl';
         echo json_encode($status);
     }
@@ -96,30 +105,7 @@ class KeadaanPenduduk extends BaseController
                 // $files = $this->request->getFileMultiple('userfile');
 
                 $data =  array(
-                    'dusun'          => $this->request->getVar('dusun'),
-                    'no_kk'    => $this->request->getVar('no_kk'),
-                    'nik'    => $this->request->getVar('nik'),
-                    'nama'    => $this->request->getVar('nama'),
-                    'pekerjaan'    => $this->request->getVar('pekerjaan'),
-                    'muntaber_diare'    => $this->request->getVar('muntaber_diare'),
-                    'hepatitis_e'    => $this->request->getVar('hepatitis_e'),
-                    'jantung'    => $this->request->getVar('jantung'),
-                    'demam_berdarah'    => $this->request->getVar('demam_berdarah'),
-                    'difteri'    => $this->request->getVar('difteri'),
-                    'tbc_paru'    => $this->request->getVar('tbc_paru'),
-                    'campak'    => $this->request->getVar('campak'),
-                    'cikungunya'    => $this->request->getVar('cikungunya'),
-                    'kanker'    => $this->request->getVar('kanker'),
-                    'malaria'    => $this->request->getVar('malaria'),
-                    'leptospirosis'    => $this->request->getVar('leptospirosis'),
-                    'diabetes'    => $this->request->getVar('diabetes'),
-                    'fluburung_sars'    => $this->request->getVar('fluburung_sars'),
-                    'kolera'    => $this->request->getVar('kolera'),
-                    'lumpuh'    => $this->request->getVar('lumpuh'),
-                    'covid_19'    => $this->request->getVar('covid_19'),
-                    'gizi_buruk'    => $this->request->getVar('gizi_buruk'),
-                    'hepatitis_b'    => $this->request->getVar('hepatitis_b'),
-                    'lainnya'    => $this->request->getVar('lainnya'),
+                    'individu_id'          => $this->request->getVar('individu_id'),
                 );
                 if ($this->keadaanpendudukm->insert($data)) {
                     $status['title'] = 'success';
@@ -137,30 +123,7 @@ class KeadaanPenduduk extends BaseController
                 $id = $this->request->getPost('id');
                 // $files = $this->request->getFileMultiple('userfile');
                 $data =  array(
-                    'dusun'          => $this->request->getPost('dusun'),
-                    'no_kk'    => $this->request->getPost('no_kk'),
-                    'nik'    => $this->request->getPost('nik'),
-                    'nama'    => $this->request->getPost('nama'),
-                    'pekerjaan'    => $this->request->getPost('pekerjaan'),
-                    'muntaber_diare'    => $this->request->getPost('muntaber_diare'),
-                    'hepatitis_e'    => $this->request->getPost('hepatitis_e'),
-                    'jantung'    => $this->request->getPost('jantung'),
-                    'demam_berdarah'    => $this->request->getPost('demam_berdarah'),
-                    'difteri'    => $this->request->getPost('difteri'),
-                    'tbc_paru'    => $this->request->getPost('tbc_paru'),
-                    'campak'    => $this->request->getPost('campak'),
-                    'cikungunya'    => $this->request->getPost('cikungunya'),
-                    'kanker'    => $this->request->getPost('kanker'),
-                    'malaria'    => $this->request->getPost('malaria'),
-                    'leptospirosis'    => $this->request->getPost('leptospirosis'),
-                    'diabetes'    => $this->request->getPost('diabetes'),
-                    'fluburung_sars'    => $this->request->getPost('fluburung_sars'),
-                    'kolera'    => $this->request->getPost('kolera'),
-                    'lumpuh'    => $this->request->getPost('lumpuh'),
-                    'covid_19'    => $this->request->getPost('covid_19'),
-                    'gizi_buruk'    => $this->request->getPost('gizi_buruk'),
-                    'hepatitis_b'    => $this->request->getPost('hepatitis_b'),
-                    'lainnya'    => $this->request->getPost('lainnya'),
+                    'individu_id'          => $this->request->getPost('individu_id'),
                 );
                 if ($this->keadaanpendudukm->update($id, $data)) {
                     $status['title'] = 'success';

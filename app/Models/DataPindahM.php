@@ -7,26 +7,28 @@ use CodeIgniter\Model;
 class DataPindahM extends Model
 {
   protected $table = "datapindah";
-  protected $allowedFields = ['nama', 'status', 'jenis_kelamin', 'tgl_pindah', 'alamat_pindah', 'keterangan'];
+  protected $allowedFields = ['individu_id', 'status', 'tgl_pindah', 'alamat_pindah', 'keterangan_pindah'];
   protected $primarykey = 'id';
   protected $returnType = 'object';
+  protected $useSoftDeletes = false;
+
+  protected $useTimestamps = true;
+  protected $createdField  = 'created_at';
+  protected $updatedField  = 'updated_at';
+  protected $deletedField  = 'deleted_at';
 
   protected $validationRules = [
-    'nama' => 'required|max_length[150]',
     'status' => 'required|max_length[150]',
-    'jenis_kelamin' => 'required',
     'tgl_pindah' => 'required',
     'alamat_pindah' => 'required|max_length[150]',
-    'keterangan' => 'required|max_length[500]',
+    'keterangan_pindah' => 'required|max_length[500]',
   ];
 
   protected $validationMessages = [
-    'nama' => ['required' => 'tidak boleh kosong', 'max_length' => 'Maximal 150 Karakter'],
     'status' => ['required' => 'tidak boleh kosong'],
-    'jenis_kelamin' => ['required' => 'tidak boleh kosong'],
     'tgl_pindah' => ['required' => 'tidak boleh kosong'],
     'alamat_pindah' => ['required' => 'tidak boleh kosong', 'max_length' => 'Maximal 150 Karakter'],
-    'keterangan' => ['required' => 'tidak boleh kosong', 'max_length' => 'Maximal 500 Karakter'],
+    'keterangan_pindah' => ['required' => 'tidak boleh kosong', 'max_length' => 'Maximal 500 Karakter'],
   ];
   private function _get_datatables()
   {
@@ -50,6 +52,8 @@ class DataPindahM extends Model
     } else {
       $this->orderBy('id', 'asc');
     }
+    $this->select('datapindah.*, nama,jenis_kelamin');
+    $this->join('individu', 'individu.id=datapindah.individu_id');
   }
   public function get_datatables()
   {

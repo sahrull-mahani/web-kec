@@ -87,7 +87,8 @@ class JumlahPenduduk extends BaseController
             'mm_jumlahpenduduk' => 'active',
             'm_post_jumlahpenduduk' => 'active',
             'session' => $this->session,
-            'data2' => count($this->individum->where('jenis_kelamin', 'Perempuan')->findall())
+            'data2' => count($this->individum->where('jenis_kelamin', 'Perempuan')->findall()),
+            'individu' => $this->individum->groupBy('dusun')->findAll()
         );
         echo view('App\Views\jumlahpenduduk\post-jumlahpenduduk', $this->data);
     }

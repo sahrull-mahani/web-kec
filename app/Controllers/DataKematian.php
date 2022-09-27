@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\DataKematianM;
+use App\Models\IndividuM;
 use CodeIgniter\I18n\Time;
 
 class DataKematian extends BaseController
@@ -10,6 +11,7 @@ class DataKematian extends BaseController
     function __construct()
     {
         $this->datakematianm = new DataKematianM();
+        $this->individum = new IndividuM();
     }
     public function index()
     {
@@ -27,11 +29,11 @@ class DataKematian extends BaseController
             $row = array();
             $row['id'] = $rows->id;
             $row['nomor'] = $no++;
-            $row['nama'] = $rows->nama;
+            $row['nama'] = ucwords($rows->nama);
             $row['jk'] = $rows->jenis_kelamin;
             $row['tgl'] = $rows->tgl_kematian;
             $row['jam'] = $rows->jam_kematian;
-            $row['tempat'] = $rows->tempat_kematian;
+            $row['tempat'] = ucwords($rows->tempat_kematian);
             $data[] = $row;
         }
         $output = array(
@@ -42,9 +44,18 @@ class DataKematian extends BaseController
         echo json_encode($output);
     }
 
+    public function kematian()
+    {
+        $id = $this->request->getPost('value');
+        if ($this->individum->where('id', $id)->countAllResults() > 0) {
+            return json_encode(['data' => $this->individum->where('id', $id)->first()]);
+        }
+        return '404';
+    }
+
     public function Post()
     {
-        $this->data = array('title' => 'Post Data Kematian | Admin', 'breadcome' => 'Post Data Kematian', 'url' => 'datakematian/', 'm_open_datakematian' => 'menu-open', 'mm_datakematian' => 'active', 'm_post_datakematian' => 'active', 'session' => $this->session);
+        $this->data = array('title' => 'Post Data Kematian | Admin', 'breadcome' => 'Post Data Kematian', 'url' => 'datakematian/', 'm_open_datakematian' => 'menu-open', 'mm_datakematian' => 'active', 'm_post_datakematian' => 'active', 'individu' => $this->individum->findAll(), 'session' => $this->session);
 
         echo view('App\Views\datakematian\post-datakematian', $this->data);
     }
@@ -65,15 +76,14 @@ class DataKematian extends BaseController
                 // $files = $this->request->getFileMultiple('userfile');
 
                 $data =  array(
-                    'nama'          => $this->request->getVar('nama'),
-                    'jenis_kelamin'    => $this->request->getVar('jenis_kelamin'),
+                    'individu_id'          => $this->request->getVar('individu_id'),
                     'tgl_kematian'    => $this->request->getVar('tgl_kematian'),
                     'jam_kematian'    => $this->request->getVar('jam_kematian'),
                     'tempat_kematian'    => $this->request->getVar('tempat_kematian'),
                     'tgl_kubur'    => $this->request->getVar('tgl_kubur'),
                     'jam_kubur'    => $this->request->getVar('jam_kubur'),
                     'tempat_kubur'    => $this->request->getVar('tempat_kubur'),
-                    'alamat'    => $this->request->getVar('alamat'),
+                    'alamat_kubur'    => $this->request->getVar('alamat_kubur'),
                 );
                 if ($this->datakematianm->insert($data)) {
                     $status['title'] = 'success';
@@ -91,15 +101,14 @@ class DataKematian extends BaseController
                 $id = $this->request->getPost('id');
                 // $files = $this->request->getFileMultiple('userfile');
                 $data =  array(
-                    'nama'          => $this->request->getPost('nama'),
-                    'jenis_kelamin'    => $this->request->getPost('jenis_kelamin'),
+                    'individu_id'          => $this->request->getPost('individu_id'),
                     'tgl_kematian'    => $this->request->getPost('tgl_kematian'),
                     'jam_kematian'    => $this->request->getPost('jam_kematian'),
                     'tempat_kematian'    => $this->request->getPost('tempat_kematian'),
                     'tgl_kubur'    => $this->request->getPost('tgl_kubur'),
                     'jam_kubur'    => $this->request->getPost('jam_kubur'),
                     'tempat_kubur'    => $this->request->getPost('tempat_kubur'),
-                    'alamat'    => $this->request->getPost('alamat'),
+                    'alamat_kubur'    => $this->request->getPost('alamat_kubur'),
                 );
                 if ($this->datakematianm->update($id, $data)) {
                     $status['title'] = 'success';
