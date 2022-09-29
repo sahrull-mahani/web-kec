@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class RumahTanggaM extends Model
 {
   protected $table = "rumahtangga";
-  protected $allowedFields = ['user_id', 'individu_id', 'rt_rw', 'no_telp', 'tempat_tinggal', 'status_lahan', 'luas_lantai', 'luas_lahan', 'jenis_lantai', 'dinding', 'jendela', 'atap', 'penerangan', 'energi', 'sumber_kayubakar', 'tps', 'mck', 'sumber_airmandi', 'fasilitas_bab', 'sumber_airminum', 'tempat_plc', 'tower', 'rumah_sungai', 'rumah_bukit', 'kondisi_rumah', 'akses_pendidikan', 'jarak_pendidikan', 'waktu_pendidikan', 'kemudahan_pendidikan', 'akses_kesehatan', 'jarak_kesehatan', 'waktu_kesehatan', 'kemudahan_kesehatan', 'akses_transportasi', 'jenis_transportasi', 'penggunaan_transportasi', 'waktu_tempuh', 'biaya', 'kemudahan_transportasi', 'blt', 'pkh', 'banst', 'banpres', 'banumkm', 'buk', 'bpa', 'lainnya'];
+  protected $allowedFields = ['user_id', 'enumerator_id', 'individu_id', 'rt_rw', 'no_telp', 'tempat_tinggal', 'status_lahan', 'luas_lantai', 'luas_lahan', 'jenis_lantai', 'dinding', 'jendela', 'atap', 'penerangan', 'energi', 'sumber_kayubakar', 'tps', 'mck', 'sumber_airmandi', 'fasilitas_bab', 'sumber_airminum', 'tempat_plc', 'tower', 'rumah_sungai', 'rumah_bukit', 'kondisi_rumah', 'akses_pendidikan', 'jarak_pendidikan', 'waktu_pendidikan', 'kemudahan_pendidikan', 'akses_kesehatan', 'jarak_kesehatan', 'waktu_kesehatan', 'kemudahan_kesehatan', 'akses_transportasi', 'jenis_transportasi', 'penggunaan_transportasi', 'waktu_tempuh', 'biaya', 'kemudahan_transportasi', 'blt', 'pkh', 'banst', 'banpres', 'banumkm', 'buk', 'bpa', 'lainnya'];
   protected $primarykey = 'id';
   protected $returnType = 'object';
 
@@ -138,9 +138,9 @@ class RumahTanggaM extends Model
     } else {
       $this->orderBy('id', 'asc');
     }
-    $this->select('rumahtangga.*, nama,alamat,no_hp');
+    $this->select('rumahtangga.*, nama,alamat,no_hp,nama_enum,alamat_enum,notelp_enum');
     // $this->whereNotIn('id_kejadian',)
-    $this->join('individu', 'individu.id=rumahtangga.individu_id');
+    $this->join('individu', 'individu.id=rumahtangga.individu_id')->join('enumerator', 'enumerator.id=rumahtangga.enumerator_id');
   }
   public function get_datatables()
   {

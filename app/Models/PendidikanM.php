@@ -8,7 +8,6 @@ class PendidikanM extends Model
 {
     protected $table = "pendidikan";
     protected $allowedFields = [
-        'individu_id',
         'pendidikan',
         'bahasa_lokal',
         'bahasa_formal',
@@ -29,7 +28,6 @@ class PendidikanM extends Model
     protected $deletedField  = 'deleted_at';
 
     protected $validationRules = [
-        'individu_id' => 'required',
         'pendidikan' => 'required',
         'bahasa_lokal' => 'required',
         'bahasa_formal' => 'required',
@@ -42,7 +40,6 @@ class PendidikanM extends Model
     ];
 
     protected $validationMessages = [
-        'individu_id' => ['required' => 'tidak boleh kosong'],
         'pendidikan' => ['required' => 'tidak boleh kosong'],
         'bahasa_lokal' => ['required' => 'tidak boleh kosong'],
         'bahasa_formal' => ['required' => 'tidak boleh kosong'],

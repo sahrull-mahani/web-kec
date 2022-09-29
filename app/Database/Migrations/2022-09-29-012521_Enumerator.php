@@ -15,7 +15,6 @@ class Enumerator extends Migration
                 'unsigned'        => true,
                 'auto_increment' => true
             ],
-            'rumahtangga_id' => ['type' => 'int', 'constraint' => 11, 'unsigned' => true, 'null' => true],
             'nama_enum'     => [
                 'type'          => 'CHAR',
                 'constraint' => 150,
@@ -42,7 +41,6 @@ class Enumerator extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('rumahtangga_id', 'rumahtangga', 'id', 'SET NULL', 'CASCADE');
         $this->forge->createTable('enumerator');
     }
 

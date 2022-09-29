@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class IndividuM extends Model
 {
 	protected $table = 'individu';
-	protected $allowedFields = array('user_id', 'no_kk', 'nik', 'nama', 'provinsi', 'kab_kota', 'kecamatan', 'kelurahan', 'dusun', 'alamat', 'jenis_kelamin', 'tempat_lahir', 'tgl_lahir', 'umur', 'status_nikah', 'agama', 'suku', 'kewarganegaraan', 'no_hp', 'no_wa', 'wajib_pajak', 'jumlah_pajak', 'keterangan', 'email', 'facebook', 'twitter', 'instagram');
+	protected $allowedFields = array('user_id', 'pekerjaan_id', 'kesehatan_id', 'pendidikan_id', 'no_kk', 'nik', 'nama', 'provinsi', 'kab_kota', 'kecamatan', 'kelurahan', 'dusun', 'alamat', 'jenis_kelamin', 'tempat_lahir', 'tgl_lahir', 'umur', 'status_nikah', 'agama', 'suku', 'kewarganegaraan', 'no_hp', 'no_wa', 'wajib_pajak', 'jumlah_pajak', 'keterangan', 'email', 'facebook', 'twitter', 'instagram');
 	protected $returnType     = 'object';
 	protected $useSoftDeletes = false;
 

@@ -20,6 +20,24 @@ class Individu extends Migration
                 'constraint' => '6',
                 'unsigned'   => true,
             ],
+            'pekerjaan_id' => [
+                'type' => 'int',
+                'constraint' => 11,
+                'unsigned' => true,
+                'null' => true
+            ],
+            'kesehatan_id' => [
+                'type' => 'int',
+                'constraint' => 11,
+                'unsigned' => true,
+                'null' => true
+            ],
+            'pendidikan_id' => [
+                'type' => 'int',
+                'constraint' => 11,
+                'unsigned' => true,
+                'null' => true
+            ],
             'no_kk'     => [
                 'type'          => 'CHAR',
                 'constraint' => 16,
@@ -138,6 +156,9 @@ class Individu extends Migration
         ]);
         $this->forge->addKey('id', true);
         $this->forge->addForeignKey('user_id', 'users', 'id', 'NO ACTION', 'CASCADE');
+        $this->forge->addForeignKey('pekerjaan_id', 'pekerjaan', 'id', 'SET NULL', 'CASCADE');
+        $this->forge->addForeignKey('kesehatan_id', 'kesehatan', 'id', 'SET NULL', 'CASCADE');
+        $this->forge->addForeignKey('pendidikan_id', 'pendidikan', 'id', 'SET NULL', 'CASCADE');
         $this->forge->createTable('individu');
     }
 

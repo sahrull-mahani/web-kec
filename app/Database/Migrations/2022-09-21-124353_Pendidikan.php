@@ -15,7 +15,6 @@ class Pendidikan extends Migration
                 'unsigned'        => true,
                 'auto_increment' => true
             ],
-            'individu_id' => ['type' => 'int', 'constraint' => 11, 'unsigned' => true, 'null' => true],
             'pendidikan'     => [
                 'type'          => 'ENUM',
                 'constraint' => ['Tidak Sekolah', 'SD dan Sederajat', 'SMP dan Sederajat', 'SMA dan Sederajat', 'Diploma 1-3', 'S1 dan Sederajat', 'S2 dan Sederajat', 'S3 dan Sederajat', 'Pesantren, Seminari, Wihara dan Sejenisnya', 'Lainnya'],
@@ -66,7 +65,6 @@ class Pendidikan extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('individu_id', 'individu', 'id', 'SET NULL', 'CASCADE');
         $this->forge->createTable('pendidikan');
     }
 

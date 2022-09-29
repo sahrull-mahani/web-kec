@@ -8,7 +8,6 @@ class KesehatanM extends Model
 {
     protected $table = "kesehatan";
     protected $allowedFields = [
-        'individu_id',
         'bpjs_kes',
         'muntaber_diare',
         'hepatitis_e',

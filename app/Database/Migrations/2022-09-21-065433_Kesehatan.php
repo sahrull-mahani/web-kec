@@ -15,7 +15,6 @@ class Kesehatan extends Migration
                 'unsigned'        => true,
                 'auto_increment' => true
             ],
-            'individu_id' => ['type' => 'int', 'constraint' => 11, 'unsigned' => true, 'null' => true],
             'bpjs_kes'     => [
                 'type'          => 'ENUM',
                 'constraint' => ['Peserta', 'Bukan Peserta'],
@@ -214,7 +213,6 @@ class Kesehatan extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('individu_id', 'individu', 'id', 'SET NULL', 'CASCADE');
         $this->forge->createTable('kesehatan');
     }
 

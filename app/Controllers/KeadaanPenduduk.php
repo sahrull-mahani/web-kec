@@ -72,8 +72,8 @@ class KeadaanPenduduk extends BaseController
     {
         $id = $this->request->getPost('value');
         // $get = $this->individum->select('individu.*, k.*, pk.*, pd.*, k.id kesID, pk.id pekID, pd.id penID')->join('pekerjaan pk', 'pk.individu_id = individu.id')->join('kesehatan k', 'k.individu_id = individu.id')->join('pendidikan pd', 'pd.individu_id = individu.id')->where('individu.id', $id)->first();
-        if ($this->individum->select('individu.*, k.*, pk.*, pd.*, k.id kesID, pk.id pekID, pd.id penID')->join('pekerjaan pk', 'pk.individu_id = individu.id')->join('kesehatan k', 'k.individu_id = individu.id')->join('pendidikan pd', 'pd.individu_id = individu.id')->where('individu.id', $id)->countAllResults() > 0) {
-            return json_encode(['data' => $this->individum->select('individu.*, k.*, pk.*, pd.*, k.id kesID, pk.id pekID, pd.id penID')->join('pekerjaan pk', 'pk.individu_id = individu.id')->join('kesehatan k', 'k.individu_id = individu.id')->join('pendidikan pd', 'pd.individu_id = individu.id')->where('individu.id', $id)->first()]);
+        if ($this->individum->select('individu.*, k.*, pk.*, pd.*, k.id kesID, pk.id pekID, pd.id penID')->join('pekerjaan pk', 'pk.id = individu.pekerjaan_id')->join('kesehatan k', 'k.id = individu.kesehatan_id')->join('pendidikan pd', 'pd.id = individu.pendidikan_id')->where('individu.id', $id)->countAllResults() > 0) {
+            return json_encode(['data' => $this->individum->select('individu.*, k.*, pk.*, pd.*, k.id kesID, pk.id pekID, pd.id penID')->join('pekerjaan pk', 'pk.id = individu.pekerjaan_id')->join('kesehatan k', 'k.id = individu.kesehatan_id')->join('pendidikan pd', 'pd.id = individu.pendidikan_id')->where('individu.id', $id)->first()]);
         }
         return '404';
     }
@@ -92,7 +92,7 @@ class KeadaanPenduduk extends BaseController
             'session' => $this->session,
             'provinsi' => getApi('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json'), 'individu' => $this->individum->findall(),
             'get' => $get,
-            'data' => $this->keadaanpendudukm->select('keadaanpenduduk.*, ind.*, k.*, pk.*, pd.*, k.id kesID, pk.id pekID, pd.id kpID')->join('individu ind', 'ind.id = keadaanpenduduk.individu_id')->join('kesehatan k', 'k.individu_id = ind.id')->join('pekerjaan pk', 'pk.individu_id = ind.id')->join('pendidikan pd', 'pd.individu_id = ind.id')->where('keadaanpenduduk.id', $id)->first()
+            'data' => $this->keadaanpendudukm->select('keadaanpenduduk.*, ind.*, k.*, pk.*, pd.*, k.id kesID, pk.id pekID, pd.id kpID')->join('individu ind', 'ind.id = keadaanpenduduk.individu_id')->join('kesehatan k', 'k.id = ind.kesehatan_id')->join('pekerjaan pk', 'pk.id = ind.pekerjaan_id')->join('pendidikan pd', 'pd.id = ind.pendidikan_id')->where('keadaanpenduduk.id', $id)->first()
         );
 
         return view('App\Views\keadaanpenduduk\post-keadaanpenduduk', $this->data);
@@ -111,7 +111,7 @@ class KeadaanPenduduk extends BaseController
         $this->data = array(
             'get' => $get,
             'individu' => $this->individum->findAll(),
-            'data' => $this->individum->select('individu.*, k.*, pk.*, pd.*, k.id kesID, pk.id pekID, pd.id penID')->join('pekerjaan pk', 'pk.individu_id = individu.id')->join('kesehatan k', 'k.individu_id = individu.id')->join('pendidikan pd', 'pd.individu_id = individu.id')->where('individu.id', $id)->first()
+            'data' => $this->individum->select('individu.*, k.*, pk.*, pd.*, k.id kesID, pk.id pekID, pd.id penID')->join('pekerjaan pk', 'pk.id = individu.pekerjaan_id')->join('kesehatan k', 'k.id = individu.kesehatan_id')->join('pendidikan pd', 'pd.id = individu.pendidikan_id')->where('individu.id', $id)->first()
         );
         $status['html']         = view('App\Views\keadaanpenduduk\form_input', $this->data);
         $status['modal_title']  = '<b>Update Keadaan Penduduk : </b>';

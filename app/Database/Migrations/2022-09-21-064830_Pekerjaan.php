@@ -15,7 +15,6 @@ class Pekerjaan extends Migration
                 'unsigned'        => true,
                 'auto_increment' => true
             ],
-            'individu_id' => ['type' => 'int', 'constraint' => 11, 'unsigned' => true, 'null' => true],
             'kondisi_pekerjaan'     => [
                 'type'          => 'ENUM',
                 'constraint' => ['Bersekolah', 'Ibu Rumah Tangga', 'Tidak Bekerja', 'Sedang Mencari Pekerjaan', 'Bekerja'],
@@ -57,7 +56,6 @@ class Pekerjaan extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('individu_id', 'individu', 'id', 'SET NULL', 'CASCADE');
         $this->forge->createTable('pekerjaan');
     }
 

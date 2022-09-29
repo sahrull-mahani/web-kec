@@ -15,15 +15,15 @@ class AllSeeder extends Seeder
 		$this->DBGroup = empty($config->databaseGroupName) ? '' : $config->databaseGroupName;
 		$tables        = $config->tables;
 
-	// desa
-	$desa = [
-		[
-			'nama_desa' => 'Boroko',
-			'kepala_desa' => 'Alam',
-		],
-		
-	];
-	$this->db->table('desa')->insertBatch($desa);
+		// desa
+		$desa = [
+			[
+				'nama_desa' => 'Boroko',
+				'kepala_desa' => 'Alam',
+			],
+
+		];
+		$this->db->table('desa')->insertBatch($desa);
 
 		$groups = [
 			[
@@ -54,7 +54,7 @@ class AllSeeder extends Seeder
 				'desa_id'                 => 1,
 				'phone'                   => '0',
 			],
-		
+
 		];
 		$this->db->table($tables['users'])->insertBatch($users);
 
@@ -63,10 +63,10 @@ class AllSeeder extends Seeder
 				'user_id'  => '1',
 				'group_id' => '1',
 			]
-			
+
 		];
 		$this->db->table($tables['users_groups'])->insertBatch($usersGroups);
-		
+
 		$agenda = [];
 		for ($i = 1; $i <= 10; $i++) {
 			$judul = "ini agenda " . sprintf('%02d', $i);
@@ -141,114 +141,10 @@ class AllSeeder extends Seeder
 			],
 		];
 		$this->db->table('profil')->insertBatch($dataProfil);
-		$individu = [
-			[
-				'id' => '1',
-				'user_id' => '1',
-				'no_kk' => '987654321',
-				'nik' => '7571040402950002',
-				'nama' => 'muhammad nur alamsyah',
-				'provinsi' => '75',
-				'kab_kota' => '7571',
-				'kecamatan' => '7571021',
-				'kelurahan' => '7571021007',
-				'dusun' => 'Dusun 1',
-				'alamat' => 'Jl. Panca Wardana No.75',
-				'jenis_kelamin' => 'Laki - Laki',
-				'tempat_lahir' => 'Jeneponto',
-				'tgl_lahir' => '04/02/1995',
-				'umur' => '25 - 29',
-				'status_nikah' => 'Kawin',
-				'agama' => 'Islam',
-				'suku' => 'Makassar',
-				'kewarganegaraan' => 'WNI',
-				'no_hp' => '082351381099',
-				'no_wa' => '082351381099',
-				'wajib_pajak' => 'Ya',
-				'jumlah_pajak' => '500000',
-				'keterangan' => 'Lunas',
-				'email' => 'alamsyah.the99@gmail.com',
-				'facebook' => 'alamsyah',
-				'twitter' => '@thebright99',
-				'instagram' => '@muhalamsyah',
-				'created_at'	=> Time::now(),
-				'updated_at'	=> Time::now(),
-				'deleted_at'	=> null,
-			],
-			[
-				'id' => '2',
-				'user_id' => '1',
-				'no_kk' => '123456789',
-				'nik' => '9876543210',
-				'nama' => 'qwerty',
-				'provinsi' => '75',
-				'kab_kota' => '7571',
-				'kecamatan' => '7571021',
-				'kelurahan' => '7571021006',
-				'dusun' => 'Dusun 1',
-				'alamat' => 'Jl. Panca Wardana No.90',
-				'jenis_kelamin' => 'Perempuan',
-				'tempat_lahir' => 'Makassar',
-				'tgl_lahir' => '04/02/1996',
-				'umur' => '15 - 19',
-				'status_nikah' => 'Tidak Kawin',
-				'agama' => 'Kristen',
-				'suku' => 'Makassar',
-				'kewarganegaraan' => 'WNI',
-				'no_hp' => '13131',
-				'no_wa' => '2344234',
-				'wajib_pajak' => 'Tidak',
-				'jumlah_pajak' => '0',
-				'keterangan' => 'Lunas',
-				'email' => 'qqeqeqe',
-				'facebook' => 'qwqwqw',
-				'twitter' => '@rqrqrqr',
-				'instagram' => '@muhalqrqrqamsyah',
-				'created_at'	=> Time::now(),
-				'updated_at'	=> Time::now(),
-				'deleted_at'	=> null,
-			],
-			[
-				'id' => '3',
-				'user_id' => '1',
-				'no_kk' => '987654321',
-				'nik' => '123456789',
-				'nama' => 'poiuyt',
-				'provinsi' => '75',
-				'kab_kota' => '7571',
-				'kecamatan' => '7571021',
-				'kelurahan' => '7571021006',
-				'dusun' => 'Dusun 2',
-				'alamat' => 'Jl. Panca Wardana No.100',
-				'jenis_kelamin' => 'Laki - Laki',
-				'tempat_lahir' => 'Jawa',
-				'tgl_lahir' => '04/02/1996',
-				'umur' => '15 - 19',
-				'status_nikah' => 'Kawin',
-				'agama' => 'Kristen',
-				'suku' => 'Makassar',
-				'kewarganegaraan' => 'WNI',
-				'no_hp' => '13131',
-				'no_wa' => '2344234',
-				'wajib_pajak' => 'Tidak',
-				'jumlah_pajak' => '0',
-				'keterangan' => 'Lunas',
-				'email' => 'qqeqeqe',
-				'facebook' => 'qwqwqw',
-				'twitter' => '@rqrqrqr',
-				'instagram' => '@muhalqrqrqamsyah',
-				'created_at'	=> Time::now(),
-				'updated_at'	=> Time::now(),
-				'deleted_at'	=> null,
-			]
-		];
-		// Using Query Builder
-		$this->db->table('individu')->insertBatch($individu);
 
 		$pekerjaan = [
 			[
 				'id' => '1',
-				'individu_id' => '1',
 				'kondisi_pekerjaan' => 'Bersekolah',
 				'pekerjaan' => 'Petani Pemilik Lahan',
 				'jamsos' => 'Peserta',
@@ -263,7 +159,6 @@ class AllSeeder extends Seeder
 			],
 			[
 				'id' => '2',
-				'individu_id' => '2',
 				'kondisi_pekerjaan' => 'Ibu Rumah Tangga',
 				'pekerjaan' => 'Petani Penyewa',
 				'jamsos' => 'Bukan Peserta',
@@ -278,7 +173,6 @@ class AllSeeder extends Seeder
 			],
 			[
 				'id' => '3',
-				'individu_id' => '3',
 				'kondisi_pekerjaan' => 'Bekerja',
 				'pekerjaan' => 'Buruh Tani',
 				'jamsos' => 'Peserta',
@@ -298,7 +192,6 @@ class AllSeeder extends Seeder
 		$kesehatan = [
 			[
 				'id' => '1',
-				'individu_id' => '1',
 				'bpjs_kes' => 'Peserta',
 				'muntaber_diare' => 'Ya',
 				'hepatitis_e' => 'Tidak',
@@ -351,7 +244,6 @@ class AllSeeder extends Seeder
 			],
 			[
 				'id' => '2',
-				'individu_id' => '2',
 				'bpjs_kes' => 'Bukan Peserta',
 				'muntaber_diare' => 'Ya',
 				'hepatitis_e' => 'Tidak',
@@ -404,7 +296,6 @@ class AllSeeder extends Seeder
 			],
 			[
 				'id' => '3',
-				'individu_id' => '3',
 				'bpjs_kes' => 'Peserta',
 				'muntaber_diare' => 'Ya',
 				'hepatitis_e' => 'Tidak',
@@ -462,7 +353,6 @@ class AllSeeder extends Seeder
 		$pendidikan = [
 			[
 				'id' => '1',
-				'individu_id' => '1',
 				'pendidikan' => 'Tidak Sekolah',
 				'bahasa_lokal' => 'qwerty',
 				'bahasa_formal' => 'ytrewq',
@@ -478,7 +368,6 @@ class AllSeeder extends Seeder
 			],
 			[
 				'id' => '2',
-				'individu_id' => '2',
 				'pendidikan' => 'SD dan Sederajat',
 				'bahasa_lokal' => 'qwerty',
 				'bahasa_formal' => 'ytrewq',
@@ -494,7 +383,6 @@ class AllSeeder extends Seeder
 			],
 			[
 				'id' => '3',
-				'individu_id' => '3',
 				'pendidikan' => 'SMP dan Sederajat',
 				'bahasa_lokal' => 'qwerty',
 				'bahasa_formal' => 'ytrewq',
@@ -511,5 +399,118 @@ class AllSeeder extends Seeder
 		];
 		// Using Query Builder
 		$this->db->table('pendidikan')->insertBatch($pendidikan);
+
+		$individu = [
+			[
+				'id' => '1',
+				'user_id' => '1',
+				'pekerjaan_id' => '1',
+				'kesehatan_id' => '1',
+				'pendidikan_id' => '1',
+				'no_kk' => '987654321',
+				'nik' => '7571040402950002',
+				'nama' => 'muhammad nur alamsyah',
+				'provinsi' => '75',
+				'kab_kota' => '7571',
+				'kecamatan' => '7571021',
+				'kelurahan' => '7571021007',
+				'dusun' => 'Dusun 1',
+				'alamat' => 'Jl. Panca Wardana No.75',
+				'jenis_kelamin' => 'Laki - Laki',
+				'tempat_lahir' => 'Jeneponto',
+				'tgl_lahir' => '04/02/1995',
+				'umur' => '25 - 29',
+				'status_nikah' => 'Kawin',
+				'agama' => 'Islam',
+				'suku' => 'Makassar',
+				'kewarganegaraan' => 'WNI',
+				'no_hp' => '082351381099',
+				'no_wa' => '082351381099',
+				'wajib_pajak' => 'Ya',
+				'jumlah_pajak' => '500000',
+				'keterangan' => 'Lunas',
+				'email' => 'alamsyah.the99@gmail.com',
+				'facebook' => 'alamsyah',
+				'twitter' => '@thebright99',
+				'instagram' => '@muhalamsyah',
+				'created_at'	=> Time::now(),
+				'updated_at'	=> Time::now(),
+				'deleted_at'	=> null,
+			],
+			[
+				'id' => '2',
+				'user_id' => '1',
+				'pekerjaan_id' => '2',
+				'kesehatan_id' => '2',
+				'pendidikan_id' => '2',
+				'no_kk' => '123456789',
+				'nik' => '9876543210',
+				'nama' => 'qwerty',
+				'provinsi' => '75',
+				'kab_kota' => '7571',
+				'kecamatan' => '7571021',
+				'kelurahan' => '7571021006',
+				'dusun' => 'Dusun 1',
+				'alamat' => 'Jl. Panca Wardana No.90',
+				'jenis_kelamin' => 'Perempuan',
+				'tempat_lahir' => 'Makassar',
+				'tgl_lahir' => '04/02/1996',
+				'umur' => '15 - 19',
+				'status_nikah' => 'Tidak Kawin',
+				'agama' => 'Kristen',
+				'suku' => 'Makassar',
+				'kewarganegaraan' => 'WNI',
+				'no_hp' => '13131',
+				'no_wa' => '2344234',
+				'wajib_pajak' => 'Tidak',
+				'jumlah_pajak' => '0',
+				'keterangan' => 'Lunas',
+				'email' => 'qqeqeqe',
+				'facebook' => 'qwqwqw',
+				'twitter' => '@rqrqrqr',
+				'instagram' => '@muhalqrqrqamsyah',
+				'created_at'	=> Time::now(),
+				'updated_at'	=> Time::now(),
+				'deleted_at'	=> null,
+			],
+			[
+				'id' => '3',
+				'user_id' => '1',
+				'pekerjaan_id' => '3',
+				'kesehatan_id' => '3',
+				'pendidikan_id' => '3',
+				'no_kk' => '987654321',
+				'nik' => '123456789',
+				'nama' => 'poiuyt',
+				'provinsi' => '75',
+				'kab_kota' => '7571',
+				'kecamatan' => '7571021',
+				'kelurahan' => '7571021006',
+				'dusun' => 'Dusun 2',
+				'alamat' => 'Jl. Panca Wardana No.100',
+				'jenis_kelamin' => 'Laki - Laki',
+				'tempat_lahir' => 'Jawa',
+				'tgl_lahir' => '04/02/1996',
+				'umur' => '15 - 19',
+				'status_nikah' => 'Kawin',
+				'agama' => 'Kristen',
+				'suku' => 'Makassar',
+				'kewarganegaraan' => 'WNI',
+				'no_hp' => '13131',
+				'no_wa' => '2344234',
+				'wajib_pajak' => 'Tidak',
+				'jumlah_pajak' => '0',
+				'keterangan' => 'Lunas',
+				'email' => 'qqeqeqe',
+				'facebook' => 'qwqwqw',
+				'twitter' => '@rqrqrqr',
+				'instagram' => '@muhalqrqrqamsyah',
+				'created_at'	=> Time::now(),
+				'updated_at'	=> Time::now(),
+				'deleted_at'	=> null,
+			]
+		];
+		// Using Query Builder
+		$this->db->table('individu')->insertBatch($individu);
 	}
 }

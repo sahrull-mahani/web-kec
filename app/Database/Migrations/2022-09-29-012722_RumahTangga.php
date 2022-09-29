@@ -20,7 +20,18 @@ class RumahTangga extends Migration
                 'constraint' => '6',
                 'unsigned'   => true,
             ],
-            'individu_id' => ['type' => 'int', 'constraint' => 11, 'unsigned' => true, 'null' => true],
+            'individu_id' => [
+                'type' => 'int',
+                'constraint' => 11,
+                'unsigned' => true,
+                'null' => true
+            ],
+            'enumerator_id' => [
+                'type' => 'int',
+                'constraint' => 11,
+                'unsigned' => true,
+                'null' => true
+            ],
             'rt_rw'     => [
                 'type'          => 'CHAR',
                 'constraint' => 150,
@@ -233,6 +244,7 @@ class RumahTangga extends Migration
         $this->forge->addKey('id', true);
         $this->forge->addForeignKey('user_id', 'users', 'id', 'NO ACTION', 'CASCADE');
         $this->forge->addForeignKey('individu_id', 'individu', 'id', 'SET NULL', 'CASCADE');
+        $this->forge->addForeignKey('enumerator_id', 'enumerator', 'id', 'SET NULL', 'CASCADE');
         $this->forge->createTable('rumahtangga');
     }
 

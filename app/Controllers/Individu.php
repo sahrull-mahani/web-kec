@@ -61,7 +61,7 @@ class Individu extends BaseController
 
     public function single_detail($id)
     {
-        $get = $this->individum->select('individu.*, k.*, pk.*, pd.*, k.id kesID, pk.id pekID, pd.id penID')->join('pekerjaan pk', 'pk.individu_id = individu.id')->join('kesehatan k', 'k.individu_id = individu.id')->join('pendidikan pd', 'pd.individu_id = individu.id')->where('individu.id', $id)->first();
+        $get = $this->individum->select('individu.*, k.*, pk.*, pd.*, k.id kesID, pk.id pekID, pd.id penID')->join('pekerjaan pk', 'pk.id = individu.pekerjaan_id')->join('kesehatan k', 'k.id = individu.kesehatan_id')->join('pendidikan pd', 'pd.id = individu.pendidikan_id')->where('individu.id', $id)->first();
         $this->data = array('title' => 'Post Kuisioner Individu | Admin', 'breadcome' => 'Post Kuisioner Individu', 'url' => 'individu/', 'm_open_individu' => 'menu-open', 'mm_individu' => 'active', 'm_post_individu' => 'active', 'session' => $this->session, 'provinsi' => getApi('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json'), 'get' => $get);
         // $id = $this->request->getPost('id');
 
@@ -78,7 +78,7 @@ class Individu extends BaseController
 
     public function single_edit($id)
     {
-        $get = $this->individum->select('individu.*, k.*, pk.*, pd.*, k.id kesID, pk.id pekID, pd.id penID')->join('pekerjaan pk', 'pk.individu_id = individu.id')->join('kesehatan k', 'k.individu_id = individu.id')->join('pendidikan pd', 'pd.individu_id = individu.id')->where('individu.id', $id)->first();
+        $get = $this->individum->select('individu.*, k.*, pk.*, pd.*, k.id kesID, pk.id pekID, pd.id penID')->join('pekerjaan pk', 'pk.id = individu.pekerjaan_id')->join('kesehatan k', 'k.id = individu.kesehatan_id')->join('pendidikan pd', 'pd.id = individu.pendidikan_id')->where('individu.id', $id)->first();
         $this->data = array('title' => 'Post Kuisioner Individu | Admin', 'breadcome' => 'Post Kuisioner Individu', 'url' => 'individu/', 'm_open_individu' => 'menu-open', 'mm_individu' => 'active', 'm_post_individu' => 'active', 'session' => $this->session, 'provinsi' => getApi('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json'), 'get' => $get);
 
         return view('App\Views\individu\post-individu', $this->data);
@@ -201,14 +201,24 @@ class Individu extends BaseController
                     'pertolongan_kecelakaan'          => $this->request->getVar('pertolongan_kecelakaan'),
                 );
 
-                if ($this->individum->insert($data)) {
-                    $id_individu = $this->individum->orderBy('id', 'DESC')->first()->id;
-                    $data2['individu_id'] = $id_individu;
-                    $data3['individu_id'] = $id_individu;
-                    $data4['individu_id'] = $id_individu;
-                    $this->kesehatanm->insert($data2);
+                // if ($this->individum->insert($data)) {
+                //     $id_individu = $this->individum->orderBy('id', 'DESC')->first()->id;
+                //     $data2['individu_id'] = $id_individu;
+                //     $data3['individu_id'] = $id_individu;
+                //     $data4['individu_id'] = $id_individu;
+                //     $this->kesehatanm->insert($data2);
+                //     $this->pekerjaanm->insert($data3);
+                //     $this->pendidikanm->insert($data4);
+                if ($this->kesehatanm->insert($data2)) {
                     $this->pekerjaanm->insert($data3);
                     $this->pendidikanm->insert($data4);
+                    $id_kesehatan = $this->kesehatanm->orderBy('id', 'DESC')->first()->id;
+                    $id_pekerjaan = $this->pekerjaanm->orderBy('id', 'DESC')->first()->id;
+                    $id_pendidikan = $this->pendidikanm->orderBy('id', 'DESC')->first()->id;
+                    $data['kesehatan_id'] = $id_kesehatan;
+                    $data['pekerjaan_id'] = $id_pekerjaan;
+                    $data['pendidikan_id'] = $id_pendidikan;
+                    $this->individum->insert($data);
                     $status['title'] = 'success';
                     $status['type'] = 'success';
                     $status['text'] = 'Kuisioner Individu Baru Telah Di Tambahkan';

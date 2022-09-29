@@ -8,7 +8,6 @@ class PekerjaanM extends Model
 {
     protected $table = "pekerjaan";
     protected $allowedFields = [
-        'individu_id',
         'kondisi_pekerjaan',
         'pekerjaan',
         'jamsos',
