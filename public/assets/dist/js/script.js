@@ -273,6 +273,106 @@ $("body").on("click", "#DeleteRow", function () {
     $(this).parents("#baris").remove();
 })
 
+// var room = 1;
+
+//     function tambah_baris() {
+//         room++;
+//         var objTo = document.getElementById('tambah_baris')
+//         var divtest = document.createElement("div");
+//         divtest.setAttribute("class", "removeclass" + room);
+//         var rdiv = 'removeclass' + room;
+//         divtest.innerHTML =
+//             `
+//             <div class="row">
+//                 <div class="form-group item col-md-10">
+//                     <select class="form-control select2" name="sumber_penghasilan[]" id="sumber_penghasilan">
+//                         <option value="">Pilih</option>
+//                         <option value="Padi">Padi</option>
+//                         <option value="Palawija (Jagung, Kacang-kacangan, Ubi-ubian, Dll)">Palawija (Jagung, Kacang-kacangan, Ubi-ubian, Dll)</option>
+//                         <option value="Hortikultura (Buah-buahan, Sayur-sayuran, Tanaman Hias, Tanaman Obat-obatan, Dll)">Hortikultura (Buah-buahan, Sayur-sayuran, Tanaman Hias, Tanaman Obat-obatan, Dll)</option>
+//                         <option value="Karet">Karet</option>
+//                         <option value="Kelapa Sawit">Kelapa Sawit</option>
+//                         <option value="Kopi">Kopi</option>
+//                         <option value="Kakao">Kakao</option>
+//                         <option value="Kelapa">Kelapa</option>
+//                         <option value="Lada">Lada</option>
+//                         <option value="Cengkeh">Cengkeh</option>
+//                         <option value="Tembakau">Tembakau</option>
+//                         <option value="Tebu">Tebu</option>
+//                         <option value="Sapi Potong">Sapi Potong</option>
+//                         <option value="Susu Sapi">Susu Sapi</option>
+//                         <option value="Domba">Domba</option>
+//                         <option value="Ternak Besar Lainnya (Kuda, Kerbau, Dll)">Ternak Besar Lainnya (Kuda, Kerbau, Dll)</option>
+//                         <option value="Ayam Pedaging">Ayam Pedaging</option>
+//                         <option value="Telur Ayam">Telur Ayam</option>
+//                         <option value="Ternak Kecil Lainnya (Bebek, Burung, Dll)">Ternak Kecil Lainnya (Bebek, Burung, Dll)</option>
+//                         <option value="Perikanan Tangkap (Termasuk Biota Lainnya)">Perikanan Tangkap (Termasuk Biota Lainnya)</option>
+//                         <option value="Perikanan Budidaya (Termasuk Biota Lainnya)">Perikanan Budidaya (Termasuk Biota Lainnya)</option>
+//                         <option value="Bambu">Bambu</option>
+//                         <option value="Budidaya Tanaman Kehutanan (Jati, Mahoni, Sengon, Dll)">Budidaya Tanaman Kehutanan (Jati, Mahoni, Sengon, Dll)</option>
+//                         <option value="Pemungutan Hasil Hutan (Madu, Gaharu, Buah-buahan, Kayu Bakar, Rotan, Dll)">Pemungutan Hasil Hutan (Madu, Gaharu, Buah-buahan, Kayu Bakar, Rotan, Dll)</option>
+//                         <option value="Penangkapan Satwa Liar (Babi, Ayam Hutan, Kijang, Dll)">Penangkapan Satwa Liar (Babi, Ayam Hutan, Kijang, Dll)</option>
+//                         <option value="Penangkaran Satwa Liar (Arwana, Buaya, Dll)">Penangkaran Satwa Liar (Arwana, Buaya, Dll)</option>
+//                         <option value="Jasa Pertanian (Sewa Traktor, Penggilingan, Dll)">Jasa Pertanian (Sewa Traktor, Penggilingan, Dll)</option>
+//                         <option value="Pertambangan dan Penggalian">Pertambangan dan Penggalian</option>
+//                         <option value="Industri Kerajinan">Industri Kerajinan</option>
+//                         <option value="Industri Pengolahan">Industri Pengolahan</option>
+//                         <option value="Perdagangan">Perdagangan</option>
+//                         <option value="Warung dan Rumah Makan">Warung dan Rumah Makan</option>
+//                         <option value="Angkutan">Angkutan</option>
+//                         <option value="Pergudangan">Pergudangan</option>
+//                         <option value="Komunikasi">Komunikasi</option>
+//                         <option value="Jasa Di Luar Pertanian">Jasa Di Luar Pertanian</option>
+//                         <option value="Karyawan Tetap">Karyawan Tetap</option>
+//                         <option value="Karyawan Tidak Tetap">Karyawan Tidak Tetap</option>
+//                         <option value="TNI">TNI</option>
+//                         <option value="PNS">PNS</option>
+//                         <option value="TKI Di Luar Negeri">TKI Di Luar Negeri</option>
+//                         <option value="Sumbangan (Dari Keluarga, Dari Pemerintah)">Sumbangan (Dari Keluarga, Dari Pemerintah)</option>
+//                         <option value="Lainnya">Lainnya</option>
+//                     </select>
+//                 </div>
+//                 <div class="form-group col-md-2">
+//                     <label for="" class="text-white hid">|</label>
+//                     <input type="text" name="jumlah[]" id="jumlah" class="form-control form-control-sm" autocomplete="off" placeholder="Jumlah">
+//                 </div>
+//                 <div class="form-group col-md">
+//                     <select name="satuan[]" id="satuan" class="form-control form-control-sm" autocomplete="off">
+//                         <option value="" selected hidden>Satuan</option>
+//                         <option value="batang">batang</option>
+//                         <option value="bulan">bulan</option>
+//                         <option value="ekor">ekor</option>
+//                         <option value="hari">hari</option>
+//                         <option value="kg">kg</option>
+//                         <option value="liter">liter</option>
+//                         <option value="ton">ton</option>
+//                     </select>
+//                 </div>
+//                 <div class="form-group col-md">
+//                     <input type="text" name="penghasilan[]" id="penghasilan" class="form-control form-control-sm" autocomplete="off" placeholder="Penghasilan Setahun(Rp)">
+//                 </div>
+//                 <div class="form-group col-md">
+//                     <select name="diekspor[]" id="diekspor" class="form-control form-control-sm" autocomplete="off">
+//                         <option value="" selected hidden>Diekspor</option>
+//                         <option value="Semua">Semua</option>
+//                         <option value="Sebagian besa">Sebagian besar</option>
+//                         <option value="tidak">tidak</option>
+//                     </select>
+//                 </div>
+//                 <div class="form-group col-md-2">
+//                     <button type="button" onclick="remove_tambahbaris(` + room + `)" class="btn btn-sm btn-danger form-control form-control-sm"><i class="fas fa-minus"></i></button>
+//                 </div>
+//             </div>
+//       `;
+//         objTo.appendChild(divtest);
+//     }
+
+//     function remove_tambahbaris(rid) {
+//         $('.removeclass' + rid).remove();
+//     }
+
+
+
 $('#umur').on('change', function() {
     let dusun = $('#dusun').val()
     let val = $(this).val()
@@ -371,7 +471,7 @@ $('#individu').on('change',function(){
                 $('#nama_lokasi').val(data.data.nama)
                 $('#alamat_lokasi').val(data.data.alamat)
                 $('#nohp_lokasi').val(data.data.no_hp)
-                $('#provinsi').val(data.data.provinsi)
+                $('#provinsi option[value="' + data.data.provinsi + '"]').prop('selected', true);
                 $('#jenis_kelamin option[value="' + data.data.pekerjaan + '"]').prop('selected', true);
                 $('#muntaber_diare option[value="' + data.data.muntaber_diare + '"]').prop('selected', true);
             }

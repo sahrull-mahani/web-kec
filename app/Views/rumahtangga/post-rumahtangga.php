@@ -62,16 +62,16 @@
                                     <div class="row">
                                         <div class="form-group item col-md-8">
                                             <label for="nama_enum">Nama</label>
-                                            <input type="text" class="form-control" id="nama_enum" name="nama_enum" placeholder="Nama Lengkap" />
+                                            <input type="text" class="form-control" id="nama_enum" name="nama_enum" placeholder="Nama Lengkap" value="<?= @ucwords($get->nama_enum) ?>" />
                                         </div>
                                         <div class="form-group item col-md-4">
                                             <label for="notelp_enum">HP/Telepon</label>
-                                            <input type="text" class="form-control" id="notelp_enum" name="notelp_enum" placeholder="No. HP/Telepon" />
+                                            <input type="text" class="form-control" id="notelp_enum" name="notelp_enum" placeholder="No. HP/Telepon" value="<?= @$get->notelp_enum ?>" />
                                         </div>
                                     </div>
                                     <div class="form-group item">
                                         <label for="alamat_enum">Alamat</label>
-                                        <input type="text" class="form-control" id="alamat_enum" name="alamat_enum" placeholder="Alamat Enumerator" />
+                                        <input type="text" class="form-control" id="alamat_enum" name="alamat_enum" placeholder="Alamat Enumerator" value="<?= @ucwords($get->alamat_enum) ?>" />
                                     </div>
                                     <button type="button" name="next" class="btn btn-sm btn-primary btn-user float-right next" onclick="Step2()">Selanjutnya</button>
                                 </div>
@@ -83,7 +83,7 @@
 
                                         <div class="form-group item col-md-4">
                                             <label for="provinsi">Provinsi</label>
-                                            <select name="provinsi" id="provinsi" class="form-control">
+                                            <select name="provinsi" id="provinsi" class="form-control select2">
                                                 <option value="" disabled <?= (isset($get->provinsi) ? '' : 'selected') ?>>--Pilih Provinsi--</option>
                                                 <?php foreach ($provinsi as $prov) : ?>
                                                     <option value="<?= $prov['id']; ?>" <?= (isset($get->provinsi) ? ($get->provinsi == $prov['id'] ? 'selected' : '') : '') ?>><?= $prov['name'] ?></option>
@@ -92,13 +92,13 @@
                                         </div>
                                         <div class="form-group item col-md-4">
                                             <label for="kabupaten">Kabupaten/Kota</label>
-                                            <select name="kab_kota" id="kabupaten" class="form-control" data-kabupaten="<?= @$get->kab_kota ?>">
+                                            <select name="kab_kota" id="kabupaten" class="form-control select2" data-kabupaten="<?= @$get->kab_kota ?>">
                                                 <option>--Pilih Kabupaten--</option>
                                             </select>
                                         </div>
                                         <div class="form-group item col-md-4">
                                             <label for="kecamatan">Kecamatan</label>
-                                            <select name="kecamatan" id="kecamatan" class="form-control" data-kecamatan="<?= @$get->kecamatan ?>">
+                                            <select name="kecamatan" id="kecamatan" class="form-control select2" data-kecamatan="<?= @$get->kecamatan ?>">
                                                 <option>--Pilih Kecamatan--</option>
                                             </select>
                                         </div>
@@ -106,13 +106,13 @@
                                     <div class="row">
                                         <div class="form-group item col-md-8">
                                             <label for="desa">Desa</label>
-                                            <select name="kelurahan" id="desa" class="form-control" data-kelurahan="<?= @$get->kelurahan ?>">
+                                            <select name="kelurahan" id="desa" class="form-control select2" data-kelurahan="<?= @$get->kelurahan ?>">
                                                 <option>--Pilih Desa--</option>
                                             </select>
                                         </div>
                                         <div class="form-group item col-md-4">
                                             <label for="rt_rw">RT/RW</label>
-                                            <input type="text" class="form-control" id="rt_rw" name="rt_rw" placeholder="RT/RW" />
+                                            <input type="text" class="form-control" id="rt_rw" name="rt_rw" placeholder="RT/RW" value="<?= @$get->rt_rw ?>" />
                                         </div>
                                     </div>
                                     <div class="form-group item">
@@ -120,22 +120,22 @@
                                         <select name="individu_id" id="individu" class="form-control select2">
                                             <option value="" disabled <?= (isset($get->individu_id) ? '' : 'selected') ?>>--Pilih Nama--</option>
                                             <?php foreach ($individu as $row) : ?>
-                                                <option value="<?= $row->id; ?>" <?= (isset($get->individu_id) ? ($get->individu_id == $row->id ? 'selected' : '') : '') ?>><?= $row->nama ?></option>
+                                                <option value="<?= $row->id; ?>" <?= (isset($get->individu_id) ? ($get->individu_id == $row->id ? 'selected' : '') : '') ?>><?= ucwords($row->nama) ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
                                     <div class="form-group item">
                                         <label for="alamat_lokasi">Alamat</label>
-                                        <input type="text" class="form-control" id="alamat_lokasi" name="alamat_lokasi" placeholder="Alamat" />
+                                        <input type="text" class="form-control" id="alamat_lokasi" name="alamat_lokasi" placeholder="Alamat" value="<?= @$get->alamat ?>" />
                                     </div>
                                     <div class="row">
                                         <div class="form-group item col-md-6">
                                             <label for="nohp_lokasi">Nomor HP</label>
-                                            <input type="text" class="form-control" id="nohp_lokasi" name="nohp_lokasi" placeholder="Nomor HP" />
+                                            <input type="text" class="form-control" id="nohp_lokasi" name="nohp_lokasi" placeholder="Nomor HP" value="<?= @$get->no_hp ?>" />
                                         </div>
                                         <div class="form-group item col-md-6">
                                             <label for="no_telp">Nomor Telepon Kabel/Rumah</label>
-                                            <input type="text" class="form-control" id="no_telp" name="no_telp" placeholder="Nomor Telepon Kabel/Rumah" />
+                                            <input type="text" class="form-control" id="no_telp" name="no_telp" placeholder="Nomor Telepon Kabel/Rumah" value="<?= @$get->no_telp ?>" />
                                         </div>
                                     </div>
                                     <button type="button" class="btn btn-sm btn-secondary btn-user float-left" onclick="Step()">Sebelumnya</button>
@@ -147,11 +147,11 @@
                                     </div>
                                     <div class="form-group item">
                                         <label for="no_kk">Nomor Kartu Keluarga</label>
-                                        <input type="text" class="form-control" id="no_kk" name="no_kk" placeholder="Nomor Kartu Keluarga" />
+                                        <input type="text" class="form-control" id="no_kk" name="no_kk" placeholder="Nomor Kartu Keluarga" value="<?= @$get->no_kk ?>" />
                                     </div>
                                     <div class="form-group item">
                                         <label for="nik">NIK Kepala Keluarga</label>
-                                        <input type="text" class="form-control" id="nik" name="nik" placeholder="Nomor Induk Kependudukan Kepala Keluarga" />
+                                        <input type="text" class="form-control" id="nik" name="nik" placeholder="Nomor Induk Kependudukan Kepala Keluarga" value="<?= @$get->nik ?>" />
                                     </div>
                                     <button type="button" class="btn btn-sm btn-secondary btn-user float-left" onclick="Step2()">Sebelumnya</button>
                                     <button type="button" class="btn btn-sm btn-primary btn-user float-right" onclick="Step4()">Selanjutnya</button>
@@ -165,7 +165,7 @@
                                         <?php $defaults = array('' => 'Pilih');
                                         $options = array(
                                             'Milik Sendiri' => 'Milik Sendiri',
-                                            'Kontrak/Sewa' => 'Kontrak/Sewa',
+                                            'Kontrak Sewa' => 'Kontrak/Sewa',
                                             'Bebas Sewa' => 'Bebas Sewa',
                                             'Dipinjami' => 'Dipinjami',
                                             'Dinas' => 'Dinas',
@@ -189,11 +189,11 @@
                                     <div class="row">
                                         <div class="form-group item col-md-6">
                                             <label for="luas_lantai">Luas Lantai (m2)</label>
-                                            <input type="text" class="form-control" id="luas_lantai" name="luas_lantai" placeholder="Luas Lantai (m2)" />
+                                            <input type="text" class="form-control" id="luas_lantai" name="luas_lantai" placeholder="Luas Lantai (m2)" value="<?= @$get->luas_lantai ?>" />
                                         </div>
                                         <div class="form-group item col-md-6">
                                             <label for="luas_lahan">Luas Lahan (m2)</label>
-                                            <input type="text" class="form-control" id="luas_lahan" name="luas_lahan" placeholder="Luas Lahan (m2)" />
+                                            <input type="text" class="form-control" id="luas_lahan" name="luas_lahan" placeholder="Luas Lahan (m2)" value="<?= @$get->luas_lahan ?>" />
                                         </div>
                                     </div>
                                     <div class="form-group item">
@@ -426,10 +426,10 @@
                                     </div>
                                     <div class="row">
                                         <div class="form-group item col-md-4">
-                                            <input type="text" class="form-control" id="jarak_pendidikan" name="jarak_pendidikan" placeholder="Jarak (km)" />
+                                            <input type="text" class="form-control" id="jarak_pendidikan" name="jarak_pendidikan" placeholder="Jarak (km)" value="<?= @$get->jarak_pendidikan ?>" />
                                         </div>
                                         <div class="form-group item col-md-4">
-                                            <input type="text" class="form-control" id="waktu_pendidikan" name="waktu_pendidikan" placeholder="Waktu Tempuh (jam)" />
+                                            <input type="text" class="form-control" id="waktu_pendidikan" name="waktu_pendidikan" placeholder="Waktu Tempuh (jam)" value="<?= @$get->waktu_pendidikan ?>" />
                                         </div>
                                         <div class="form-group item col-md-4">
                                             <?php $defaults = array('' => 'Kemudahan');
@@ -461,10 +461,10 @@
                                     </div>
                                     <div class="row">
                                         <div class="form-group item col-md-4">
-                                            <input type="text" class="form-control" id="jarak_kesehatan" name="jarak_kesehatan" placeholder="Jarak (km)" />
+                                            <input type="text" class="form-control" id="jarak_kesehatan" name="jarak_kesehatan" placeholder="Jarak (km)" value="<?= @$get->jarak_kesehatan ?>" />
                                         </div>
                                         <div class="form-group item col-md-4">
-                                            <input type="text" class="form-control" id="waktu_kesehatan" name="waktu_kesehatan" placeholder="Waktu Tempuh (jam)" />
+                                            <input type="text" class="form-control" id="waktu_kesehatan" name="waktu_kesehatan" placeholder="Waktu Tempuh (jam)" value="<?= @$get->waktu_kesehatan ?>" />
                                         </div>
                                         <div class="form-group item col-md-4">
                                             <?php $defaults = array('' => 'Kemudahan');
@@ -491,10 +491,10 @@
                                     </div>
                                     <div class="row">
                                         <div class="form-group item col-md-4">
-                                            <input type="text" class="form-control" id="jarak_nakes" name="jarak_nakes" placeholder="Jarak (km)" />
+                                            <input type="text" class="form-control" id="jarak_nakes" name="jarak_nakes" placeholder="Jarak (km)" value="<?= @$get->jarak_nakes ?>" />
                                         </div>
                                         <div class="form-group item col-md-4">
-                                            <input type="text" class="form-control" id="waktu_nakes" name="waktu_nakes" placeholder="Waktu Tempuh (jam)" />
+                                            <input type="text" class="form-control" id="waktu_nakes" name="waktu_nakes" placeholder="Waktu Tempuh (jam)" value="<?= @$get->waktu_nakes ?>" />
                                         </div>
                                         <div class="form-group item col-md-4">
                                             <?php $defaults = array('' => 'Kemudahan');
@@ -543,10 +543,10 @@
                                     </div>
                                     <div class="row">
                                         <div class="form-group item col-md-4">
-                                            <input type="text" class="form-control" id="waktu_tempuh" name="waktu_tempuh" placeholder="Waktu Tempuh (jam)" />
+                                            <input type="text" class="form-control" id="waktu_tempuh" name="waktu_tempuh" placeholder="Waktu Tempuh (jam)" value="<?= @$get->waktu_tempuh ?>" />
                                         </div>
                                         <div class="form-group item col-md-4">
-                                            <input type="text" class="form-control" id="biaya" name="biaya" placeholder="Biaya Sekali Jalan (Rp)" />
+                                            <input type="text" class="form-control" id="biaya" name="biaya" placeholder="Biaya Sekali Jalan (Rp)" value="<?= @$get->biaya ?>" />
                                         </div>
                                         <div class="form-group item col-md-4">
                                             <?php $defaults = array('' => 'Kemudahan');
@@ -638,7 +638,8 @@
                                         </div>
                                     </div>
                                     <button type="button" class="btn btn-sm btn-secondary btn-user float-left" onclick="Step3()">Sebelumnya</button>
-                                    <input type='hidden' name='action' value="insert" />
+                                    <input type="hidden" name="id" value="<?= (isset($get->id)) ? $get->id : ''; ?>" />
+                                    <input type='hidden' name='action' value="<?= (isset($get->id)) ? 'update' : 'insert'; ?>" />
                                     <button type="submit" class="btn btn-sm btn-primary btn-user float-right">Submit</button>
                                     <button class="btn btn-primary btn-load d-none" type="button" disabled>
                                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>

@@ -107,8 +107,8 @@ class RumahTangga extends BaseController
 
     public function single_edit($id)
     {
-        $get = $this->individum->select('individu.*, k.*, pk.*, pd.*, k.id kesID, pk.id pekID, pd.id penID')->join('pekerjaan pk', 'pk.individu_id = individu.id')->join('kesehatan k', 'k.individu_id = individu.id')->join('pendidikan pd', 'pd.individu_id = individu.id')->where('individu.id', $id)->first();
-        $this->data = array('title' => 'Post Kuisioner Rumah Tangga | Admin', 'breadcome' => 'Post Kuisioner Rumah Tangga', 'url' => 'rumahtangga/', 'm_open_rumahtangga' => 'menu-open', 'mm_rumahtangga' => 'active', 'm_post_rumahtangga' => 'active', 'session' => $this->session, 'provinsi' => getApi('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json'), 'get' => $get);
+        $get = $this->rumahtanggam->select('rumahtangga.*, ind.*, enum.*, ind.id indID, enum.id enumID')->join('individu ind', 'ind.id = rumahtangga.individu_id')->join('enumerator enum', 'enum.id = rumahtangga.enumerator_id')->where('rumahtangga.id', $id)->find($id);
+        $this->data = array('title' => 'Post Kuisioner Rumah Tangga | Admin', 'breadcome' => 'Post Kuisioner Rumah Tangga', 'url' => 'rumahtangga/', 'm_open_rumahtangga' => 'menu-open', 'mm_rumahtangga' => 'active', 'm_post_rumahtangga' => 'active', 'session' => $this->session, 'provinsi' => getApi('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json'), 'individu' => $this->individum->findAll(), 'get' => $get);
 
         return view('App\Views\rumahtangga\post-rumahtangga', $this->data);
     }
@@ -191,10 +191,10 @@ class RumahTangga extends BaseController
                     'notelp_enum'    => $this->request->getVar('notelp_enum'),
                     'alamat_enum'    => $this->request->getVar('alamat_enum'),
                 );
-                if ($this->rumahtanggam->insert($data)) {
-                    $id_rumahtangga = $this->rumahtanggam->orderBy('id', 'DESC')->first()->id;
-                    $data2['rumahtangga_id'] = $id_rumahtangga;
-                    $this->enumeratorm->insert($data2);
+                if ($this->enumeratorm->insert($data2)) {
+                    $id_enumerator = $this->enumeratorm->orderBy('id', 'DESC')->first()->id;
+                    $data['enumerator_id'] = $id_enumerator;
+                    $this->rumahtanggam->insert($data);
                     $status['title'] = 'success';
                     $status['type'] = 'success';
                     $status['text'] = 'Kuisioner Rumah Tangga Baru Telah Di Tambahkan';

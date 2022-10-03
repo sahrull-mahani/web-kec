@@ -116,12 +116,6 @@
                                 <tr>
                                     <td width="10%">P117</td>
                                     <td>Provinsi :
-                                        <select name="provinsi" id="provinsi" class="form-control">
-                                            <option value="" disabled <?= (isset($get->provinsi) ? '' : 'selected') ?>>--Pilih Provinsi--</option>
-                                            <?php foreach ($provinsi as $prov) : ?>
-                                                <option value="<?= $prov['id']; ?>" <?= (isset($get->provinsi) ? ($get->provinsi == $prov['id'] ? 'selected' : '') : '') ?>><?= $prov['name'] ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
                                     </td>
                                 </tr>
                                 <tr>
@@ -209,36 +203,50 @@
                                         Penghasilan setahun terakhir dari (Rp) : <br>
                                         <table cellspacing="0" cellpadding="0" border="1" width="100%">
                                             <tr>
-                                                <td style="vertical-align: bottom; text-align: center" rowspan="2">No</td>
-                                                <td style="vertical-align: bottom; text-align: center; width: 35%" rowspan="2">Sumber Penghasilan</td>
+                                                <td style="vertical-align: middle; text-align: center" rowspan="2">No</td>
+                                                <td style="vertical-align: middle; text-align: center; width: 35%" rowspan="2">Sumber Penghasilan</td>
                                                 <td style="vertical-align: middle; text-align: center" colspan="2">Volume</td>
-                                                <td style="vertical-align: bottom; text-align: center" rowspan="2">Penghasilan <br> Setahun (Rp)</td>
-                                                <td style="vertical-align: bottom; text-align: center; width: 15%" rowspan="2">Diekspor<br> 1. Semua<br> 2. Sebagian besar<br> 3. tidak </td>
+                                                <td style="vertical-align: middle; text-align: center" rowspan="2">Penghasilan <br> Setahun (Rp)</td>
+                                                <td style="vertical-align: middle; text-align: center; width: 15%" rowspan="2">Diekspor<br> 1. Semua<br> 2. Sebagian besar<br> 3. tidak </td>
                                             </tr>
                                             <tr>
-                                                <td style="vertical-align: bottom; text-align: center">Jumlah</td>
-                                                <td style="vertical-align: bottom; text-align: center">Satuan</td>
+                                                <td style="vertical-align: middle; text-align: center">Jumlah</td>
+                                                <td style="vertical-align: middle; text-align: center">Satuan</td>
                                             </tr>
-                                            <?php foreach ($get as $row) : ?>
-                                                <?php $sp = $get->sumber_penghasilan ?>
-                                                <?php $sumber = explode('|', $sp); ?>
-                                                <?php $jum = $get->jumlah ?>
-                                                <?php $jumlah = explode('|', $jum); ?>
-                                                <?php $st = $get->satuan ?>
-                                                <?php $satuan = explode('|', $st); ?>
-                                                <?php $ph = $get->penghasilan ?>
-                                                <?php $penghasilan = explode('|', $ph); ?>
-                                                <?php $eks = $get->ekspor ?>
-                                                <?php $ekspor = explode('|', $eks); ?>
-                                                <tr>
-                                                    <td style="vertical-align: middle; text-align: center"></td>
-                                                    <td style="vertical-align: middle; text-align: left"><?php $sumber ?></td>
-                                                    <td style="vertical-align: middle; text-align: center"><?php $jumlah ?></td>
-                                                    <td style="vertical-align: middle; text-align: center"><?php $satuan ?></td>
-                                                    <td style="vertical-align: middle; text-align: center"><?php $penghasilan ?></td>
-                                                    <td style="vertical-align: middle; text-align: center"><?php $ekspor ?></td>
-                                                </tr>
-                                            <?php endforeach ?>
+                                            <?php $sumber = explode('|', $get->sumber_penghasilan); ?>
+                                            <?php $jumlah = explode('|', $get->jumlah); ?>
+                                            <?php $satuan = explode('|', $get->satuan); ?>
+                                            <?php $penghasilan = explode('|', $get->penghasilan); ?>
+                                            <?php $ekspor = explode('|', $get->ekspor); ?>
+                                            <tr>
+                                                <td style="vertical-align: middle; text-align: center">1
+                                                </td>
+                                                <td style="vertical-align: middle; text-align: left">
+                                                    <?php foreach ($sumber as $row) : ?>
+                                                        <?= $row ?><br>
+                                                    <?php endforeach ?>
+                                                </td>
+                                                <td style="vertical-align: middle; text-align: center">
+                                                    <?php foreach ($jumlah as $row) : ?>
+                                                        <?= $row ?><br>
+                                                    <?php endforeach ?>
+                                                </td>
+                                                <td style="vertical-align: middle; text-align: center">
+                                                    <?php foreach ($satuan as $row) : ?>
+                                                        <?= $row ?><br>
+                                                    <?php endforeach ?>
+                                                </td>
+                                                <td style="vertical-align: middle; text-align: center">
+                                                    <?php foreach ($penghasilan as $row) : ?>
+                                                        <?= $row ?><br>
+                                                    <?php endforeach ?>
+                                                </td>
+                                                <td style="vertical-align: middle; text-align: center">
+                                                    <?php foreach ($ekspor as $row) : ?>
+                                                        <?= $row ?><br>
+                                                    <?php endforeach ?>
+                                                </td>
+                                            </tr>
                                         </table>
                                     </td>
                                 </tr>
@@ -468,6 +476,7 @@
                             </table>
                         </div>
                     </div>
+                    <?= form_close() ?>
                 </div>
             </div>
         </div>
