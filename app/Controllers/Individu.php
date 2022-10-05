@@ -85,6 +85,12 @@ class Individu extends BaseController
         return view('App\Views\individu\post-individu', $this->data);
     }
 
+    public function getJobClone()
+    {
+        $op1 = $this->request->getVar('op1');
+        return json_encode(implode('', $op1));
+    }
+
     public function edit()
     {
         $id = $this->request->getPost('id');
