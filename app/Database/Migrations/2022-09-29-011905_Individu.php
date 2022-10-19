@@ -15,7 +15,7 @@ class Individu extends Migration
                 'unsigned'        => true,
                 'auto_increment' => true
             ],
-            'user_id' => [
+            'id_desa' => [
                 'type'       => 'INT',
                 'constraint' => '6',
                 'unsigned'   => true,
@@ -155,7 +155,7 @@ class Individu extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('user_id', 'users', 'id', 'NO ACTION', 'CASCADE');
+        $this->forge->addForeignKey('id_desa', 'desa', 'id', 'NO ACTION', 'CASCADE');
         $this->forge->addForeignKey('pekerjaan_id', 'pekerjaan', 'id', 'SET NULL', 'CASCADE');
         $this->forge->addForeignKey('kesehatan_id', 'kesehatan', 'id', 'SET NULL', 'CASCADE');
         $this->forge->addForeignKey('pendidikan_id', 'pendidikan', 'id', 'SET NULL', 'CASCADE');

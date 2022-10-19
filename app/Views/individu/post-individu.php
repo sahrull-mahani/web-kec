@@ -110,7 +110,7 @@
                     </div>
                     <div class="form-group item col-md-4">
                       <label for="tgl_lahir">Tanggal Lahir</label>
-                      <input type="date" class="form-control" id="tgl_lahir" name="tgl_lahir" value="<?= date('Y-m-d', strtotime(@$get->tgl_lahir)) ?>" />
+                      <input type="date" class="form-control" id="tgl_lahir" name="tgl_lahir" value="<?= date('Y-m-d', @$get->tgl_lahir) ?>" />
                     </div>
                   </div>
                   <div class="row">
@@ -293,9 +293,9 @@
                   </div>
                   <label for="sumber_penghasilan">Penghasilan Setahun Terakhir Dari (Rp)</label>
                   <div class="row">
-                    <?php if (isset($get)) : ?>
+                    <?php if (count($getPenghasilan) > 0 ) : ?>
                       <div class="form-group item col-md-10">
-                        <?php $sumberpenghasilan = explode('|', $get->sumber_penghasilan) ?>
+                        <?php $sumberpenghasilan = explode('|', $getPenghasilan->sumber_penghasilan) ?>
                         <?php $defaults = array('' => 'Sumber Penghasilan');
                         $options = array(
                           'Padi' => 'Padi',

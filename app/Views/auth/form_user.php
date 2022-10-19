@@ -13,7 +13,7 @@
             <select name="desa" id="desa" class="form-control">
                 <option value="">--pilih desa--</option>
                 <?php foreach($desa as $row): ?>
-                        <option value="<?= $row->id ?>" <?php if($row->id == $user->desa_id && $action == 'update') {echo 'selected';} ?> ><?= $row->nama_desa ?></option>
+                        <option value="<?= $row->id ?>" <?php if($row->id == $user->id_desa && $action == 'update') {echo 'selected';} ?> ><?= $row->nama_desa ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
@@ -42,7 +42,7 @@
     <div class="form-group row mode2">
         <label for="jenis_user" class="col-sm-3 col-form-label">Jenis User **</label>
         <div class="col-sm-9 item">
-            <?php //if ($action == 'update') : ?>
+           
             <?php $no = 1;
                 foreach ($groups as $group) :
                     $gID = $group->id;
@@ -61,7 +61,7 @@
                     </div>
                 <?php $no++;
                 endforeach ?>
-                <?php// endif ?>
+                
             </div>
         </div>
     <div class="form-group row mode2">

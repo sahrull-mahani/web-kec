@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class IndividuM extends Model
 {
 	protected $table = 'individu';
-	protected $allowedFields = array('user_id', 'pekerjaan_id', 'kesehatan_id', 'pendidikan_id', 'no_kk', 'nik', 'nama', 'provinsi', 'kab_kota', 'kecamatan', 'kelurahan', 'dusun', 'alamat', 'jenis_kelamin', 'tempat_lahir', 'tgl_lahir', 'umur', 'status_nikah', 'agama', 'suku', 'kewarganegaraan', 'no_hp', 'no_wa', 'wajib_pajak', 'jumlah_pajak', 'keterangan', 'email', 'facebook', 'twitter', 'instagram');
+	protected $allowedFields = array('id_desa', 'kesehatan_id', 'pendidikan_id', 'no_kk', 'nik', 'nama', 'provinsi', 'kab_kota', 'kecamatan', 'kelurahan', 'dusun', 'alamat', 'jenis_kelamin', 'tempat_lahir', 'tgl_lahir', 'umur', 'status_nikah', 'agama', 'suku', 'kewarganegaraan', 'no_hp', 'no_wa', 'wajib_pajak', 'jumlah_pajak', 'keterangan', 'email', 'facebook', 'twitter', 'instagram','kondisi_pekerjaan','pekerjaan','jamsos');
 	protected $returnType     = 'object';
 	protected $useSoftDeletes = false;
 
@@ -73,10 +73,13 @@ class IndividuM extends Model
 	// 	'twitter' => ['required' => 'tidak boleh kosong', 'max_length' => 'Maximal 50 Karakter'],
 	// 	'instagram' => ['required' => 'tidak boleh kosong', 'max_length' => 'Maximal 50 Karakter'],
 	// ];
-	private function _get_datatables()
+	private function _get_datatables($where)
 	{
+
+		// dd($where);
 		$column_search = array('no_kk', 'nik', 'nama', 'provinsi', 'kab_kota', 'kecamatan', 'kelurahan', 'dusun', 'alamat', 'jenis_kelamin', 'tempat_lahir', 'tgl_lahir', 'umur', 'status_nikah', 'agama', 'suku', 'kewarganegaraan', 'no_hp', 'no_wa', 'wajib_pajak', 'jumlah_pajak', 'keterangan', 'email', 'facebook', 'twitter', 'instagram');
 		$i = 0;
+		// $this->select('individu.*, users.id AS users');
 		foreach ($column_search as $item) { // loop column 
 			if ($_GET['search']) {
 				if ($i === 0) {
@@ -96,19 +99,25 @@ class IndividuM extends Model
 			$this->orderBy('id', 'asc');
 		}
 		// $this->select('individu.*, nama');
-		//  $this->whereNotIn('id_kejadian',)
+		// $this->whereNotIn('id_kejadian',)
 		// $this->join('pekerjaan', 'pekerjaan.individu_id=individu.id');
+
+		$this->join('users','users.id = individu.user_id','INNER');
+        $this->where($where);
 	}
-	public function get_datatables()
+	public function get_datatables($where)
 	{
-		$this->_get_datatables();
+
+		$this->_get_datatables($where);
 		$limit = isset($_GET['limit']) ? $_GET['limit'] : 0;
 		$offset = isset($_GET['offset']) ? $_GET['offset'] : 0;
 		return $this->findAll($limit, $offset);
 	}
-	public function total()
+	public function total($where)
 	{
-		$this->_get_datatables();
+
+		// dd($where);
+		$this->_get_datatables($where);
 		if ($this->tempUseSoftDeletes) {
 			$this->where($this->table . '.' . $this->deletedField, null);
 		}

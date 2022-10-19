@@ -253,7 +253,7 @@ class IonAuthModel{
 		}
 		$this->triggerEvents('extra_where');
 		$query = $this->db->table($this->tables['users'])
-						  ->select($this->identityColumn . ', nama_user, email, users.id as id, password, active, last_login, img, groups.`name` as group_name, groups.id as group_id')
+						  ->select($this->identityColumn . ', nama_user, email, users.id as id, password, active, last_login, img, groups.`name` as group_name, groups.id as group_id, id_desa')
                           ->join('users_groups', 'users_groups.user_id = users.id')
                           ->join('groups', 'users_groups.group_id = groups.id')
 						  ->where($this->identityColumn, $identity)
@@ -375,7 +375,8 @@ class IonAuthModel{
             'nama_user'           => $user->nama_user,
             'userlevel'           => $user->group_name,
             'userLevelId'         => $user->group_id,
-            'user_id'             => $user->id, //everyone likes to overwrite id so we'll use user_id
+            'user_id'             => $user->id, 
+			'id_desa' 			  => $user->id_desa, //everyone likes to overwrite id so we'll use user_id
             // 'skpd_id'             => $user->skpd_id, //everyone likes to overwrite id so we'll use user_id
             'old_last_login'      => date('d-M-Y H:i:s'),
             'last_check'          => time(),
@@ -579,7 +580,7 @@ class IonAuthModel{
 			$builder->orderBy('id', 'asc');
         }
 		$builder->select('users.*, desa.nama_desa');
-		$builder->join('desa', 'desa.id=users.desa_id');
+		$builder->join('desa', 'desa.id=users.id_desa');
 	
         if($_GET['limit'] != -1) $builder->limit($_GET['limit'], $_GET['offset']);
         return $builder;

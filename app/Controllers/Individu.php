@@ -4,8 +4,10 @@ namespace App\Controllers;
 
 use App\Models\IndividuM;
 use App\Models\KesehatanM;
-use App\Models\PekerjaanM;
+// use App\Models\PekerjaanM;
 use App\Models\PendidikanM;
+use App\Models\PenghasilanM;
+use App\Models\DataPajakM;
 use CodeIgniter\I18n\Time;
 
 class Individu extends BaseController
@@ -14,13 +16,25 @@ class Individu extends BaseController
     {
         $this->individum = new IndividuM();
         $this->kesehatanm = new KesehatanM();
-        $this->pekerjaanm = new PekerjaanM();
+        $this->penghasilanm = new PenghasilanM();
         $this->pendidikanm = new PendidikanM();
+        $this->pajakm      = new DataPajakM();
         helper('number');
+        // dd(session('id_desa'));
+        // $id_individu = $this->individum->orderBy('id', 'DESC')->first()->id;
+        // dd($id_individu);
     }
     public function index()
     {
-        $this->data = array('title' => 'Kuisioner Individu | Admin', 'breadcome' => 'Kuisioner Individu', 'url' => 'individu/', 'm_open_individu' => 'menu-open', 'mm_individu' => 'active', 'm_individu' => 'active', 'session' => $this->session);
+        $this->data = array(
+            'title' => 'Kuisioner Individu | Admin',
+             'breadcome' => 'Kuisioner Individu',
+             'url' => 'individu/',
+             'm_open_individu' => 'menu-open',
+             'mm_individu' => 'active',
+             'm_individu' => 'active',
+             'session' => $this->session,
+        );
         // $data = $this->individum->where('jenis_kelamin', 'Laki - Laki')->countAllResults();
         echo view('App\Views\individu\individu_list', $this->data);
         // echo view('App\Views\individu\detail-individu', $this->data);
@@ -28,7 +42,12 @@ class Individu extends BaseController
 
     public function ajax_request()
     {
-        $list = $this->individum->get_datatables();
+
+        $where = session('id_desa');
+        
+       
+
+        $list = $this->individum->get_datatables($where);
         $data = array();
         $no = isset($_GET['offset']) ? $_GET['offset'] + 1 : 1;
         foreach ($list as $rows) {
@@ -54,8 +73,8 @@ class Individu extends BaseController
     {
         // $get = $this->individum->findAll();
         // dd($this->individum->orderBy('id', 'desc')->first()->id);
-        $this->data = array('title' => 'Post Kuisioner Individu | Admin', 'breadcome' => 'Post Kuisioner Individu', 'url' => 'individu/', 'm_open_individu' => 'menu-open', 'mm_individu' => 'active', 'm_post_individu' => 'active', 'session' => $this->session, 'provinsi' => getApi('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json'));
-
+        $this->data = array('title' => 'Post Kuisioner Individu | Admin', 'breadcome' => 'Post Kuisioner Individu', 'url' => 'individu/', 'm_open_individu' => 'menu-open', 'mm_individu' => 'active', 'm_post_individu' => 'active', 'session' => $this->session, 'provinsi' => getApi('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json'),'getPenghasilan' => $this->penghasilanm->findAll(),'get'=>$this->individum->findAll());
+        // dd($this->data);
         echo view('App\Views\individu\post-individu', $this->data);
     }
 
@@ -106,8 +125,8 @@ class Individu extends BaseController
 
         switch ($this->request->getPost('action')) {
             case 'insert':
-                $data =  array(
-                    'user_id'          => session('user_id'),
+                $individu =  array(
+                    'id_desa'          => session('id_desa'),
                     'no_kk'          => $this->request->getVar('no_kk'),
                     'nik'          => $this->request->getVar('nik'),
                     'nama'          => $this->request->getVar('nama'),
@@ -127,16 +146,16 @@ class Individu extends BaseController
                     'kewarganegaraan'          => $this->request->getVar('kewarganegaraan'),
                     'no_hp'          => $this->request->getVar('no_hp'),
                     'no_wa'          => $this->request->getVar('no_wa'),
-                    'wajib_pajak'          => $this->request->getVar('wajib_pajak'),
-                    'jumlah_pajak'          => $this->request->getVar('jumlah_pajak'),
-                    'keterangan'          => $this->request->getVar('keterangan'),
                     'email'          => $this->request->getVar('email'),
                     'facebook'          => $this->request->getVar('facebook'),
                     'twitter'          => $this->request->getVar('twitter'),
                     'instagram'          => $this->request->getVar('instagram'),
+                    'kondisi_pekerjaan'   => $this->request->getVar('kondisi_pekerjaan'),
+                    'pekerjaan'          => $this->request->getVar('pekerjaan'),
+                    'jamsos'          => $this->request->getVar('jamsos'),
                 );
 
-                $data2 =  array(
+                $kes =  array(
                     'bpjs_kes'          => $this->request->getVar('bpjs_kes'),
                     'muntaber_diare'          => $this->request->getVar('muntaber_diare'),
                     'hepatitis_e'          => $this->request->getVar('hepatitis_e'),
@@ -185,18 +204,16 @@ class Individu extends BaseController
                     'pasung'          => $this->request->getVar('pasung'),
                 );
 
-                $data3 =  array(
-                    'kondisi_pekerjaan'          => $this->request->getVar('kondisi_pekerjaan'),
-                    'pekerjaan'          => $this->request->getVar('pekerjaan'),
-                    'jamsos'          => $this->request->getVar('jamsos'),
-                    'sumber_penghasilan' => implode('|', $this->request->getVar('sumber_penghasilan')),
-                    'jumlah'          => implode('|', $this->request->getVar('jumlah')),
-                    'satuan'          => implode('|', $this->request->getVar('satuan')),
-                    'penghasilan'          => implode('|', $this->request->getVar('penghasilan')),
-                    'ekspor'          => implode('|', $this->request->getVar('ekspor')),
+                $penghasilan =  array(
+                    'sumber_penghasilan' =>  $this->request->getVar('sumber_penghasilan'),
+                    'tahun'         => date('Y'),
+                    'jumlah'          =>  $this->request->getVar('jumlah'),
+                    'satuan'          => $this->request->getVar('satuan'),
+                    'penghasilan'      => $this->request->getVar('penghasilan'),
+                    'ekspor'          => $this->request->getVar('ekspor'),
                 );
 
-                $data4 =  array(
+                $pendidikan =  array(
                     'pendidikan'          => $this->request->getVar('pendidikan'),
                     'bahasa_lokal'          => $this->request->getVar('bahasa_lokal'),
                     'bahasa_formal'          => $this->request->getVar('bahasa_formal'),
@@ -207,25 +224,24 @@ class Individu extends BaseController
                     'pertolongan_sakit'          => $this->request->getVar('pertolongan_sakit'),
                     'pertolongan_kecelakaan'          => $this->request->getVar('pertolongan_kecelakaan'),
                 );
+                $pajak = array(
+                    'wajib_pajak'          => $this->request->getVar('wajib_pajak'),
+                    'jumlah_pajak'          => $this->request->getVar('jumlah_pajak'),
+                    'keterangan'          => $this->request->getVar('keterangan'),
+                );
 
-                // if ($this->individum->insert($data)) {
-                //     $id_individu = $this->individum->orderBy('id', 'DESC')->first()->id;
-                //     $data2['individu_id'] = $id_individu;
-                //     $data3['individu_id'] = $id_individu;
-                //     $data4['individu_id'] = $id_individu;
-                //     $this->kesehatanm->insert($data2);
-                //     $this->pekerjaanm->insert($data3);
-                //     $this->pendidikanm->insert($data4);
-                if ($this->kesehatanm->insert($data2)) {
-                    $this->pekerjaanm->insert($data3);
-                    $this->pendidikanm->insert($data4);
+                if ($this->kesehatanm->insert($kes)) {
                     $id_kesehatan = $this->kesehatanm->orderBy('id', 'DESC')->first()->id;
-                    $id_pekerjaan = $this->pekerjaanm->orderBy('id', 'DESC')->first()->id;
-                    $id_pendidikan = $this->pendidikanm->orderBy('id', 'DESC')->first()->id;
-                    $data['kesehatan_id'] = $id_kesehatan;
-                    $data['pekerjaan_id'] = $id_pekerjaan;
-                    $data['pendidikan_id'] = $id_pendidikan;
-                    $this->individum->insert($data);
+                    $individu['kesehatan_id'] = $id_kesehatan;
+                    $this->individum->insert($individu);
+                    $id_individu = $this->individum->orderBy('id', 'DESC')->first()->id;
+                    $penghasilan['individu_id'] = $id_individu;
+                    $pendidikan['individu_id'] = $id_individu;
+                    $pajak['individu_id'] = $id_individu;
+                    $this->penghasilanm->insert($penghasilan);
+                    $this->pendidikanm->insert($pendidikan);
+                    $this->pajakm->insert($pajak);
+
                     $status['title'] = 'success';
                     $status['type'] = 'success';
                     $status['text'] = 'Kuisioner Individu Baru Telah Di Tambahkan';
