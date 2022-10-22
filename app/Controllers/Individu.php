@@ -42,12 +42,7 @@ class Individu extends BaseController
 
     public function ajax_request()
     {
-
-        $where = session('id_desa');
-        
-       
-
-        $list = $this->individum->get_datatables($where);
+        $list = $this->individum->get_datatables();
         $data = array();
         $no = isset($_GET['offset']) ? $_GET['offset'] + 1 : 1;
         foreach ($list as $rows) {
@@ -74,7 +69,7 @@ class Individu extends BaseController
         // $get = $this->individum->findAll();
         // dd($this->individum->orderBy('id', 'desc')->first()->id);
         $this->data = array('title' => 'Post Kuisioner Individu | Admin', 'breadcome' => 'Post Kuisioner Individu', 'url' => 'individu/', 'm_open_individu' => 'menu-open', 'mm_individu' => 'active', 'm_post_individu' => 'active', 'session' => $this->session, 'provinsi' => getApi('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json'),'getPenghasilan' => $this->penghasilanm->findAll(),'get'=>$this->individum->findAll());
-        // dd($this->data);
+        // dd($this->penghasilanm->findAll());
         echo view('App\Views\individu\post-individu', $this->data);
     }
 
@@ -234,10 +229,13 @@ class Individu extends BaseController
                     $id_kesehatan = $this->kesehatanm->orderBy('id', 'DESC')->first()->id;
                     $individu['kesehatan_id'] = $id_kesehatan;
                     $this->individum->insert($individu);
-                    $id_individu = $this->individum->orderBy('id', 'DESC')->first()->id;
-                    $penghasilan['individu_id'] = $id_individu;
-                    $pendidikan['individu_id'] = $id_individu;
-                    $pajak['individu_id'] = $id_individu;
+                    $id_individu = $this->individum->getInsertID();
+                    $penghasilan['individu_id'][0] = $id_individu;
+                    $pendidikan['id_individu'][0] = $id_individu;
+                    $pajak['individu_id'][0] = $id_individu;
+                    $pajak['id_desa'][0] = session('id_desa');
+                    // print_r($pajak);
+                    // die;
                     $this->penghasilanm->insert($penghasilan);
                     $this->pendidikanm->insert($pendidikan);
                     $this->pajakm->insert($pajak);

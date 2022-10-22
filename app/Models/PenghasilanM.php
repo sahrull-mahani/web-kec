@@ -8,6 +8,7 @@ class PenghasilanM extends Model
 {
     protected $table = "penghasilan";
     protected $allowedFields = [
+        'individu_id',
         'sumber_penghasilan',
         'jumlah',
         'tahun',

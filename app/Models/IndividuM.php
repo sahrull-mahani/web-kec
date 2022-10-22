@@ -73,13 +73,10 @@ class IndividuM extends Model
 	// 	'twitter' => ['required' => 'tidak boleh kosong', 'max_length' => 'Maximal 50 Karakter'],
 	// 	'instagram' => ['required' => 'tidak boleh kosong', 'max_length' => 'Maximal 50 Karakter'],
 	// ];
-	private function _get_datatables($where)
+	private function _get_datatables()
 	{
-
-		// dd($where);
 		$column_search = array('no_kk', 'nik', 'nama', 'provinsi', 'kab_kota', 'kecamatan', 'kelurahan', 'dusun', 'alamat', 'jenis_kelamin', 'tempat_lahir', 'tgl_lahir', 'umur', 'status_nikah', 'agama', 'suku', 'kewarganegaraan', 'no_hp', 'no_wa', 'wajib_pajak', 'jumlah_pajak', 'keterangan', 'email', 'facebook', 'twitter', 'instagram');
 		$i = 0;
-		// $this->select('individu.*, users.id AS users');
 		foreach ($column_search as $item) { // loop column 
 			if ($_GET['search']) {
 				if ($i === 0) {
@@ -98,26 +95,21 @@ class IndividuM extends Model
 		} else {
 			$this->orderBy('id', 'asc');
 		}
-		// $this->select('individu.*, nama');
-		// $this->whereNotIn('id_kejadian',)
-		// $this->join('pekerjaan', 'pekerjaan.individu_id=individu.id');
-
-		$this->join('users','users.id = individu.user_id','INNER');
-        $this->where($where);
+		if (!is_admin()) {
+			$this->where('id_desa', session('id_desa'));
+		}
 	}
-	public function get_datatables($where)
+	public function get_datatables()
 	{
 
-		$this->_get_datatables($where);
+		$this->_get_datatables();
 		$limit = isset($_GET['limit']) ? $_GET['limit'] : 0;
 		$offset = isset($_GET['offset']) ? $_GET['offset'] : 0;
 		return $this->findAll($limit, $offset);
 	}
-	public function total($where)
+	public function total()
 	{
-
-		// dd($where);
-		$this->_get_datatables($where);
+		$this->_get_datatables();
 		if ($this->tempUseSoftDeletes) {
 			$this->where($this->table . '.' . $this->deletedField, null);
 		}
