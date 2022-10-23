@@ -115,6 +115,14 @@ class IndividuM extends Model
 		}
 		return $this->get()->getNumRows();
 	}
+
+	public function getJoinPajakKesPendPeng()
+	{
+		$this->join('kesehatan kes', 'kes.id = individu.kesehatan_id');
+		$this->join('datapajak p', 'p.individu_id = individu.id');
+		$this->join('pendidikan pend', 'pend.id_individu = individu.id');
+		return $this->join('penghasilan peng', 'peng.individu_id = individu.id');
+	}
 }
 /* End of file IndividuM.php */
 /* Location: ./app/models/IndividuM.php */

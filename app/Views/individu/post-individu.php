@@ -110,7 +110,7 @@
                     </div>
                     <div class="form-group item col-md-4">
                       <label for="tgl_lahir">Tanggal Lahir</label>
-                      <input type="date" class="form-control" id="tgl_lahir" name="tgl_lahir" value="<?= date('Y-m-d', @$get->tgl_lahir) ?>" />
+                      <input type="date" class="form-control" id="tgl_lahir" name="tgl_lahir" value="<?= date('Y-m-d', strtotime(@$get->tgl_lahir)) ?>" />
                     </div>
                   </div>
                   <div class="row">
@@ -291,101 +291,112 @@
                       ?>
                     </div>
                   </div>
-                  <label for="sumber_penghasilan">Penghasilan Setahun Terakhir Dari (Rp)</label>
-                  <div class="row">
-                    <div class="form-group item col-md-10">
-                      <?php $sumberpenghasilan = count($getPenghasilan) > 0 ? explode('|', $getPenghasilan[0]->sumber_penghasilan) : [] ?>
-                      <?php $defaults = array('' => 'Sumber Penghasilan');
-                      $options = array(
-                        'Padi' => 'Padi',
-                        'Palawija (Jagung, Kacang-kacangan, Ubi-ubian, Dll)' => 'Palawija (Jagung, Kacang-kacangan, Ubi-ubian, Dll)',
-                        'Hortikultura (Buah-buahan, Sayur-sayuran, Tanaman Hias, Tanaman Obat-obatan, Dll)' => 'Hortikultura (Buah-buahan, Sayur-sayuran, Tanaman Hias, Tanaman Obat-obatan, Dll)',
-                        'Karet' => 'Karet',
-                        'Kelapa Sawit' => 'Kelapa Sawit',
-                        'Kakao' => 'Kakao',
-                        'Kelapa' => 'Kelapa',
-                        'Lada' => 'Lada',
-                        'Cengkeh' => 'Cengkeh',
-                        'Tembakau' => 'Tembakau',
-                        'Tebu' => 'Tebu',
-                        'Sapi Potong' => 'Sapi Potong',
-                        'Susu Sapi' => 'Susu Sapi',
-                        'Domba' => 'Domba',
-                        'Ternak Besar Lainnya (Kuda, Kerbau, Dll)' => 'Ternak Besar Lainnya (Kuda, Kerbau, Dll)',
-                        'Ayam Pedaging' => 'Ayam Pedaging',
-                        'Telur Ayam' => 'Telur Ayam',
-                        'Ternak Kecil Lainnya (Bebek, Burung, Dll)' => 'Ternak Kecil Lainnya (Bebek, Burung, Dll)',
-                        'Perikanan Tangkap (Termasuk Biota Lainnya)' => 'Perikanan Tangkap (Termasuk Biota Lainnya)',
-                        'Perikanan Budidaya (Termasuk Biota Lainnya)' => 'Perikanan Budidaya (Termasuk Biota Lainnya)',
-                        'Bambu' => 'Bambu',
-                        'Budidaya Tanaman Kehutanan (Jati, Mahoni, Sengon, Dll)' => 'Budidaya Tanaman Kehutanan (Jati, Mahoni, Sengon, Dll)',
-                        'Pemungutan Hasil Hutan (Madu, Gaharu, Buah-buahan, Kayu Bakar, Rotan, Dll)' => 'Pemungutan Hasil Hutan (Madu, Gaharu, Buah-buahan, Kayu Bakar, Rotan, Dll)',
-                        'Penangkapan Satwa Liar (Babi, Ayam Hutan, Kijang, Dll)' => 'Penangkapan Satwa Liar (Babi, Ayam Hutan, Kijang, Dll)',
-                        'Penangkaran Satwa Liar (Arwana, Buaya, Dll)' => 'Penangkaran Satwa Liar (Arwana, Buaya, Dll)',
-                        'Jasa Pertanian (Sewa Traktor, Penggilingan, Dll)' => 'Jasa Pertanian (Sewa Traktor, Penggilingan, Dll)',
-                        'Pertambangan dan Penggalian' => 'Pertambangan dan Penggalian',
-                        'Industri Kerajinan' => 'Industri Kerajinan',
-                        'Industri Pengolahan' => 'Industri Pengolahan',
-                        'Perdagangan' => 'Perdagangan',
-                        'Warung dan Rumah Makan' => 'Warung dan Rumah Makan',
-                        'Angkutan' => 'Angkutan',
-                        'Pergudangan' => 'Pergudangan',
-                        'Komunikasi' => 'Komunikasi',
-                        'Jasa Di Luar Pertanian' => 'Jasa Di Luar Pertanian',
-                        'Karyawan Tetap' => 'Karyawan Tetap',
-                        'Karyawan Tidak Tetap' => 'Karyawan Tidak Tetap',
-                        'TNI' => 'TNI',
-                        'PNS' => 'PNS',
-                        'TKI Di Luar Negeri' => 'TKI Di Luar Negeri',
-                        'Sumbangan (Dari Keluarga, Dari Pemerintah)' => 'Sumbangan (Dari Keluarga, Dari Pemerintah)',
-                        'Lainnya' => 'Lainnya'
-                      );
-                      echo form_dropdown('sumber_penghasilan[]', $defaults + $options, (isset($sumberpenghasilan)) ? current($sumberpenghasilan) : '', 'class="form-control select2" id="sumber_penghasilan" ');
-                      ?>
-                    </div>
-                    <div class="form-group item col-md-2">
-                      <?php $jumlah = count($getPenghasilan) > 0 ? explode('|', $getPenghasilan[0]->jumlah) : [] ?>
-                      <input type="text" class="form-control" id="jumlah" name="jumlah[]" placeholder="Jumlah" value="<?= @current($jumlah) ?>" />
+                  <input type="text" name="tahun[]" id="tahun" class="form-control" value="<?= @$get->tahun ?>" placeholder="Tahun contoh:<?= date('Y') ?>">
+
+
+                  <div id="job-clone" data-edit="<?= @$get->individu_id ?>">
+                    <div class="property-fields__rows">
+                      <div id="property-fields__row-1" class="property-fields__row property-fields__row-item row">
+                        <div class="line-item-property__field line-item-property__team col-sm">
+                          <div class="row">
+                            <div class="form-group item col-md-10">
+                              <label for="team-name">Sumber Penghasilan</label>
+                              <?php $defaults = array('' => 'Sumber Penghasilan');
+                              $options = array(
+                                'Padi' => 'Padi',
+                                'Palawija (Jagung, Kacang-kacangan, Ubi-ubian, Dll)' => 'Palawija (Jagung, Kacang-kacangan, Ubi-ubian, Dll)',
+                                'Hortikultura (Buah-buahan, Sayur-sayuran, Tanaman Hias, Tanaman Obat-obatan, Dll)' => 'Hortikultura (Buah-buahan, Sayur-sayuran, Tanaman Hias, Tanaman Obat-obatan, Dll)',
+                                'Karet' => 'Karet',
+                                'Kelapa Sawit' => 'Kelapa Sawit',
+                                'Kakao' => 'Kakao',
+                                'Kelapa' => 'Kelapa',
+                                'Lada' => 'Lada',
+                                'Cengkeh' => 'Cengkeh',
+                                'Tembakau' => 'Tembakau',
+                                'Tebu' => 'Tebu',
+                                'Sapi Potong' => 'Sapi Potong',
+                                'Susu Sapi' => 'Susu Sapi',
+                                'Domba' => 'Domba',
+                                'Ternak Besar Lainnya (Kuda, Kerbau, Dll)' => 'Ternak Besar Lainnya (Kuda, Kerbau, Dll)',
+                                'Ayam Pedaging' => 'Ayam Pedaging',
+                                'Telur Ayam' => 'Telur Ayam',
+                                'Ternak Kecil Lainnya (Bebek, Burung, Dll)' => 'Ternak Kecil Lainnya (Bebek, Burung, Dll)',
+                                'Perikanan Tangkap (Termasuk Biota Lainnya)' => 'Perikanan Tangkap (Termasuk Biota Lainnya)',
+                                'Perikanan Budidaya (Termasuk Biota Lainnya)' => 'Perikanan Budidaya (Termasuk Biota Lainnya)',
+                                'Bambu' => 'Bambu',
+                                'Budidaya Tanaman Kehutanan (Jati, Mahoni, Sengon, Dll)' => 'Budidaya Tanaman Kehutanan (Jati, Mahoni, Sengon, Dll)',
+                                'Pemungutan Hasil Hutan (Madu, Gaharu, Buah-buahan, Kayu Bakar, Rotan, Dll)' => 'Pemungutan Hasil Hutan (Madu, Gaharu, Buah-buahan, Kayu Bakar, Rotan, Dll)',
+                                'Penangkapan Satwa Liar (Babi, Ayam Hutan, Kijang, Dll)' => 'Penangkapan Satwa Liar (Babi, Ayam Hutan, Kijang, Dll)',
+                                'Penangkaran Satwa Liar (Arwana, Buaya, Dll)' => 'Penangkaran Satwa Liar (Arwana, Buaya, Dll)',
+                                'Jasa Pertanian (Sewa Traktor, Penggilingan, Dll)' => 'Jasa Pertanian (Sewa Traktor, Penggilingan, Dll)',
+                                'Pertambangan dan Penggalian' => 'Pertambangan dan Penggalian',
+                                'Industri Kerajinan' => 'Industri Kerajinan',
+                                'Industri Pengolahan' => 'Industri Pengolahan',
+                                'Perdagangan' => 'Perdagangan',
+                                'Warung dan Rumah Makan' => 'Warung dan Rumah Makan',
+                                'Angkutan' => 'Angkutan',
+                                'Pergudangan' => 'Pergudangan',
+                                'Komunikasi' => 'Komunikasi',
+                                'Jasa Di Luar Pertanian' => 'Jasa Di Luar Pertanian',
+                                'Karyawan Tetap' => 'Karyawan Tetap',
+                                'Karyawan Tidak Tetap' => 'Karyawan Tidak Tetap',
+                                'TNI' => 'TNI',
+                                'PNS' => 'PNS',
+                                'TKI Di Luar Negeri' => 'TKI Di Luar Negeri',
+                                'Sumbangan (Dari Keluarga, Dari Pemerintah)' => 'Sumbangan (Dari Keluarga, Dari Pemerintah)',
+                                'Lainnya' => 'Lainnya'
+                              );
+                              echo form_dropdown('sumber_penghasilan[]', $defaults + $options, isset($get) ? $get->sumber_penghasilan : '', 'class="custom-select" id="sumber-penghasilan"');
+                              ?>
+                            </div>
+                            <div class="form-group item col-md-2">
+                              <label for="team-name">Jumlah</label>
+                              <input type="text" class="form-control" id="jumlah" name="jumlah[]" placeholder="Jumlah" value="<?= @$get->jumlah ?>" />
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="form-group item col-md-4">
+                              <label for="team-name">Satuan</label>
+                              <?php $defaults = array('' => 'Satuan');
+                              $options = array(
+                                'Batang' => 'Batang',
+                                'Bulan' => 'Bulan',
+                                'Ekor' => 'Ekor',
+                                'Hari' => 'Hari',
+                                'Kg' => 'Kg',
+                                'Liter' => 'Liter',
+                                'Ton' => 'Ton',
+                              );
+                              echo form_dropdown('satuan[]', $defaults + $options, isset($get) ? $get->satuan : '', 'class="custom-select" id="satuan" ');
+                              ?>
+                            </div>
+                            <div class="form-group item col-md-3">
+                              <label for="team-name">Penghasilan</label>
+                              <input type="text" class="form-control" id="penghasilan" name="penghasilan[]" placeholder="Penghasilan Setahun (Rp)" value="<?= isset($get) ? $get->penghasilan : '' ?>" />
+                            </div>
+                            <div class="form-group item col-md">
+                              <label for="team-name">Ekspor</label>
+                              <?php $defaults = array('' => 'Ekspor :');
+                              $options = array(
+                                'Semua' => 'Semua',
+                                'Sebagian Besar' => 'Sebagian Besar',
+                                'Tidak' => 'Tidak'
+                              );
+                              echo form_dropdown('ekspor[]', $defaults + $options, isset($get) ? $get->ekspor : '', 'class="custom-select" id="ekspor" ');
+                              ?>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="line-item-property__actions mt-1 mb-3">
+                        <button type="button" id="btnAdd" class="btn btn-primary btn-sm">+</button>
+                        <button type="button" id="btnDel" class="btn btn-danger btn-sm">-</button>
+                      </div>
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="form-group item col-md-4">
-                      <?php $defaults = array('' => 'Satuan');
-                      $options = array(
-                        'Batang' => 'Batang',
-                        'Bulan' => 'Bulan',
-                        'Ekor' => 'Ekor',
-                        'Hari' => 'Hari',
-                        'Kg' => 'Kg',
-                        'Liter' => 'Liter',
-                        'Ton' => 'Ton',
-                      );
-                      echo form_dropdown('satuan[]', $defaults + $options, (count($getPenghasilan) > 0) ? explode('|', $getPenghasilan[0]->satuan)[0] : '', 'class="form-control select2" id="satuan" ');
-                      ?>
-                    </div>
-                    <div class="form-group item col-md-3">
-                      <?php //$penghasilan = explode('|', $get->penghasilan) 
-                      ?>
-                      <input type="text" class="form-control" id="penghasilan" name="penghasilan[]" placeholder="Penghasilan Setahun (Rp)" value="<?= count($getPenghasilan) > 0 ? explode('|', $getPenghasilan[0]->penghasilan)[0] : '' ?>" />
-                    </div>
-                    <div class="form-group item col-md-3">
-                      <?php //$ekspor = explode('|', $get->ekspor) 
-                      ?>
-                      <?php $defaults = array('' => 'Ekspor :');
-                      $options = array(
-                        'Semua' => 'Semua',
-                        'Sebagian Besar' => 'Sebagian Besar',
-                        'Tidak' => 'Tidak'
-                      );
-                      echo form_dropdown('ekspor[]', $defaults + $options, (count($getPenghasilan) > 0) ? explode('|', $getPenghasilan[0]->ekspor)[0] : '', 'class="form-control select2" id="ekspor" ');
-                      ?>
-                    </div>
-                    <div class="form-group item col-md-2">
-                      <button id="rowAdder" type="button" data-edit="<?= count($getPenghasilan) > 0 ? count(explode('|', $getPenghasilan[0]->satuan)) : 0 ?>" class="btn btn-primary float-right"><i class="bi bi-plus"></i> Tambah</button>
-                    </div>
-                  </div>
-                  <div id="newinput">
-                  </div>
+
+
                   <button type="button" class="btn btn-sm btn-secondary btn-user float-left" onclick="Step()">Sebelumnya</button>
                   <button type="button" class="btn btn-sm btn-primary btn-user float-right" onclick="Step3()">Selanjutnya</button>
                 </div>
