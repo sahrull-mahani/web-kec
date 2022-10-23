@@ -175,7 +175,6 @@ $.post({
         let data = $.parseJSON(res)
         let total = data.total
         var num = $('.property-fields__row').length;
-        alert(num)
         var newNum = num + 1;
         var newElem = $('#property-fields__row-1').clone().attr('id', 'property-fields__row-' + newNum);
 
