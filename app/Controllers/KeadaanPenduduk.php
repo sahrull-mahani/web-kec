@@ -6,6 +6,7 @@ use App\Models\IndividuM;
 use App\Models\KeadaanPendudukM;
 use App\Models\KesehatanM;
 use App\Models\PekerjaanM;
+
 use CodeIgniter\I18n\Time;
 
 class KeadaanPenduduk extends BaseController
@@ -33,7 +34,7 @@ class KeadaanPenduduk extends BaseController
             $row = array();
             $row['id'] = $rows->id;
             $row['nomor'] = $no++;
-            $row['dusun'] = $rows->dusun;
+            $row['nama_dusun'] = $rows->nama_dusun;
             $row['no_kk'] = $rows->no_kk;
             $row['nik'] = $rows->nik;
             $row['nama'] = ucwords($rows->nama);
@@ -71,9 +72,11 @@ class KeadaanPenduduk extends BaseController
     public function keadaan()
     {
         $id = $this->request->getPost('value');
-        // $get = $this->individum->select('individu.*, k.*, pk.*, pd.*, k.id kesID, pk.id pekID, pd.id penID')->join('pekerjaan pk', 'pk.individu_id = individu.id')->join('kesehatan k', 'k.individu_id = individu.id')->join('pendidikan pd', 'pd.individu_id = individu.id')->where('individu.id', $id)->first();
-        if ($this->individum->select('individu.*, k.*, pk.*, pd.*, k.id kesID, pk.id pekID, pd.id penID')->join('pekerjaan pk', 'pk.id = individu.pekerjaan_id')->join('kesehatan k', 'k.id = individu.kesehatan_id')->join('pendidikan pd', 'pd.id = individu.pendidikan_id')->where('individu.id', $id)->countAllResults() > 0) {
-            return json_encode(['data' => $this->individum->select('individu.*, k.*, pk.*, pd.*, k.id kesID, pk.id pekID, pd.id penID')->join('pekerjaan pk', 'pk.id = individu.pekerjaan_id')->join('kesehatan k', 'k.id = individu.kesehatan_id')->join('pendidikan pd', 'pd.id = individu.pendidikan_id')->where('individu.id', $id)->first()]);
+
+        // dd($this->individum->getJoinKeadaan()->where('id', $id));
+
+        if ($this->individum->getJoinPajakKesPendPeng()->where('individu.id', $id)->countAllResults() > 0) {
+            return json_encode(['data' => $this->individum->getJoinPajakKesPendPeng()->where('individu.id', $id)->first()]);
         }
         return '404';
     }
@@ -125,7 +128,7 @@ class KeadaanPenduduk extends BaseController
                 // $files = $this->request->getFileMultiple('userfile');
 
                 $data =  array(
-                    'user_id'          => session('user_id'),
+                    'dusun_id'          => $this->request->getVar('dusun_id'),
                     'individu_id'          => $this->request->getVar('individu_id'),
                 );
                 if ($this->keadaanpendudukm->insert($data)) {
@@ -144,7 +147,7 @@ class KeadaanPenduduk extends BaseController
                 $id = $this->request->getPost('id');
                 // $files = $this->request->getFileMultiple('userfile');
                 $data =  array(
-                    'user_id'          => session('user_id'),
+                    'id_desa'          => session('id_desa'),
                     'individu_id'          => $this->request->getPost('individu_id'),
                 );
                 if ($this->keadaanpendudukm->update($id, $data)) {

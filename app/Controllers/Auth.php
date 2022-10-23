@@ -190,7 +190,7 @@ class Auth extends BaseController
                     $additionalData = [
                         'nama_user' => $this->request->getPost('nama_user'),
                         'phone' => $this->request->getPost('phone'),
-                        'desa_id' => $this->request->getPost('desa'),
+                        'id_desa' => $this->request->getPost('desa'),
                     ];
 
                     if ($this->ionAuth->isAdmin()) {
@@ -265,7 +265,7 @@ class Auth extends BaseController
                   
                         'nama_user' => $this->request->getPost('nama_user'),
                         'phone' => $this->request->getPost('phone'),
-                        'desa_id' => $this->request->getPost('desa'),
+                        'id_desa' => $this->request->getPost('desa'),
                         'email' => $email,
                     ];
                     if ($identityColumn === 'username') {

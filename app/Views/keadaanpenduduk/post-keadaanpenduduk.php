@@ -38,8 +38,9 @@
                             <div class="col-md-12">
                                 <div class="form-group item">
                                     <label for="dusun">Dusun</label>
-                                    <input type="text" class="form-control" id="dusun" name="dusun" placeholder="Dusun" value="<?= @$data->dusun ?>" required />
-                                </div>
+                                    <input type="text" class="form-control" id="dusun" name="nama_dusun" placeholder="Dusun" value="<?= @$data->dusun_id?>" required />
+                                    <input type="hidden" id="dusun_id" name="dusun_id" value="<?= @$data->dusun_id ?>">
+                                </div> 
                                 <div class="row">
                                     <div class="form-group item col-md-6">
                                         <label for="no_kk">Nomor Kartu Keluarga</label>
@@ -47,7 +48,7 @@
                                     </div>
                                     <div class="form-group item col-md-6">
                                         <label for="nik">Nomor Induk Kependudukan</label>
-                                        <select name="individu_id" id="nik" class="form-control">
+                                        <select name="individu_id" id="nik_kp" class="form-control">
                                             <option value="" disabled <?= (isset($get->individu_id) ? '' : 'selected') ?>>--Pilih NIK--</option>
                                             <?php foreach ($individu as $row) : ?>
                                                 <option value="<?= $row->id; ?>" <?= (isset($get->individu_id) ? ($get->individu_id == $row->id ? 'selected' : '') : '') ?>><?= $row->nik . ' - ' . ucwords($row->nama) ?></option>

@@ -75,7 +75,8 @@ class DataPajak extends BaseController
             'session' => $this->session,
             'individu' => $this->individum->findall(),
             'get' => $get,
-            'data' => $this->datapajakm->select('datapajak.*, ind.*, k.*, pk.*, pd.*, k.id kesID, pk.id pekID, pd.id kpID')->join('individu ind', 'ind.id = datapajak.individu_id')->join('kesehatan k', 'k.individu_id = ind.id')->join('pekerjaan pk', 'pk.individu_id = ind.id')->join('pendidikan pd', 'pd.individu_id = ind.id')->where('datapajak.id', $id)->first()
+            // 'data1' => $this->datapajakm->select('datapajak.*, ind.*, k.*, pk.*, pd.*, k.id kesID, pk.id pekID, pd.id kpID')->join('individu ind', 'ind.id = datapajak.individu_id')->join('kesehatan k', 'k.individu_id = ind.id')->join('pekerjaan pk', 'pk.individu_id = ind.id')->join('pendidikan pd', 'pd.individu_id = ind.id')->where('datapajak.id', $id)->first(),
+            'data' => $this->datapajakm->getJoinDataPajak()->where('datapajak.id', $id)->first()
         );
 
         return view('App\Views\datapajak\post-datapajak', $this->data);

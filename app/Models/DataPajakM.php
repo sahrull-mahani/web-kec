@@ -57,4 +57,18 @@ class DataPajakM extends Model
     }
     return $this->get()->getNumRows();
   }
+
+  public function getJoinDataPajak(){
+
+    return $this->join('individu ind', 'ind.id = datapajak.individu_id');
+    // $this->join('kesehatan k', 'k.individu_id = ind.id');
+    // $this->join('pendidikan pd', 'pd.individu_id = ind.id');
+
+    // $this->join('kesehatan kes', 'kes.id = individu.kesehatan_id');
+		// $this->join('datapajak p', 'p.individu_id = individu.id');
+		// $this->join('pendidikan pend', 'pend.individu_id = individu.id');
+		// return $this->join('penghasilan peng', 'peng.individu_id = individu.id');
+  }
+
+
 }

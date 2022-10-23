@@ -110,7 +110,17 @@
                     </div>
                     <div class="form-group item col-md-4">
                       <label for="tgl_lahir">Tanggal Lahir</label>
-                      <input type="date" class="form-control" id="tgl_lahir" name="tgl_lahir" value="<?= date('Y-m-d', strtotime(@$get->tgl_lahir)) ?>" />
+                      <?php 
+                        switch($btn){
+                          case 'post':
+                            $tgl_lahir = date('Y-m-d', @$get->tgl_lahir);
+                          break;
+                          case 'edit':
+                            $tgl_lahir = date('Y-m-d', strtotime(@$get->tgl_lahir));
+                          break;
+                        }
+                      ?>
+                      <input type="date" class="form-control" id="tgl_lahir" name="tgl_lahir" value="<?= $tgl_lahir; ?>" />
                     </div>
                   </div>
                   <div class="row">

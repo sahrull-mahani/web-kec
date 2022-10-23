@@ -352,9 +352,8 @@ $('#dusun').on('change', function() {
     })
 })
 
-$('#nik').on('change',function(){
+$('#nik_kp').on('change',function(){
     let val = $(this).val()
-
     $.ajax({
         url: location.origin + '/KeadaanPenduduk/keadaan',
         type: 'POST',
@@ -366,7 +365,8 @@ $('#nik').on('change',function(){
             }else{
                 $('#no_kk').val(data.data.no_kk)
                 $('#nama').val(data.data.nama)
-                $('#dusun').val(data.data.dusun)
+                $('#dusun').val(data.data.nama_dusun);
+                $('#dusun_id').val(data.data.dusun_id);
                 $('#pekerjaan option[value="' + data.data.pekerjaan + '"]').prop('selected', true);
                 $('#muntaber_diare option[value="' + data.data.muntaber_diare + '"]').prop('selected', true);
                 $('#hepatitis_e option[value="' + data.data.hepatitis_e + '"]').prop('selected', true);
@@ -416,6 +416,18 @@ $('#individu').on('change',function(){
         }
     })
 })
+
+// $('#nik_kp').on('change', function(){
+//     let val = $(this).val()
+//     $.ajax({
+
+//         url:location.origin + 'KeadaanPenduduk/keadaan',
+//         type:'POST',
+//         data: {value:val},
+
+
+//     });
+// });
 
 $('#nik_pajak').on('change',function(){
     let val = $(this).val()

@@ -45,7 +45,7 @@
                                         <th data-field="state" data-checkbox="true"></th>
                                         <th data-field="id" data-visible="false">ID</th>
                                         <th data-field="nomor">No</th>
-                                        <th data-field="dusun">Dusun</th>
+                                        <th data-field="nama_dusun">Dusun</th>
                                         <th data-field="no_kk">NKK</th>
                                         <th data-field="nik">NIK</th>
                                         <th data-field="nama">Nama</th>

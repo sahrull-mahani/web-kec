@@ -72,7 +72,7 @@
                                     </div>
                                     <div class="form-group item col-md-4">
                                         <label for="jumlah">Besarnya (Rp)</label>
-                                        <input type="text" class="form-control" id="jumlah" name="jumlah" placeholder="Jumlah Pajak" value="<?= @$data->jumlah ?>" readonly />
+                                        <input type="text" class="form-control" id="jumlah_pajak" name="jumlah_pajak" placeholder="Jumlah Pajak" value="<?= @$data->jumlah_pajak ?>" readonly />
                                     </div>
                                     <div class="form-group item col-md-4">
                                         <label for="keterangan">Keterangan</label>

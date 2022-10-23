@@ -20,23 +20,15 @@ class Individu extends Migration
                 'constraint' => '6',
                 'unsigned'   => true,
             ],
-            'pekerjaan_id' => [
-                'type' => 'int',
-                'constraint' => 11,
-                'unsigned' => true,
-                'null' => true
-            ],
             'kesehatan_id' => [
                 'type' => 'int',
                 'constraint' => 11,
                 'unsigned' => true,
                 'null' => true
             ],
-            'pendidikan_id' => [
-                'type' => 'int',
-                'constraint' => 11,
-                'unsigned' => true,
-                'null' => true
+            'dusun_id'     => [
+                'type'          => 'INT',
+                'constraint' => 6,
             ],
             'no_kk'     => [
                 'type'          => 'CHAR',
@@ -66,10 +58,7 @@ class Individu extends Migration
                 'type'          => 'CHAR',
                 'constraint' => 150,
             ],
-            'dusun'     => [
-                'type'          => 'CHAR',
-                'constraint' => 150,
-            ],
+
             'alamat'     => [
                 'type'          => 'VARCHAR',
                 'constraint' => 255,
@@ -113,18 +102,18 @@ class Individu extends Migration
                 'type'          => 'CHAR',
                 'constraint' => 12,
             ],
-            'wajib_pajak'     => [
-                'type'          => 'ENUM',
-                'constraint' => ['Ya', 'Tidak'],
-            ],
-            'jumlah_pajak'     => [
-                'type'          => 'CHAR',
-                'constraint' => 150,
-            ],
-            'keterangan'     => [
-                'type'          => 'ENUM',
-                'constraint' => ['Lunas', 'Belum Lunas'],
-            ],
+            // 'wajib_pajak'     => [
+            //     'type'          => 'ENUM',
+            //     'constraint' => ['Ya', 'Tidak'],
+            // ],
+            // 'jumlah_pajak'     => [
+            //     'type'          => 'CHAR',
+            //     'constraint' => 150,
+            // ],
+            // 'keterangan'     => [
+            //     'type'          => 'ENUM',
+            //     'constraint' => ['Lunas', 'Belum Lunas'],
+            // ],
             'email'     => [
                 'type'          => 'CHAR',
                 'constraint' => 150,

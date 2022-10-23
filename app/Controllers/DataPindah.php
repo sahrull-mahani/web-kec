@@ -55,7 +55,6 @@ class DataPindah extends BaseController
 
     public function single_edit($id)
     {
-        // dd($id);
         $get = $this->datapindahm->find($id);
         $this->data = array(
             'title' => 'Post Data Pindah | Admin',

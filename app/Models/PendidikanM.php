@@ -8,7 +8,7 @@ class PendidikanM extends Model
 {
     protected $table = "pendidikan";
     protected $allowedFields = [
-        'id_individu',
+        'individu_id',
         'pendidikan',
         'bahasa_lokal',
         'bahasa_formal',
