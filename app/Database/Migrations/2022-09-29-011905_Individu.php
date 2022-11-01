@@ -17,7 +17,7 @@ class Individu extends Migration
             ],
             'id_desa' => [
                 'type'       => 'INT',
-                'constraint' => '6',
+                'constraint' => 11,
                 'unsigned'   => true,
             ],
             'kesehatan_id' => [
@@ -94,6 +94,18 @@ class Individu extends Migration
                 'type'          => 'ENUM',
                 'constraint' => ['WNI', 'WNA'],
             ],
+            'kondisi_pekerjaan'     => [
+                'type'          => 'ENUM',
+                'constraint' => ['Bersekolah', 'Ibu Rumah Tangga', 'Tidak Bekerja', 'Sedang Mencari Pekerjaan', 'Bekerja'],
+            ],
+            'pekerjaan'     => [
+                'type'          => 'ENUM',
+                'constraint' => ['Petani Pemilik Lahan', 'Petani Penyewa', 'Buruh Tani', 'Nelayan Pemilik Kapal/Perahu', 'Nelayan Penyewa Kapal/Perahu', 'Buruh Nelayan', 'Guru', 'Guru Agama', 'Pedagang', 'Pengolahan/Industri', 'PNS', 'TNI', 'Perangkat Desa', 'Pegawai Kantor Desa', 'TKI', 'Lainnya'],
+            ],
+            'jamsos'     => [
+                'type'          => 'ENUM',
+                'constraint' => ['Peserta', 'Bukan Peserta'],
+            ],
             'no_hp'     => [
                 'type'          => 'CHAR',
                 'constraint' => 12,
@@ -102,18 +114,7 @@ class Individu extends Migration
                 'type'          => 'CHAR',
                 'constraint' => 12,
             ],
-            // 'wajib_pajak'     => [
-            //     'type'          => 'ENUM',
-            //     'constraint' => ['Ya', 'Tidak'],
-            // ],
-            // 'jumlah_pajak'     => [
-            //     'type'          => 'CHAR',
-            //     'constraint' => 150,
-            // ],
-            // 'keterangan'     => [
-            //     'type'          => 'ENUM',
-            //     'constraint' => ['Lunas', 'Belum Lunas'],
-            // ],
+
             'email'     => [
                 'type'          => 'CHAR',
                 'constraint' => 150,
@@ -144,10 +145,9 @@ class Individu extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('id_desa', 'desa', 'id', 'NO ACTION', 'CASCADE');
-        $this->forge->addForeignKey('pekerjaan_id', 'pekerjaan', 'id', 'SET NULL', 'CASCADE');
-        $this->forge->addForeignKey('kesehatan_id', 'kesehatan', 'id', 'SET NULL', 'CASCADE');
-        $this->forge->addForeignKey('pendidikan_id', 'pendidikan', 'id', 'SET NULL', 'CASCADE');
+        $this->forge->addForeignKey('id_desa', 'desa', 'id', 'ON UPDATE', 'CASCADE');
+        $this->forge->addForeignKey('dusun_id', 'dusun', 'id', 'ON UPDATE', 'CASCADE');
+        $this->forge->addForeignKey('kesehatan_id', 'kesehatan', 'id','ON DELETE' ,'ON UPDATE', 'CASCADE','SET NULL');
         $this->forge->createTable('individu');
     }
 

@@ -15,16 +15,15 @@ class DataPindah extends Migration
                 'unsign'        => true,
                 'auto_increment' => true
             ],
-            'user_id' => [
+            'id_desa' => [
                 'type'       => 'INT',
-                'constraint' => '6',
+                'constraint' => 11,
                 'unsigned'   => true,
             ],
             'individu_id' => [
                 'type' => 'int',
                 'constraint' => 11,
                 'unsigned' => true,
-                'null' => true
             ],
             'status'     => [
                 'type'          => 'CHAR',
@@ -54,8 +53,8 @@ class DataPindah extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('user_id', 'users', 'id', 'NO ACTION', 'CASCADE');
-        $this->forge->addForeignKey('individu_id', 'individu', 'id', 'SET NULL', 'CASCADE');
+        $this->forge->addForeignKey('id_desa', 'desa', 'id', 'ON UPDATE', 'CASCADE');
+        $this->forge->addForeignKey('individu_id', 'individu', 'id', 'ON UPDATE', 'CASCADE');
         $this->forge->createTable('datapindah');
     }
 

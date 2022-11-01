@@ -39,9 +39,9 @@
                                 <div class="form-group item">
                                     <label for="dusun">Dusun</label>
                                     <select name="dusun" id="dusun" class="form-control select2">
-                                        <option value="" disabled <?= (isset($get->dusun) ? '' : 'selected') ?>>Pilih Dusun</option>
+                                        <option value="" disabled <?= (isset($get->nama_dusun) ? '' : 'selected') ?>>Pilih Dusun</option>
                                         <?php foreach ($individu as $row) : ?>
-                                            <option value="<?= $row->dusun; ?>" <?= (isset($get->dusun) ? ($get->dusun == $row->dusun ? 'selected' : '') : '') ?>><?= $row->dusun ?></option>
+                                            <option value="<?= $row->nama_dusun; ?>" <?= (isset($get->nama_dusun) ? ($get->nama_dusun == $row->nama_dusun ? 'selected' : '') : '') ?>><?= $row->nama_dusun ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>

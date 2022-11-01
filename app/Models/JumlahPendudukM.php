@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class JumlahPendudukM extends Model
 {
   protected $table = "jumlahpenduduk";
-  protected $allowedFields = ['user_id', 'dusun', 'jumlah_jiwa', 'jumlah_kk', 'umur', 'jumlah_pria', 'jumlah_wanita', 'jumlah', 'agama_islam', 'agama_kristen', 'agama_katolik', 'agama_hindu', 'agama_budha', 'keterangan'];
+  protected $allowedFields = ['id_desa', 'dusun', 'jumlah_jiwa', 'jumlah_kk', 'umur', 'jumlah_pria', 'jumlah_wanita', 'jumlah', 'agama_islam', 'agama_kristen', 'agama_katolik', 'agama_hindu', 'agama_budha', 'keterangan'];
   protected $primarykey = 'id';
   protected $returnType = 'object';
   protected $useSoftDeletes = false;
@@ -50,7 +50,7 @@ class JumlahPendudukM extends Model
   ];
   private function _get_datatables()
   {
-    $column_search = array('dusun', 'jumlah_jiwa', 'jumlah_kk', 'keterangan');
+    $column_search = array('jumlah_jiwa', 'jumlah_kk', 'keterangan');
     $i = 0;
     foreach ($column_search as $item) { // loop column 
       if ($_GET['search']) {
@@ -70,6 +70,11 @@ class JumlahPendudukM extends Model
     } else {
       $this->orderBy('id', 'asc');
     }
+    // if (!is_admin()) {
+    //   $this->join('dusun', 'dusun.id=jumlahpenduduk.dusun_id');
+    //   $this->join('desa', 'desa.id=dusun.id_desa');
+		// 	$this->where('id_desa', session('id_desa'));
+		// }
   }
   public function get_datatables()
   {

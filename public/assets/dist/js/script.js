@@ -502,6 +502,7 @@ $(document).ready(function(){
     let idKab = $('#kabupaten').data('kabupaten')
     let idKec = $('#kecamatan').data('kecamatan')
     let idKel = $('#desa').data('kelurahan')
+
     if (valProv !== null) {
         $.ajax({
             type:'POST',
@@ -513,7 +514,8 @@ $(document).ready(function(){
             success:function(response){
                 var kab = `<option value="" disabled>-- pilih --</option>`
                 $.each(response, function(i, val) {
-                    kab += `<option value="${val.split('|')[0]}" ${idKab == val.split('|')[1] ? 'selected' : ''}>${val.split('|')[1]}</option>`
+                
+                    kab += `<option value="${val.split('|')[0]}" ${idKab == val.split('|')[0] ? 'selected' : ''}>${val.split('|')[1]}</option>`
                 })
                 $.ajax({
                     type:'POST',
@@ -525,7 +527,7 @@ $(document).ready(function(){
                     success:function(dataKec){
                         var kec = `<option value="" disabled>-- pilih --</option>`
                         $.each(dataKec, function(i, val) {
-                            kec += `<option value="${val.split('|')[0]}" ${idKec == val.split('|')[1] ? 'selected' : ''}>${val.split('|')[1]} </option>`
+                            kec += `<option value="${val.split('|')[0]}" ${idKec == val.split('|')[0] ? 'selected' : ''}>${val.split('|')[1]} </option>`
                         })
                         $('#kecamatan').html(kec);
 
@@ -539,7 +541,7 @@ $(document).ready(function(){
                             success:function(resDesa){
                                 var desa = `<option value="" disabled>-- pilih --</option>`
                                 $.each(resDesa, function(i, val) {
-                                    desa += `<option value="${val.split('|')[0]}" ${idKel == val.split('|')[1] ? 'selected' : ''}>${val.split('|')[1]} </option>`
+                                    desa += `<option value="${val.split('|')[0]}" ${idKel == val.split('|')[0] ? 'selected' : ''}>${val.split('|')[1]} </option>`
                                 })
                                 $('#desa').html(desa);
                             }
@@ -584,7 +586,7 @@ $(document).ready(function(){
             success:function(response){
                 var hasilKec = `<option value="" disabled selected>-- pilih --</option>`
                 $.each(response, function(i, val) {
-                    hasilKec += `<option value="${val.split('|')[0]}">${val.split('|')[1]}</option>`
+                    hasilKec += `<option value="${val.split('|')[0]}" ${idKec == val.split('|')[1] ? 'selected' : ''}>${val.split('|')[1]}</option>`
                 })
                 $('#kecamatan').html(hasilKec);
                 // console.log(response);
@@ -605,7 +607,7 @@ $(document).ready(function(){
             success:function(response){
                 var hasilKel = `<option value="" disabled selected>-- pilih --</option>`
                 $.each(response, function(i, val) {
-                    hasilKel += `<option value="${val.split('|')[0]}">${val.split('|')[1]}</option>`
+                    hasilKel += `<option value="${val.split('|')[0]}" ${idKel == val.split('|')[1] ? 'selected' : ''} >${val.split('|')[1]}</option>`
                 })
                 $('#desa').html(hasilKel);
                 // console.log(response);

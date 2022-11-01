@@ -115,24 +115,23 @@
                                 </tr>
                                 <tr>
                                     <td width="10%">P117</td>
-                                    <td>Provinsi :
-                                    </td>
+                                    <td>Provinsi : <b><?= (isset($get->provinsi)) ? $prov["name"] : ''; ?></b></td>
                                 </tr>
                                 <tr>
                                     <td width="10%">P118</td>
-                                    <td>Kota/Kabupaten : <b><?= (isset($get->kab_kota)) ? $get->kab_kota : ''; ?></b></td>
+                                    <td>Kota/Kabupaten : <b><?= (isset($get->kab_kota)) ? $kab["name"] : ''; ?></b></td>
                                 </tr>
                                 <tr>
                                     <td width="10%">P119</td>
-                                    <td>Kecamatan : <b><?= (isset($get->kecamatan)) ? $get->kecamatan : ''; ?></b></td>
+                                    <td>Kecamatan : <b><?= (isset($get->kecamatan)) ? $kec["name"] :''; ?></b></td>
                                 </tr>
                                 <tr>
                                     <td width="10%">P120</td>
-                                    <td>Desa/Kelurahan : <b><?= (isset($get->kelurahan)) ? $get->kelurahan : ''; ?></b></td>
+                                    <td>Desa/Kelurahan : <b><?= (isset($get->kelurahan)) ? $kelurahan["name"] : ''; ?></b></td>
                                 </tr>
                                 <tr>
                                     <td width="10%">P121</td>
-                                    <td>Dusun : <b>adasda</b></td>
+                                    <td>Dusun : <b><?= (isset($get->nama_dusun)) ? $get->nama_dusun : ''; ?></b></td>
                                 </tr>
                                 <tr>
                                     <td width="10%">P122</td>
@@ -416,19 +415,20 @@
                                         <table cellspacing="0" cellpadding="0" width="100%">
                                             <tr>
                                                 <td style="padding: 0;">
-                                                    <?= ($get->pekerjaan == "Lainnya")  ? "<b>15. " . $get->pekerjaan . "</b>" : "15. Lainnya"; ?><br>
-                                                    2. SD dan sederajat<br>
-                                                    3. SMP dan sederajat<br>
-                                                    4. SMA dan sederajat
+                                                    1.<?= ($get->pendidikan == "Tidak Sekolah")  ? "<b>" . $get->pendidikan . "</b>" : "Lainnya"; ?><br>
+                                                    2.<?= ($get->pendidikan == "SD dan Sederajat")  ? "<b>" . $get->pendidikan . "</b>" : "SD dan Sederajat"; ?><br>
+                                                    3.<?= ($get->pendidikan == "SMP dan Sederajat")  ? "<b>" . $get->pendidikan . "</b>" : "SMP dan Sederajat"; ?><br>
+                                                    4.<?= ($get->pendidikan == "SMA dan Sederajat")  ? "<b>" . $get->pendidikan . "</b>" : "SMA dan Sederajat"; ?><br>
                                                 </td>
                                                 <td style="padding: 0;">
-                                                    5. Diploma 1-3<br>
-                                                    6. S1 dan sederajat<br>
-                                                    7. S2 dan sederajat<br>
-                                                    8. S3 dan sederajat </td>
+                                                    5.<?= ($get->pendidikan == "Diploma 1-3")  ? "<b>" . $get->pendidikan . "</b>" : "Diploma 1-3"; ?><br>
+                                                    6.<?= ($get->pendidikan == "S1 dan Sederajat")  ? "<b>" . $get->pendidikan . "</b>" : "S1 dan Sederajat"; ?><br>
+                                                    7.<?= ($get->pendidikan == "S2 dan Sederajat")  ? "<b>" . $get->pendidikan . "</b>" : "S2 dan Sederajat"; ?><br>
+                                                    8.<?= ($get->pendidikan == "S3 dan Sederajat")  ? "<b>" . $get->pendidikan . "</b>" : "S3 dan Sederajat"; ?><br>
                                                 <td style="padding: 0;">
-                                                    9. Pesantren, seminari, wihara dan sejenisnya<br>
-                                                    10. Lainnya </td>
+                                                    9.<?= ($get->pendidikan == "Pesantren, Seminari, Wihara dan Sejenisnya")  ? "<b>" . $get->pendidikan . "</b>" : "Pesantren, Seminari, Wihara dan Sejenisnya"; ?><br>
+                                                    10.<?= ($get->pendidikan == "Lainnya")  ? "<b>" . $get->pendidikan . "</b>" : "Lainnya"; ?><br>
+                                            
                                             </tr>
                                         </table>
                                     </td>

@@ -108,7 +108,7 @@ class JumlahPenduduk extends BaseController
             'm_post_jumlahpenduduk' => 'active',
             'session' => $this->session,
             'data2' => count($this->individum->where('jenis_kelamin', 'Perempuan')->findall()),
-            'individu' => $this->individum->groupBy('dusun')->findAll()
+            'individu' => $this->individum->getJoinPajakKesPendPeng()->findAll()
         );
         echo view('App\Views\jumlahpenduduk\post-jumlahpenduduk', $this->data);
     }
@@ -132,7 +132,7 @@ class JumlahPenduduk extends BaseController
                 // $files = $this->request->getFileMultiple('userfile');
 
                 $data =  array(
-                    'user_id' => session('user_id'),
+                    'id_desa' => session('id_desa'),
                     'dusun'          => $this->request->getVar('dusun'),
                     'jumlah_jiwa'    => $this->request->getVar('jumlah_jiwa'),
                     'jumlah_kk'    => $this->request->getVar('jumlah_kk'),
@@ -163,7 +163,7 @@ class JumlahPenduduk extends BaseController
                 $id = $this->request->getPost('id');
                 // $files = $this->request->getFileMultiple('userfile');
                 $data =  array(
-                    'user_id'          => session('user_id'),
+                    'id_desa'          => session('id_desa'),
                     'dusun'          => $this->request->getPost('dusun'),
                     'jumlah_jiwa'    => $this->request->getPost('jumlah_jiwa'),
                     'jumlah_kk'    => $this->request->getPost('jumlah_kk'),

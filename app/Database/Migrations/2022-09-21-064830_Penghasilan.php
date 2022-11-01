@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class Pekerjaan extends Migration
+class Penghasilan extends Migration
 {
     public function up()
     {
@@ -15,17 +15,14 @@ class Pekerjaan extends Migration
                 'unsigned'        => true,
                 'auto_increment' => true
             ],
-            'kondisi_pekerjaan'     => [
-                'type'          => 'ENUM',
-                'constraint' => ['Bersekolah', 'Ibu Rumah Tangga', 'Tidak Bekerja', 'Sedang Mencari Pekerjaan', 'Bekerja'],
+            'individu_id' => [
+                'type' => 'int',
+                'constraint' => 11,
+                'unsigned' => true,
             ],
-            'pekerjaan'     => [
-                'type'          => 'ENUM',
-                'constraint' => ['Petani Pemilik Lahan', 'Petani Penyewa', 'Buruh Tani', 'Nelayan Pemilik Kapal/Perahu', 'Nelayan Penyewa Kapal/Perahu', 'Buruh Nelayan', 'Guru', 'Guru Agama', 'Pedagang', 'Pengolahan/Industri', 'PNS', 'TNI', 'Perangkat Desa', 'Pegawai Kantor Desa', 'TKI', 'Lainnya'],
-            ],
-            'jamsos'     => [
-                'type'          => 'ENUM',
-                'constraint' => ['Peserta', 'Bukan Peserta'],
+            'tahun' => [
+                'type' => 'YEAR',
+                'constraint'    => 4
             ],
             'sumber_penghasilan'     => [
                 'type'          => 'TEXT',
@@ -56,11 +53,12 @@ class Pekerjaan extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->createTable('pekerjaan');
+        $this->forge->addForeignKey('individu_id', 'individu', 'id', 'ON UPDATE', 'CASCADE');
+        $this->forge->createTable('penghasilan');
     }
 
     public function down()
     {
-        $this->forge->dropTable('pekerjaan');
+        $this->forge->dropTable('penghasilan');
     }
 }

@@ -70,8 +70,19 @@ class Individu extends BaseController
     public function single_detail($id)
     {
         $get = $this->individum->getJoinPajakKesPendPeng()->find($id);
-        // dd($get);
-        $this->data = array('title' => 'Post Kuisioner Individu | Admin', 'breadcome' => 'Post Kuisioner Individu', 'url' => 'individu/', 'm_open_individu' => 'menu-open', 'mm_individu' => 'active', 'm_post_individu' => 'active', 'session' => $this->session, 'provinsi' => getApi('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json'),'get' => $get);
+      
+        $this->data = array('title' => 'Post Kuisioner Individu | Admin', 
+        'breadcome' => 'Post Kuisioner Individu', 
+        'url' => 'individu/',
+        'm_open_individu' => 'menu-open', 
+        'mm_individu' => 'active',
+        'm_post_individu' => 'active',
+        'session' => $this->session, 
+        'prov' => getApi("https://www.emsifa.com/api-wilayah-indonesia/api/province/$get->provinsi.json"),
+        'kab'   => getApi("https://www.emsifa.com/api-wilayah-indonesia/api/regency/$get->kab_kota.json"),
+        'kec'   => getApi("https://www.emsifa.com/api-wilayah-indonesia/api/district/$get->kecamatan.json"),
+        'kelurahan' => getApi("https://www.emsifa.com//api-wilayah-indonesia/api/village/$get->kelurahan.json"),
+        'get' => $get);
         return view('App\Views\individu\detail-individu', $this->data);
     }
 
@@ -119,7 +130,6 @@ class Individu extends BaseController
                     'kab_kota'          => $this->request->getVar('kab_kota'),
                     'kecamatan'          => $this->request->getVar('kecamatan'),
                     'kelurahan'          => $this->request->getVar('kelurahan'),
-                    // 'dusun'          => $this->request->getVar('dusun'),
                     'alamat'          => $this->request->getVar('alamat'),
                     'jenis_kelamin'          => $this->request->getVar('jenis_kelamin'),
                     'tempat_lahir'          => $this->request->getVar('tempat_lahir'),
@@ -141,7 +151,7 @@ class Individu extends BaseController
                 );
 
                 $dusun = array(
-                    'nama_dusun'          => $this->request->getVar('dusun'),
+                    'nama_dusun'          => $this->request->getVar('nama_dusun'),
                     'id_desa'         => session('id_desa')
                 );
 
@@ -219,8 +229,7 @@ class Individu extends BaseController
                     $id_dusun = $this->dusunm->orderBy('id', 'DESC')->first()->id;
                     $individu['kesehatan_id'] = $id_kesehatan;
                     $individu['dusun_id'] = $id_dusun;
-                    // print_r($individu);
-                    // die;
+
                     $this->individum->insert($individu);
                     $id_individu = $this->individum->getInsertID();
                     foreach ($this->request->getVar('jumlah') as $index => $val) {
@@ -255,6 +264,7 @@ class Individu extends BaseController
                 break;
             case 'update':
                 $id = $this->request->getPost('id');
+                
                 $individu =  array(
                     'id_desa'          => session('id_desa'),
                     'no_kk'          => $this->request->getVar('no_kk'),
@@ -264,7 +274,6 @@ class Individu extends BaseController
                     'kab_kota'          => $this->request->getVar('kab_kota'),
                     'kecamatan'          => $this->request->getVar('kecamatan'),
                     'kelurahan'          => $this->request->getVar('kelurahan'),
-                    'dusun'          => $this->request->getVar('dusun'),
                     'alamat'          => $this->request->getVar('alamat'),
                     'jenis_kelamin'          => $this->request->getVar('jenis_kelamin'),
                     'tempat_lahir'          => $this->request->getVar('tempat_lahir'),
@@ -333,9 +342,20 @@ class Individu extends BaseController
                     'cacat_ganda'          => $this->request->getVar('cacat_ganda'),
                     'pasung'          => $this->request->getVar('pasung'),
                 );
-
                 $penghasilans = [];
-            
+                $id_penghasilan = $this->penghasilanm->where('individu_id', $id)->findAll();
+                foreach ($this->request->getVar('jumlah') as $index => $val) {
+                    array_push($penghasilans, [
+                        'id'                =>  $id_penghasilan[$index]->id,
+                        'sumber_penghasilan'=> $this->request->getVar('sumber_penghasilan')[$index],
+                        'jumlah'            => $val,
+                        'satuan'            => $this->request->getVar('satuan')[$index],
+                        'penghasilan'       => $this->request->getVar('penghasilan')[$index],
+                        'ekspor'            => $this->request->getVar('ekspor')[$index],
+                        'tahun'             => $this->request->getVar('tahun')[0],
+                    ]);
+                }
+
                 $pendidikan = array(
                     'pendidikan'          => $this->request->getVar('pendidikan'),
                     'bahasa_lokal'          => $this->request->getVar('bahasa_lokal'),
@@ -347,15 +367,20 @@ class Individu extends BaseController
                     'pertolongan_sakit'          => $this->request->getVar('pertolongan_sakit'),
                     'pertolongan_kecelakaan'          => $this->request->getVar('pertolongan_kecelakaan'),
                 );
+
                 $pajak = array(
                     'wajib_pajak'          => $this->request->getVar('wajib_pajak'),
                     'jumlah_pajak'          => $this->request->getVar('jumlah_pajak'),
                     'keterangan'          => $this->request->getVar('keterangan'),
                 );
+                $dusun = array(
+                    'nama_dusun'        => $this->request->getVar('nama_dusun')
+                ); 
                 if ($this->individum->update($id, $individu)) {
                     $this->kesehatanm->update($id, $kes);
-                    $this->penghasilanm->update($id, $penghasilans);
+                    $this->penghasilanm->updateBatch($penghasilans, 'id');
                     $this->pendidikanm->update($id, $pendidikan);
+                    $this->dusunm->update($id, $dusun);
                     $status['title'] = 'success';
                     $status['type'] = 'success';
                     $status['text'] = 'Kuisioner Individu Telah Di Ubah';

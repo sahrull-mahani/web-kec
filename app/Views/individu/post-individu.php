@@ -85,8 +85,8 @@
                       </select>
                     </div>
                     <div class="form-group item col-md-4">
-                      <label for="dusun">Dusun</label>
-                      <input type="text" class="form-control" id="dusun_individu" name="dusun" placeholder="Dusun" value="<?= @$get->dusun ?>" />
+                      <label for="nama_dusun">Dusun</label>
+                      <input type="text" class="form-control" id="dusun_individu" name="nama_dusun" placeholder="Dusun" value="<?= @$get->nama_dusun ?>" />
                     </div>
                   </div>
                   <div class="form-group item">

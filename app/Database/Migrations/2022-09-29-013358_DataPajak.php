@@ -15,16 +15,27 @@ class DataPajak extends Migration
                 'unsign'        => true,
                 'auto_increment' => true
             ],
-            'user_id' => [
-                'type'       => 'INT',
-                'constraint' => '6',
-                'unsigned'   => true,
+            'id_desa' => [
+                'type' => 'int',
+                'constraint' => 11,
+                'unsigned' => true,
             ],
             'individu_id' => [
                 'type' => 'int',
                 'constraint' => 11,
                 'unsigned' => true,
-                'null' => true
+            ],
+             'wajib_pajak'     => [
+                'type'          => 'ENUM',
+                'constraint' => ['Ya', 'Tidak'],
+            ],
+            'jumlah_pajak'     => [
+                'type'          => 'CHAR',
+                'constraint' => 150,
+            ],
+            'keterangan'     => [
+                'type'          => 'ENUM',
+                'constraint' => ['Lunas', 'Belum Lunas'],
             ],
             'created_at'     => [
                 'type'          => 'DATETIME',
@@ -40,8 +51,8 @@ class DataPajak extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('user_id', 'users', 'id', 'NO ACTION', 'CASCADE');
-        $this->forge->addForeignKey('individu_id', 'individu', 'id', 'SET NULL', 'CASCADE');
+        $this->forge->addForeignKey('id_desa', 'desa', 'id', 'NO UPDATE', 'CASCADE');
+        $this->forge->addForeignKey('individu_id', 'individu', 'id', 'ON UPDATE', 'CASCADE');
         $this->forge->createTable('datapajak');
     }
 
