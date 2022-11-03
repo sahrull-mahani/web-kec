@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class IndividuM extends Model
 {
 	protected $table = 'individu';
-	protected $allowedFields = array('id_desa', 'kesehatan_id', 'pendidikan_id', 'dusun_id', 'no_kk', 'nik', 'nama', 'provinsi', 'kab_kota', 'kecamatan', 'kelurahan', 'alamat', 'jenis_kelamin', 'tempat_lahir', 'tgl_lahir', 'umur', 'status_nikah', 'agama', 'suku', 'kewarganegaraan', 'no_hp', 'no_wa', 'wajib_pajak', 'jumlah_pajak', 'keterangan', 'email', 'facebook', 'twitter', 'instagram','kondisi_pekerjaan','pekerjaan','jamsos');
+	protected $allowedFields = array('id_dusun','kesehatan_id', 'no_kk', 'nik', 'nama', 'provinsi', 'kab_kota', 'kecamatan', 'kelurahan', 'alamat', 'jenis_kelamin', 'tempat_lahir', 'tgl_lahir', 'umur', 'status_nikah', 'agama', 'suku', 'kewarganegaraan', 'no_hp', 'no_wa', 'wajib_pajak', 'jumlah_pajak', 'keterangan', 'email', 'facebook', 'twitter', 'instagram','kondisi_pekerjaan','pekerjaan','jamsos');
 	protected $returnType     = 'object';
 	protected $useSoftDeletes = false;
 
@@ -96,6 +96,9 @@ class IndividuM extends Model
 			$this->orderBy('id', 'asc');
 		}
 		if (!is_admin()) {
+			$this->select('dusun.*, desa.*,individu.*');
+			$this->join('dusun', 'dusun.id=individu.id_dusun');
+			$this->join('desa', 'desa.id=dusun.id_desa');
 			$this->where('id_desa', session('id_desa'));
 		}
 	}
@@ -121,7 +124,7 @@ class IndividuM extends Model
 		$this->join('kesehatan kes', 'kes.id = individu.kesehatan_id');
 		$this->join('datapajak p', 'p.individu_id = individu.id');
 		$this->join('pendidikan pend', 'pend.individu_id = individu.id');
-		$this->join('dusun', 'dusun.id=individu.dusun_id');
+		$this->join('dusun', 'dusun.id=individu.id_dusun');
 		return $this->join('penghasilan peng', 'peng.individu_id = individu.id');
 	}
 }

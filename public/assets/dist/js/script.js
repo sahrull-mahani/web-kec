@@ -366,7 +366,7 @@ $('#nik_kp').on('change',function(){
                 $('#no_kk').val(data.data.no_kk)
                 $('#nama').val(data.data.nama)
                 $('#dusun').val(data.data.nama_dusun);
-                $('#dusun_id').val(data.data.dusun_id);
+                $('#id_dusun').val(data.data.id_dusun);
                 $('#pekerjaan option[value="' + data.data.pekerjaan + '"]').prop('selected', true);
                 $('#muntaber_diare option[value="' + data.data.muntaber_diare + '"]').prop('selected', true);
                 $('#hepatitis_e option[value="' + data.data.hepatitis_e + '"]').prop('selected', true);

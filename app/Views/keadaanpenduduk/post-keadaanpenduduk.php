@@ -38,8 +38,8 @@
                             <div class="col-md-12">
                                 <div class="form-group item">
                                     <label for="dusun">Dusun</label>
-                                    <input type="text" class="form-control" id="dusun" name="nama_dusun" placeholder="Dusun" value="<?= @$data->dusun_id?>" required />
-                                    <input type="hidden" id="dusun_id" name="dusun_id" value="<?= @$data->dusun_id ?>">
+                                    <input type="text" class="form-control" id="dusun" name="nama_dusun" placeholder="Dusun" value="<?= @$data->nama_dusun?>" required />
+                                    <input type="hidden" id="id_dusun" name="id_dusun" value="<?= @$data->id_dusun ?>">
                                 </div> 
                                 <div class="row">
                                     <div class="form-group item col-md-6">

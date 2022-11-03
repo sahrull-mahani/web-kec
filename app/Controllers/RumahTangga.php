@@ -45,17 +45,6 @@ class RumahTangga extends BaseController
         echo json_encode($output);
     }
 
-    private function getApi($url)
-    {
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        $result = curl_exec($curl);
-        curl_close($curl);
-
-        $result = json_decode($result, true);
-        return $result;
-    }
 
     public function rt()
     {
@@ -69,9 +58,6 @@ class RumahTangga extends BaseController
     public function Post()
     {
 
-        // $this->data = array('title' => 'Post Kuisioner Rumah Tangga | Admin', 'breadcome' => 'Post Kuisioner Rumah Tangga', 'url' => 'rumahtangga/', 'm_open_rumahtangga' => 'menu-open', 'mm_rumahtangga' => 'active', 'm_post_rumahtangga' => 'active', 'session' => $this->session);
-
-
         $this->data = array(
             'title' => 'Post Kuisioner Rumah Tangga | Admin',
             'breadcome' => 'Post Kuisioner Rumah Tangga',
@@ -81,7 +67,7 @@ class RumahTangga extends BaseController
             'm_post_rumahtangga' => 'active',
             'get' => $this->rumahtanggam->findAll(),
             'individu' => $this->individum->findAll(),
-            'provinsi' => getApi('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json'),
+            'provinsi' => getApi("https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json"),
             'session' => $this->session
         );
 
@@ -90,18 +76,23 @@ class RumahTangga extends BaseController
 
     public function single_detail($id)
     {
-        $get = $this->rumahtanggam->select('rumahtangga.*, ind.*, enum.*, ind.id indID, enum.id enumID')->join('individu ind', 'ind.id = rumahtangga.individu_id')->join('enumerator enum', 'enum.rumahtangga_id = rumahtangga.id')->where('rumahtangga.id', $id)->first();
-        $this->data = array('title' => 'Detail Kuisioner Rumah Tangga | Admin', 'breadcome' => 'Detail Kuisioner Rumah Tangga', 'url' => 'rumahtangga/', 'm_open_rumahtangga' => 'menu-open', 'mm_rumahtangga' => 'active', 'm_post_rumahtangga' => 'active', 'session' => $this->session, 'provinsi' => getApi('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json'), 'get' => $get);
-        // $id = $this->request->getPost('id');
+        // $get = $this->rumahtanggam->where('rumahtangga.id', $id)->first();
+        $get = $this->rumahtanggam->select('rumahtangga.*, ind.*, enum.*, ind.id indID, enum.id enumID')->join('individu ind', 'ind.id = rumahtangga.individu_id')->join('enumerator enum', 'enum.id = rumahtangga.enumerator_id')->where('rumahtangga.id', $id)->find($id);
 
-        // $get = $this->individum->select('individu.*, k.*, pk.*, pd.*, k.id kesID, pk.id pekID, pd.id penID')->join('pekerjaan pk', 'pk.individu_id = individu.id')->join('kesehatan k', 'k.individu_id = individu.id')->join('pendidikan pd', 'pd.individu_id = individu.id')->where('individu.id', $id)->first();
-        // $this->data = array(
-        //     'provinsi' => getApi('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json'),
-        //     'get' => $get
-        // );
-        // $status['html']         = view('App\Views\individu\detail-individu', $this->data);
-        // $status['modal_title']  = '<b>Detail Kuisioner Individu : </b>' . $get->nama;
-        // $status['modal_size']   = 'modal-xl';
+        
+        $this->data = array(
+             'title' => 'Detail Kuisioner Rumah Tangga | Admin',
+             'breadcome' => 'Detail Kuisioner Rumah Tangga', 
+             'url' => 'rumahtangga/', 
+             'm_open_rumahtangga' => 'menu-open', 
+             'mm_rumahtangga' => 'active', 
+             'm_post_rumahtangga' => 'active', 
+             'session' => $this->session,
+             'prov' => getApi("https://www.emsifa.com/api-wilayah-indonesia/api/province/$get->provinsi.json"),
+             'kab'   => getApi("https://www.emsifa.com/api-wilayah-indonesia/api/regency/$get->kab_kota.json"),
+             'kec'   => getApi("https://www.emsifa.com/api-wilayah-indonesia/api/district/$get->kecamatan.json"),
+             'kelurahan' => getApi("https://www.emsifa.com//api-wilayah-indonesia/api/village/$get->kelurahan.json"),
+             'get' => $get);
         return view('App\Views\rumahtangga\detail-rumahtangga', $this->data);
     }
 
@@ -130,13 +121,15 @@ class RumahTangga extends BaseController
     {
         switch ($this->request->getPost('action')) {
             case 'insert':
-                // $files = $this->request->getFileMultiple('userfile');
-
                 $data =  array(
-                    'user_id'    => session('user_id'),
+                    'id_desa'    => session('id_desa'),
                     'individu_id'    => $this->request->getVar('individu_id'),
                     'rt_rw'    => $this->request->getVar('rt_rw'),
                     'no_telp'    => $this->request->getVar('no_telp'),
+                    // 'provinsi'          => $this->request->getVar('provinsi'),
+                    // 'kab_kota'          => $this->request->getVar('kab_kota'),
+                    // 'kecamatan'          => $this->request->getVar('kecamatan'),
+                    // 'kelurahan'          => $this->request->getVar('kelurahan'),
                     'tempat_tinggal'    => $this->request->getVar('tempat_tinggal'),
                     'status_lahan'    => $this->request->getVar('status_lahan'),
                     'luas_lantai'    => $this->request->getVar('luas_lantai'),
@@ -185,7 +178,6 @@ class RumahTangga extends BaseController
                     'bpa'    => $this->request->getVar('bpa'),
                     'lainnya'    => $this->request->getVar('lainnya'),
                 );
-
                 $data2 = array(
                     'nama_enum'          => $this->request->getVar('nama_enum'),
                     'notelp_enum'    => $this->request->getVar('notelp_enum'),
@@ -208,12 +200,15 @@ class RumahTangga extends BaseController
                 break;
             case 'update':
                 $id = $this->request->getPost('id');
-                // $files = $this->request->getFileMultiple('userfile');
                 $data =  array(
-                    'user_id'    => session('user_id'),
+                    'id_desa'    => session('id_desa'),
                     'individu_id'    => $this->request->getPost('individu_id'),
                     'rt_rw'    => $this->request->getPost('rt_rw'),
                     'no_telp'    => $this->request->getPost('no_telp'),
+                    // 'provinsi'          => $this->request->getVar('provinsi'),
+                    // 'kab_kota'          => $this->request->getVar('kab_kota'),
+                    // 'kecamatan'          => $this->request->getVar('kecamatan'),
+                    // 'kelurahan'          => $this->request->getVar('kelurahan'),
                     'tempat_tinggal'    => $this->request->getPost('tempat_tinggal'),
                     'status_lahan'    => $this->request->getPost('status_lahan'),
                     'luas_lantai'    => $this->request->getPost('luas_lantai'),

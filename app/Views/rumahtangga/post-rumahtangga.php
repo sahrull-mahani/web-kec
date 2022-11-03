@@ -80,7 +80,6 @@
                                         <h3 class="card-title">Deskripsi Lokasi</h3>
                                     </div>
                                     <div class="row">
-
                                         <div class="form-group item col-md-4">
                                             <label for="provinsi">Provinsi</label>
                                             <select name="provinsi" id="provinsi" class="form-control select2">

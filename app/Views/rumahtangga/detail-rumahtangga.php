@@ -71,19 +71,19 @@
                                 </tr>
                                 <tr>
                                     <td width="10%">P201</td>
-                                    <td>Provinsi : <b><?= (isset($get->provinsi)) ? ucwords($get->provinsi) : ''; ?></b></td>
+                                    <td>Provinsi : <b><?= (isset($get->provinsi)) ? $prov["name"] : ''; ?></b></td>
                                 </tr>
                                 <tr>
                                     <td width="10%">P202</td>
-                                    <td>Kabupaten/kota : <b><?= (isset($get->kab_kota)) ? ucwords($get->kab_kota) : ''; ?></b></td>
+                                    <td>Kabupaten/kota : <b><?= (isset($get->kab_kota)) ? $kab["name"]: ''; ?></b></td>
                                 </tr>
                                 <tr>
                                     <td width="10%">P203</td>
-                                    <td>Kecamatan : <b><?= (isset($get->kecamatan)) ? ucwords($get->kecamatan) : ''; ?></b></td>
+                                    <td>Kecamatan : <b><?= (isset($get->kecamatan)) ? $kec["name"]: ''; ?></b></td>
                                 </tr>
                                 <tr>
                                     <td width="10%">P204</td>
-                                    <td>Desa : <b><?= (isset($get->kelurahan)) ? ucwords($get->kelurahan) : ''; ?></b></td>
+                                    <td>Desa : <b><?= (isset($get->kelurahan)) ? $kelurahan["name"]: ''; ?></b></td>
                                 </tr>
                                 <tr>
                                     <td width="10%">P205</td>

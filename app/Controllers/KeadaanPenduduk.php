@@ -27,7 +27,7 @@ class KeadaanPenduduk extends BaseController
 
     public function ajax_request()
     {
-        $list = $this->keadaanpendudukm->get_datatables();
+        $list = $this->keadaanpendudukm->joinKeadaanPenduduk()->get_datatables();
         $data = array();
         $no = isset($_GET['offset']) ? $_GET['offset'] + 1 : 1;
         foreach ($list as $rows) {
@@ -95,7 +95,7 @@ class KeadaanPenduduk extends BaseController
             'session' => $this->session,
             'provinsi' => getApi('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json'), 'individu' => $this->individum->findall(),
             'get' => $get,
-            'data' => $this->keadaanpendudukm->select('keadaanpenduduk.*, ind.*, k.*, pk.*, pd.*, k.id kesID, pk.id pekID, pd.id kpID')->join('individu ind', 'ind.id = keadaanpenduduk.individu_id')->join('kesehatan k', 'k.id = ind.kesehatan_id')->join('pekerjaan pk', 'pk.id = ind.pekerjaan_id')->join('pendidikan pd', 'pd.id = ind.pendidikan_id')->where('keadaanpenduduk.id', $id)->first()
+            'data' => $this->keadaanpendudukm->joinKeadaanPenduduk()->where('keadaanpenduduk.id', $id)->first()
         );
 
         return view('App\Views\keadaanpenduduk\post-keadaanpenduduk', $this->data);
@@ -126,9 +126,8 @@ class KeadaanPenduduk extends BaseController
         switch ($this->request->getPost('action')) {
             case 'insert':
                 // $files = $this->request->getFileMultiple('userfile');
-
                 $data =  array(
-                    'dusun_id'          => $this->request->getVar('dusun_id'),
+                    'id_dusun'          => $this->request->getVar('id_dusun'),
                     'individu_id'          => $this->request->getVar('individu_id'),
                 );
                 if ($this->keadaanpendudukm->insert($data)) {

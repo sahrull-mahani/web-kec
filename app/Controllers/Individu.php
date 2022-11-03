@@ -121,40 +121,10 @@ class Individu extends BaseController
 
         switch ($this->request->getPost('action')) {
             case 'insert':
-                $individu =  array(
-                    'id_desa'          => session('id_desa'),
-                    'no_kk'          => $this->request->getVar('no_kk'),
-                    'nik'          => $this->request->getVar('nik'),
-                    'nama'          => $this->request->getVar('nama'),
-                    'provinsi'          => $this->request->getVar('provinsi'),
-                    'kab_kota'          => $this->request->getVar('kab_kota'),
-                    'kecamatan'          => $this->request->getVar('kecamatan'),
-                    'kelurahan'          => $this->request->getVar('kelurahan'),
-                    'alamat'          => $this->request->getVar('alamat'),
-                    'jenis_kelamin'          => $this->request->getVar('jenis_kelamin'),
-                    'tempat_lahir'          => $this->request->getVar('tempat_lahir'),
-                    'tgl_lahir'          => $this->request->getVar('tgl_lahir'),
-                    'umur'          => $this->request->getVar('umur'),
-                    'status_nikah'          => $this->request->getVar('status_nikah'),
-                    'agama'          => $this->request->getVar('agama'),
-                    'suku'          => $this->request->getVar('suku'),
-                    'kewarganegaraan'          => $this->request->getVar('kewarganegaraan'),
-                    'no_hp'          => $this->request->getVar('no_hp'),
-                    'no_wa'          => $this->request->getVar('no_wa'),
-                    'email'          => $this->request->getVar('email'),
-                    'facebook'          => $this->request->getVar('facebook'),
-                    'twitter'          => $this->request->getVar('twitter'),
-                    'instagram'          => $this->request->getVar('instagram'),
-                    'kondisi_pekerjaan'   => $this->request->getVar('kondisi_pekerjaan'),
-                    'pekerjaan'          => $this->request->getVar('pekerjaan'),
-                    'jamsos'          => $this->request->getVar('jamsos'),
-                );
-
                 $dusun = array(
                     'nama_dusun'          => $this->request->getVar('nama_dusun'),
                     'id_desa'         => session('id_desa')
                 );
-
                 $kes =  array(
                     'bpjs_kes'          => $this->request->getVar('bpjs_kes'),
                     'muntaber_diare'          => $this->request->getVar('muntaber_diare'),
@@ -204,6 +174,34 @@ class Individu extends BaseController
                     'pasung'          => $this->request->getVar('pasung'),
                 );
 
+                $individu =  array(
+                    'no_kk'          => $this->request->getVar('no_kk'),
+                    'nik'          => $this->request->getVar('nik'),
+                    'nama'          => $this->request->getVar('nama'),
+                    'provinsi'          => $this->request->getVar('provinsi'),
+                    'kab_kota'          => $this->request->getVar('kab_kota'),
+                    'kecamatan'          => $this->request->getVar('kecamatan'),
+                    'kelurahan'          => $this->request->getVar('kelurahan'),
+                    'alamat'          => $this->request->getVar('alamat'),
+                    'jenis_kelamin'          => $this->request->getVar('jenis_kelamin'),
+                    'tempat_lahir'          => $this->request->getVar('tempat_lahir'),
+                    'tgl_lahir'          => $this->request->getVar('tgl_lahir'),
+                    'umur'          => $this->request->getVar('umur'),
+                    'status_nikah'          => $this->request->getVar('status_nikah'),
+                    'agama'          => $this->request->getVar('agama'),
+                    'suku'          => $this->request->getVar('suku'),
+                    'kewarganegaraan'          => $this->request->getVar('kewarganegaraan'),
+                    'no_hp'          => $this->request->getVar('no_hp'),
+                    'no_wa'          => $this->request->getVar('no_wa'),
+                    'email'          => $this->request->getVar('email'),
+                    'facebook'          => $this->request->getVar('facebook'),
+                    'twitter'          => $this->request->getVar('twitter'),
+                    'instagram'          => $this->request->getVar('instagram'),
+                    'kondisi_pekerjaan'   => $this->request->getVar('kondisi_pekerjaan'),
+                    'pekerjaan'          => $this->request->getVar('pekerjaan'),
+                    'jamsos'          => $this->request->getVar('jamsos'),
+                );
+
                 $penghasilans = [];
             
                 $pendidikan = array(
@@ -223,14 +221,15 @@ class Individu extends BaseController
                     'keterangan'          => $this->request->getVar('keterangan'),
                 );
 
-                if ($this->kesehatanm->insert($kes)) {
-                    $this->dusunm->insert($dusun);
-                    $id_kesehatan = $this->kesehatanm->orderBy('id', 'DESC')->first()->id;
+                if ($this->dusunm->insert($dusun)) {
+                    $this->kesehatanm->insert($kes);
                     $id_dusun = $this->dusunm->orderBy('id', 'DESC')->first()->id;
-                    $individu['kesehatan_id'] = $id_kesehatan;
-                    $individu['dusun_id'] = $id_dusun;
+                    $id_kesehatan = $this->kesehatanm->orderBy('id', 'DESC')->first()->id;
 
+                    $individu['id_dusun'] = $id_dusun;
+                    $individu['kesehatan_id'] = $id_kesehatan;
                     $this->individum->insert($individu);
+
                     $id_individu = $this->individum->getInsertID();
                     foreach ($this->request->getVar('jumlah') as $index => $val) {
                         array_push($penghasilans, [
@@ -266,7 +265,6 @@ class Individu extends BaseController
                 $id = $this->request->getPost('id');
                 
                 $individu =  array(
-                    'id_desa'          => session('id_desa'),
                     'no_kk'          => $this->request->getVar('no_kk'),
                     'nik'          => $this->request->getVar('nik'),
                     'nama'          => $this->request->getVar('nama'),

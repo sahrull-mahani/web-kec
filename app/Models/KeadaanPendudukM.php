@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class KeadaanPendudukM extends Model
 {
   protected $table = "keadaanpenduduk";
-  protected $allowedFields = ['dusun_id','individu_id'];
+  protected $allowedFields = ['id_dusun','individu_id'];
   protected $primarykey = 'id';
   protected $returnType = 'object';
   protected $useSoftDeletes = false;
@@ -39,8 +39,7 @@ class KeadaanPendudukM extends Model
     } else {
       $this->orderBy('id', 'asc');
     }
-    $this->select('keadaanpenduduk.*, nama_dusun,no_kk,nik,nama,pekerjaan,muntaber_diare,hepatitis_e,jantung,demam_berdarah,difteri,tbc_paru,campak,chikungunya,kanker,malaria,leptospirosis,diabetes,fluburung_sars,kolera,lumpuh,covid_19,gizi_buruk,hepatitis_b,lainnya');
-    $this->join('individu', 'individu.id=keadaanpenduduk.individu_id')->join('dusun', 'dusun.id=individu.dusun_id')->join('kesehatan', 'kesehatan.id=individu.kesehatan_id');
+   
   }
   public function get_datatables()
   {
@@ -56,6 +55,13 @@ class KeadaanPendudukM extends Model
       $this->where($this->table . '.' . $this->deletedField, null);
     }
     return $this->get()->getNumRows();
+  }
+
+  public function joinKeadaanPenduduk(){
+    $this->select('keadaanpenduduk.*, nama_dusun,no_kk,nik,nama,pekerjaan,muntaber_diare,hepatitis_e,jantung,demam_berdarah,difteri,tbc_paru,campak,chikungunya,kanker,malaria,leptospirosis,diabetes,fluburung_sars,kolera,lumpuh,covid_19,gizi_buruk,hepatitis_b,lainnya');
+    $this->join('individu', 'individu.id=keadaanpenduduk.individu_id');
+    $this->join('dusun', 'dusun.id=individu.id_dusun');
+    return $this->join('kesehatan', 'kesehatan.id=individu.kesehatan_id');
   }
 
 }

@@ -253,9 +253,10 @@ class IonAuthModel{
 		}
 		$this->triggerEvents('extra_where');
 		$query = $this->db->table($this->tables['users'])
-						  ->select($this->identityColumn . ', nama_user, email, users.id as id, password, active, last_login, img, groups.`name` as group_name, groups.id as group_id, id_desa')
+						  ->select($this->identityColumn . ', nama_user, email, users.id as id, password, active, last_login, img, groups.`name` as group_name, groups.id as group_id, id_desa, desa.`nama_desa` as desa')
                           ->join('users_groups', 'users_groups.user_id = users.id')
                           ->join('groups', 'users_groups.group_id = groups.id')
+						  ->join('desa', 'desa.id=users.id_desa')
 						  ->where($this->identityColumn, $identity)
 						  ->limit(1)
 						  ->orderBy('id', 'desc')
@@ -376,7 +377,9 @@ class IonAuthModel{
             'userlevel'           => $user->group_name,
             'userLevelId'         => $user->group_id,
             'user_id'             => $user->id, 
-			'id_desa' 			  => $user->id_desa, //everyone likes to overwrite id so we'll use user_id
+			'id_desa' 			  => $user->id_desa,
+			'desa' 		  => $user->desa,
+			//everyone likes to overwrite id so we'll use user_id
             // 'skpd_id'             => $user->skpd_id, //everyone likes to overwrite id so we'll use user_id
             'old_last_login'      => date('d-M-Y H:i:s'),
             'last_check'          => time(),
