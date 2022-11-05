@@ -312,14 +312,14 @@ $.post({
 
 
 $('#umur').on('change', function() {
-    let dusun = $('#dusun').val()
+    let dusun = $('#id_dusun').val()
     let val = $(this).val()
 
     $.ajax({
         url: location.origin + '/JumlahPenduduk/umur',
         type: 'POST',
         data: {
-            dusun: dusun,
+            id_dusun: dusun,
             value: val
         },
         success: function(res) {
@@ -331,7 +331,7 @@ $('#umur').on('change', function() {
     })
 })
 
-$('#dusun').on('change', function() {
+$('#id_dusun').on('change', function() {
     let val = $(this).val()
 
     $.ajax({

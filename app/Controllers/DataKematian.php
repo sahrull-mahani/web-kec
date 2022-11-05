@@ -55,7 +55,7 @@ class DataKematian extends BaseController
 
     public function single_edit($id)
     {
-        // dd($id);
+        dd($id);
         $get = $this->datakematianm->find($id);
         $this->data = array(
             'title' => 'Post Data Kematian | Admin',
@@ -67,7 +67,7 @@ class DataKematian extends BaseController
             'session' => $this->session,
             'individu' => $this->individum->findall(),
             'get' => $get,
-            'data' => $this->datakematianm->select('datakematian.*, ind.*, k.*, pk.*, pd.*, k.id kesID, pk.id pekID, pd.id kpID')->join('individu ind', 'ind.id = datakematian.individu_id')->join('kesehatan k', 'k.individu_id = ind.id')->join('pekerjaan pk', 'pk.individu_id = ind.id')->join('pendidikan pd', 'pd.individu_id = ind.id')->where('datakematian.id', $id)->first()
+            'data' => $this->datakematianm->select('datakematian.*, ind.*, pd.*, pd.id kpID')->join('individu ind', 'ind.id = datakematian.individu_id')->join('pendidikan pd', 'pd.individu_id = ind.id')->where('datakematian.id', $id)->first()
         );
 
         return view('App\Views\datakematian\post-datakematian', $this->data);
@@ -87,7 +87,7 @@ class DataKematian extends BaseController
                 // $files = $this->request->getFileMultiple('userfile');
 
                 $data =  array(
-                    'user_id'          => session('user_id'),
+                    'id_desa'          => session('id_desa'),
                     'individu_id'          => $this->request->getVar('individu_id'),
                     'tgl_kematian'    => $this->request->getVar('tgl_kematian'),
                     'jam_kematian'    => $this->request->getVar('jam_kematian'),
@@ -112,7 +112,7 @@ class DataKematian extends BaseController
             case 'update':
                 $id = $this->request->getPost('id');
                 $data =  array(
-                    'user_id'          => session('user_id'),
+                    'id_desa'          => session('id_desa'),
                     'individu_id'          => $this->request->getPost('individu_id'),
                     'tgl_kematian'    => $this->request->getPost('tgl_kematian'),
                     'jam_kematian'    => $this->request->getPost('jam_kematian'),
@@ -126,7 +126,7 @@ class DataKematian extends BaseController
                     $status['title'] = 'success';
                     $status['type'] = 'success';
                     $status['text'] = 'Data Kematian Telah Di Ubah';
-                    $status['redirect'] = 'datapindah';
+                    $status['redirect'] = 'datakematian';
                 } else {
                     $status['title'] = 'Warning';
                     $status['type'] = 'error';

@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class DataKematianM extends Model
 {
   protected $table = "datakematian";
-  protected $allowedFields = ['user_id', 'individu_id', 'tgl_kematian', 'jam_kematian', 'tempat_kematian', 'tgl_kubur', 'jam_kubur', 'tempat_kubur', 'alamat_kubur'];
+  protected $allowedFields = ['id_desa', 'individu_id', 'tgl_kematian', 'jam_kematian', 'tempat_kematian', 'tgl_kubur', 'jam_kubur', 'tempat_kubur', 'alamat_kubur'];
   protected $primarykey = 'id';
   protected $returnType = 'object';
 
@@ -52,8 +52,10 @@ class DataKematianM extends Model
     } else {
       $this->orderBy('id', 'asc');
     }
+    if(!is_admin()){
     $this->select('datakematian.*, nama,jenis_kelamin');
-    $this->join('individu', 'individu.id=datakematian.individu_id');
+    $this->join('individu', 'individu.id=datakematian.individu_id')->where('id_desa', session('id_desa'));
+   }
   }
   public function get_datatables()
   {

@@ -55,15 +55,15 @@ class Profil extends BaseController
     {
         $id = $this->request->getPost('id');
         $this->data = array('action' => 'update', 'btn' => '<i class="fas fa-edit"></i> Edit');
-        foreach ($id as $ids) {
-            $get = $this->profilm->find($ids);
+        // foreach ($id as $ids) {
+            $get = $this->profilm->find($id);
             $data = array(
                 'nama' => '<b>' . $get->judul . '</b>',
                 'id' => $get->id,
                 'get' => $get,
             );
             $this->data['form_input'][] = view('App\Views\profil\form_input', $data);
-        }
+        // }
         $status['html']         = view('App\Views\profil\form_modal', $this->data);
         $status['modal_title']  = 'Update Data Profil';
         $status['modal_size']   = 'modal-lg';

@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class JumlahPendudukM extends Model
 {
   protected $table = "jumlahpenduduk";
-  protected $allowedFields = ['id_desa', 'dusun', 'jumlah_jiwa', 'jumlah_kk', 'umur', 'jumlah_pria', 'jumlah_wanita', 'jumlah', 'agama_islam', 'agama_kristen', 'agama_katolik', 'agama_hindu', 'agama_budha', 'keterangan'];
+  protected $allowedFields = ['id_dusun', 'dusun', 'jumlah_jiwa', 'jumlah_kk', 'umur', 'jumlah_pria', 'jumlah_wanita', 'jumlah', 'agama_islam', 'agama_kristen', 'agama_katolik', 'agama_hindu', 'agama_budha', 'keterangan'];
   protected $primarykey = 'id';
   protected $returnType = 'object';
   protected $useSoftDeletes = false;
@@ -18,7 +18,7 @@ class JumlahPendudukM extends Model
   protected $deletedField  = 'deleted_at';
 
   protected $validationRules = [
-    'dusun' => 'required|max_length[150]',
+    // 'dusun' => 'required|max_length[150]',
     'jumlah_jiwa' => 'required|max_length[11]',
     'jumlah_kk' => 'required|max_length[11]',
     'umur' => 'required',
@@ -34,7 +34,7 @@ class JumlahPendudukM extends Model
   ];
 
   protected $validationMessages = [
-    'dusun' => ['required' => 'tidak boleh kosong', 'max_length' => 'Maximal 11 Digit'],
+    // 'dusun' => ['required' => 'tidak boleh kosong', 'max_length' => 'Maximal 11 Digit'],
     'jumlah_jiwa' => ['required' => 'tidak boleh kosong', 'max_length' => 'Maximal 11 Digit'],
     'jumlah_kk' => ['required' => 'tidak boleh kosong', 'max_length' => 'Maximal 11 Digit'],
     'umur' => ['required' => 'tidak boleh kosong', 'max_length' => 'Maximal 11 Digit'],
@@ -70,11 +70,12 @@ class JumlahPendudukM extends Model
     } else {
       $this->orderBy('id', 'asc');
     }
-    // if (!is_admin()) {
-    //   $this->join('dusun', 'dusun.id=jumlahpenduduk.dusun_id');
-    //   $this->join('desa', 'desa.id=dusun.id_desa');
-		// 	$this->where('id_desa', session('id_desa'));
-		// }
+    if (!is_admin()) {
+      $this->select('jumlahpenduduk.id as jp_id,jumlah_jiwa,jumlah_kk,keterangan,dusun.*, desa.*');
+      $this->join('dusun', 'dusun.id=jumlahpenduduk.id_dusun');
+      $this->join('desa', 'desa.id=dusun.id_desa');
+			$this->where('id_desa', session('id_desa'));
+		}
   }
   public function get_datatables()
   {

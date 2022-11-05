@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class DataPindahM extends Model
 {
   protected $table = "datapindah";
-  protected $allowedFields = ['user_id', 'individu_id', 'status', 'tgl_pindah', 'alamat_pindah', 'keterangan_pindah'];
+  protected $allowedFields = ['id_desa', 'individu_id', 'status', 'tgl_pindah', 'alamat_pindah', 'keterangan_pindah'];
   protected $primarykey = 'id';
   protected $returnType = 'object';
   protected $useSoftDeletes = false;
@@ -52,8 +52,11 @@ class DataPindahM extends Model
     } else {
       $this->orderBy('id', 'asc');
     }
-    $this->select('datapindah.*, nama,jenis_kelamin');
-    $this->join('individu', 'individu.id=datapindah.individu_id');
+    if(!is_admin()){
+      $this->select('datapindah.*, nama,jenis_kelamin');
+      $this->join('individu', 'individu.id=datapindah.individu_id')->where('id_desa', session('id_desa'));
+    }
+ 
   }
   public function get_datatables()
   {

@@ -45,14 +45,14 @@ class Desa extends BaseController{
     public function edit(){
 		$id = $this->request->getPost('id');
         $this->data = array('action'=>'update','btn'=>'<i class="fas fa-edit"></i> Edit');
-        foreach($id as $ids){
-            $get = $this->desam->find($ids);
+        // foreach($id as $ids){
+            $get = $this->desam->find($id);
             $data = array(
                 'nama'=>'<b>'.$get->nama_desa.'</b>',
                 'get'=>$get,
             );
             $this->data['form_input'][] = view('App\Views\desa\form_input',$data);
-        }
+        // }
         $status['html']         = view('App\Views\desa\form_modal',$this->data);
         $status['modal_title']  = 'Update Data Desa';
         $status['modal_size']   = 'modal-lg';

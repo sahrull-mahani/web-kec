@@ -34,9 +34,9 @@ class JumlahPenduduk extends BaseController
         $no = isset($_GET['offset']) ? $_GET['offset'] + 1 : 1;
         foreach ($list as $rows) {
             $row = array();
-            $row['id'] = $rows->id;
+            $row['id'] = $rows->jp_id;
             $row['nomor'] = $no++;
-            $row['dusun'] = $rows->dusun;
+            $row['dusun'] = $rows->nama_dusun;
             $row['jumlah_jiwa'] = $rows->jumlah_jiwa;
             $row['jumlah_kk'] = $rows->jumlah_kk;
             $row['keterangan'] = $rows->keterangan;
@@ -52,27 +52,29 @@ class JumlahPenduduk extends BaseController
 
     public function umur()
     {
-        $dusun = $this->request->getVar('dusun');
+        $dusun = $this->request->getVar('id_dusun');
         $umur = $this->request->getPost('value');
-        $pria = $this->individum->where('umur', $umur)->where('dusun', $dusun)->where('jenis_kelamin', 'Laki - Laki')->countAllResults();
-        $wanita = $this->individum->where('umur', $umur)->where('dusun', $dusun)->where('jenis_kelamin', 'Perempuan')->countAllResults();
+        $pria = $this->individum->where('umur', $umur)->where('id_dusun', $dusun)->where('jenis_kelamin', 'Laki - Laki')->countAllResults();
+        $wanita = $this->individum->where('umur', $umur)->where('id_dusun', $dusun)->where('jenis_kelamin', 'Perempuan')->countAllResults();
         return json_encode(['pria' => $pria, 'wanita' => $wanita]);
     }
 
     public function dusun()
     {
+        // dd($this->request->getPost('id_dusun'));
         $dusun = $this->request->getPost('value');
-        $nik = $this->individum->where('dusun', $dusun)->findAll();
+
+        $nik = $this->individum->where('id_dusun', $dusun)->findAll();
         foreach ($nik as $row) {
             $niks[] = $row->nik;
         }
-        $jumlahJiwa = $this->individum->where('dusun', $dusun)->whereIn('nik', $niks)->countAllResults();
-        $jumlahKK = $this->individum->where('dusun', $dusun)->groupBy('no_kk')->countAllResults();
-        $islam = $this->individum->where('dusun', $dusun)->where('agama', 'Islam')->countAllResults();
-        $kristen = $this->individum->where('dusun', $dusun)->where('agama', 'Kristen')->countAllResults();
-        $katolik = $this->individum->where('dusun', $dusun)->where('agama', 'Katolik')->countAllResults();
-        $hindu = $this->individum->where('dusun', $dusun)->where('agama', 'Hindu')->countAllResults();
-        $budha = $this->individum->where('dusun', $dusun)->where('agama', 'Budha')->countAllResults();
+        $jumlahJiwa = $this->individum->where('id_dusun', $dusun)->whereIn('nik', $niks)->countAllResults();
+        $jumlahKK = $this->individum->where('id_dusun', $dusun)->groupBy('no_kk')->countAllResults();
+        $islam = $this->individum->where('id_dusun', $dusun)->where('agama', 'Islam')->countAllResults();
+        $kristen = $this->individum->where('id_dusun', $dusun)->where('agama', 'Kristen')->countAllResults();
+        $katolik = $this->individum->where('id_dusun', $dusun)->where('agama', 'Katolik')->countAllResults();
+        $hindu = $this->individum->where('id_dusun', $dusun)->where('agama', 'Hindu')->countAllResults();
+        $budha = $this->individum->where('id_dusun', $dusun)->where('agama', 'Budha')->countAllResults();
         // return json_encode(['nik' => $no_nik, 'wanita' => $wanita]);
         return json_encode(['agama_islam' => $islam, 'agama_kristen' => $kristen, 'agama_katolik' => $katolik, 'agama_hindu' => $hindu, 'agama_budha' => $budha, 'jumlahJiwa' => $jumlahJiwa, 'jumlahKK' => $jumlahKK]);
     }
@@ -80,8 +82,8 @@ class JumlahPenduduk extends BaseController
     public function single_edit($id)
     {
         $get = $this->jumlahpendudukm->find($id);
-        // dd($get);
         $this->data = array(
+            'action'=>'update',
             'title' => 'Jumlah Penduduk | Admin',
             'breadcome' => 'Jumlah Penduduk',
             'url' => 'jumlahpenduduk/',
@@ -89,7 +91,7 @@ class JumlahPenduduk extends BaseController
             'mm_jumlahpenduduk' => 'active',
             'm_jumlahpenduduk' => 'active',
             'session' => $this->session,
-            'individu' => $this->individum->groupBy('dusun')->findAll(),
+            'individu' => $this->individum->getJoinPajakKesPendPeng()->findAll(),
             'get' => $get
         );
 
@@ -118,22 +120,21 @@ class JumlahPenduduk extends BaseController
         $get = $this->jumlahpendudukm->find($id);
         $this->data = array(
             'get' => $get,
-            'individu' => $this->individum->groupBy('dusun')->find($id)
+            'individu' => $this->individum->groupBy('id_dusun')->find($id)                                                                                                                                                                                                                                   
         );
         $status['html']         = view('App\Views\jumlahpenduduk\form_input', $this->data);
-        $status['modal_title']  = '<b>Update Jumlah Penduduk : </b>' . $get->dusun;
+        $status['modal_title']  = '<b>Update Jumlah Penduduk : </b>' . $get->nama_dusun;
         $status['modal_size']   = 'modal-xl';
         echo json_encode($status);
     }
     public function save()
     {
+        // dd($this->request->getPost('action'));
         switch ($this->request->getPost('action')) {
             case 'insert':
-                // $files = $this->request->getFileMultiple('userfile');
-
+                // dd($this->request->getVar('id_dusun'));
                 $data =  array(
-                    'id_desa' => session('id_desa'),
-                    'dusun'          => $this->request->getVar('dusun'),
+                    'id_dusun'          => $this->request->getVar('id_dusun'),
                     'jumlah_jiwa'    => $this->request->getVar('jumlah_jiwa'),
                     'jumlah_kk'    => $this->request->getVar('jumlah_kk'),
                     'umur'    => $this->request->getVar('umur'),
@@ -161,10 +162,8 @@ class JumlahPenduduk extends BaseController
                 break;
             case 'update':
                 $id = $this->request->getPost('id');
-                // $files = $this->request->getFileMultiple('userfile');
                 $data =  array(
-                    'id_desa'          => session('id_desa'),
-                    'dusun'          => $this->request->getPost('dusun'),
+                    'id_dusun'          => $this->request->getPost('id_dusun'),
                     'jumlah_jiwa'    => $this->request->getPost('jumlah_jiwa'),
                     'jumlah_kk'    => $this->request->getPost('jumlah_kk'),
                     'umur'    => $this->request->getPost('umur'),

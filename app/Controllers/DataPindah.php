@@ -92,9 +92,8 @@ class DataPindah extends BaseController
     {
         switch ($this->request->getPost('action')) {
             case 'insert':
-
                 $data =  array(
-                    'user_id'          => session('user_id'),
+                    'id_desa'          => session('id_desa'),
                     'individu_id'          => $this->request->getVar('individu_id'),
                     'status'    => $this->request->getVar('status'),
                     'tgl_pindah'    => $this->request->getVar('tgl_pindah'),
@@ -117,7 +116,7 @@ class DataPindah extends BaseController
                 $id = $this->request->getPost('id');
                 // $files = $this->request->getFileMultiple('userfile');
                 $data =  array(
-                    'user_id'          => session('user_id'),
+                    'id_desa'          => session('id_desa'),
                     'individu_id'          => $this->request->getPost('individu_id'),
                     'status'    => $this->request->getPost('status'),
                     'tgl_pindah'    => $this->request->getPost('tgl_pindah'),

@@ -37,11 +37,13 @@
                         <div class="card-body">
                             <div class="col-md-12">
                                 <div class="form-group item">
-                                    <label for="dusun">Dusun</label>
-                                    <select name="dusun" id="dusun" class="form-control select2">
-                                        <option value="" disabled <?= (isset($get->nama_dusun) ? '' : 'selected') ?>>Pilih Dusun</option>
+                                    <label for="id_dusun">Dusun</label>
+                                    <select name="id_dusun" id="id_dusun" class="form-control select2">
+                                        <option value="" disabled <?= (isset($get->nama_dusun) ? '' : 'selected') ?>>Pilih Dusun</option>                                      
                                         <?php foreach ($individu as $row) : ?>
-                                            <option value="<?= $row->nama_dusun; ?>" <?= (isset($get->nama_dusun) ? ($get->nama_dusun == $row->nama_dusun ? 'selected' : '') : '') ?>><?= $row->nama_dusun ?></option>
+                                            <?php if($row->id_desa == session('id_desa')):?>
+                                                <option value="<?= $row->id_dusun; ?>" <?= (isset($get->nama_dusun) ? ($get->nama_dusun == $row->nama_dusun ? 'selected' : '') : '') ?>><?= $row->nama_dusun ?></option>
+                                            <?php endif; ?>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
