@@ -39,7 +39,11 @@ class KeadaanPendudukM extends Model
     } else {
       $this->orderBy('id', 'asc');
     }
-   
+    if(!is_admin()){
+      $this->joinKeadaanPenduduk()->where('id_desa', session('id_desa'));
+    }else{
+      $this->joinKeadaanPenduduk();
+    }
   }
   public function get_datatables()
   {

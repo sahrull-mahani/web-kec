@@ -79,20 +79,21 @@ class RumahTangga extends BaseController
         // $get = $this->rumahtanggam->where('rumahtangga.id', $id)->first();
         $get = $this->rumahtanggam->select('rumahtangga.*, ind.*, enum.*, ind.id indID, enum.id enumID')->join('individu ind', 'ind.id = rumahtangga.individu_id')->join('enumerator enum', 'enum.id = rumahtangga.enumerator_id')->where('rumahtangga.id', $id)->find($id);
 
-        
+
         $this->data = array(
-             'title' => 'Detail Kuisioner Rumah Tangga | Admin',
-             'breadcome' => 'Detail Kuisioner Rumah Tangga', 
-             'url' => 'rumahtangga/', 
-             'm_open_rumahtangga' => 'menu-open', 
-             'mm_rumahtangga' => 'active', 
-             'm_post_rumahtangga' => 'active', 
-             'session' => $this->session,
-             'prov' => getApi("https://www.emsifa.com/api-wilayah-indonesia/api/province/$get->provinsi.json"),
-             'kab'   => getApi("https://www.emsifa.com/api-wilayah-indonesia/api/regency/$get->kab_kota.json"),
-             'kec'   => getApi("https://www.emsifa.com/api-wilayah-indonesia/api/district/$get->kecamatan.json"),
-             'kelurahan' => getApi("https://www.emsifa.com//api-wilayah-indonesia/api/village/$get->kelurahan.json"),
-             'get' => $get);
+            'title' => 'Detail Kuisioner Rumah Tangga | Admin',
+            'breadcome' => 'Detail Kuisioner Rumah Tangga',
+            'url' => 'rumahtangga/',
+            'm_open_rumahtangga' => 'menu-open',
+            'mm_rumahtangga' => 'active',
+            'm_post_rumahtangga' => 'active',
+            'session' => $this->session,
+            'prov' => getApi("https://www.emsifa.com/api-wilayah-indonesia/api/province/$get->provinsi.json"),
+            'kab'   => getApi("https://www.emsifa.com/api-wilayah-indonesia/api/regency/$get->kab_kota.json"),
+            'kec'   => getApi("https://www.emsifa.com/api-wilayah-indonesia/api/district/$get->kecamatan.json"),
+            'kelurahan' => getApi("https://www.emsifa.com//api-wilayah-indonesia/api/village/$get->kelurahan.json"),
+            'get' => $get
+        );
         return view('App\Views\rumahtangga\detail-rumahtangga', $this->data);
     }
 

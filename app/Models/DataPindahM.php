@@ -55,7 +55,12 @@ class DataPindahM extends Model
     if(!is_admin()){
       $this->select('datapindah.*, nama,jenis_kelamin');
       $this->join('individu', 'individu.id=datapindah.individu_id')->where('id_desa', session('id_desa'));
+    }else{
+     $this->select('datapindah.*, nama,jenis_kelamin');
+     $this->join('individu', 'individu.id=datapindah.individu_id');
     }
+
+     
  
   }
   public function get_datatables()

@@ -33,71 +33,8 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item <?= isset($m_open_penduduk) ? $m_open_penduduk : ''; ?>">
-                    <a href="#" class="nav-link <?= isset($mm_penduduk) ? $mm_penduduk : ''; ?>">
-                        <i class="nav-icon fas fa-users"></i>
-                        <p>
-                            Data Penduduk
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item <?= isset($m_open_jumlahpenduduk) ? $m_open_jumlahpenduduk : ''; ?>">
-                            <a href="<?= site_url('jumlahpenduduk'); ?>" class="nav-link <?= isset($m_jumlahpenduduk) ? $m_jumlahpenduduk : ''; ?>">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Jumlah Penduduk</p>
-                            </a>
-                        </li>
-                        <li class="nav-item <?= isset($m_open_keadaanpenduduk) ? $m_open_keadaanpenduduk : ''; ?>">
-                            <a href="<?= site_url('keadaanpenduduk'); ?>" class="nav-link <?= isset($m_keadaanpenduduk) ? $m_keadaanpenduduk : ''; ?>">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Keadaan Penduduk</p>
-                            </a>
-                        </li>
-                        <li class="nav-item <?= isset($m_open_datapindah) ? $m_open_datapindah : ''; ?>">
-                            <a href="<?= site_url('datapindah'); ?>" class="nav-link <?= isset($m_datapindah) ? $m_datapindah : ''; ?>">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Data Pindah</p>
-                            </a>
-                        </li>
-                        <li class="nav-item <?= isset($m_open_datakematian) ? $m_open_datakematian : ''; ?>">
-                            <a href="<?= site_url('datakematian'); ?>" class="nav-link <?= isset($m_datakematian) ? $m_datakematian : ''; ?>">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Data Kematian</p>
-                            </a>
-                        </li>
-                        <li class="nav-item <?= isset($m_open_datapajak) ? $m_open_datapajak : ''; ?>">
-                            <a href="<?= site_url('datapajak'); ?>" class="nav-link <?= isset($m_datapajak) ? $m_datapajak : ''; ?>">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Data Pajak</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item <?= isset($m_open_kuisioner) ? $m_open_kuisioner : ''; ?>">
-                    <a href="#" class="nav-link <?= isset($mm_kuisioner) ? $mm_kuisioner : ''; ?>">
-                        <i class="nav-icon fas fa-users"></i>
-                        <p>
-                            Kuisioner
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item <?= isset($m_open_rumahtangga) ? $m_open_rumahtangga : ''; ?>">
-                            <a href="<?= site_url('rumahtangga'); ?>" class="nav-link <?= isset($m_rumahtangga) ? $m_rumahtangga : ''; ?>">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Rumah Tangga</p>
-                            </a>
-                        </li>
-                        <li class="nav-item <?= isset($m_open_individu) ? $m_open_individu : ''; ?>">
-                            <a href="<?= site_url('individu'); ?>" class="nav-link <?= isset($m_individu) ? $m_individu : ''; ?>">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Individu</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
                 <?php if (is_admin()) : ?>
+            <li class="nav-header">MENU ADMIN KECAMATAN</li>
                 <li class="nav-item <?= isset($m_open_berita) ? $m_open_berita : ''; ?>">
                     <a href="#" class="nav-link <?= isset($mm_berita) ? $mm_berita : ''; ?>">
                         <i class="nav-icon fas fa-newspaper"></i>
@@ -305,7 +242,75 @@
                     </a>
                 </li>
                 <?php endif; ?>
+                <?php if(is_admin()): ?>
+                    <li class="nav-header">MENU DESA</li>
+                <?php endif; ?>
+                <li class="nav-item <?= isset($m_open_penduduk) ? $m_open_penduduk : ''; ?>">
+                    <a href="#" class="nav-link <?= isset($mm_penduduk) ? $mm_penduduk : ''; ?>">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            Data Penduduk
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item <?= isset($m_open_jumlahpenduduk) ? $m_open_jumlahpenduduk : ''; ?>">
+                            <a href="<?= site_url('jumlahpenduduk'); ?>" class="nav-link <?= isset($m_jumlahpenduduk) ? $m_jumlahpenduduk : ''; ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Jumlah Penduduk</p>
+                            </a>
+                        </li>
+                        <li class="nav-item <?= isset($m_open_keadaanpenduduk) ? $m_open_keadaanpenduduk : ''; ?>">
+                            <a href="<?= site_url('keadaanpenduduk'); ?>" class="nav-link <?= isset($m_keadaanpenduduk) ? $m_keadaanpenduduk : ''; ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Keadaan Penduduk</p>
+                            </a>
+                        </li>
+                        <li class="nav-item <?= isset($m_open_datapindah) ? $m_open_datapindah : ''; ?>">
+                            <a href="<?= site_url('datapindah'); ?>" class="nav-link <?= isset($m_datapindah) ? $m_datapindah : ''; ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Data Pindah</p>
+                            </a>
+                        </li>
+                        <li class="nav-item <?= isset($m_open_datakematian) ? $m_open_datakematian : ''; ?>">
+                            <a href="<?= site_url('datakematian'); ?>" class="nav-link <?= isset($m_datakematian) ? $m_datakematian : ''; ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Data Kematian</p>
+                            </a>
+                        </li>
+                        <li class="nav-item <?= isset($m_open_datapajak) ? $m_open_datapajak : ''; ?>">
+                            <a href="<?= site_url('datapajak'); ?>" class="nav-link <?= isset($m_datapajak) ? $m_datapajak : ''; ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Data Pajak</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item <?= isset($m_open_kuisioner) ? $m_open_kuisioner : ''; ?>">
+                    <a href="#" class="nav-link <?= isset($mm_kuisioner) ? $mm_kuisioner : ''; ?>">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            Kuisioner
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item <?= isset($m_open_rumahtangga) ? $m_open_rumahtangga : ''; ?>">
+                            <a href="<?= site_url('rumahtangga'); ?>" class="nav-link <?= isset($m_rumahtangga) ? $m_rumahtangga : ''; ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Rumah Tangga</p>
+                            </a>
+                        </li>
+                        <li class="nav-item <?= isset($m_open_individu) ? $m_open_individu : ''; ?>">
+                            <a href="<?= site_url('individu'); ?>" class="nav-link <?= isset($m_individu) ? $m_individu : ''; ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Individu</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <?php if (is_admin()) : ?>
+                    <li class="nav-header">MANAGENENT USERS</li>
                     <li class="nav-item">
                         <a href="<?= site_url('/users'); ?>" class="nav-link <?= isset($m_users) ? $m_users : ''; ?>">
                             <i class="nav-icon fa fa-users"></i>

@@ -48,7 +48,7 @@ class JumlahPendudukM extends Model
     'agama_budha' => ['required' => 'tidak boleh kosong', 'max_length' => 'Maximal 11 Digit'],
     'keterangan' => ['required' => 'tidak boleh kosong', 'max_length' => 'Maximal 1000 Karakter'],
   ];
-  private function _get_datatables()
+  private function _get_datatables($filter_desa, $start, $end)
   {
     $column_search = array('jumlah_jiwa', 'jumlah_kk', 'keterangan');
     $i = 0;
@@ -70,26 +70,41 @@ class JumlahPendudukM extends Model
     } else {
       $this->orderBy('id', 'asc');
     }
-    if (!is_admin()) {
-      $this->select('jumlahpenduduk.id as jp_id,jumlah_jiwa,jumlah_kk,keterangan,dusun.*, desa.*');
-      $this->join('dusun', 'dusun.id=jumlahpenduduk.id_dusun');
-      $this->join('desa', 'desa.id=dusun.id_desa');
-			$this->where('id_desa', session('id_desa'));
-		}
+    if (is_admin()) {
+      // dd($filter_desa, date('Y-m-d', $start), date('Y-m-d', $end));
+      if ($filter_desa != '') {
+        // $this->joinDusunDesa()->where('id_desa', $filter_desa);
+        $this->joinDusunDesa()->where('id_desa', $filter_desa)->where('jumlahpenduduk.created_at BETWEEN "' . date('Y-m-d', $start) . '" and "' . date('Y-m-d', $end) . '"');
+      } else {
+        $this->joinDusunDesa();
+      }
+    } else {
+      $this->joinDusunDesa()->where('id_desa', session('id_desa'));
+    }
   }
   public function get_datatables()
   {
-    $this->_get_datatables();
     $limit = isset($_GET['limit']) ? $_GET['limit'] : 0;
     $offset = isset($_GET['offset']) ? $_GET['offset'] : 0;
+    $filter_desa = $_GET['filter_desa'] != '' ? $_GET['filter_desa'] : null;
+    $start = isset($_GET['start']) ? $_GET['start'] : 0;
+    $end = isset($_GET['end']) ? $_GET['end'] : 0;
+    $this->_get_datatables($filter_desa, strtotime($start), strtotime($end));
     return $this->findAll($limit, $offset);
   }
   public function total()
   {
-    $this->_get_datatables();
+    $this->_get_datatables($_GET['filter_desa'], strtotime($_GET['start']), strtotime($_GET['end']));
     if ($this->tempUseSoftDeletes) {
       $this->where($this->table . '.' . $this->deletedField, null);
     }
     return $this->get()->getNumRows();
+  }
+
+  public function joinDusunDesa()
+  {
+    $this->select('jumlahpenduduk.id as jp_id,jumlah_jiwa,jumlah_kk,keterangan,dusun.*, desa.*');
+    $this->join('dusun', 'dusun.id=jumlahpenduduk.id_dusun');
+    return $this->join('desa', 'desa.id=dusun.id_desa');
   }
 }

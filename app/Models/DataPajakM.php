@@ -39,8 +39,18 @@ class DataPajakM extends Model
     } else {
       $this->orderBy('id', 'asc');
     }
-    $this->select('datapajak.*, nama,wajib_pajak,jumlah_pajak,keterangan,alamat');
-    $this->join('individu', 'individu.id=datapajak.individu_id');
+ 
+    if(!is_admin()){
+      $this->select('datapajak.*, nama,wajib_pajak,jumlah_pajak,keterangan,alamat');
+      $this->join('individu', 'individu.id=datapajak.individu_id');
+      $this->join('desa', 'desa.id=datapajak.id_desa');
+      $this->where('id_desa', session('id_desa'));
+    }else{
+      $this->select('datapajak.*, nama,wajib_pajak,jumlah_pajak,keterangan,alamat');
+      $this->join('individu', 'individu.id=datapajak.individu_id');
+      $this->join('desa', 'desa.id=datapajak.id_desa');
+    }
+
   }
   public function get_datatables()
   {

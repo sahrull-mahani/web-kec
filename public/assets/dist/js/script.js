@@ -72,9 +72,9 @@ $(".tag-with-input").select2({
 })
 
 window.onload = function(){
-    document.getElementById("Lokasi").style.display='none';
-    document.getElementById("Keluarga").style.display='none';
-    document.getElementById("Permukiman").style.display='none';
+    // document.getElementById("Lokasi").style.display='none';
+    // document.getElementById("Keluarga").style.display='none';
+    // document.getElementById("Permukiman").style.display='none';
     // $("#Lokasi").hide();
     // $("#Keluarga").hide();
     // $("#Permukiman").hide();
@@ -615,5 +615,9 @@ $(document).ready(function(){
         });
 
     });
+
+
+
+
     
 });

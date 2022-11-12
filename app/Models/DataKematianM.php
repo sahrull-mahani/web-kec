@@ -53,8 +53,11 @@ class DataKematianM extends Model
       $this->orderBy('id', 'asc');
     }
     if(!is_admin()){
+      $this->select('datakematian.*, nama,jenis_kelamin');
+      $this->join('individu', 'individu.id=datakematian.individu_id')->where('id_desa', session('id_desa'));
+   }else{
     $this->select('datakematian.*, nama,jenis_kelamin');
-    $this->join('individu', 'individu.id=datakematian.individu_id')->where('id_desa', session('id_desa'));
+    $this->join('individu', 'individu.id=datakematian.individu_id');
    }
   }
   public function get_datatables()

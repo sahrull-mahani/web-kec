@@ -27,7 +27,7 @@ class KeadaanPenduduk extends BaseController
 
     public function ajax_request()
     {
-        $list = $this->keadaanpendudukm->joinKeadaanPenduduk()->get_datatables();
+        $list = $this->keadaanpendudukm->get_datatables();
         $data = array();
         $no = isset($_GET['offset']) ? $_GET['offset'] + 1 : 1;
         foreach ($list as $rows) {

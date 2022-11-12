@@ -35,12 +35,41 @@
                             </div>
                         </div>
                         <div class="card-body">
+
                             <div id="toolbar">
-                                <a href="post-jumlahpenduduk"><button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah</button></a>
-                                <button type="button" class="btn btn-warning" id="single-edit" data-href="jumlahpenduduk" method="edit" disabled><i class="fa fa-edit"></i> Update</button>
-                                <button type="button" class="btn btn-danger" id="remove" disabled><i class="fa fa-trash"></i> Hapus</button>
+                                <?php if (is_admin()) : ?>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <input type="text" name="range-dateJP" id="range-dateJP" class="btn btn-primary" />
+                                    <select name="filer_desa" id="filter_desa" class="custom-select select2">
+                                        <option value="" default>Pilih Desa</option>
+                                        <?php foreach ($desa as $row) : ?>
+                                        <option value="<?= $row->id; ?>"><?= $row->nama_desa; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <a href="<?= site_url('JumlahPenduduk/export') ?>" class="btn btn-success">Excel</a>
+                                </div>
+                                <?php else : ?>
+                                <a href="#" class="btn btn-success"><i class="nav-icon fas fa-upload"></i> Upload </a>
+                                <?php endif; ?>
+                                <?php if (!is_admin()) : ?>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <input type="text" name="range-dateJP" id="range-dateJP"
+                                        class="btn btn-primary d-none" />
+                                </div>
+                                <a href="post-jumlahpenduduk"><button type="button" class="btn btn-primary"><i
+                                            class="fa fa-plus"></i> Tambah</button></a>
+                                <button type="button" class="btn btn-warning" id="single-edit"
+                                    data-href="jumlahpenduduk" method="edit" disabled><i class="fa fa-edit"></i>
+                                    Update</button>
+                                <button type="button" class="btn btn-danger" id="remove" disabled><i
+                                        class="fa fa-trash"></i> Hapus</button>
+                                <?php endif; ?>
                             </div>
-                            <table id="table" data-toggle="table" data-ajax="ajaxRequest" data-side-pagination="server" data-pagination="true" data-search="true" data-show-columns="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-click-to-select="true" data-toolbar="#toolbar">
+                            <table id="table" data-toggle="table" data-ajax="ajaxExport" data-side-pagination="server"
+                                data-pagination="true" data-search="true" data-show-columns="true"
+                                data-show-refresh="true" data-key-events="true" data-show-toggle="true"
+                                data-resizable="true" data-cookie="true" data-cookie-id-table="saveId"
+                                data-click-to-select="true" data-toolbar="#toolbar">
                                 <thead>
                                     <tr>
                                         <th data-field="state" data-checkbox="true"></th>

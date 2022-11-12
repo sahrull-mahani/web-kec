@@ -2,9 +2,15 @@
 
 namespace App\Controllers;
 
+use App\Models\DesaM;
 use App\Models\IndividuM;
 use App\Models\JumlahPendudukM;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use CodeIgniter\I18n\Time;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+// use PhpOffice\PhpSpreadsheet\Alignment;
+// use PhpOffice\PhpSpreadsheet\Fill;
 
 class JumlahPenduduk extends BaseController
 {
@@ -12,6 +18,7 @@ class JumlahPenduduk extends BaseController
     {
         $this->jumlahpendudukm = new JumlahPendudukM();
         $this->individum = new IndividuM();
+        $this->desam = new DesaM();
     }
     public function index()
     {
@@ -23,12 +30,34 @@ class JumlahPenduduk extends BaseController
             'mm_jumlahpenduduk' => 'active',
             'm_jumlahpenduduk' => 'active',
             'session' => $this->session,
+            "desa" => $this->desam->findAll(),
         );
         echo view('App\Views\jumlahpenduduk\jumlahpenduduk_list', $this->data);
     }
 
+    public function jumPendudukAdmin()
+    {
+        $this->data = array(
+            'title' => 'Jumlah Penduduk | Admin',
+            'breadcome' => 'Jumlah Penduduk',
+            'url' => 'jumlahpenduduk/',
+            'm_open_jumlahpenduduk' => 'menu-open',
+            'mm_jumlahpenduduk' => 'active',
+            'm_jumlahpenduduk' => 'active',
+            'session' => $this->session,
+            "desa" => $this->desam->findAll(),
+        );
+        echo view('App\Views\jumlahpenduduk\jumlahpenduduk_list-admin', $this->data);
+    }
+
     public function ajax_request()
     {
+        // $start = $this->request->getPost('start');
+        // $start = date('Y-m-d', strtotime($_GET['start']));
+        // $end = date('Y-m-d', strtotime($_GET['end']));
+        // $filter_desa = isset($_GET['filter_desa']) ? $_GET['filter_desa'] : 'all';
+
+        // $list = $this->jumlahpendudukm->get_datatables($filter_desa, $start, $end);
         $list = $this->jumlahpendudukm->get_datatables();
         $data = array();
         $no = isset($_GET['offset']) ? $_GET['offset'] + 1 : 1;
@@ -44,6 +73,7 @@ class JumlahPenduduk extends BaseController
         }
         $output = array(
             "total" => $this->jumlahpendudukm->total(),
+            // "total" => $this->jumlahpendudukm->total($filter_desa, $start, $end),
             "totalNotFiltered" => $this->jumlahpendudukm->countAllResults(),
             "rows" => $data,
         );
@@ -83,7 +113,7 @@ class JumlahPenduduk extends BaseController
     {
         $get = $this->jumlahpendudukm->find($id);
         $this->data = array(
-            'action'=>'update',
+            'action' => 'update',
             'title' => 'Jumlah Penduduk | Admin',
             'breadcome' => 'Jumlah Penduduk',
             'url' => 'jumlahpenduduk/',
@@ -120,7 +150,7 @@ class JumlahPenduduk extends BaseController
         $get = $this->jumlahpendudukm->find($id);
         $this->data = array(
             'get' => $get,
-            'individu' => $this->individum->groupBy('id_dusun')->find($id)                                                                                                                                                                                                                                   
+            'individu' => $this->individum->groupBy('id_dusun')->find($id)
         );
         $status['html']         = view('App\Views\jumlahpenduduk\form_input', $this->data);
         $status['modal_title']  = '<b>Update Jumlah Penduduk : </b>' . $get->nama_dusun;
@@ -200,6 +230,80 @@ class JumlahPenduduk extends BaseController
                 echo json_encode($status);
                 break;
         }
+    }
+    public function export()
+    {
+
+        // $db      = \Config\Database::connect();
+        // $get = $this->request->getGet('start');
+        // $start = date('Y-m-d', strtotime($_GET['start']));
+        // dd($start);
+        // $end = date('Y-m-d', strtotime($_GET['end']));
+        // $filter_desa = isset($_GET['filter_desa']) ? $_GET['filter_desa'] : 'all';
+        // $dataFilter = $this->jumlahpendudukm->where('jumlahpenduduk.created_at BETWEEN "' . date('Y-m-d', strtotime($start)) . '" and "' . date('Y-m-d', strtotime($end)) . '"')->where('id_desa', $desa)->join('dusun', 'dusun.id=jumlahpenduduk.id_dusun')->join('desa', 'desa.id=dusun.id_desa')->findAll();
+        // $dataFilter1 = $this->jumlahpendudukm->where('id_desa', $desa)->join('dusun', 'dusun.id=jumlahpenduduk.id_dusun')->join('desa', 'desa.id=dusun.id_desa')->findAll();
+
+        $spreadsheet = new Spreadsheet();
+        $dataFilter =  $this->jumlahpendudukm->findAll();
+        // $dataFilter =  $this->jumlahpendudukm->get_datatables();
+        $spreadsheet->getActiveSheet()
+            ->setCellValue('A1', "DUSUN")
+            ->setCellValue('B1', "JUMLAH JIWA")
+            ->setCellValue('C1', "JUMLAH KK")
+            ->setCellValue('D1', "KETERANGAN");
+
+        $col = 3;
+        foreach ($dataFilter as $key => $d) {
+            $spreadsheet->getActiveSheet()
+                ->setCellValue("A" . $col, $d->nama_dusun)
+                ->setCellValue("B" . $col, $d->jumlah_jiwa)
+                ->setCellValue("c" . $col, $d->jumlah_kk)
+                ->setCellValue("d" . $col, $d->keterangan);
+
+            $col++;
+        }
+        // set Formula
+        // $spreadsheet->getActiveSheet()->setCellValue('D2', "=B2*C2");
+
+        //freeze pane
+        $spreadsheet->getActiveSheet()->freezePane('A3');
+
+        // set Zoom Scale
+        $spreadsheet->getActiveSheet()->getSheetView()->setZoomScale(140);
+
+        // alignment
+        // $spreadsheet->getActiveSheet()->getStyle('A1:E1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+
+        // font
+        $spreadsheet->getActiveSheet()->getStyle('A1:E1')->getFont()->setSize(10)->setBold(true);
+
+        // fill
+        // $spreadsheet->getActiveSheet()->getStyle('A1:E1')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('FF8C56');
+
+        // LEBAR KOLOM
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('A')
+            ->setWidth(15);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('B')
+            ->setWidth(15);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('C')
+            ->setWidth(15);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('D')
+            ->setWidth(20);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('E')
+            ->setWidth(17);
+
+        header('Content-type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="Jumlah Penduduk.xlsx"');
+        header('Cache-Control: max-age=0');
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $writer->save('php://output');
+        return $dataFilter;
+        die;
     }
 }
 

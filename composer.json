@@ -7,8 +7,9 @@
     "require": {
         "php": "^7.4 || ^8.0",
         "codeigniter4/framework": "^4.0",
-        "phpoffice/phpspreadsheet": "^1.23",
-        "mpdf/mpdf": "^8.1"
+        "phpoffice/phpspreadsheet": "^1.25",
+        "mpdf/mpdf": "^8.1",
+        "phpoffice/phpexcel": "^1.8"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9",

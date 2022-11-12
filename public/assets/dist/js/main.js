@@ -16,8 +16,32 @@ var $publish = $('#publish')
 var $detail = $('#detail')
 var url = $('#url').val()
 function ajaxRequest(params) {
+    let filter_desa = $('#filter_desa').val()
+    params.data['filter_desa'] = filter_desa
     $.get(url + 'ajax_request?' + $.param(params.data)).then(function (res) {
         params.success(JSON.parse(res))
+    })
+}
+
+function ajaxExport(params) {
+    // console.log(url)
+  let filter_desa = $('#filter_desa').val()
+  let tanggal = rangeDateJP.val().split(' - ')
+
+  params.data['filter_desa'] = filter_desa
+  params.data['start'] = tanggal[0]
+  params.data['end'] = tanggal[1]
+  $.get(url + "ajax_request?" + $.param(params.data)).then(function (res) {
+    params.success(JSON.parse(res));
+})
+    rangeDateJP.on('change', function () {
+    let tgl = $(this).val().split(' - ')
+    params.data['start'] = tgl[0]
+    params.data['end'] = tgl[1]
+    // alert($('#filter_desa').val())
+    $.get(url + "ajax_request?" + $.param(params.data)).then(function (res) {
+        params.success(JSON.parse(res));
+    })
     })
 }
 
