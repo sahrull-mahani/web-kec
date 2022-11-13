@@ -70,7 +70,7 @@ class Pendidikan extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('individu_id', 'individu', 'id', 'ON UPDATE', 'CASCADE');
+        $this->forge->addForeignKey('individu_id', 'individu', 'id', 'CASCADE', 'RESTRICT');
         $this->forge->createTable('pendidikan');
     }
 

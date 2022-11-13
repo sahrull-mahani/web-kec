@@ -15,20 +15,16 @@ class Individu extends Migration
                 'unsigned'        => true,
                 'auto_increment' => true
             ],
-            'id_desa' => [
-                'type'       => 'INT',
-                'constraint' => 11,
-                'unsigned'   => true,
+            'id_dusun'     => [
+                'type'          => 'INT',
+                'constraint' => '6',
+                'unsigned' => true,
             ],
             'kesehatan_id' => [
                 'type' => 'int',
                 'constraint' => 11,
                 'unsigned' => true,
                 'null' => true
-            ],
-            'dusun_id'     => [
-                'type'          => 'INT',
-                'constraint' => 6,
             ],
             'no_kk'     => [
                 'type'          => 'CHAR',
@@ -145,9 +141,8 @@ class Individu extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('id_desa', 'desa', 'id', 'ON UPDATE', 'CASCADE');
-        $this->forge->addForeignKey('dusun_id', 'dusun', 'id', 'ON UPDATE', 'CASCADE');
-        $this->forge->addForeignKey('kesehatan_id', 'kesehatan', 'id','ON DELETE' ,'ON UPDATE', 'CASCADE','SET NULL');
+        $this->forge->addForeignKey('id_dusun', 'dusun', 'id', 'CASCADE', 'RESTRICT');
+        $this->forge->addForeignKey('kesehatan_id', 'kesehatan', 'id', 'ON DELETE', 'CASCADE', 'RESTRICT', 'SET NULL');
         $this->forge->createTable('individu');
     }
 

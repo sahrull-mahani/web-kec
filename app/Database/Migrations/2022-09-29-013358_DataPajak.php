@@ -25,7 +25,7 @@ class DataPajak extends Migration
                 'constraint' => 11,
                 'unsigned' => true,
             ],
-             'wajib_pajak'     => [
+            'wajib_pajak'     => [
                 'type'          => 'ENUM',
                 'constraint' => ['Ya', 'Tidak'],
             ],
@@ -51,8 +51,8 @@ class DataPajak extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('id_desa', 'desa', 'id', 'NO UPDATE', 'CASCADE');
-        $this->forge->addForeignKey('individu_id', 'individu', 'id', 'ON UPDATE', 'CASCADE');
+        $this->forge->addForeignKey('id_desa', 'desa', 'id', 'CASCADE', 'RESTRICT');
+        $this->forge->addForeignKey('individu_id', 'individu', 'id', 'CASCADE', 'RESTRICT');
         $this->forge->createTable('datapajak');
     }
 

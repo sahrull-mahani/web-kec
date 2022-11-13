@@ -12,12 +12,13 @@ class JumlahPenduduk extends Migration
             'id'        => [
                 'type'          => 'INT',
                 'constraint'    => 11,
-                'unsign'        => true,
+                'unsigned'   => true,
                 'auto_increment' => true
             ],
-            'dusun_id'     => [
+            'id_dusun'     => [
                 'type'          => 'INT',
-                'constraint' => 6,
+                'constraint' => '6',
+                'unsigned'   => true,
             ],
             'jumlah_jiwa'     => [
                 'type'          => 'INT',
@@ -81,7 +82,7 @@ class JumlahPenduduk extends Migration
 
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('dusun_id', 'dusun', 'id', 'ON UPDATE', 'CASCADE');
+        $this->forge->addForeignKey('id_dusun', 'dusun', 'id', 'CASCADE', 'RESTRICT');
         $this->forge->createTable('jumlahpenduduk');
     }
 

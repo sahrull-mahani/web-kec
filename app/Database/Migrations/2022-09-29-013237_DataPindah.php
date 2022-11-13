@@ -53,8 +53,8 @@ class DataPindah extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('id_desa', 'desa', 'id', 'ON UPDATE', 'CASCADE');
-        $this->forge->addForeignKey('individu_id', 'individu', 'id', 'ON UPDATE', 'CASCADE');
+        $this->forge->addForeignKey('id_desa', 'desa', 'id', 'CASCADE', 'RESTRICT');
+        $this->forge->addForeignKey('individu_id', 'individu', 'id', 'CASCADE', 'RESTRICT');
         $this->forge->createTable('datapindah');
     }
 
