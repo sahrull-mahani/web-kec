@@ -6,17 +6,21 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title><?= $title ?></title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" />
     <!-- Font Awesome -->
     <link rel="stylesheet" href="<?= base_url('assets/plugins/fontawesome-free/css/all.min.css') ?>" />
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="<?= base_url('assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') ?>" />
     <!-- Bootstrap Data Table -->
     <link rel="stylesheet" href="<?= base_url('assets/plugins/bootstrap-data-table/bootstrap-table.min.css') ?>">
-    <link rel="stylesheet" href="<?= base_url('assets/plugins/bootstrap-data-table/extensions/fixed-columns/bootstrap-table-fixed-columns.min.css') ?>">
-    <link rel="stylesheet" href="<?= base_url('assets/plugins/bootstrap-data-table/extensions/resizable/jquery.resizableColumns.css') ?>">
+    <link rel="stylesheet"
+        href="<?= base_url('assets/plugins/bootstrap-data-table/extensions/fixed-columns/bootstrap-table-fixed-columns.min.css') ?>">
+    <link rel="stylesheet"
+        href="<?= base_url('assets/plugins/bootstrap-data-table/extensions/resizable/jquery.resizableColumns.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css') ?>">
     <!-- select2 -->
     <link rel="stylesheet" href="<?= base_url('assets/plugins/select2/css/select2.min.css') ?>">
@@ -25,8 +29,10 @@
     <link rel="stylesheet" href="<?= base_url('assets/plugins/lobibox/lobibox.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') ?>">
     <!-- file uploader -->
-    <link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.min.css" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/css/fileinput.min.css" media="all"
+        rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.min.css"
+        crossorigin="anonymous">
     <!-- date range picker -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <!-- Summernote -->
@@ -37,31 +43,31 @@
     <!-- daterange picker -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <style>
-        .checkbox {
-            padding-left: 22px;
-            margin-bottom: 16px;
-        }
+    .checkbox {
+        padding-left: 22px;
+        margin-bottom: 16px;
+    }
 
-        .caret {
-            display: none;
-        }
+    .caret {
+        display: none;
+    }
 
-        .pull-left {
-            float: left;
-        }
+    .pull-left {
+        float: left;
+    }
 
-        .pull-right {
-            float: right;
-        }
+    .pull-right {
+        float: right;
+    }
 
-        .bootstrap-table .fixed-table-pagination>.pagination ul.pagination a {
-            padding: 12px 10px;
-        }
+    .bootstrap-table .fixed-table-pagination>.pagination ul.pagination a {
+        padding: 12px 10px;
+    }
 
-        .page-item.active .page-link {
-            background-color: #1abc9c;
-            border: none;
-        }
+    .page-item.active .page-link {
+        background-color: #1abc9c;
+        border: none;
+    }
     </style>
 </head>
 
@@ -87,7 +93,8 @@
                     <div class="navbar-search-block">
                         <form class="form-inline">
                             <div class="input-group input-group-sm">
-                                <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search" />
+                                <input class="form-control form-control-navbar" type="search" placeholder="Search"
+                                    aria-label="Search" />
                                 <div class="input-group-append">
                                     <button class="btn btn-navbar" type="submit">
                                         <i class="fas fa-search"></i>
@@ -154,11 +161,13 @@
                         <a href="#" class="dropdown-item">
                             <!-- Message Start -->
                             <div class="media">
-                                <img src="<?= base_url('assets/dist/img/user3-128x128.jpg') ?>" alt="User Avatar" class="img-size-50 img-circle mr-3" />
+                                <img src="<?= base_url('assets/dist/img/user3-128x128.jpg') ?>" alt="User Avatar"
+                                    class="img-size-50 img-circle mr-3" />
                                 <div class="media-body">
                                     <h3 class="dropdown-item-title">
                                         Nora Silvester
-                                        <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
+                                        <span class="float-right text-sm text-warning"><i
+                                                class="fas fa-star"></i></span>
                                     </h3>
                                     <p class="text-sm">The subject goes here</p>
                                     <p class="text-sm text-muted">
@@ -232,11 +241,13 @@
         <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
-    <div id="spinner" style="position:fixed; top: 50%; left: 50%; margin-left: -50px; margin-top: -50px;z-index: 999999;display: none;">
+    <div id="spinner"
+        style="position:fixed; top: 50%; left: 50%; margin-left: -50px; margin-top: -50px;z-index: 999999;display: none;">
         <span>Sabar.. Tunggu Sadiki...</span> <br>
         <img src="<?= base_url('assets/dist/img/ring.gif') ?>" />
     </div>
-    <div id="modal_content" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div id="modal_content" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" id="modal-size">
             <div class="modal-content" style="font-weight: 400;">
                 <div class="modal-header">
@@ -256,12 +267,20 @@
     <!-- overlayScrollbars -->
     <script src="<?= base_url('assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') ?>"></script>
     <!-- jquery resizableColumns -->
-    <script src="<?= base_url('assets/plugins/bootstrap-data-table/extensions/resizable/jquery.resizableColumns.min.js') ?>"></script>
+    <script
+        src="<?= base_url('assets/plugins/bootstrap-data-table/extensions/resizable/jquery.resizableColumns.min.js') ?>">
+    </script>
     <!-- Bootstrap Data Table -->
     <script src="<?= base_url('assets/plugins/bootstrap-data-table/bootstrap-table.min.js') ?>"></script>
-    <script src="<?= base_url('assets/plugins/bootstrap-data-table/extensions/editable/bootstrap-table-editable.min.js') ?>"></script>
-    <script src="<?= base_url('assets/plugins/bootstrap-data-table/extensions/fixed-columns/bootstrap-table-fixed-columns.min.js') ?>"></script>
-    <script src="<?= base_url('assets/plugins/bootstrap-data-table/extensions/resizable/bootstrap-table-resizable.min.js') ?>"></script>
+    <script
+        src="<?= base_url('assets/plugins/bootstrap-data-table/extensions/editable/bootstrap-table-editable.min.js') ?>">
+    </script>
+    <script
+        src="<?= base_url('assets/plugins/bootstrap-data-table/extensions/fixed-columns/bootstrap-table-fixed-columns.min.js') ?>">
+    </script>
+    <script
+        src="<?= base_url('assets/plugins/bootstrap-data-table/extensions/resizable/bootstrap-table-resizable.min.js') ?>">
+    </script>
     <!-- bs-custom-file-input -->
     <script src="<?= base_url('assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js') ?>"></script>
     <!-- select2 -->
@@ -274,9 +293,12 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <!-- file uploader -->
-    <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/js/plugins/piexif.min.js" type="text/javascript"></script>
-    <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/js/plugins/sortable.min.js" type="text/javascript"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/js/plugins/piexif.min.js"
+        type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/js/plugins/sortable.min.js"
+        type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
+    </script>
     <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/js/fileinput.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/themes/fas/theme.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/js/locales/LANG.js"></script>
@@ -288,7 +310,7 @@
     <!-- chart.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"></script>
     <!-- penduduk pages -->
-    <script src="<?= base_url('assets/dist/js/pages/jumlahpenduduk.js') ?>"></script>
+    <script src="<?= base_url('assets/dist/js/filter.js') ?>"></script>
 
     <!-- AdminLTE App -->
     <script src="<?= base_url('assets/dist/js/adminlte.min.js') ?>"></script>
@@ -296,7 +318,7 @@
     <script src="<?= base_url('assets/dist/js/main.js') ?>"></script>
     <script src="<?= base_url('assets/dist/js/script.js') ?>"></script>
     <?php if (isset($myChart)) : ?>
-        <script src="<?= base_url('assets/dist/js/myChart.js') ?>"></script>
+    <script src="<?= base_url('assets/dist/js/myChart.js') ?>"></script>
     <?php endif ?>
 </body>
 

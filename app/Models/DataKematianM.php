@@ -11,6 +11,11 @@ class DataKematianM extends Model
   protected $primarykey = 'id';
   protected $returnType = 'object';
 
+  protected $useTimestamps = true;
+  protected $createdField  = 'created_at';
+  protected $updatedField  = 'updated_at';
+  protected $deletedField  = 'deleted_at';
+
   protected $validationRules = [
     'tgl_kematian' => 'required',
     'jam_kematian' => 'required',
@@ -30,7 +35,7 @@ class DataKematianM extends Model
     'tempat_kubur' => ['required' => 'tidak boleh kosong', 'max_length' => 'Maximal 150 Karakter'],
     'alamat_kubur' => ['required' => 'tidak boleh kosong', 'max_length' => 'Maximal 150 Karakter'],
   ];
-  private function _get_datatables()
+  private function _get_datatables($filter_desa, $start, $end)
   {
     $column_search = array('nama', 'jenis_kelamin', 'tgl_kematian', 'jam_kematian', 'tempat_kematian');
     $i = 0;
@@ -52,27 +57,39 @@ class DataKematianM extends Model
     } else {
       $this->orderBy('id', 'asc');
     }
-    if(!is_admin()){
-      $this->select('datakematian.*, nama,jenis_kelamin');
-      $this->join('individu', 'individu.id=datakematian.individu_id')->where('id_desa', session('id_desa'));
-   }else{
-    $this->select('datakematian.*, nama,jenis_kelamin');
-    $this->join('individu', 'individu.id=datakematian.individu_id');
-   }
+    if (is_admin()) {
+      if ($filter_desa == "") {
+        $this->joinIndividu();
+      } else {
+        $this->joinIndividu()->where('id_desa', $filter_desa)->where('datakematian.created_at BETWEEN "' . date('Y-m-d', $start) . '" and "' . date('Y-m-d', $end) . '"');
+      }
+    } else {
+      $this->joinIndividu()->where('id_desa', session('id_desa'));
+    }
   }
   public function get_datatables()
   {
-    $this->_get_datatables();
+    // $this->_get_datatables();
     $limit = isset($_GET['limit']) ? $_GET['limit'] : 0;
     $offset = isset($_GET['offset']) ? $_GET['offset'] : 0;
+    $filter_desa = $_GET['filter_desa'] != '' ? $_GET['filter_desa'] : null;
+    $start = isset($_GET['start']) ? $_GET['start'] : 0;
+    $end = isset($_GET['end']) ? $_GET['end'] : 0;
+    $this->_get_datatables($filter_desa, strtotime($start), strtotime($end));
     return $this->findAll($limit, $offset);
   }
   public function total()
   {
-    $this->_get_datatables();
+    $this->_get_datatables($_GET['filter_desa'], strtotime($_GET['start']), strtotime($_GET['end']));
     if ($this->tempUseSoftDeletes) {
       $this->where($this->table . '.' . $this->deletedField, null);
     }
     return $this->get()->getNumRows();
+  }
+
+  public function joinIndividu()
+  {
+    $this->select('datakematian.*, nama,jenis_kelamin');
+    return $this->join('individu', 'individu.id=datakematian.individu_id');
   }
 }

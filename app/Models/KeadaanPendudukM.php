@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class KeadaanPendudukM extends Model
 {
   protected $table = "keadaanpenduduk";
-  protected $allowedFields = ['id_dusun','individu_id'];
+  protected $allowedFields = ['id_dusun', 'individu_id'];
   protected $primarykey = 'id';
   protected $returnType = 'object';
   protected $useSoftDeletes = false;
@@ -17,7 +17,7 @@ class KeadaanPendudukM extends Model
   protected $updatedField  = 'updated_at';
   protected $deletedField  = 'deleted_at';
 
-  private function _get_datatables()
+  private function _get_datatables($filter_desa, $start, $end)
   {
     $column_search = array('dusun', 'no_kk', 'nik', 'nama', 'pekerjaan', 'penyakit');
     $i = 0;
@@ -39,33 +39,41 @@ class KeadaanPendudukM extends Model
     } else {
       $this->orderBy('id', 'asc');
     }
-    if(!is_admin()){
+    if (is_admin()) {
+      if ($filter_desa != "") {
+        $this->joinKeadaanPenduduk()->where('id_desa', $filter_desa)->where('keadaanpenduduk.created_at BETWEEN "' . date('Y-m-d', $start) . '" and "' . date('Y-m-d', $end) . '"');
+      } else {
+        $this->joinKeadaanPenduduk();
+      }
+    } else {
       $this->joinKeadaanPenduduk()->where('id_desa', session('id_desa'));
-    }else{
-      $this->joinKeadaanPenduduk();
     }
   }
   public function get_datatables()
   {
-    $this->_get_datatables();
+    // $this->_get_datatables();
     $limit = isset($_GET['limit']) ? $_GET['limit'] : 0;
     $offset = isset($_GET['offset']) ? $_GET['offset'] : 0;
+    $filter_desa = $_GET['filter_desa'] != '' ? $_GET['filter_desa'] : null;
+    $start = isset($_GET['start']) ? $_GET['start'] : 0;
+    $end = isset($_GET['end']) ? $_GET['end'] : 0;
+    $this->_get_datatables($filter_desa, strtotime($start), strtotime($end));
     return $this->findAll($limit, $offset);
   }
   public function total()
   {
-    $this->_get_datatables();
+    $this->_get_datatables($_GET['filter_desa'], strtotime($_GET['start']), strtotime($_GET['end']));
     if ($this->tempUseSoftDeletes) {
       $this->where($this->table . '.' . $this->deletedField, null);
     }
     return $this->get()->getNumRows();
   }
 
-  public function joinKeadaanPenduduk(){
+  public function joinKeadaanPenduduk()
+  {
     $this->select('keadaanpenduduk.*, nama_dusun,no_kk,nik,nama,pekerjaan,muntaber_diare,hepatitis_e,jantung,demam_berdarah,difteri,tbc_paru,campak,chikungunya,kanker,malaria,leptospirosis,diabetes,fluburung_sars,kolera,lumpuh,covid_19,gizi_buruk,hepatitis_b,lainnya');
     $this->join('individu', 'individu.id=keadaanpenduduk.individu_id');
     $this->join('dusun', 'dusun.id=individu.id_dusun');
     return $this->join('kesehatan', 'kesehatan.id=individu.kesehatan_id');
   }
-
 }

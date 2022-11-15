@@ -2,11 +2,14 @@
 
 namespace App\Controllers;
 
+use App\Models\DesaM;
 use App\Models\IndividuM;
 use App\Models\KeadaanPendudukM;
 use App\Models\KesehatanM;
 use App\Models\PekerjaanM;
-
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use CodeIgniter\I18n\Time;
 
 class KeadaanPenduduk extends BaseController
@@ -17,10 +20,11 @@ class KeadaanPenduduk extends BaseController
         $this->individum = new IndividuM();
         $this->pekerjaanm = new PekerjaanM();
         $this->kesehatanm = new KesehatanM();
+        $this->desam = new DesaM();
     }
     public function index()
     {
-        $this->data = array('title' => 'Keadaan Penduduk | Admin', 'breadcome' => 'Keadaan Penduduk', 'url' => 'keadaanpenduduk/', 'm_open_keadaanpenduduk' => 'menu-open', 'mm_keadaanpenduduk' => 'active', 'm_keadaanpenduduk' => 'active', 'session' => $this->session);
+        $this->data = array('title' => 'Keadaan Penduduk | Admin', 'breadcome' => 'Keadaan Penduduk', 'url' => 'keadaanpenduduk/', 'm_open_keadaanpenduduk' => 'menu-open', 'mm_keadaanpenduduk' => 'active', 'm_keadaanpenduduk' => 'active', 'session' => $this->session, "desa" => $this->desam->findAll());
 
         echo view('App\Views\keadaanpenduduk\keadaanpenduduk_list', $this->data);
     }
@@ -39,7 +43,6 @@ class KeadaanPenduduk extends BaseController
             $row['nik'] = $rows->nik;
             $row['nama'] = ucwords($rows->nama);
             $row['pekerjaan'] = $rows->pekerjaan;
-            // $row['penyakit'] = ($rows->muntaber_diare == 'Ya' ? 'Muntaber/Diare, ' : '');
             $row['penyakit'] = ($rows->muntaber_diare == 'Ya' ? 'Muntaber/Diare, ' : '') .
                 ($rows->hepatitis_e == 'Ya' ? 'Hepatitis E, ' : '') .
                 ($rows->jantung == 'Ya' ? 'Jantung, ' : '') .
@@ -72,9 +75,6 @@ class KeadaanPenduduk extends BaseController
     public function keadaan()
     {
         $id = $this->request->getPost('value');
-
-        // dd($this->individum->getJoinKeadaan()->where('id', $id));
-
         if ($this->individum->getJoinPajakKesPendPeng()->where('individu.id', $id)->countAllResults() > 0) {
             return json_encode(['data' => $this->individum->getJoinPajakKesPendPeng()->where('individu.id', $id)->first()]);
         }
@@ -83,7 +83,6 @@ class KeadaanPenduduk extends BaseController
 
     public function single_edit($id)
     {
-        // dd($id);
         $get = $this->keadaanpendudukm->find($id);
         $this->data = array(
             'title' => 'Post Keadaan Penduduk | Admin',
@@ -144,7 +143,6 @@ class KeadaanPenduduk extends BaseController
                 break;
             case 'update':
                 $id = $this->request->getPost('id');
-                // $files = $this->request->getFileMultiple('userfile');
                 $data =  array(
                     'id_desa'          => session('id_desa'),
                     'individu_id'          => $this->request->getPost('individu_id'),
@@ -172,6 +170,101 @@ class KeadaanPenduduk extends BaseController
                 echo json_encode($status);
                 break;
         }
+    }
+
+    public function export()
+    {
+        $filter_desa = $this->request->getPost('filter_desa');
+        $dateRangeJP = $this->request->getPost('range-dateJP');
+        $start = explode(' - ', $dateRangeJP)[0];
+        $end = explode(' - ', $dateRangeJP)[1];
+
+        if ($filter_desa != "") {
+            $dataFilter = $this->keadaanpendudukm->joinKeadaanPenduduk()->where('keadaanpenduduk.created_at BETWEEN "' . date('Y-m-d', strtotime($start)) . '" and "' . date('Y-m-d', strtotime($end)) . '"')->where('id_desa', $filter_desa)->findAll();
+        } else {
+            $dataFilter = $this->keadaanpendudukm->joinKeadaanPenduduk()->findAll();
+        }
+
+        $spreadsheet = new Spreadsheet();
+
+        $spreadsheet->getActiveSheet()
+            ->setCellValue('A1', "DUSUN")
+            ->setCellValue('B1', "NKK")
+            ->setCellValue('C1', "NIK")
+            ->setCellValue('D1', "NAMA")
+            ->setCellValue('E1', "PEKERJAAN")
+            ->setCellValue('F1', "PENYAKIT");
+
+        $col = 3;
+        foreach ($dataFilter as $key => $data) {
+            $penyakit = ($data->muntaber_diare == 'Ya' ? 'Muntaber/Diare,' : '') .
+                ($data->hepatitis_e == 'Ya' ? 'Hepatitis E, ' : '') .
+                ($data->jantung == 'Ya' ? 'Jantung, ' : '') .
+                ($data->demam_berdarah == 'Ya' ? 'Demam Berdarah, ' : '') .
+                ($data->difteri == 'Ya' ? 'Difteri, ' : '') .
+                ($data->tbc_paru == 'Ya' ? 'TBC Paru Paru, ' : '') .
+                ($data->campak == 'Ya' ? 'Campak, ' : '') .
+                ($data->chikungunya == 'Ya' ? 'Cikungunya, ' : '') .
+                ($data->kanker == 'Ya' ? 'Kanker, ' : '') .
+                ($data->malaria == 'Ya' ? 'Malaria, ' : '') .
+                ($data->leptospirosis == 'Ya' ? 'Leptospirosis, ' : '') .
+                ($data->diabetes == 'Ya' ? 'Diabetes, ' : '') .
+                ($data->fluburung_sars == 'Ya' ? 'Flu Burung/SARS, ' : '') .
+                ($data->kolera == 'Ya' ? 'Kolera, ' : '') .
+                ($data->lumpuh == 'Ya' ? 'Lumpuh, ' : '') .
+                ($data->covid_19 == 'Ya' ? 'Covid 19, ' : '') .
+                ($data->gizi_buruk == 'Ya' ? 'Gizi Buruk, ' : '') .
+                ($data->hepatitis_b == 'Ya' ? 'Hepatitis B, ' : '') .
+                ($data->lainnya == 'Ya' ? 'Lainnya, ' : '');
+            $spreadsheet->getActiveSheet()
+                ->setCellValue("A" . $col, $data->nama_dusun)
+                ->setCellValue("B" . $col, $data->no_kk)
+                ->setCellValue("c" . $col, $data->nik)
+                ->setCellValue("d" . $col, $data->nama)
+                ->setCellValue("e" . $col, $data->pekerjaan)
+                ->setCellValue("f" . $col, $penyakit);
+
+            $col++;
+        }
+        // set Formula
+        // $spreadsheet->getActiveSheet()->setCellValue('D2', "=B2*C2");
+        //freeze pane
+        $spreadsheet->getActiveSheet()->freezePane('A3');
+        // set Zoom Scale
+        $spreadsheet->getActiveSheet()->getSheetView()->setZoomScale(120);
+        // alignment
+        // $spreadsheet->getActiveSheet()->getStyle('A1:E1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+        // font
+        $spreadsheet->getActiveSheet()->getStyle('A1:F1')->getFont()->setSize(10)->setBold(true);
+        // fill
+        // $spreadsheet->getActiveSheet()->getStyle('A1:E1')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('FF8C56');
+
+        // LEBAR KOLOM
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('A')
+            ->setWidth(15);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('B')
+            ->setWidth(15);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('C')
+            ->setWidth(15);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('D')
+            ->setWidth(20);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('E')
+            ->setWidth(17);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('F')
+            ->setWidth(25);
+
+        header('Content-type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="Keadaan Penduduk.xlsx"');
+        header('Cache-Control: max-age=0');
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $writer->save('php://output');
+        exit;
     }
 }
 

@@ -38,18 +38,25 @@
 
                             <div id="toolbar">
                                 <?php if (is_admin()) : ?>
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                    <input type="text" name="range-dateJP" id="range-dateJP" class="btn btn-primary" />
-                                    <select name="filer_desa" id="filter_desa" class="custom-select select2">
-                                        <option value="" default>Pilih Desa</option>
-                                        <?php foreach ($desa as $row) : ?>
-                                        <option value="<?= $row->id; ?>"><?= $row->nama_desa; ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                    <a href="<?= site_url('JumlahPenduduk/export') ?>" class="btn btn-success">Excel</a>
-                                </div>
+                                <form action="<?= site_url("JumlahPenduduk/export"); ?>" method="post"
+                                    class="form-inline">
+                                    <div class="form-group mb-2">
+                                        <input type="text" name="range-dateJP" id="range-dateJP" class="btn btn-primary"
+                                            required />
+                                    </div>
+                                    <div class="form-group mx-sm-3 mb-2">
+                                        <select name="filter_desa" id="filter_desa"
+                                            class="form-control custom-select select2">
+                                            <option value="" default>Pilih Desa</option>
+                                            <?php foreach ($desa as $row) : ?>
+                                            <option value="<?= $row->id; ?>"><?= $row->nama_desa; ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-success mb-2">Excel</button>
+                                </form>
                                 <?php else : ?>
-                                <a href="#" class="btn btn-success"><i class="nav-icon fas fa-upload"></i> Upload </a>
+                                <!-- <a href="#" class="btn btn-success"><i class="nav-icon fas fa-upload"></i> Upload </a> -->
                                 <?php endif; ?>
                                 <?php if (!is_admin()) : ?>
                                 <div class="btn-group" role="group" aria-label="Basic example">

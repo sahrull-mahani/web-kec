@@ -72,12 +72,12 @@ $(".tag-with-input").select2({
 })
 
 window.onload = function(){
-    // document.getElementById("Lokasi").style.display='none';
-    // document.getElementById("Keluarga").style.display='none';
-    // document.getElementById("Permukiman").style.display='none';
-    // $("#Lokasi").hide();
-    // $("#Keluarga").hide();
-    // $("#Permukiman").hide();
+    document.getElementById("Lokasi").style.display='none';
+    document.getElementById("Keluarga").style.display='none';
+    document.getElementById("Permukiman").style.display='none';
+    $("#Lokasi").hide();
+    $("#Keluarga").hide();
+    $("#Permukiman").hide();
   };
 
 
@@ -444,7 +444,7 @@ $('#nik_pajak').on('change',function(){
                 $('#no_kk').val(data.data.no_kk)
                 $('#nama').val(data.data.nama)
                 $('#alamat').val(data.data.alamat)
-                $('#jumlah').val(data.data.jumlah_pajak)
+                $('#jumlah_pajak').val(data.data.jumlah_pajak)
                 $('#wajib_pajak option[value="' + data.data.wajib_pajak + '"]').prop('selected', true);
                 $('#keterangan option[value="' + data.data.keterangan + '"]').prop('selected', true);
             }

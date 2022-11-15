@@ -50,6 +50,27 @@ function cetak_dh(url) {
     swin = window.open(url, 'win', 'scrollbars,width=1000,height=600,top=80,left=140,status=yes,toolbar=no,menubar=yes,location=no');
     swin.focus();
 }
+// $('#export').on('click', function(e){
+//     e.preventDefault();
+//     let filter_desa = $('#filter_desa').val();
+//     let rangeDateJP = $('#range-dateJP').val();
+
+//     $.ajax({
+//         url : "JumlahPenduduk/export",
+//         type: "POST",
+//         dataType: 'json',
+//         data: {
+//             filter_desa : filter_desa,
+//             rangeDateJP : rangeDateJP
+//         },
+
+//         success:function(res){
+//             window.open('jumlahpenduduk/export','_blank' );
+//         }
+//     })
+
+// })
+
 function activate(url, a) {
     if (a == 1) {
         var t_title = "Non Aktifkan..?";

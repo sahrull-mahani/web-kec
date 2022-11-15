@@ -3,8 +3,12 @@
 namespace App\Controllers;
 
 use App\Models\DataPindahM;
+use App\Models\DesaM;
 use App\Models\IndividuM;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use CodeIgniter\I18n\Time;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class DataPindah extends BaseController
 {
@@ -12,10 +16,11 @@ class DataPindah extends BaseController
     {
         $this->datapindahm = new DataPindahM();
         $this->individum = new IndividuM();
+        $this->desam = new DesaM();
     }
     public function index()
     {
-        $this->data = array('title' => 'Data Pindah | Admin', 'breadcome' => 'Data Pindah', 'url' => 'datapindah/', 'm_open_datapindah' => 'menu-open', 'mm_datapindah' => 'active', 'm_datapindah' => 'active', 'session' => $this->session);
+        $this->data = array('title' => 'Data Pindah | Admin', 'breadcome' => 'Data Pindah', 'url' => 'datapindah/', 'm_open_datapindah' => 'menu-open', 'mm_datapindah' => 'active', 'm_datapindah' => 'active', 'session' => $this->session, 'desa' => $this->desam->findAll());
 
         echo view('App\Views\datapindah\datapindah_list', $this->data);
     }
@@ -66,7 +71,7 @@ class DataPindah extends BaseController
             'session' => $this->session,
             'individu' => $this->individum->findall(),
             'get' => $get,
-            'data' => $this->datapindahm->select('datapindah.*, ind.*, k.*, pk.*, pd.*, k.id kesID, pk.id pekID, pd.id kpID')->join('individu ind', 'ind.id = datapindah.individu_id')->join('kesehatan k', 'k.individu_id = ind.id')->join('pekerjaan pk', 'pk.individu_id = ind.id')->join('pendidikan pd', 'pd.individu_id = ind.id')->where('datapindah.id', $id)->first()
+            'data' => $this->datapindahm->joinIndividu()->where('datapindah.id', $id)->first()
         );
 
         return view('App\Views\datapindah\post-datapindah', $this->data);
@@ -114,7 +119,6 @@ class DataPindah extends BaseController
                 break;
             case 'update':
                 $id = $this->request->getPost('id');
-                // $files = $this->request->getFileMultiple('userfile');
                 $data =  array(
                     'id_desa'          => session('id_desa'),
                     'individu_id'          => $this->request->getPost('individu_id'),
@@ -146,6 +150,77 @@ class DataPindah extends BaseController
                 echo json_encode($status);
                 break;
         }
+    }
+    public function export()
+    {
+        $filter_desa = $this->request->getPost('filter_desa');
+        $dateRangeJP = $this->request->getPost('range-dateJP');
+        $start = explode(' - ', $dateRangeJP)[0];
+        $end = explode(' - ', $dateRangeJP)[1];
+
+        if ($filter_desa == "") {
+            $dataFilter = $this->datapindahm->joinIndividu()->findAll();
+        } else {
+            $dataFilter = $this->datapindahm->joinIndividu()->where('datapindah.created_at BETWEEN "' . date('Y-m-d', strtotime($start)) . '" and "' . date('Y-m-d', strtotime($end)) . '"')->where('id_desa', $filter_desa)->findAll();
+        }
+
+        $spreadsheet = new Spreadsheet();
+
+        $spreadsheet->getActiveSheet()
+            ->setCellValue('A1', "NAMA")
+            ->setCellValue('B1', "STATUS DALAM KK")
+            ->setCellValue('C1', "TANGGAL PINDAH")
+            ->setCellValue('D1', "ALAMAT PINDAH");
+
+        $col = 3;
+        foreach ($dataFilter as $key => $data) {
+            $spreadsheet->getActiveSheet()
+                ->setCellValue("A" . $col, $data->nama)
+                ->setCellValue("B" . $col, $data->status)
+                ->setCellValue("c" . $col, $data->tgl_pindah)
+                ->setCellValue("d" . $col, $data->alamat_pindah);
+
+            $col++;
+        }
+        // set Formula
+        // $spreadsheet->getActiveSheet()->setCellValue('D2', "=B2*C2");
+        //freeze pane
+        $spreadsheet->getActiveSheet()->freezePane('A3');
+        // set Zoom Scale
+        $spreadsheet->getActiveSheet()->getSheetView()->setZoomScale(120);
+        // alignment
+        // $spreadsheet->getActiveSheet()->getStyle('A1:E1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+        // font
+        $spreadsheet->getActiveSheet()->getStyle('A1:F1')->getFont()->setSize(10)->setBold(true);
+        // fill
+        // $spreadsheet->getActiveSheet()->getStyle('A1:E1')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('FF8C56');
+
+        // LEBAR KOLOM
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('A')
+            ->setWidth(15);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('B')
+            ->setWidth(15);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('C')
+            ->setWidth(15);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('D')
+            ->setWidth(20);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('E')
+            ->setWidth(17);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('F')
+            ->setWidth(25);
+
+        header('Content-type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="Data Pindah.xlsx"');
+        header('Cache-Control: max-age=0');
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $writer->save('php://output');
+        exit;
     }
 }
 

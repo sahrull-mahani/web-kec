@@ -71,9 +71,7 @@ class JumlahPendudukM extends Model
       $this->orderBy('id', 'asc');
     }
     if (is_admin()) {
-      // dd($filter_desa, date('Y-m-d', $start), date('Y-m-d', $end));
       if ($filter_desa != '') {
-        // $this->joinDusunDesa()->where('id_desa', $filter_desa);
         $this->joinDusunDesa()->where('id_desa', $filter_desa)->where('jumlahpenduduk.created_at BETWEEN "' . date('Y-m-d', $start) . '" and "' . date('Y-m-d', $end) . '"');
       } else {
         $this->joinDusunDesa();

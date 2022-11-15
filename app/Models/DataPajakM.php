@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class DataPajakM extends Model
 {
   protected $table = "datapajak";
-  protected $allowedFields = ['id_desa', 'individu_id','wajib_pajak','jumlah_pajak','keterangan'];
+  protected $allowedFields = ['id_desa', 'individu_id', 'no_kk', 'nik', 'alamat_pajak', 'wajib_pajak', 'jumlah_pajak', 'keterangan'];
   protected $primarykey = 'id';
   protected $returnType = 'object';
 
@@ -17,9 +17,9 @@ class DataPajakM extends Model
   protected $createdField  = 'created_at';
   protected $updatedField  = 'updated_at';
   protected $deletedField  = 'deleted_at';
-  private function _get_datatables()
+  private function _get_datatables($filter_desa, $start, $end)
   {
-    $column_search = array('nama', 'wajib_pajak', 'jumlah_pajak', 'keterangan', 'alamat');
+    $column_search = array('nik', 'nama', 'wajib_pajak', 'jumlah_pajak', 'keterangan', 'alamat');
     $i = 0;
     foreach ($column_search as $item) { // loop column 
       if ($_GET['search']) {
@@ -39,46 +39,39 @@ class DataPajakM extends Model
     } else {
       $this->orderBy('id', 'asc');
     }
- 
-    if(!is_admin()){
-      $this->select('datapajak.*, nama,wajib_pajak,jumlah_pajak,keterangan,alamat');
-      $this->join('individu', 'individu.id=datapajak.individu_id');
-      $this->join('desa', 'desa.id=datapajak.id_desa');
-      $this->where('id_desa', session('id_desa'));
-    }else{
-      $this->select('datapajak.*, nama,wajib_pajak,jumlah_pajak,keterangan,alamat');
-      $this->join('individu', 'individu.id=datapajak.individu_id');
-      $this->join('desa', 'desa.id=datapajak.id_desa');
+    if (is_admin()) {
+      if ($filter_desa == "") {
+        $this->joinIndividuDesa();
+      } else {
+        $this->joinIndividuDesa()->where('id_desa', $filter_desa)->where('datapajak.created_at BETWEEN "' . date('Y-m-d', $start) . '" and "' . date('Y-m-d', $end) . '"');
+      }
+    } else {
+      $this->joinIndividuDesa()->where('id_desa', session('id_desa'));
     }
-
   }
   public function get_datatables()
   {
-    $this->_get_datatables();
+    // $this->_get_datatables();
     $limit = isset($_GET['limit']) ? $_GET['limit'] : 0;
     $offset = isset($_GET['offset']) ? $_GET['offset'] : 0;
+    $filter_desa = $_GET['filter_desa'] != '' ? $_GET['filter_desa'] : null;
+    $start = isset($_GET['start']) ? $_GET['start'] : 0;
+    $end = isset($_GET['end']) ? $_GET['end'] : 0;
+    $this->_get_datatables($filter_desa, strtotime($start), strtotime($end));
     return $this->findAll($limit, $offset);
   }
   public function total()
   {
-    $this->_get_datatables();
+    $this->_get_datatables($_GET['filter_desa'], strtotime($_GET['start']), strtotime($_GET['end']));
     if ($this->tempUseSoftDeletes) {
       $this->where($this->table . '.' . $this->deletedField, null);
     }
     return $this->get()->getNumRows();
   }
-
-  public function getJoinDataPajak(){
-
-    return $this->join('individu ind', 'ind.id = datapajak.individu_id');
-    // $this->join('kesehatan k', 'k.individu_id = ind.id');
-    // $this->join('pendidikan pd', 'pd.individu_id = ind.id');
-
-    // $this->join('kesehatan kes', 'kes.id = individu.kesehatan_id');
-		// $this->join('datapajak p', 'p.individu_id = individu.id');
-		// $this->join('pendidikan pend', 'pend.individu_id = individu.id');
-		// return $this->join('penghasilan peng', 'peng.individu_id = individu.id');
+  public function joinIndividuDesa()
+  {
+    $this->select('datapajak.*, nama,wajib_pajak,jumlah_pajak,keterangan,alamat');
+    $this->join('individu', 'individu.id=datapajak.individu_id');
+    return $this->join('desa', 'desa.id=datapajak.id_desa');
   }
-
-
 }

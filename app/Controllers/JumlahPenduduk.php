@@ -35,21 +35,6 @@ class JumlahPenduduk extends BaseController
         echo view('App\Views\jumlahpenduduk\jumlahpenduduk_list', $this->data);
     }
 
-    public function jumPendudukAdmin()
-    {
-        $this->data = array(
-            'title' => 'Jumlah Penduduk | Admin',
-            'breadcome' => 'Jumlah Penduduk',
-            'url' => 'jumlahpenduduk/',
-            'm_open_jumlahpenduduk' => 'menu-open',
-            'mm_jumlahpenduduk' => 'active',
-            'm_jumlahpenduduk' => 'active',
-            'session' => $this->session,
-            "desa" => $this->desam->findAll(),
-        );
-        echo view('App\Views\jumlahpenduduk\jumlahpenduduk_list-admin', $this->data);
-    }
-
     public function ajax_request()
     {
         // $start = $this->request->getPost('start');
@@ -233,19 +218,19 @@ class JumlahPenduduk extends BaseController
     }
     public function export()
     {
+        $filter_desa = $this->request->getPost('filter_desa');
+        $dateRangeJP = $this->request->getPost('range-dateJP');
+        $start = explode(' - ', $dateRangeJP)[0];
+        $end = explode(' - ', $dateRangeJP)[1];
 
-        // $db      = \Config\Database::connect();
-        // $get = $this->request->getGet('start');
-        // $start = date('Y-m-d', strtotime($_GET['start']));
-        // dd($start);
-        // $end = date('Y-m-d', strtotime($_GET['end']));
-        // $filter_desa = isset($_GET['filter_desa']) ? $_GET['filter_desa'] : 'all';
-        // $dataFilter = $this->jumlahpendudukm->where('jumlahpenduduk.created_at BETWEEN "' . date('Y-m-d', strtotime($start)) . '" and "' . date('Y-m-d', strtotime($end)) . '"')->where('id_desa', $desa)->join('dusun', 'dusun.id=jumlahpenduduk.id_dusun')->join('desa', 'desa.id=dusun.id_desa')->findAll();
-        // $dataFilter1 = $this->jumlahpendudukm->where('id_desa', $desa)->join('dusun', 'dusun.id=jumlahpenduduk.id_dusun')->join('desa', 'desa.id=dusun.id_desa')->findAll();
+        if ($filter_desa == "") {
+            $dataFilter = $this->jumlahpendudukm->findAll();
+        } else {
+            $dataFilter = $this->jumlahpendudukm->where('jumlahpenduduk.created_at BETWEEN "' . date('Y-m-d', strtotime($start)) . '" and "' . date('Y-m-d', strtotime($end)) . '"')->where('id_desa', $filter_desa)->join('dusun', 'dusun.id=jumlahpenduduk.id_dusun')->join('desa', 'desa.id=dusun.id_desa')->findAll();
+        }
 
         $spreadsheet = new Spreadsheet();
-        $dataFilter =  $this->jumlahpendudukm->findAll();
-        // $dataFilter =  $this->jumlahpendudukm->get_datatables();
+
         $spreadsheet->getActiveSheet()
             ->setCellValue('A1', "DUSUN")
             ->setCellValue('B1', "JUMLAH JIWA")
@@ -255,10 +240,10 @@ class JumlahPenduduk extends BaseController
         $col = 3;
         foreach ($dataFilter as $key => $d) {
             $spreadsheet->getActiveSheet()
-                ->setCellValue("A" . $col, $d->nama_dusun)
+                ->setCellValue("A" . $col, $d->umur)
                 ->setCellValue("B" . $col, $d->jumlah_jiwa)
                 ->setCellValue("c" . $col, $d->jumlah_kk)
-                ->setCellValue("d" . $col, $d->keterangan);
+                ->setCellValue("d" . $col, strip_tags($d->keterangan));
 
             $col++;
         }
@@ -269,14 +254,12 @@ class JumlahPenduduk extends BaseController
         $spreadsheet->getActiveSheet()->freezePane('A3');
 
         // set Zoom Scale
-        $spreadsheet->getActiveSheet()->getSheetView()->setZoomScale(140);
+        $spreadsheet->getActiveSheet()->getSheetView()->setZoomScale(120);
 
         // alignment
         // $spreadsheet->getActiveSheet()->getStyle('A1:E1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
-
         // font
         $spreadsheet->getActiveSheet()->getStyle('A1:E1')->getFont()->setSize(10)->setBold(true);
-
         // fill
         // $spreadsheet->getActiveSheet()->getStyle('A1:E1')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('FF8C56');
 
@@ -302,8 +285,7 @@ class JumlahPenduduk extends BaseController
         header('Cache-Control: max-age=0');
         $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
         $writer->save('php://output');
-        return $dataFilter;
-        die;
+        exit;
     }
 }
 

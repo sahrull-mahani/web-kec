@@ -3,8 +3,12 @@
 namespace App\Controllers;
 
 use App\Models\DataKematianM;
+use App\Models\DesaM;
 use App\Models\IndividuM;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use CodeIgniter\I18n\Time;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class DataKematian extends BaseController
 {
@@ -12,10 +16,11 @@ class DataKematian extends BaseController
     {
         $this->datakematianm = new DataKematianM();
         $this->individum = new IndividuM();
+        $this->desam = new DesaM();
     }
     public function index()
     {
-        $this->data = array('title' => 'Data Kematian | Admin', 'breadcome' => 'Data Kematian', 'url' => 'datakematian/', 'm_open_datakematian' => 'menu-open', 'mm_datakematian' => 'active', 'm_datakematian' => 'active', 'session' => $this->session);
+        $this->data = array('title' => 'Data Kematian | Admin', 'breadcome' => 'Data Kematian', 'url' => 'datakematian/', 'm_open_datakematian' => 'menu-open', 'mm_datakematian' => 'active', 'm_datakematian' => 'active', 'session' => $this->session, 'desa' => $this->desam->findAll());
 
         echo view('App\Views\datakematian\datakematian_list', $this->data);
     }
@@ -55,7 +60,6 @@ class DataKematian extends BaseController
 
     public function single_edit($id)
     {
-        dd($id);
         $get = $this->datakematianm->find($id);
         $this->data = array(
             'title' => 'Post Data Kematian | Admin',
@@ -145,6 +149,78 @@ class DataKematian extends BaseController
                 echo json_encode($status);
                 break;
         }
+    }
+    public function export()
+    {
+        $filter_desa = $this->request->getPost('filter_desa');
+        $dateRangeJP = $this->request->getPost('range-dateJP');
+        $start = explode(' - ', $dateRangeJP)[0];
+        $end = explode(' - ', $dateRangeJP)[1];
+
+        if ($filter_desa == "") {
+            $dataFilter = $this->datakematianm->joinIndividu()->findAll();
+        } else {
+            $dataFilter = $this->datakematianm->joinIndividu()->where('datakematian.created_at BETWEEN "' . date('Y-m-d', strtotime($start)) . '" and "' . date('Y-m-d', strtotime($end)) . '"')->where('id_desa', $filter_desa)->findAll();
+        }
+
+        $spreadsheet = new Spreadsheet();
+
+        $spreadsheet->getActiveSheet()
+            ->setCellValue('A1', "NAMA")
+            ->setCellValue('B1', "JENIS KELAMIN")
+            ->setCellValue('C1', "TANGGAL KEMATIAN")
+            ->setCellValue('D1', "JAM KEMATIAN")
+            ->setCellValue('E1', "TEMPAT KEMATIAN");
+
+        $col = 3;
+        foreach ($dataFilter as $key => $data) {
+            $spreadsheet->getActiveSheet()
+                ->setCellValue("A" . $col, $data->nama)
+                ->setCellValue("B" . $col, $data->jenis_kelamin)
+                ->setCellValue("c" . $col, $data->tgl_kematian)
+                ->setCellValue("d" . $col, $data->jam_kematian)
+                ->setCellValue("e" . $col, $data->tempat_kematian);
+            $col++;
+        }
+        // set Formula
+        // $spreadsheet->getActiveSheet()->setCellValue('D2', "=B2*C2");
+        //freeze pane
+        $spreadsheet->getActiveSheet()->freezePane('A3');
+        // set Zoom Scale
+        $spreadsheet->getActiveSheet()->getSheetView()->setZoomScale(120);
+        // alignment
+        // $spreadsheet->getActiveSheet()->getStyle('A1:E1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+        // font
+        $spreadsheet->getActiveSheet()->getStyle('A1:F1')->getFont()->setSize(10)->setBold(true);
+        // fill
+        // $spreadsheet->getActiveSheet()->getStyle('A1:E1')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('FF8C56');
+
+        // LEBAR KOLOM
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('A')
+            ->setWidth(15);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('B')
+            ->setWidth(15);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('C')
+            ->setWidth(17);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('D')
+            ->setWidth(20);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('E')
+            ->setWidth(17);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('F')
+            ->setWidth(25);
+
+        header('Content-type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="Data Kematian.xlsx"');
+        header('Cache-Control: max-age=0');
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $writer->save('php://output');
+        exit;
     }
 }
 
