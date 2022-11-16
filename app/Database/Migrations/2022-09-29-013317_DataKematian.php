@@ -54,12 +54,10 @@ class DataKematian extends Migration
                 'constraint'    => 255,
             ],
             'created_at'     => [
-                'type'          => 'DATETIME',
-                'null'          => true
+                'type'          => 'DATE',
             ],
             'updated_at'     => [
                 'type'          => 'DATE',
-                'null'          => true
             ],
             'deleted_at'     => [
                 'type'          => 'DATE',
