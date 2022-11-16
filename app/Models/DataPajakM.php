@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class DataPajakM extends Model
 {
   protected $table = "datapajak";
-  protected $allowedFields = ['id_desa', 'individu_id', 'no_kk', 'nik', 'alamat_pajak', 'wajib_pajak', 'jumlah_pajak', 'keterangan'];
+  protected $allowedFields = ['id_desa', 'individu_id', 'no_kk', 'nik', 'nama', 'alamat_pajak', 'wajib_pajak', 'jumlah_pajak', 'keterangan', 'alamat'];
   protected $primarykey = 'id';
   protected $returnType = 'object';
 
@@ -70,8 +70,8 @@ class DataPajakM extends Model
   }
   public function joinIndividuDesa()
   {
-    $this->select('datapajak.*, nama,wajib_pajak,jumlah_pajak,keterangan,alamat');
-    $this->join('individu', 'individu.id=datapajak.individu_id');
+    $this->select('datapajak.*, desa.*,individu.nama as individu_nama,wajib_pajak,jumlah_pajak,keterangan,individu.alamat as individu_alamat, individu.nik as individu_nik');
+    $this->join('individu', 'individu.id=datapajak.individu_id', 'left');
     return $this->join('desa', 'desa.id=datapajak.id_desa');
   }
 }

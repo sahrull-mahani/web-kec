@@ -25,6 +25,21 @@ class DataPajak extends Migration
                 'constraint' => 11,
                 'unsigned' => true,
             ],
+            'no_kk'     => [
+                'type'          => 'CHAR',
+                'constraint' => 20,
+            ],
+            'nik'     => [
+                'type'          => 'CHAR',
+                'constraint' => 20,
+            ],
+            'nama'     => [
+                'type'          => 'CHAR',
+                'constraint' => 100,
+            ],
+            'alamat'     => [
+                'type'          => 'TEXT',
+            ],
             'wajib_pajak'     => [
                 'type'          => 'ENUM',
                 'constraint' => ['Ya', 'Tidak'],

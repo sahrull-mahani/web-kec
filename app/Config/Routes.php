@@ -36,6 +36,7 @@ $routes->get('web/berita/detail_b/$1', 'Web::detail_b/$1');
 $routes->get('web/pariwisata', 'Web::obyek_wisata');
 $routes->add('filemanager/(:any)', 'Filemanager::run');
 
+$routes->get('jumlahpenduduk', 'Jumlahpenduduk::index');
 $routes->get('post-jumlahpenduduk', 'JumlahPenduduk::post');
 $routes->get('post-keadaanpenduduk', 'KeadaanPenduduk::post');
 $routes->get('post-datapindah', 'DataPindah::post');

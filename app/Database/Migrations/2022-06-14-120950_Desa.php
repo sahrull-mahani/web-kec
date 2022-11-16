@@ -15,12 +15,16 @@ class Desa extends Migration
                 'unsigned' => true,
                 'auto_increment' => true
             ],
-            
+
             'nama_desa'        => [
                 'type'          => 'VARCHAR',
                 'constraint'    => 100
             ],
             'kepala_desa'        => [
+                'type'          => 'VARCHAR',
+                'constraint'    => 100
+            ],
+            'sekdes'        => [
                 'type'          => 'VARCHAR',
                 'constraint'    => 100
             ],

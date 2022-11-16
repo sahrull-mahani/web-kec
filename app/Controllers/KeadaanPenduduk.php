@@ -12,7 +12,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use CodeIgniter\I18n\Time;
 
-class KeadaanPenduduk extends BaseController
+class Keadaanpenduduk extends BaseController
 {
     function __construct()
     {

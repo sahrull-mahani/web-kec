@@ -10,7 +10,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use CodeIgniter\I18n\Time;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
-class DataKematian extends BaseController
+class Datakematian extends BaseController
 {
     function __construct()
     {

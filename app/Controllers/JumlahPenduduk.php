@@ -12,7 +12,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 // use PhpOffice\PhpSpreadsheet\Alignment;
 // use PhpOffice\PhpSpreadsheet\Fill;
 
-class JumlahPenduduk extends BaseController
+class Jumlahpenduduk extends BaseController
 {
     function __construct()
     {

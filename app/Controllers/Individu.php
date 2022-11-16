@@ -27,12 +27,12 @@ class Individu extends BaseController
     {
         $this->data = array(
             'title' => 'Kuisioner Individu | Admin',
-             'breadcome' => 'Kuisioner Individu',
-             'url' => 'individu/',
-             'm_open_individu' => 'menu-open',
-             'mm_individu' => 'active',
-             'm_individu' => 'active',
-             'session' => $this->session,
+            'breadcome' => 'Kuisioner Individu',
+            'url' => 'individu/',
+            'm_open_individu' => 'menu-open',
+            'mm_individu' => 'active',
+            'm_individu' => 'active',
+            'session' => $this->session,
         );
         echo view('App\Views\individu\individu_list', $this->data);
     }
@@ -63,33 +63,36 @@ class Individu extends BaseController
 
     public function Post()
     {
-        $this->data = array('title' => 'Post Kuisioner Individu | Admin', 'breadcome' => 'Post Kuisioner Individu', 'url' => 'individu/', 'm_open_individu' => 'menu-open', 'mm_individu' => 'active', 'm_post_individu' => 'active', 'session' => $this->session, 'provinsi' => getApi('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json'),'btn'=>'post');
+        $this->data = array('title' => 'Post Kuisioner Individu | Admin', 'breadcome' => 'Post Kuisioner Individu', 'url' => 'individu/', 'm_open_individu' => 'menu-open', 'mm_individu' => 'active', 'm_post_individu' => 'active', 'session' => $this->session, 'provinsi' => getApi('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json'), 'btn' => 'post');
         echo view('App\Views\individu\post-individu', $this->data);
     }
 
     public function single_detail($id)
     {
         $get = $this->individum->getJoinPajakKesPendPeng()->find($id);
-      
-        $this->data = array('title' => 'Post Kuisioner Individu | Admin', 
-        'breadcome' => 'Post Kuisioner Individu', 
-        'url' => 'individu/',
-        'm_open_individu' => 'menu-open', 
-        'mm_individu' => 'active',
-        'm_post_individu' => 'active',
-        'session' => $this->session, 
-        'prov' => getApi("https://www.emsifa.com/api-wilayah-indonesia/api/province/$get->provinsi.json"),
-        'kab'   => getApi("https://www.emsifa.com/api-wilayah-indonesia/api/regency/$get->kab_kota.json"),
-        'kec'   => getApi("https://www.emsifa.com/api-wilayah-indonesia/api/district/$get->kecamatan.json"),
-        'kelurahan' => getApi("https://www.emsifa.com//api-wilayah-indonesia/api/village/$get->kelurahan.json"),
-        'get' => $get);
+
+        $this->data = array(
+            'title' => 'Post Kuisioner Individu | Admin',
+            'breadcome' => 'Post Kuisioner Individu',
+            'url' => 'individu/',
+            'm_open_individu' => 'menu-open',
+            'mm_individu' => 'active',
+            'm_post_individu' => 'active',
+            'session' => $this->session,
+            'prov' => getApi("https://www.emsifa.com/api-wilayah-indonesia/api/province/$get->provinsi.json"),
+            'kab'   => getApi("https://www.emsifa.com/api-wilayah-indonesia/api/regency/$get->kab_kota.json"),
+            'kec'   => getApi("https://www.emsifa.com/api-wilayah-indonesia/api/district/$get->kecamatan.json"),
+            'kelurahan' => getApi("https://www.emsifa.com//api-wilayah-indonesia/api/village/$get->kelurahan.json"),
+            'get' => $get
+        );
         return view('App\Views\individu\detail-individu', $this->data);
     }
 
     public function single_edit($id)
     {
         $get = $this->individum->getJoinPajakKesPendPeng()->find($id);
-        $this->data = array('title' => 'Post Kuisioner Individu | Admin', 'breadcome' => 'Post Kuisioner Individu', 'url' => 'individu/', 'm_open_individu' => 'menu-open', 'mm_individu' => 'active', 'm_post_individu' => 'active', 'session' => $this->session, 'provinsi' => getApi('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json'),'btn'=>'edit' ,'get' => $get, 'id'=> $id);
+
+        $this->data = array('title' => 'Post Kuisioner Individu | Admin', 'breadcome' => 'Post Kuisioner Individu', 'url' => 'individu/', 'm_open_individu' => 'menu-open', 'mm_individu' => 'active', 'm_post_individu' => 'active', 'session' => $this->session, 'provinsi' => getApi('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json'), 'btn' => 'edit', 'get' => $get, 'id' => $id);
 
         return view('App\Views\individu\post-individu', $this->data);
     }
@@ -203,7 +206,7 @@ class Individu extends BaseController
                 );
 
                 $penghasilans = [];
-            
+
                 $pendidikan = array(
                     'pendidikan'          => $this->request->getVar('pendidikan'),
                     'bahasa_lokal'          => $this->request->getVar('bahasa_lokal'),
@@ -233,7 +236,7 @@ class Individu extends BaseController
                     $id_individu = $this->individum->getInsertID();
                     foreach ($this->request->getVar('jumlah') as $index => $val) {
                         array_push($penghasilans, [
-                            'sumber_penghasilan'=> $this->request->getVar('sumber_penghasilan')[$index],
+                            'sumber_penghasilan' => $this->request->getVar('sumber_penghasilan')[$index],
                             'jumlah'            => $val,
                             'satuan'            => $this->request->getVar('satuan')[$index],
                             'penghasilan'       => $this->request->getVar('penghasilan')[$index],
@@ -245,7 +248,7 @@ class Individu extends BaseController
                     $pendidikan['individu_id'][0] = $id_individu;
                     $pajak['individu_id'][0] = $id_individu;
                     $pajak['id_desa'][0] = session('id_desa');
-                    
+
                     $this->penghasilanm->insertBatch($penghasilans);
                     $this->pendidikanm->insert($pendidikan);
                     $this->pajakm->insert($pajak);
@@ -263,7 +266,7 @@ class Individu extends BaseController
                 break;
             case 'update':
                 $id = $this->request->getPost('id');
-                
+
                 $individu =  array(
                     'no_kk'          => $this->request->getVar('no_kk'),
                     'nik'          => $this->request->getVar('nik'),
@@ -345,7 +348,7 @@ class Individu extends BaseController
                 foreach ($this->request->getVar('jumlah') as $index => $val) {
                     array_push($penghasilans, [
                         'id'                =>  $id_penghasilan[$index]->id,
-                        'sumber_penghasilan'=> $this->request->getVar('sumber_penghasilan')[$index],
+                        'sumber_penghasilan' => $this->request->getVar('sumber_penghasilan')[$index],
                         'jumlah'            => $val,
                         'satuan'            => $this->request->getVar('satuan')[$index],
                         'penghasilan'       => $this->request->getVar('penghasilan')[$index],
@@ -373,7 +376,7 @@ class Individu extends BaseController
                 );
                 $dusun = array(
                     'nama_dusun'        => $this->request->getVar('nama_dusun')
-                ); 
+                );
                 if ($this->individum->update($id, $individu)) {
                     $this->kesehatanm->update($id, $kes);
                     $this->penghasilanm->updateBatch($penghasilans, 'id');

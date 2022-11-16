@@ -7,11 +7,12 @@ use App\Models\DesaM;
 use App\Models\IndividuM;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Border;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use CodeIgniter\I18n\Time;
 use PhpParser\Node\Expr\List_;
 
-class DataPajak extends BaseController
+class Datapajak extends BaseController
 {
     function __construct()
     {
@@ -29,21 +30,18 @@ class DataPajak extends BaseController
     public function ajax_request()
     {
         $list = $this->datapajakm->get_datatables();
-        // $list = $this->datapajakm->findAll();
+
         $data = array();
         $no = isset($_GET['offset']) ? $_GET['offset'] + 1 : 1;
         foreach ($list as $rows) {
-            // print_r($rows);
-            // die;
             $row = array();
             $row['id'] = $rows->id;
             $row['nomor'] = $no++;
-            $row['nama'] = ucwords($rows->nama);
+            $row['nama'] = $rows->individu_id == null ? ucwords($rows->nama) : ucwords($rows->individu_nama);
             $row['pajak'] = $rows->wajib_pajak;
             $row['besaran'] = number_to_currency($rows->jumlah_pajak, 'IDR', 'en_US', 2);
-            // $row['besaran'] = $rows->jumlah_pajak;
             $row['ket pajak'] = $rows->keterangan;
-            $row['alamat'] = $rows->alamat;
+            $row['alamat'] = $rows->individu_id == null ? $rows->alamat : ucwords($rows->individu_alamat);
             $data[] = $row;
         }
         $output = array(
@@ -100,6 +98,7 @@ class DataPajak extends BaseController
                     'jumlah_pajak'      => $this->request->getVar('jumlah_pajak'),
                     'no_kk'          => $this->request->getVar('no_kk'),
                     'nik'          => $this->request->getVar('nik'),
+                    'nama'          => $this->request->getVar('nama'),
                     'alamat'          => $this->request->getVar('alamat'),
                 );
                 if ($this->datapajakm->insert($data)) {
@@ -122,6 +121,7 @@ class DataPajak extends BaseController
                     'jumlah_pajak'      => $this->request->getVar('jumlah_pajak'),
                     'no_kk'          => $this->request->getVar('no_kk'),
                     'nik'          => $this->request->getVar('nik'),
+                    'nama'          => $this->request->getVar('nama'),
                     'alamat'          => $this->request->getVar('alamat'),
                 );
                 if ($this->datapajakm->update($id, $data)) {
@@ -164,39 +164,87 @@ class DataPajak extends BaseController
         $spreadsheet = new Spreadsheet();
 
         $spreadsheet->getActiveSheet()
-            ->setCellValue('A1', "NAMA")
-            ->setCellValue('B1', "PAJAK")
-            ->setCellValue('C1', "BESARNYA")
-            ->setCellValue('D1', "KET. PAJAK")
-            ->setCellValue('E1', "ALAMAT");
+            ->setCellValue('A1', "Laporan Jumlah Penduduk")
+            ->setCellValue('A2', "Desa")
+            ->setCellValue('A3', "Dari Tanggal")
+            ->setCellValue('A4', "Sampai Tanggal")
+            ->setCellValue('B2', ":" . $dataFilter[0]->nama_desa)
+            ->setCellValue('B3', ":$start")
+            ->setCellValue('B4', ":$end");
 
-        $col = 3;
+        $col = 7;
         foreach ($dataFilter as $key => $data) {
+            $key += 1;
             $spreadsheet->getActiveSheet()
-                ->setCellValue("A" . $col, $data->nama)
-                ->setCellValue("B" . $col, $data->wajib_pajak)
-                ->setCellValue("c" . $col, $data->jumlah_pajak)
-                ->setCellValue("d" . $col, $data->keterangan)
-                ->setCellValue("e" . $col, $data->alamat);
+                ->setCellValue("A" . $col, $key++)
+                ->setCellValue("B" . $col, $data->nama)
+                ->setCellValue("C" . $col, $data->wajib_pajak)
+                ->setCellValue("D" . $col, $data->jumlah_pajak)
+                ->setCellValue("E" . $col, $data->keterangan)
+                ->setCellValue("F" . $col, $data->alamat);
             $col++;
+            $spreadsheet->getActiveSheet()->getStyle('A' . ($col - 1) . ':F' . ($col - 1))
+                ->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
         }
+        // $spreadsheet->getActiveSheet()
+        //     ->setCellValue('A12', $col - 1);
+
+
+        $cols = $col + 1;
+        $spreadsheet->getActiveSheet()->mergeCells("A1:F1");
+        $spreadsheet->getActiveSheet()->mergeCells("A$cols:B$cols");
+        $spreadsheet->getActiveSheet()->mergeCells('A' . ($cols + 1) . ':B' . ($cols + 1));
+        $spreadsheet->getActiveSheet()->mergeCells("f$cols:g$cols");
+        $spreadsheet->getActiveSheet()->mergeCells('F' . ($cols + 1) . ':G' . ($cols + 1));
+        $spreadsheet->getActiveSheet()->mergeCells('A' . ($cols + 5) . ':B' . ($cols + 5));
+        $spreadsheet->getActiveSheet()->getStyle('A1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $spreadsheet->getActiveSheet()->getStyle('A' . ($col - 1) . ':F' . ($col - 1))
+            ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $spreadsheet->getActiveSheet()->getStyle('A6:F6')
+            ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $spreadsheet->getActiveSheet()->getStyle('A' . $cols . ':A' . $cols + 1)
+            ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $spreadsheet->getActiveSheet()->getStyle('F' . $cols)
+            ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $spreadsheet->getActiveSheet()->getStyle('A' . $cols + 5)
+            ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $spreadsheet->getActiveSheet()->getStyle('F' . $cols + 5)
+            ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $spreadsheet->getActiveSheet()->getStyle('A' . ($col - 2) . ':F' . ($col - 2))
+            ->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
+        $spreadsheet->getActiveSheet()
+            ->setCellValue('A6', "NO")
+            ->setCellValue('B6', "NAMA")
+            ->setCellValue('C6', "PAJAK")
+            ->setCellValue('D6', "BESARNYA")
+            ->setCellValue('E6', "KET. PAJAK")
+            ->setCellValue('F6', "ALAMAT")
+            ->setCellValue('A' . $cols, "Mengetahui")
+            ->setCellValue('A' . $cols + 1, "Sangadi")
+            ->setCellValue('A' . $cols + 5, $dataFilter[0]->kepala_desa)
+            ->setCellValue('F' . $cols, ".................")
+            ->setCellValue('F' . $cols + 1, "Sekdes..............")
+            ->setCellValue('F' . $cols + 5, $dataFilter[0]->sekdes);
         // set Formula
+
         // $spreadsheet->getActiveSheet()->setCellValue('D2', "=B2*C2");
         //freeze pane
-        $spreadsheet->getActiveSheet()->freezePane('A3');
+        // $spreadsheet->getActiveSheet()->freezePane('A2');
         // set Zoom Scale
         $spreadsheet->getActiveSheet()->getSheetView()->setZoomScale(120);
         // alignment
         // $spreadsheet->getActiveSheet()->getStyle('A1:E1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
         // font
-        $spreadsheet->getActiveSheet()->getStyle('A1:F1')->getFont()->setSize(10)->setBold(true);
+        // $spreadsheet->getActiveSheet()->getStyle('A6:F6')->getFont()->setSize(10)->setBold(true);
+        $spreadsheet->getActiveSheet()->getStyle('A1')->getFont()->setSize(10)->setBold(true);
+        $spreadsheet->getActiveSheet()->getStyle('A' . ($cols + 5) . ':F' . ($cols + 5))->getFont()->setSize(10)->setBold(true);
         // fill
         // $spreadsheet->getActiveSheet()->getStyle('A1:E1')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('FF8C56');
 
         // LEBAR KOLOM
         $spreadsheet->getActiveSheet()
             ->getColumnDimension('A')
-            ->setWidth(15);
+            ->setWidth(10);
         $spreadsheet->getActiveSheet()
             ->getColumnDimension('B')
             ->setWidth(15);
